@@ -356,8 +356,8 @@ const layers = {
 // ── ROAD STYLE ───────────────────────────────────────────────────────────────
 function roadStyle(cls) {
   return cls === 'Highway'
-    ? { color: '#cabfa8', weight: 2.6, opacity: 0.9, lineCap: 'round' }
-    : { color: '#787480', weight: 1.3, opacity: 0.7, lineCap: 'round' };
+    ? { color: '#cabfa8', weight: 2.8, opacity: 0.9,  lineCap: 'round' }
+    : { color: '#9a9080', weight: 2.0, opacity: 0.9,  lineCap: 'round' };
 }
 // rough geometry length (for picking one label anchor per road name)
 function geomLen(g) {
@@ -440,20 +440,38 @@ async function loadAll() {
   });
   roadsGeo.addTo(layers.roads);
 
+  // Manual label placement for roads whose longest-segment center reads poorly
+  const LABEL_OVERRIDE = {
+    'Pine Ave':   [43.095097, -79.036725],  // between Hyde Park Blvd & Portage Rd
+    'Walnut Ave': [43.093463, -79.036714],
+  };
+  const _emptyIcon = L.divIcon({ className: '', html: '', iconSize: [0, 0] });
+  let overrideMarkers = [];
+
   // Hover labels at low zoom; one persistent label per road at high zoom
   function refreshRoadLabels() {
     const persistent = map.getZoom() >= LABEL_ZOOM;
+    overrideMarkers.forEach(m => layers.roads.removeLayer(m));
+    overrideMarkers = [];
     roadsGeo.eachLayer(l => {
       const name = l.feature.properties.name;
       if (!name) return;
       l.unbindTooltip();
       const isAnchor = roadReps[name] && roadReps[name].layer === l;
-      if (persistent && isAnchor) {
+      if (persistent && isAnchor && !LABEL_OVERRIDE[name]) {
         l.bindTooltip(name, { permanent: true, direction: 'center', className: 'road-label' });
       } else {
         l.bindTooltip(name, { sticky: true, direction: 'top', className: 'road-tip' });
       }
     });
+    if (persistent) {
+      for (const [name, latlng] of Object.entries(LABEL_OVERRIDE)) {
+        const mk = L.marker(latlng, { icon: _emptyIcon, interactive: false, keyboard: false });
+        mk.bindTooltip(name, { permanent: true, direction: 'center', className: 'road-label' });
+        layers.roads.addLayer(mk);
+        overrideMarkers.push(mk);
+      }
+    }
   }
   refreshRoadLabels();
   map.on('zoomend', refreshRoadLabels);
