@@ -138,30 +138,48 @@ print(f'  {len(features)} boundary feature written')
 
 con.close()
 
-# ── 5. MAJOR ROADS (arterials + highways, from shapefile, reprojected) ──────────
+# ── 5. MAJOR ROADS (curated arterials + highways + named additions) ─────────────
 print('Exporting major roads...')
 import shapefile as _shp
-roads_shp = r'C:\Users\mcsha\Niagra\spatial\shp\select_roads.shp'
 _rtf = Transformer.from_crs('EPSG:26917', 'EPSG:4326', always_xy=True)
+
+def _seglines(sh):
+    pts = sh.points; parts = list(sh.parts) + [len(pts)]; out = []
+    for i in range(len(parts) - 1):
+        seg = [[round(x, 6), round(y, 6)] for x, y in (_rtf.transform(px, py) for px, py in pts[parts[i]:parts[i+1]])]
+        if len(seg) >= 2:
+            out.append(seg)
+    return out
+
+def _mkfeat(lines, name, cls):
+    geom = {'type': 'LineString', 'coordinates': lines[0]} if len(lines) == 1 else {'type': 'MultiLineString', 'coordinates': lines}
+    return {'type': 'Feature', 'geometry': geom, 'properties': {'name': name, 'road_class': cls}}
+
+road_feats = []; _seen = set()
+# curated select_roads (S1100 highway, S1200 arterial)
 _CLS = {'S1100': 'Highway', 'S1200': 'Arterial'}
-_r = _shp.Reader(roads_shp)
+_r = _shp.Reader(r'C:\Users\mcsha\Niagra\spatial\shp\select_roads.shp')
 _flds = [f[0] for f in _r.fields[1:]]
-road_feats = []
 for sh, rec in zip(_r.iterShapes(), _r.iterRecords()):
     d = dict(zip(_flds, rec))
     if d['MTFCC'] not in _CLS:
         continue
-    pts = sh.points; parts = list(sh.parts) + [len(pts)]
-    lines = []
-    for i in range(len(parts) - 1):
-        seg = [[round(x, 6), round(y, 6)] for x, y in (_rtf.transform(px, py) for px, py in pts[parts[i]:parts[i+1]])]
-        if len(seg) >= 2:
-            lines.append(seg)
-    if not lines:
-        continue
-    geom = {'type': 'LineString', 'coordinates': lines[0]} if len(lines) == 1 else {'type': 'MultiLineString', 'coordinates': lines}
-    road_feats.append({'type': 'Feature', 'geometry': geom,
-                       'properties': {'name': (d['FULLNAME'] or '').strip(), 'road_class': _CLS[d['MTFCC']]}})
+    lines = _seglines(sh)
+    if lines:
+        _seen.add(d['TLID']); road_feats.append(_mkfeat(lines, (d['FULLNAME'] or '').strip(), _CLS[d['MTFCC']]))
+# named additions from full TIGER edges (all classes, matched by name)
+_WHITELIST = {'Lasalle Expy': 'Highway', 'Military Rd': 'Arterial', 'N Military Rd': 'Arterial',
+              'S Military Rd': 'Arterial', 'Packard Rd': 'Arterial', 'Porter Rd': 'Arterial',
+              'Portage Rd': 'Arterial', 'Pine Ave': 'Arterial', 'Walnut Ave': 'Arterial', 'Ferry Ave': 'Arterial'}
+_r2 = _shp.Reader(r'C:\Users\mcsha\Niagra\spatial\tl_2023_36063_edges_utm17n.shp')
+_f2 = [f[0] for f in _r2.fields[1:]]
+for sh, rec in zip(_r2.iterShapes(), _r2.iterRecords()):
+    d = dict(zip(_f2, rec))
+    fn = (d['FULLNAME'] or '').strip()
+    if fn in _WHITELIST and d['TLID'] not in _seen:
+        lines = _seglines(sh)
+        if lines:
+            _seen.add(d['TLID']); road_feats.append(_mkfeat(lines, fn, _WHITELIST[fn]))
 with open(os.path.join(outdir, 'major_roads.geojson'), 'w') as f:
     json.dump({'type': 'FeatureCollection', 'features': road_feats}, f, separators=(',', ':'))
 print(f'  {len(road_feats)} road segments written')

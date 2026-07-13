@@ -196,6 +196,13 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   font-size: 10px !important; padding: 2px 7px !important; box-shadow: none !important;
 }
 .road-tip::before { display: none !important; }
+.road-label {
+  background: transparent !important; border: none !important; box-shadow: none !important;
+  color: #ded7c8 !important; font-family: var(--mono) !important; font-size: 9px !important;
+  font-weight: 500 !important; letter-spacing: .02em;
+  text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 4px #000 !important; padding: 0 !important;
+}
+.road-label::before { display: none !important; }
 </style>
 </head>
 <body>
@@ -250,7 +257,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <input type="checkbox" class="toggle-check" checked data-layer="roads">
       <span class="toggle-swatch" style="background:#cabfa8; width:14px; height:3px; border-radius:1px;"></span>
       <span class="toggle-label">Major Roads</span>
-      <span class="toggle-count">299 segs</span>
+      <span class="toggle-count">13 roads</span>
     </label>
 
     <div class="section-label" style="margin-top:20px;">Site Designation</div>
@@ -276,7 +283,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
     <div class="section-label" style="margin-top:20px;">County Statistics</div>
     <div class="stat-grid">
       <div class="stat-box"><div class="stat-val">257</div><div class="stat-lbl">Documented Sites</div></div>
-      <div class="stat-box"><div class="stat-val">~6%</div><div class="stat-lbl">County Land Contaminated</div></div>
+      <div class="stat-box"><div class="stat-val">~5%</div><div class="stat-lbl">County Land Contaminated</div></div>
       <div class="stat-box"><div class="stat-val">159</div><div class="stat-lbl">Sites in Impact Zone</div></div>
       <div class="stat-box"><div class="stat-val">1 in 5</div><div class="stat-lbl">Acres in Impact Zone</div></div>
     </div>
@@ -352,6 +359,14 @@ function roadStyle(cls) {
     ? { color: '#cabfa8', weight: 2.6, opacity: 0.9, lineCap: 'round' }
     : { color: '#787480', weight: 1.3, opacity: 0.7, lineCap: 'round' };
 }
+// rough geometry length (for picking one label anchor per road name)
+function geomLen(g) {
+  const seg = a => a.reduce((s, p, i) => i ? s + Math.hypot(p[0] - a[i-1][0], p[1] - a[i-1][1]) : 0, 0);
+  if (g.type === 'LineString') return seg(g.coordinates);
+  if (g.type === 'MultiLineString') return g.coordinates.reduce((s, l) => s + seg(l), 0);
+  return 0;
+}
+const LABEL_ZOOM = 14;  // persistent road labels appear at/above this zoom
 
 // ── POPUP HELPERS ────────────────────────────────────────────────────────────
 function desigTag(d) {
@@ -410,14 +425,38 @@ async function loadAll() {
   ]);
 
   // Major roads (arterials + highways) — spatial context
-  L.geoJSON(roadsData, {
+  const roadReps = {};  // road name -> longest feature layer (label anchor)
+  const roadsGeo = L.geoJSON(roadsData, {
     style: f => roadStyle(f.properties.road_class),
     onEachFeature: (f, layer) => {
-      if (f.properties.name) layer.bindTooltip(f.properties.name, { sticky: true, direction: 'top', className: 'road-tip' });
+      const name = f.properties.name;
       layer.on('mouseover', function () { this.setStyle({ weight: roadStyle(f.properties.road_class).weight + 2, opacity: 1 }); });
       layer.on('mouseout',  function () { this.setStyle(roadStyle(f.properties.road_class)); });
+      if (name) {
+        const len = geomLen(f.geometry);
+        if (!roadReps[name] || len > roadReps[name].len) roadReps[name] = { len, layer };
+      }
     }
-  }).addTo(layers.roads);
+  });
+  roadsGeo.addTo(layers.roads);
+
+  // Hover labels at low zoom; one persistent label per road at high zoom
+  function refreshRoadLabels() {
+    const persistent = map.getZoom() >= LABEL_ZOOM;
+    roadsGeo.eachLayer(l => {
+      const name = l.feature.properties.name;
+      if (!name) return;
+      l.unbindTooltip();
+      const isAnchor = roadReps[name] && roadReps[name].layer === l;
+      if (persistent && isAnchor) {
+        l.bindTooltip(name, { permanent: true, direction: 'center', className: 'road-label' });
+      } else {
+        l.bindTooltip(name, { sticky: true, direction: 'top', className: 'road-tip' });
+      }
+    });
+  }
+  refreshRoadLabels();
+  map.on('zoomend', refreshRoadLabels);
 
   // County boundary
   L.geoJSON(boundaryData, {

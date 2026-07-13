@@ -18,14 +18,14 @@
 
 ## About This Repository
 
-This repository contains the spatial dataset, interactive web map, and site narrative documentation underlying the environmental analysis in *Thundering Waters*. It documents **262 hazardous waste sites** across Niagara County, New York — one of the most contaminated regions in the United States — compiled from federal and state regulatory databases and cross-referenced with geographic boundary data and cancer incidence records.
+This repository contains the spatial dataset, interactive web map, and site narrative documentation underlying the environmental analysis in *Thundering Waters*. It documents **257 hazardous waste sites** across Niagara County, New York — one of the most contaminated regions in the United States — compiled from federal and state regulatory databases and cross-referenced with geographic boundary data and cancer incidence records.
 
 The data supports the book's core findings:
 
-- **262 documented hazardous waste sites** across Niagara County
+- **257 documented hazardous waste sites** across Niagara County
 - **~5% of the county's total land area** is contaminated by recorded waste site footprints
 - In the Niagara Falls impact zone, **1 in every 5 acres** is contaminated
-- **163 sites** fall within the Niagara Falls area impact zone, affecting approximately 47,000 residents
+- **159 sites** fall within the Niagara Falls area impact zone, affecting approximately 47,000 residents
 - **70% of Niagara County block groups** have statistically significantly elevated lung cancer rates (NYS Dept. of Health, 2011–2015)
 - **64%** have statistically significantly elevated bladder cancer rates
 - County-wide mesothelioma rates are **more than double the New York State average**
@@ -43,9 +43,10 @@ The data supports the book's core findings:
 └── web/
     ├── map.html                            — Interactive Leaflet web map
     └── data/
-        ├── hazard_sites.geojson            — 262 hazardous waste site points
+        ├── hazard_sites.geojson            — 257 hazardous waste site points
         ├── census_tracts.geojson           — 66 Niagara County census tracts with contamination metrics
         ├── impact_zone.geojson             — 26 Niagara Falls area impact zone tracts
+        ├── major_roads.geojson             — Highways + arterials for spatial reference (13 named roads)
         └── county_boundary.geojson         — Niagara County boundary
 ```
 
@@ -57,7 +58,7 @@ The data supports the book's core findings:
 
 | Layer | Description |
 |---|---|
-| `Niagara_County_Hazard_Sites` | 262 hazardous waste site points (EPSG:4326) with full attributes |
+| `Niagara_County_Hazard_Sites` | 257 hazardous waste site points (EPSG:4326) with full attributes |
 | `census_tracts_contamination` | 66 census tracts with contamination acreage and coverage % |
 | `NiagaraFalls_Area_ImpactZone` | 26 tracts defining the Niagara Falls impact zone |
 | `block_group_healthPOP_stats` | 176 block groups with cancer SIR data, demographics, and contamination metrics |
@@ -116,7 +117,7 @@ Full provenance for every data point is documented in `DATA_SOURCES.txt`.
 The web map at `web/map.html` requires an internet connection (for the basemap and fonts) but all spatial data loads locally from the `web/data/` folder. It works in any modern browser.
 
 **Features:**
-- Toggle layers on/off (hazard sites, contamination choropleth, impact zone, county boundary)
+- Toggle layers on/off (hazard sites, contamination choropleth, impact zone, county boundary, major roads)
 - Click any site for a popup with name, designation, acreage, contaminants, and narrative excerpt
 - Click any census tract for contamination statistics
 - Search sites by name, address, city, or designation type
@@ -144,4 +145,4 @@ And the companion book:
 
 ---
 
-*Data current as of June 2026. Site counts and acreage reflect best available information from regulatory databases at time of compilation. See `DATA_SOURCES.txt` for full methodology.*
+*Data current as of July 2026. Site counts and acreage reflect best available information from regulatory databases at time of compilation. See `DATA_SOURCES.txt` for full methodology.*
