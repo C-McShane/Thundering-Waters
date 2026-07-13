@@ -55,7 +55,7 @@ for r in rows:
         'geometry': g,
         'properties': {
             'site_name':       safe(r[1]) or 'Unnamed Site',
-            'designation':     safe(r[2]) or 'No Designation',
+            'designation':     safe(r[2]) or 'Information Not Available',
             'program_type':    safe(r[3]),
             'program_category':safe(r[4]),
             'acres':           safe(r[5]),
@@ -137,6 +137,35 @@ with open(os.path.join(outdir, 'county_boundary.geojson'), 'w') as f:
 print(f'  {len(features)} boundary feature written')
 
 con.close()
+
+# ── 5. MAJOR ROADS (arterials + highways, from shapefile, reprojected) ──────────
+print('Exporting major roads...')
+import shapefile as _shp
+roads_shp = r'C:\Users\mcsha\Niagra\spatial\shp\select_roads.shp'
+_rtf = Transformer.from_crs('EPSG:26917', 'EPSG:4326', always_xy=True)
+_CLS = {'S1100': 'Highway', 'S1200': 'Arterial'}
+_r = _shp.Reader(roads_shp)
+_flds = [f[0] for f in _r.fields[1:]]
+road_feats = []
+for sh, rec in zip(_r.iterShapes(), _r.iterRecords()):
+    d = dict(zip(_flds, rec))
+    if d['MTFCC'] not in _CLS:
+        continue
+    pts = sh.points; parts = list(sh.parts) + [len(pts)]
+    lines = []
+    for i in range(len(parts) - 1):
+        seg = [[round(x, 6), round(y, 6)] for x, y in (_rtf.transform(px, py) for px, py in pts[parts[i]:parts[i+1]])]
+        if len(seg) >= 2:
+            lines.append(seg)
+    if not lines:
+        continue
+    geom = {'type': 'LineString', 'coordinates': lines[0]} if len(lines) == 1 else {'type': 'MultiLineString', 'coordinates': lines}
+    road_feats.append({'type': 'Feature', 'geometry': geom,
+                       'properties': {'name': (d['FULLNAME'] or '').strip(), 'road_class': _CLS[d['MTFCC']]}})
+with open(os.path.join(outdir, 'major_roads.geojson'), 'w') as f:
+    json.dump({'type': 'FeatureCollection', 'features': road_feats}, f, separators=(',', ':'))
+print(f'  {len(road_feats)} road segments written')
+
 print('\nAll exports complete.')
 
 # Report file sizes
