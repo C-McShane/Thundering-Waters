@@ -198,7 +198,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   <div id="sidebar-header">
     <div class="eyebrow">Niagara County · Spatial Data</div>
     <div class="sidebar-title">Hazardous Waste<br>Interactive Map</div>
-    <div class="sidebar-sub">262 documented sites · 6 layer types</div>
+    <div class="sidebar-sub">257 documented sites · 6 layer types</div>
   </div>
 
   <div id="search-wrap">
@@ -214,7 +214,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <input type="checkbox" class="toggle-check" checked data-layer="sites">
       <span class="toggle-swatch" style="background:#c0392b; border: 2px solid #7a2a22;"></span>
       <span class="toggle-label">Hazard Sites</span>
-      <span class="toggle-count">262 pts</span>
+      <span class="toggle-count">257 pts</span>
     </label>
 
     <label class="layer-toggle active" id="toggle-tracts">
@@ -251,7 +251,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <div class="legend-item"><div class="legend-dot" style="background:#27ae60"></div><div class="legend-txt">Env. Restoration</div></div>
       <div class="legend-item"><div class="legend-dot" style="background:#16a085"></div><div class="legend-txt">Voluntary Cleanup</div></div>
       <div class="legend-item"><div class="legend-dot" style="background:#a0522d"></div><div class="legend-txt">CERCLA/Brownfield</div></div>
-      <div class="legend-item"><div class="legend-dot" style="background:#555"></div><div class="legend-txt">No Designation</div></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#555"></div><div class="legend-txt">Information Not Available</div></div>
     </div>
 
     <div class="section-label" style="margin-top:20px;">% of Tract Contaminated</div>
@@ -260,17 +260,17 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
     <div class="section-label" style="margin-top:20px;">County Statistics</div>
     <div class="stat-grid">
-      <div class="stat-box"><div class="stat-val">262</div><div class="stat-lbl">Documented Sites</div></div>
-      <div class="stat-box"><div class="stat-val">~5%</div><div class="stat-lbl">County Land Contaminated</div></div>
-      <div class="stat-box"><div class="stat-val">163</div><div class="stat-lbl">Sites in Impact Zone</div></div>
+      <div class="stat-box"><div class="stat-val">257</div><div class="stat-lbl">Documented Sites</div></div>
+      <div class="stat-box"><div class="stat-val">~6%</div><div class="stat-lbl">County Land Contaminated</div></div>
+      <div class="stat-box"><div class="stat-val">159</div><div class="stat-lbl">Sites in Impact Zone</div></div>
       <div class="stat-box"><div class="stat-val">1 in 5</div><div class="stat-lbl">Acres in Impact Zone</div></div>
     </div>
 
   </div>
 
   <div id="sidebar-footer">
-    <a class="footer-link" href="Niagara_Site_Narratives_updated.html" target="_blank">Site Narratives ↗</a>
-    <a class="footer-link" href="https://github.com" target="_blank" id="repo-link">Data & Methods ↗</a>
+    <a class="footer-link" href="../Niagara_Site_Narratives_updated.html" target="_blank">Site Narratives ↗</a>
+    <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters" target="_blank">GitHub & Methods ↗</a>
     <a class="footer-link" href="data/hazard_sites.geojson" download>Download GeoJSON ↗</a>
   </div>
 </div>
@@ -293,7 +293,7 @@ const DESIG_COLOR = {
   'Federal CERCLA / Brownfield':     '#a0522d',
   'Environmental Restoration Program':'#27ae60',
   'Voluntary Cleanup Program':       '#16a085',
-  'No Designation':                  '#555555',
+  'Information Not Available':        '#555555',
 };
 function desigColor(d) { return DESIG_COLOR[d] || '#888'; }
 
