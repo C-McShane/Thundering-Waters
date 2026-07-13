@@ -149,6 +149,20 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 }
 .footer-link:hover { color: var(--text); }
 
+/* ── SHARE ── */
+#sidebar-footer { flex-wrap: wrap; }
+.share-row { display: flex; gap: 6px; align-items: center; width: 100%; margin-top: 4px; }
+.share-lbl { font-family: var(--mono); font-size: 9px; color: var(--dim); letter-spacing: .12em; text-transform: uppercase; margin-right: 2px; }
+.share-btn {
+  background: var(--s2); border: 1px solid var(--border2); color: var(--muted);
+  border-radius: 3px; min-width: 26px; height: 22px; padding: 0 6px;
+  font-family: var(--mono); font-size: 10px; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.share-btn:hover { background: var(--s3); color: var(--text); border-color: var(--blue2); }
+.share-btn.share-copied { color: var(--green); border-color: var(--green); }
+
 /* ── POPUP ── */
 .leaflet-popup-content-wrapper {
   background: var(--surface) !important; border: 1px solid var(--border2) !important;
@@ -294,6 +308,13 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
     <a class="footer-link" href="../Niagara_Site_Narratives_updated.html" target="_blank">Site Narratives ↗</a>
     <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters" target="_blank">GitHub & Methods ↗</a>
     <a class="footer-link" href="data/hazard_sites.geojson" download>Download GeoJSON ↗</a>
+    <div class="share-row">
+      <span class="share-lbl">Share</span>
+      <button class="share-btn" data-share="copy" title="Copy link to this map">Copy</button>
+      <button class="share-btn" data-share="x" title="Share on X">X</button>
+      <button class="share-btn" data-share="facebook" title="Share on Facebook">f</button>
+      <button class="share-btn" data-share="email" title="Share by email">✉</button>
+    </div>
   </div>
 </div>
 
@@ -590,6 +611,42 @@ searchInput.addEventListener('input', () => {
 document.addEventListener('click', e => {
   if (!e.target.closest('#search-wrap')) searchResults.style.display = 'none';
 });
+
+// ── SHARE + share-click tracking ─────────────────────────────────────────────
+// Cloudflare Web Analytics has no custom-event API, so a share click is recorded
+// as a short-lived "virtual pageview" (?share=<network>) the beacon picks up.
+(function () {
+  function trackShare(net) {
+    try {
+      const clean = location.pathname + location.search;
+      history.pushState(null, '', location.pathname + '?share=' + net);
+      history.replaceState(null, '', clean);
+    } catch (e) {}
+  }
+  function share(net, btn) {
+    const url = location.href.split('#')[0];
+    const u = encodeURIComponent(url), t = encodeURIComponent(document.title);
+    if (net === 'copy') {
+      const done = () => { btn.classList.add('share-copied'); btn.textContent = '✓';
+        setTimeout(() => { btn.classList.remove('share-copied'); btn.textContent = 'Copy'; }, 1200); };
+      const fallback = () => { try { const ta = document.createElement('textarea'); ta.value = url;
+        ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta); done(); } catch (e) {} };
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(done).catch(fallback); else fallback();
+    } else if (net === 'email') {
+      location.href = 'mailto:?subject=' + t + '&body=' + u;
+    } else {
+      const targets = {
+        x: 'https://twitter.com/intent/tweet?url=' + u + '&text=' + t,
+        facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + u,
+      };
+      window.open(targets[net], '_blank', 'noopener,noreferrer,width=600,height=520');
+    }
+    trackShare(net);
+  }
+  document.querySelectorAll('.share-btn').forEach(b =>
+    b.addEventListener('click', () => share(b.dataset.share, b)));
+})();
 </script>
 </body>
 </html>

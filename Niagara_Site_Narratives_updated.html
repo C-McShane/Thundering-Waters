@@ -43,6 +43,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
 .masthead-right{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:.1em;display:flex;align-items:center;gap:6px;}
 .masthead-right::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);}
 
+/* SHARE */
+.share-row{display:flex;gap:6px;align-items:center;}
+.share-lbl{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;}
+.share-btn{background:var(--surface2);border:1px solid var(--border2);color:var(--muted);border-radius:3px;min-width:24px;height:22px;padding:0 6px;font-family:var(--mono);font-size:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background .15s,color .15s,border-color .15s;}
+.share-btn:hover{background:var(--surface3);color:var(--text);border-color:var(--blue-mid);}
+.share-btn.share-copied{color:var(--green);border-color:var(--green);}
+
 /* HERO */
 .hero{padding:64px 40px 56px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 100% at 3% 60%,rgba(192,57,43,0.07) 0%,transparent 70%);pointer-events:none;}
@@ -148,6 +155,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15
   <div class="masthead-div"></div>
   <span class="masthead-count">Contaminated Site Narratives</span>
   <span class="masthead-right" id="masthead-n">89 sites documented</span>
+  <span class="share-row" aria-label="Share this page">
+    <span class="share-lbl">Share</span>
+    <button class="share-btn" data-share="copy" title="Copy link to these narratives">Copy</button>
+    <button class="share-btn" data-share="x" title="Share on X">X</button>
+    <button class="share-btn" data-share="facebook" title="Share on Facebook">f</button>
+    <button class="share-btn" data-share="email" title="Share by email">✉</button>
+  </span>
 </header>
 
 <div class="hero">
@@ -370,6 +384,41 @@ document.getElementById('sort-select').addEventListener('change', e => {
 
 updateCounts();
 render();
+</script>
+<script>
+// ── SHARE + share-click tracking (Cloudflare virtual pageview) ───────────────
+(function () {
+  function trackShare(net) {
+    try {
+      const clean = location.pathname + location.search;
+      history.pushState(null, '', location.pathname + '?share=' + net);
+      history.replaceState(null, '', clean);
+    } catch (e) {}
+  }
+  function share(net, btn) {
+    const url = location.href.split('#')[0];
+    const u = encodeURIComponent(url), t = encodeURIComponent(document.title);
+    if (net === 'copy') {
+      const done = () => { btn.classList.add('share-copied'); btn.textContent = '✓';
+        setTimeout(() => { btn.classList.remove('share-copied'); btn.textContent = 'Copy'; }, 1200); };
+      const fallback = () => { try { const ta = document.createElement('textarea'); ta.value = url;
+        ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta); done(); } catch (e) {} };
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(done).catch(fallback); else fallback();
+    } else if (net === 'email') {
+      location.href = 'mailto:?subject=' + t + '&body=' + u;
+    } else {
+      const targets = {
+        x: 'https://twitter.com/intent/tweet?url=' + u + '&text=' + t,
+        facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + u,
+      };
+      window.open(targets[net], '_blank', 'noopener,noreferrer,width=600,height=520');
+    }
+    trackShare(net);
+  }
+  document.querySelectorAll('.share-btn').forEach(b =>
+    b.addEventListener('click', () => share(b.dataset.share, b)));
+})();
 </script>
 </body>
 </html>
