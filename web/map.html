@@ -241,7 +241,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   <div id="sidebar-header">
     <div class="eyebrow">Niagara County · Spatial Data</div>
     <div class="sidebar-title">Hazardous Waste<br>Interactive Map</div>
-    <div class="sidebar-sub">256 documented sites · 6 layer types</div>
+    <div class="sidebar-sub">256 documented sites · 5 layer types</div>
   </div>
 
   <div id="search-wrap">
@@ -260,29 +260,22 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <span class="toggle-count">256 pts</span>
     </label>
 
-    <label class="layer-toggle active" id="toggle-tracts">
-      <input type="checkbox" class="toggle-check" checked data-layer="tracts">
+    <label class="layer-toggle" id="toggle-tracts">
+      <input type="checkbox" class="toggle-check" data-layer="tracts">
       <span class="toggle-swatch square" style="background:rgba(192,57,43,.4); border: 1px solid #c0392b;"></span>
       <span class="toggle-label">Contamination by Tract</span>
       <span class="toggle-count">66 tracts</span>
     </label>
 
-    <label class="layer-toggle active" id="toggle-iz">
-      <input type="checkbox" class="toggle-check" checked data-layer="iz">
+    <label class="layer-toggle" id="toggle-iz">
+      <input type="checkbox" class="toggle-check" data-layer="iz">
       <span class="toggle-swatch square" style="background:rgba(212,168,67,.25); border: 1px solid #d4a843;"></span>
       <span class="toggle-label">NF Impact Zone</span>
-      <span class="toggle-count">26 tracts</span>
+      <span class="toggle-count">perimeter</span>
     </label>
 
-    <label class="layer-toggle active" id="toggle-boundary">
-      <input type="checkbox" class="toggle-check" checked data-layer="boundary">
-      <span class="toggle-swatch square" style="background:transparent; border: 2px solid #9a98a4;"></span>
-      <span class="toggle-label">County Boundary</span>
-      <span class="toggle-count"></span>
-    </label>
-
-    <label class="layer-toggle active" id="toggle-roads">
-      <input type="checkbox" class="toggle-check" checked data-layer="roads">
+    <label class="layer-toggle" id="toggle-roads">
+      <input type="checkbox" class="toggle-check" data-layer="roads">
       <span class="toggle-swatch" style="background:#cabfa8; width:14px; height:3px; border-radius:1px;"></span>
       <span class="toggle-label">Major Roads</span>
       <span class="toggle-count">13 roads</span>
@@ -463,12 +456,11 @@ map.createPane('cancerPane');
 map.getPane('cancerPane').style.zIndex = 350;
 
 const layers = {
-  cancer:   L.layerGroup(),   // shown only when a cancer is selected
-  tracts:   L.layerGroup().addTo(map),
-  iz:       L.layerGroup().addTo(map),
-  boundary: L.layerGroup().addTo(map),
-  roads:    L.layerGroup().addTo(map),
-  sites:    L.layerGroup().addTo(map),
+  cancer:   L.layerGroup(),                 // off by default (selector)
+  tracts:   L.layerGroup(),                 // off by default
+  iz:       L.layerGroup(),                 // off by default
+  roads:    L.layerGroup(),                 // off by default
+  sites:    L.layerGroup().addTo(map),      // only hazard sites on at load
 };
 
 // ── ROAD STYLE ───────────────────────────────────────────────────────────────
@@ -534,11 +526,10 @@ function tractPopup(p) {
 let allSiteFeatures = [];
 
 async function loadAll() {
-  const [sitesData, tractsData, izData, boundaryData, roadsData, cancerGeo] = await Promise.all([
+  const [sitesData, tractsData, izData, roadsData, cancerGeo] = await Promise.all([
     fetch('data/hazard_sites.geojson').then(r => r.json()),
     fetch('data/census_tracts.geojson').then(r => r.json()),
     fetch('data/impact_zone.geojson').then(r => r.json()),
-    fetch('data/county_boundary.geojson').then(r => r.json()),
     fetch('data/major_roads.geojson').then(r => r.json()),
     fetch('data/cancer_sir.geojson').then(r => r.json()),
   ]);
@@ -596,10 +587,6 @@ async function loadAll() {
   refreshRoadLabels();
   map.on('zoomend', refreshRoadLabels);
 
-  // County boundary
-  L.geoJSON(boundaryData, {
-    style: { color: '#9a98a4', weight: 2, fill: false, dashArray: '6 4', opacity: 0.7 }
-  }).addTo(layers.boundary);
 
   // Census tracts choropleth
   L.geoJSON(tractsData, {
@@ -615,9 +602,20 @@ async function loadAll() {
     }
   }).addTo(layers.tracts);
 
-  // Impact zone outline
+  // Impact zone — single dissolved perimeter
   L.geoJSON(izData, {
-    style: { color: '#d4a843', weight: 2, fill: true, fillColor: '#d4a843', fillOpacity: 0.06, dashArray: '4 3' }
+    style: { color: '#d4a843', weight: 2.5, fill: true, fillColor: '#d4a843', fillOpacity: 0.05, dashArray: '5 4' },
+    onEachFeature: (f, layer) => {
+      const p = f.properties;
+      layer.bindPopup(`<div class="popup-tract">
+        <div class="popup-tract-name">${p.name}</div>
+        <div class="popup-tract-grid">
+          <div><div class="popup-tract-stat-val">${p.site_count}</div><div class="popup-tract-stat-lbl">Hazard Sites</div></div>
+          <div><div class="popup-tract-stat-val">${p.cont_acres != null ? Math.round(p.cont_acres).toLocaleString() : '—'}</div><div class="popup-tract-stat-lbl">Contaminated Acres</div></div>
+        </div></div>`, { maxWidth: 240 });
+      layer.on('mouseover', function () { this.setStyle({ weight: 3.5, fillOpacity: 0.09 }); });
+      layer.on('mouseout',  function () { this.setStyle({ weight: 2.5, fillOpacity: 0.05 }); });
+    }
   }).addTo(layers.iz);
 
   // Hazard sites

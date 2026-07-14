@@ -101,40 +101,32 @@ with open(os.path.join(outdir, 'census_tracts.geojson'), 'w') as f:
     json.dump({'type': 'FeatureCollection', 'features': features}, f, separators=(',',':'))
 print(f'  {len(features)} tracts written')
 
-# ── 3. IMPACT ZONE ─────────────────────────────────────────────────────────────
-print('Exporting impact zone...')
-cur.execute('''SELECT geom, GEOID, NAME, NAMELSAD, aland_acres,
-               site_count, total_acres, coverage_pct
+# ── 3. IMPACT ZONE (dissolved to a single perimeter) ────────────────────────────
+print('Exporting impact zone (dissolved perimeter)...')
+from shapely.ops import unary_union
+cur.execute('''SELECT geom, aland_acres, site_count, total_acres
                FROM NiagaraFalls_Area_ImpactZone''')
 rows = cur.fetchall()
-features = []
-for r in rows:
-    g = geom_to_geojson(r[0], 26917)
-    features.append({
-        'type': 'Feature',
-        'geometry': g,
-        'properties': {
-            'geoid':        r[1],
-            'name':         r[2],
-            'namelsad':     r[3],
-            'aland_acres':  safe(r[4]),
-            'site_count':   safe(r[5]) or 0,
-            'cont_acres':   safe(r[6]) or 0,
-            'coverage_pct': safe(r[7]) or 0,
-        }
-    })
+geoms = [wkb.loads(strip_header(r[0])) for r in rows]
+dissolved = unary_union(geoms).buffer(0)                    # merge tracts, drop internal edges
+dissolved = to_wgs84(dissolved, 26917)
+aland = sum(safe(r[1]) or 0 for r in rows)
+sites = sum(int(safe(r[2]) or 0) for r in rows)
+acres = sum(safe(r[3]) or 0 for r in rows)
+feat = {
+    'type': 'Feature',
+    'geometry': json.loads(json.dumps(dissolved.__geo_interface__)),
+    'properties': {
+        'name':        'Niagara Falls Area Impact Zone',
+        'tracts':      len(rows),
+        'site_count':  sites,
+        'cont_acres':  round(acres, 1),
+        'aland_acres': round(aland, 1),
+    }
+}
 with open(os.path.join(outdir, 'impact_zone.geojson'), 'w') as f:
-    json.dump({'type': 'FeatureCollection', 'features': features}, f, separators=(',',':'))
-print(f'  {len(features)} impact zone tracts written')
-
-# ── 4. COUNTY BOUNDARY ─────────────────────────────────────────────────────────
-print('Exporting county boundary...')
-cur.execute('SELECT geom FROM Niagara_County_Boundary')
-rows = cur.fetchall()
-features = [{'type':'Feature','geometry':geom_to_geojson(r[0],26917),'properties':{}} for r in rows]
-with open(os.path.join(outdir, 'county_boundary.geojson'), 'w') as f:
-    json.dump({'type': 'FeatureCollection', 'features': features}, f, separators=(',',':'))
-print(f'  {len(features)} boundary feature written')
+    json.dump({'type': 'FeatureCollection', 'features': [feat]}, f, separators=(',',':'))
+print(f'  1 dissolved impact-zone perimeter written (from {len(rows)} tracts)')
 
 # ── 4b. CANCER SIR (block groups) — statistically elevated cancers ──────────────
 print('Exporting cancer SIR (block groups)...')
@@ -210,7 +202,7 @@ print(f'  {len(road_feats)} road segments written')
 print('\nAll exports complete.')
 
 # Report file sizes
-for fn in ['hazard_sites.geojson','census_tracts.geojson','impact_zone.geojson','county_boundary.geojson']:
+for fn in ['hazard_sites.geojson','census_tracts.geojson','impact_zone.geojson','cancer_sir.geojson','major_roads.geojson']:
     path = os.path.join(outdir, fn)
     kb = os.path.getsize(path) / 1024
     print(f'  {fn}: {kb:.0f} KB')
