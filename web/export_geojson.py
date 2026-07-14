@@ -196,6 +196,16 @@ with open(os.path.join(outdir, 'cancer_sir.geojson'), 'w') as f:
     json.dump({'type': 'FeatureCollection', 'features': features}, f, separators=(',', ':'))
 print(f'  {len(features)} block groups written')
 
+# ── 4c. WATER (hydro areas: Niagara River, canals, reservoirs, ponds) ───────────
+print('Exporting water...')
+cur.execute('SELECT geom, FULLNAME FROM hydro_area')
+rows = cur.fetchall()
+features = [{'type': 'Feature', 'geometry': geom_to_geojson(r[0], 26917),
+            'properties': {'name': safe(r[1])}} for r in rows]
+with open(os.path.join(outdir, 'water.geojson'), 'w') as f:
+    json.dump({'type': 'FeatureCollection', 'features': features}, f, separators=(',', ':'))
+print(f'  {len(features)} water bodies written')
+
 con.close()
 
 # ── 5. MAJOR ROADS (curated arterials + highways + named additions) ─────────────

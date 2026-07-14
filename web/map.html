@@ -16,8 +16,8 @@
   --border:  #2a2a2f;
   --border2: #3a3a42;
   --text:    #f2f0ec;
-  --muted:   #9a98a4;
-  --dim:     #6a6870;
+  --muted:   #cfcdc7;   /* brightened for readability (older/low-vision) */
+  --dim:     #a4a2ac;   /* brightened; still a step below --muted for hierarchy */
   --red:     #c0392b;
   --red2:    #7a2a22;
   --amber:   #d4a843;
@@ -347,7 +347,6 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   <div id="sidebar-header">
     <div class="eyebrow">Niagara County · Spatial Data</div>
     <div class="sidebar-title">Thundering Waters<span class="title-sub">The Toxic Legacy of Niagara County</span><span class="title-kind">Interactive Map</span></div>
-    <div class="sidebar-sub">256 documented sites</div>
   </div>
 
   <div id="search-wrap">
@@ -397,6 +396,13 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <span class="toggle-swatch" style="background:#cabfa8; width:14px; height:3px; border-radius:1px;"></span>
       <span class="toggle-label">Major Roads</span>
       <span class="toggle-count">13 roads</span>
+    </label>
+
+    <label class="layer-toggle active" id="toggle-water">
+      <input type="checkbox" class="toggle-check" checked data-layer="water">
+      <span class="toggle-swatch square" style="background:#1fa6e0; border:1px solid #5fd0ff;"></span>
+      <span class="toggle-label">Rivers &amp; Water</span>
+      <span class="toggle-count">Niagara R.</span>
     </label>
 
     <details class="legend-details">
@@ -689,6 +695,9 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
 }).addTo(map);
 
 // ── LAYER GROUPS ─────────────────────────────────────────────────────────────
+// water sits just above the basemap tiles (200) but below every data overlay
+map.createPane('waterPane');
+map.getPane('waterPane').style.zIndex = 250;
 // dedicated pane so the cancer choropleth renders below roads/boundary but above the basemap
 map.createPane('cancerPane');
 map.getPane('cancerPane').style.zIndex = 350;
@@ -701,6 +710,7 @@ map.getPane('radioactivePane').style.zIndex = 460;   // above sitesPane, so the
                                                        // radioactive highlight ring is never hidden by the base site dot
 
 const layers = {
+  water:       L.layerGroup().addTo(map),   // on by default (base water context)
   cancer:      L.layerGroup(),              // off by default (selector)
   tracts:      L.layerGroup(),              // off by default
   iz:          L.layerGroup(),              // off by default
@@ -774,14 +784,21 @@ let allSiteFeatures = [];
 async function loadAll() {
   // revalidate data files so an updated map never renders against a stale cached GeoJSON
   const gj = u => fetch(u, { cache: 'no-cache' }).then(r => r.json());
-  const [sitesData, tractsData, izData, roadsData, cancerGeo] = await Promise.all([
+  const [sitesData, tractsData, izData, roadsData, cancerGeo, waterData] = await Promise.all([
     gj('data/hazard_sites.geojson'),
     gj('data/census_tracts.geojson'),
     gj('data/impact_zone.geojson'),
     gj('data/major_roads.geojson'),
     gj('data/cancer_sir.geojson'),
+    gj('data/water.geojson'),
   ]);
   cancerData = cancerGeo;
+
+  // Water — stark blue over the dark basemap, semi-transparent so labels read through
+  L.geoJSON(waterData, {
+    pane: 'waterPane',
+    style: { fillColor: '#1fa6e0', fillOpacity: 0.42, color: '#5fd0ff', weight: 0.8, opacity: 0.75 }
+  }).addTo(layers.water);
 
   // Major roads (arterials + highways) — spatial context
   const roadReps = {};  // road name -> longest feature layer (label anchor)

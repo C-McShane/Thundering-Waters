@@ -11,7 +11,7 @@
 
 | Resource | Link |
 |---|---|
-| Interactive Hazardous Waste Map | [Open Map](https://c-mcshane.github.io/Thundering-Waters/web/map.html) |
+| Thundering Waters — Interactive Map | [Open Map](https://c-mcshane.github.io/Thundering-Waters/web/map.html) |
 | Site Narratives (89 documented sites) | [Read Narratives](https://c-mcshane.github.io/Thundering-Waters/Niagara_Site_Narratives_updated.html) |
 
 ---
@@ -47,7 +47,8 @@ The data supports the book's core findings:
         ├── census_tracts.geojson           — 66 Niagara County census tracts with contamination metrics
         ├── impact_zone.geojson             — 26 Niagara Falls area impact zone tracts
         ├── major_roads.geojson             — Highways + arterials for spatial reference (13 named roads)
-        └── cancer_sir.geojson              — Block-group cancer SIR (6 statistically elevated cancers, NYSDOH 2011–2015)
+        ├── cancer_sir.geojson              — Block-group cancer SIR (6 statistically elevated cancers, NYSDOH 2011–2015)
+        └── water.geojson                   — Niagara River, canals, reservoirs & ponds (hydrography context)
 ```
 
 ---
@@ -117,7 +118,10 @@ Full provenance for every data point is documented in `DATA_SOURCES.txt`.
 The web map at `web/map.html` requires an internet connection (for the basemap and fonts) but all spatial data loads locally from the `web/data/` folder. It works in any modern browser.
 
 **Features:**
-- Toggle layers on/off (hazard sites, contamination choropleth, impact zone, major roads) — only hazard sites are on at load
+- Organized into three tabs — **Sites & Acreage**, **Cancer Risk**, **Chemicals & Radiation** — so controls stay digestible
+- Toggle layers on/off (hazard sites, contamination choropleth, impact zone, major roads, rivers & water) — hazard sites and water are on at load
+- Filter sites by any of 16 danger-ranked chemicals (with cancer-association notes), or by radionuclide (Uranium / Thorium / Radium / TENORM)
+- Mobile-friendly: the controls collapse into a bottom sheet on phones, reopened via a "Layers & Search" button
 - Select a per-cancer block-group **Cancer Incidence (SIR)** choropleth — the six cancers statistically elevated countywide (95% CI > 1) per NYSDOH 2011–2015: mesothelioma, esophagus, bladder, lung, oral, brain. SIR = observed ÷ expected (NYS-benchmarked); block groups with no cases or suppressed counts are shown distinctly
 - **Filter sites by chemical** (dropdown of 16 danger-ranked contaminants; each labeled with its associated cancer, elevated county cancers flagged). Reflects *recorded* contaminants
 - **Radioactive · Nuclear Legacy** sub-filters — Uranium / Thorium / Radium / TENORM. FUSRAP isotope attributions are DOE Legacy Management / USACE-sourced; TENORM = industrial radioactive slag
