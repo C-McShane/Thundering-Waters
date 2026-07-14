@@ -18,14 +18,14 @@
 
 ## About This Repository
 
-This repository contains the spatial dataset, interactive web map, and site narrative documentation underlying the environmental analysis in *Thundering Waters*. It documents **257 hazardous waste sites** across Niagara County, New York — one of the most contaminated regions in the United States — compiled from federal and state regulatory databases and cross-referenced with geographic boundary data and cancer incidence records.
+This repository contains the spatial dataset, interactive web map, and site narrative documentation underlying the environmental analysis in *Thundering Waters*. It documents **255 hazardous waste sites** across Niagara County, New York — one of the most contaminated regions in the United States — compiled from federal and state regulatory databases and cross-referenced with geographic boundary data and cancer incidence records.
 
 The data supports the book's core findings:
 
-- **257 documented hazardous waste sites** across Niagara County
+- **255 documented hazardous waste sites** across Niagara County
 - **~5% of the county's total land area** is contaminated by recorded waste site footprints
 - In the Niagara Falls impact zone, **1 in every 5 acres** is contaminated
-- **159 sites** fall within the Niagara Falls area impact zone, affecting approximately 47,000 residents
+- **158 sites** fall within the Niagara Falls area impact zone, affecting approximately 47,000 residents
 - **70% of Niagara County block groups** have statistically significantly elevated lung cancer rates (NYS Dept. of Health, 2011–2015)
 - **64%** have statistically significantly elevated bladder cancer rates
 - County-wide mesothelioma rates are **more than double the New York State average**
@@ -43,7 +43,7 @@ The data supports the book's core findings:
 └── web/
     ├── map.html                            — Interactive Leaflet web map
     └── data/
-        ├── hazard_sites.geojson            — 257 hazardous waste site points
+        ├── hazard_sites.geojson            — 255 hazardous waste site points
         ├── census_tracts.geojson           — 66 Niagara County census tracts with contamination metrics
         ├── impact_zone.geojson             — 26 Niagara Falls area impact zone tracts
         ├── major_roads.geojson             — Highways + arterials for spatial reference (13 named roads)
@@ -58,7 +58,7 @@ The data supports the book's core findings:
 
 | Layer | Description |
 |---|---|
-| `Niagara_County_Hazard_Sites` | 257 hazardous waste site points (EPSG:4326) with full attributes |
+| `Niagara_County_Hazard_Sites` | 255 hazardous waste site points (EPSG:4326) with full attributes |
 | `census_tracts_contamination` | 66 census tracts with contamination acreage and coverage % |
 | `NiagaraFalls_Area_ImpactZone` | 26 tracts defining the Niagara Falls impact zone |
 | `block_group_healthPOP_stats` | 176 block groups with cancer SIR data, demographics, and contamination metrics |
