@@ -627,12 +627,14 @@ function tractPopup(p) {
 let allSiteFeatures = [];
 
 async function loadAll() {
+  // revalidate data files so an updated map never renders against a stale cached GeoJSON
+  const gj = u => fetch(u, { cache: 'no-cache' }).then(r => r.json());
   const [sitesData, tractsData, izData, roadsData, cancerGeo] = await Promise.all([
-    fetch('data/hazard_sites.geojson').then(r => r.json()),
-    fetch('data/census_tracts.geojson').then(r => r.json()),
-    fetch('data/impact_zone.geojson').then(r => r.json()),
-    fetch('data/major_roads.geojson').then(r => r.json()),
-    fetch('data/cancer_sir.geojson').then(r => r.json()),
+    gj('data/hazard_sites.geojson'),
+    gj('data/census_tracts.geojson'),
+    gj('data/impact_zone.geojson'),
+    gj('data/major_roads.geojson'),
+    gj('data/cancer_sir.geojson'),
   ]);
   cancerData = cancerGeo;
 
