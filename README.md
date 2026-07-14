@@ -47,6 +47,7 @@ The data supports the book's core findings:
         ├── census_tracts.geojson           — 66 Niagara County census tracts with contamination metrics
         ├── impact_zone.geojson             — 26 Niagara Falls area impact zone tracts
         ├── major_roads.geojson             — Highways + arterials for spatial reference (13 named roads)
+        ├── cancer_sir.geojson              — Block-group cancer SIR (6 statistically elevated cancers, NYSDOH 2011–2015)
         └── county_boundary.geojson         — Niagara County boundary
 ```
 
@@ -118,6 +119,7 @@ The web map at `web/map.html` requires an internet connection (for the basemap a
 
 **Features:**
 - Toggle layers on/off (hazard sites, contamination choropleth, impact zone, county boundary, major roads)
+- Select a per-cancer block-group **Cancer Incidence (SIR)** choropleth — the six cancers statistically elevated countywide (95% CI > 1) per NYSDOH 2011–2015: mesothelioma, esophagus, bladder, lung, oral, brain. SIR = observed ÷ expected (NYS-benchmarked); block groups with no cases or suppressed counts are shown distinctly
 - Click any site for a popup with name, designation, acreage, contaminants, and narrative excerpt
 - Click any census tract for contamination statistics
 - Search sites by name, address, city, or designation type

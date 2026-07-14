@@ -136,6 +136,29 @@ with open(os.path.join(outdir, 'county_boundary.geojson'), 'w') as f:
     json.dump({'type': 'FeatureCollection', 'features': features}, f, separators=(',',':'))
 print(f'  {len(features)} boundary feature written')
 
+# ── 4b. CANCER SIR (block groups) — statistically elevated cancers ──────────────
+print('Exporting cancer SIR (block groups)...')
+CANCERS = ['Mesothelioma', 'Lung', 'Bladder', 'Esophagus', 'Oral', 'Brain']
+cur.execute('SELECT * FROM block_group_healthPOP_stats')
+bgcols = [d[0] for d in cur.description]
+def _bi(name): return bgcols.index(name) if name in bgcols else None
+gi = _bi('geom')
+rows = cur.fetchall()
+features = []
+for r in rows:
+    props = {'geoid': r[_bi('GEOID')], 'name': r[_bi('NAMELSAD')], 'pop': safe(r[_bi('total_pop')])}
+    for cx in CANCERS:
+        oi, ei = _bi('observed_%s' % cx), _bi('expected_%s' % cx)
+        try:    o = float(r[oi]); e = float(r[ei])
+        except (TypeError, ValueError): o = e = None
+        props['obs_%s' % cx] = o
+        props['exp_%s' % cx] = round(e, 2) if e is not None else None
+        props['sir_%s' % cx] = round(o / e, 3) if (o is not None and e and e > 0) else None
+    features.append({'type': 'Feature', 'geometry': geom_to_geojson(r[gi], 26917), 'properties': props})
+with open(os.path.join(outdir, 'cancer_sir.geojson'), 'w') as f:
+    json.dump({'type': 'FeatureCollection', 'features': features}, f, separators=(',', ':'))
+print(f'  {len(features)} block groups written')
+
 con.close()
 
 # ── 5. MAJOR ROADS (curated arterials + highways + named additions) ─────────────

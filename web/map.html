@@ -217,6 +217,18 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 4px #000 !important; padding: 0 !important;
 }
 .road-label::before { display: none !important; }
+
+/* ── CANCER SIR CONTROL ── */
+.cancer-note { font-size: 10px; color: var(--dim); line-height: 1.5; margin-bottom: 8px; }
+#cancer-select { display: flex; flex-direction: column; gap: 3px; }
+.cancer-opt { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 3px; cursor: pointer; border: 1px solid transparent; }
+.cancer-opt:hover { background: var(--s2); }
+.cancer-opt.active { background: var(--s3); border-color: var(--border2); }
+.cancer-opt input { accent-color: var(--amber); cursor: pointer; }
+.cancer-name { flex: 1; font-size: 12px; color: var(--text); }
+.cancer-sir { font-family: var(--mono); font-size: 10px; color: var(--amber); }
+.cancer-legend { margin-top: 10px; padding: 10px; background: var(--s2); border: 1px solid var(--border); border-radius: 3px; }
+.cancer-legend-title { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
 </style>
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
@@ -275,6 +287,19 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <span class="toggle-label">Major Roads</span>
       <span class="toggle-count">13 roads</span>
     </label>
+
+    <div class="section-label" style="margin-top:20px;">Cancer Incidence · SIR</div>
+    <div class="cancer-note">Block-group Standardized Incidence Ratio (observed ÷ expected), NYSDOH 2011–2015. These six are statistically elevated countywide (95% CI &gt; 1). Select one:</div>
+    <div id="cancer-select">
+      <label class="cancer-opt active"><input type="radio" name="cancer" value="" checked><span class="cancer-name">Off</span></label>
+      <label class="cancer-opt"><input type="radio" name="cancer" value="Mesothelioma"><span class="cancer-name">Mesothelioma</span><span class="cancer-sir">2.43</span></label>
+      <label class="cancer-opt"><input type="radio" name="cancer" value="Esophagus"><span class="cancer-name">Esophagus</span><span class="cancer-sir">1.50</span></label>
+      <label class="cancer-opt"><input type="radio" name="cancer" value="Bladder"><span class="cancer-name">Bladder</span><span class="cancer-sir">1.40</span></label>
+      <label class="cancer-opt"><input type="radio" name="cancer" value="Lung"><span class="cancer-name">Lung</span><span class="cancer-sir">1.38</span></label>
+      <label class="cancer-opt"><input type="radio" name="cancer" value="Oral"><span class="cancer-name">Oral</span><span class="cancer-sir">1.36</span></label>
+      <label class="cancer-opt"><input type="radio" name="cancer" value="Brain"><span class="cancer-name">Brain</span><span class="cancer-sir">1.31</span></label>
+    </div>
+    <div id="cancer-legend" class="cancer-legend" style="display:none"></div>
 
     <div class="section-label" style="margin-top:20px;">Site Designation</div>
     <div class="legend-grid">
@@ -354,6 +379,71 @@ function choroColor(pct) {
   return 'rgba(64,0,2,0.75)';
 }
 
+// ── CANCER SIR (block-group choropleth) ──────────────────────────────────────
+const SIR_BINS = [
+  { max: 0.75,     color: '#3a6ea5', label: '< 0.75' },
+  { max: 0.90,     color: '#7ea8c9', label: '0.75 – 0.90' },
+  { max: 1.10,     color: '#ece6d6', label: '0.90 – 1.10' },
+  { max: 1.33,     color: '#f0b85f', label: '1.10 – 1.33' },
+  { max: 1.67,     color: '#e07d38', label: '1.33 – 1.67' },
+  { max: 2.00,     color: '#c0392b', label: '1.67 – 2.00' },
+  { max: Infinity, color: '#7a1212', label: '≥ 2.00' },
+];
+function sirColor(sir) {
+  if (sir === null || sir === undefined) return null;   // no data / suppressed
+  if (sir === 0) return '#5a5a63';                       // no cases recorded
+  for (const b of SIR_BINS) if (sir <= b.max) return b.color;
+  return '#7a1212';
+}
+let cancerData = null;
+function renderCancer(cx) {
+  layers.cancer.clearLayers();
+  const legend = document.getElementById('cancer-legend');
+  if (!cx) { map.removeLayer(layers.cancer); if (legend) legend.style.display = 'none'; return; }
+  // avoid stacking two choropleths: switch the tract-contamination layer off while a cancer is shown
+  if (map.hasLayer(layers.tracts)) {
+    map.removeLayer(layers.tracts);
+    const t = document.getElementById('toggle-tracts');
+    if (t) { t.classList.remove('active'); const cb = t.querySelector('input'); if (cb) cb.checked = false; }
+  }
+  L.geoJSON(cancerData, {
+    pane: 'cancerPane',
+    style: f => {
+      const c = sirColor(f.properties['sir_' + cx]);
+      if (c === null) return { fillColor: '#20202a', fillOpacity: 0.18, color: '#33333a', weight: 0.4, opacity: 0.5 };
+      return { fillColor: c, fillOpacity: 0.72, color: '#141416', weight: 0.5, opacity: 0.8 };
+    },
+    onEachFeature: (f, layer) => {
+      layer.bindPopup(cancerPopup(cx, f.properties), { maxWidth: 270 });
+      layer.on('mouseover', function () { this.setStyle({ weight: 1.6, color: '#d4a843' }); });
+      layer.on('mouseout',  function () { const c = sirColor(f.properties['sir_' + cx]); this.setStyle({ weight: c === null ? 0.4 : 0.5, color: c === null ? '#33333a' : '#141416' }); });
+    }
+  }).addTo(layers.cancer);
+  if (!map.hasLayer(layers.cancer)) layers.cancer.addTo(map);
+  if (legend) { legend.innerHTML = cancerLegendHTML(cx); legend.style.display = 'block'; }
+}
+function cancerPopup(cx, p) {
+  const sir = p['sir_' + cx];
+  const sirTxt = (sir === null || sir === undefined) ? 'No data' : (sir === 0 ? 'No cases' : sir.toFixed(2));
+  const obs = (p['obs_' + cx] != null) ? p['obs_' + cx] : '—';
+  const exp = (p['exp_' + cx] != null) ? p['exp_' + cx].toFixed(1) : '—';
+  return `<div class="popup-tract">
+    <div class="popup-tract-name">${p.name || p.geoid} — ${cx}</div>
+    <div class="popup-tract-grid">
+      <div><div class="popup-tract-stat-val">${sirTxt}</div><div class="popup-tract-stat-lbl">SIR (obs/exp)</div></div>
+      <div><div class="popup-tract-stat-val">${obs}</div><div class="popup-tract-stat-lbl">Observed</div></div>
+      <div><div class="popup-tract-stat-val">${exp}</div><div class="popup-tract-stat-lbl">Expected</div></div>
+      <div><div class="popup-tract-stat-val">${p.pop ? Math.round(p.pop).toLocaleString() : '—'}</div><div class="popup-tract-stat-lbl">Population</div></div>
+    </div></div>`;
+}
+function cancerLegendHTML(cx) {
+  let s = `<div class="cancer-legend-title">${cx} — SIR vs NYS</div>`;
+  for (const b of SIR_BINS) s += `<div class="legend-item"><div class="legend-dot" style="border-radius:2px;background:${b.color}"></div><div class="legend-txt">${b.label}</div></div>`;
+  s += `<div class="legend-item"><div class="legend-dot" style="border-radius:2px;background:#5a5a63"></div><div class="legend-txt">No cases recorded</div></div>`;
+  s += `<div class="legend-item"><div class="legend-dot" style="border-radius:2px;background:#20202a;border:1px solid #33333a"></div><div class="legend-txt">No data / suppressed</div></div>`;
+  return s;
+}
+
 // ── MAP INIT ─────────────────────────────────────────────────────────────────
 const map = L.map('map', {
   center: [43.14, -78.98],
@@ -368,7 +458,12 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
 }).addTo(map);
 
 // ── LAYER GROUPS ─────────────────────────────────────────────────────────────
+// dedicated pane so the cancer choropleth renders below roads/boundary but above the basemap
+map.createPane('cancerPane');
+map.getPane('cancerPane').style.zIndex = 350;
+
 const layers = {
+  cancer:   L.layerGroup(),   // shown only when a cancer is selected
   tracts:   L.layerGroup().addTo(map),
   iz:       L.layerGroup().addTo(map),
   boundary: L.layerGroup().addTo(map),
@@ -439,13 +534,15 @@ function tractPopup(p) {
 let allSiteFeatures = [];
 
 async function loadAll() {
-  const [sitesData, tractsData, izData, boundaryData, roadsData] = await Promise.all([
+  const [sitesData, tractsData, izData, boundaryData, roadsData, cancerGeo] = await Promise.all([
     fetch('data/hazard_sites.geojson').then(r => r.json()),
     fetch('data/census_tracts.geojson').then(r => r.json()),
     fetch('data/impact_zone.geojson').then(r => r.json()),
     fetch('data/county_boundary.geojson').then(r => r.json()),
     fetch('data/major_roads.geojson').then(r => r.json()),
+    fetch('data/cancer_sir.geojson').then(r => r.json()),
   ]);
+  cancerData = cancerGeo;
 
   // Major roads (arterials + highways) — spatial context
   const roadReps = {};  // road name -> longest feature layer (label anchor)
@@ -565,6 +662,15 @@ document.querySelectorAll('.toggle-check').forEach(cb => {
       map.removeLayer(layers[key]);
       toggle.classList.remove('active');
     }
+  });
+});
+
+// ── CANCER SIR SELECTOR ──────────────────────────────────────────────────────
+document.querySelectorAll('input[name="cancer"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    document.querySelectorAll('.cancer-opt').forEach(o => o.classList.remove('active'));
+    radio.closest('.cancer-opt').classList.add('active');
+    if (cancerData) renderCancer(radio.value);
   });
 });
 
