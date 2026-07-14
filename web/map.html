@@ -512,7 +512,7 @@ function renderRadioactive() {
   allSiteFeatures.forEach(f => {
     if (!radMatch(f.properties, filters)) return;
     const [lon, lat] = f.geometry.coordinates;
-    L.circleMarker([lat, lon], { radius: 9, fillColor: '#f5e050', color: '#7a1212', weight: 2.5, fillOpacity: 0.9 })
+    L.circleMarker([lat, lon], { pane: 'radioactivePane', radius: 9, fillColor: '#f5e050', color: '#7a1212', weight: 2.5, fillOpacity: 0.9 })
       .bindPopup(radPopup(f.properties), { maxWidth: 270 }).addTo(layers.radioactive);
   });
   if (!map.hasLayer(layers.radioactive)) layers.radioactive.addTo(map);
@@ -554,6 +554,13 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
 // dedicated pane so the cancer choropleth renders below roads/boundary but above the basemap
 map.createPane('cancerPane');
 map.getPane('cancerPane').style.zIndex = 350;
+// hazard sites always render above every choropleth/roads/radioactive layer,
+// regardless of toggle order — dedicated panes, not insertion order, control this
+map.createPane('sitesPane');
+map.getPane('sitesPane').style.zIndex = 450;         // above overlayPane (400)
+map.createPane('radioactivePane');
+map.getPane('radioactivePane').style.zIndex = 460;   // above sitesPane, so the
+                                                       // radioactive highlight ring is never hidden by the base site dot
 
 const layers = {
   cancer:      L.layerGroup(),              // off by default (selector)
@@ -737,6 +744,7 @@ function renderSites(features) {
     const color = desigColor(p.designation);
     const [lon, lat] = f.geometry.coordinates;
     const marker = L.circleMarker([lat, lon], {
+      pane: 'sitesPane',
       radius: 6,
       fillColor: color,
       color: '#0d0d0e',
