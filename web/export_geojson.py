@@ -39,17 +39,57 @@ cur = con.cursor()
 
 # ── 1. HAZARD SITES ────────────────────────────────────────────────────────────
 print('Exporting hazard sites...')
+import re as _re
+
+# Danger-ranked chemicals → regex matched against each site's `chemicals` field
+CHEM_RX = [(n, _re.compile(p, _re.I)) for n, p in [
+    ('Dioxins / TCDD',      r'dioxin|tcdd|2,3,7,8'),
+    ('Asbestos',            r'asbestos'),
+    ('Benzene',             r'\bbenzene\b'),
+    ('Vinyl chloride',      r'vinyl chloride'),
+    ('Arsenic',             r'arsenic'),
+    ('PCBs',                r'\bpcb'),
+    ('Hexavalent chromium', r'chromium|hexavalent'),
+    ('TCE',                 r'trichloroethene|\btce\b'),
+    ('Cadmium',             r'cadmium'),
+    ('Lead',                r'\blead\b'),
+    ('Benzo(a)pyrene',      r'benzo\(a\)pyrene'),
+    ('Lindane / BHC',       r'lindane|\bbhc\b|hexachlorocyclohexane'),
+    ('Beryllium',           r'beryllium'),
+    ('Mercury',             r'mercury'),
+    ('Hexachlorobenzene',   r'hexachlorobenzene'),
+    ('Cyanide',             r'cyanide'),
+]]
+# Curated radioactive classification. FUSRAP isotope tags are DOE/USACE-sourced (our
+# narratives don't list them); TENORM sites get a TENORM tag (isotopes only where recorded).
+RADIO_BY_CODE = {
+    '932023': ('FUSRAP', ['U', 'Th', 'Ra']),   'FUSRAP-LOOW': ('FUSRAP', ['U', 'Th', 'Ra']),
+    'NFSS-VP-H-PRIME': ('FUSRAP', ['U', 'Th', 'Ra']), 'NFSS-VP-X': ('FUSRAP', ['U', 'Th', 'Ra']),
+    'NFSS-ANOMALY-CC': ('FUSRAP', ['U', 'Th', 'Ra']), 'NFSS-CENTRAL-DITCH': ('FUSRAP', ['U', 'Th', 'Ra']),
+    '932032': ('FUSRAP', ['U', 'Th']),         # Guterl Specialty Steel
+    '932028': ('TENORM', ['U', 'Th', 'Ra']),   # TAM Ceramics (explicit in data)
+    'C932143': ('TENORM', ['U', 'Th']),        # Northern Ethanol (explicit)
+    'C932150': ('TENORM', []), 'C932157': ('TENORM', []), '932136': ('TENORM', []),
+    'C932159': ('TENORM', []), 'C932160': ('TENORM', []),
+}
+RADIO_BY_NAME = {
+    'balmer road school': ('FUSRAP', ['U', 'Th', 'Ra']),
+    'st marys and bishop duffy school': ('TENORM', []),
+}
+def _namekey(s): return _re.sub(r'[^a-z0-9]+', ' ', (s or '').lower()).strip()
+
 cur.execute('''SELECT geom, site_name, designation, program_type, program_category,
                area_acres_best, chemicals, narrative, website, address, city, zip,
-               latitude, longitude, npl_status, non_npl_status
+               latitude, longitude, npl_status, non_npl_status, program_number
                FROM Niagara_County_Hazard_Sites''')
 rows = cur.fetchall()
 features = []
 for r in rows:
-    geom_blob = r[0]
-    g = geom_to_geojson(geom_blob, 4326)
-    # Truncate narrative for popup (full text kept for detail panel)
+    g = geom_to_geojson(r[0], 4326)
     narr = r[7] or ''
+    chem_txt = r[6] or ''
+    chems = [n for n, rx in CHEM_RX if rx.search(chem_txt)]
+    rad = RADIO_BY_CODE.get((r[16] or '').strip()) or RADIO_BY_NAME.get(_namekey(r[1]))
     features.append({
         'type': 'Feature',
         'geometry': g,
@@ -67,12 +107,17 @@ for r in rows:
             'zip':             safe(r[11]),
             'lat':             safe(r[12]),
             'lon':             safe(r[13]),
+            'chems':           chems,
+            'rad_class':       rad[0] if rad else None,
+            'rad_iso':         rad[1] if rad else [],
         }
     })
 
 with open(os.path.join(outdir, 'hazard_sites.geojson'), 'w') as f:
     json.dump({'type': 'FeatureCollection', 'features': features}, f, separators=(',',':'))
-print(f'  {len(features)} sites written')
+n_chem = sum(1 for ft in features if ft['properties']['chems'])
+n_rad  = sum(1 for ft in features if ft['properties']['rad_class'])
+print(f'  {len(features)} sites written ({n_chem} chemical-tagged, {n_rad} radioactive)')
 
 # ── 2. CENSUS TRACTS ───────────────────────────────────────────────────────────
 print('Exporting census tracts...')

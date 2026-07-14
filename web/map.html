@@ -229,6 +229,22 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .cancer-sir { font-family: var(--mono); font-size: 10px; color: var(--amber); }
 .cancer-legend { margin-top: 10px; padding: 10px; background: var(--s2); border: 1px solid var(--border); border-radius: 3px; }
 .cancer-legend-title { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+
+/* ── CHEMICAL DROPDOWN + RADIOACTIVE ── */
+#chem-select { width: 100%; background: var(--bg); border: 1px solid var(--border2); border-radius: 3px; padding: 8px 10px; font-family: var(--mono); font-size: 11px; color: var(--text); outline: none; cursor: pointer; }
+#chem-select:focus { border-color: var(--blue2); }
+.chem-note { font-size: 10px; color: var(--muted); line-height: 1.5; margin-top: 7px; }
+.chem-note b { color: var(--text); }
+.chem-note .elev { color: var(--amber); font-weight: 600; }
+.rad-note { font-size: 10px; color: var(--dim); line-height: 1.5; margin-bottom: 8px; }
+.rad-opts { display: flex; flex-direction: column; gap: 3px; }
+.rad-opt { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 3px; cursor: pointer; border: 1px solid transparent; }
+.rad-opt:hover { background: var(--s2); }
+.rad-opt.active { background: var(--s3); border-color: var(--border2); }
+.rad-opt input { accent-color: #f5e050; cursor: pointer; }
+.rad-swatch { width: 12px; height: 12px; border-radius: 50%; background: #f5e050; border: 2px solid #7a1212; flex-shrink: 0; }
+.rad-name { flex: 1; font-size: 12px; color: var(--text); }
+.rad-count { font-family: var(--mono); font-size: 10px; color: var(--dim); }
 </style>
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
@@ -293,6 +309,19 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <label class="cancer-opt"><input type="radio" name="cancer" value="Brain"><span class="cancer-name">Brain</span><span class="cancer-sir">1.31</span></label>
     </div>
     <div id="cancer-legend" class="cancer-legend" style="display:none"></div>
+
+    <div class="section-label" style="margin-top:20px;">Filter Sites by Chemical</div>
+    <select id="chem-select"><option value="">All sites</option></select>
+    <div class="chem-note" id="chem-note">Shows sites that list the selected contaminant. Reflects <em>recorded</em> chemicals (122 of 256 sites list any).</div>
+
+    <div class="section-label" style="margin-top:20px;">Radioactive · Nuclear Legacy</div>
+    <div class="rad-note">18 sites with radioactive contamination. FUSRAP isotope tags are DOE/USACE‑sourced; TENORM = industrial radioactive slag.</div>
+    <div class="rad-opts">
+      <label class="rad-opt"><input type="checkbox" class="rad-check" value="U"><span class="rad-swatch"></span><span class="rad-name">Uranium</span><span class="rad-count" id="rc-U"></span></label>
+      <label class="rad-opt"><input type="checkbox" class="rad-check" value="Th"><span class="rad-swatch"></span><span class="rad-name">Thorium</span><span class="rad-count" id="rc-Th"></span></label>
+      <label class="rad-opt"><input type="checkbox" class="rad-check" value="Ra"><span class="rad-swatch"></span><span class="rad-name">Radium</span><span class="rad-count" id="rc-Ra"></span></label>
+      <label class="rad-opt"><input type="checkbox" class="rad-check" value="TENORM"><span class="rad-swatch"></span><span class="rad-name">TENORM (slag)</span><span class="rad-count" id="rc-TENORM"></span></label>
+    </div>
 
     <div class="section-label" style="margin-top:20px;">Site Designation</div>
     <div class="legend-grid">
@@ -437,6 +466,77 @@ function cancerLegendHTML(cx) {
   return s;
 }
 
+// ── CHEMICAL FILTER + RADIOACTIVE ────────────────────────────────────────────
+const CHEM_TOP10 = ['Dioxins / TCDD','Asbestos','Benzene','Vinyl chloride','Arsenic','PCBs','Hexavalent chromium','TCE','Cadmium','Lead'];
+const CHEM_ALSO  = ['Benzo(a)pyrene','Lindane / BHC','Beryllium','Mercury','Hexachlorobenzene','Cyanide'];
+const ELEVATED = new Set(['Mesothelioma','Bladder','Lung','Esophagus','Oral','Brain']);
+const CHEM_CANCER = {
+  'Dioxins / TCDD': ['multiple cancers'], 'Asbestos': ['Mesothelioma','Lung'],
+  'Benzene': ['Leukemia'], 'Vinyl chloride': ['Liver'], 'Arsenic': ['Bladder','Lung','Skin'],
+  'PCBs': ['Liver'], 'Hexavalent chromium': ['Lung'], 'TCE': ['Kidney','Non-Hodgkin lymphoma'],
+  'Cadmium': ['Lung','Kidney','Prostate'], 'Lead': ['neurotoxin — non-cancer'],
+  'Benzo(a)pyrene': ['Lung','Skin'], 'Lindane / BHC': ['Non-Hodgkin lymphoma'],
+  'Beryllium': ['Lung'], 'Mercury': ['neurotoxin — non-cancer'],
+  'Hexachlorobenzene': ['Liver'], 'Cyanide': ['acute toxicity'],
+};
+function chemCount(cx) { return allSiteFeatures.filter(f => (f.properties.chems || []).includes(cx)).length; }
+function populateChemDropdown() {
+  const sel = document.getElementById('chem-select');
+  sel.querySelector('option').textContent = `All sites (${allSiteFeatures.length})`;
+  const grp = (label, names) => {
+    const og = document.createElement('optgroup'); og.label = label;
+    names.forEach(n => { const o = document.createElement('option'); o.value = n; o.textContent = `${n} (${chemCount(n)})`; og.appendChild(o); });
+    sel.appendChild(og);
+  };
+  grp('Most dangerous (top 10)', CHEM_TOP10);
+  grp('Also severe', CHEM_ALSO);
+  sel.addEventListener('change', () => filterByChemical(sel.value));
+}
+function filterByChemical(cx) {
+  const note = document.getElementById('chem-note');
+  if (!cx) { renderSites(allSiteFeatures); note.innerHTML = 'Shows sites that list the selected contaminant. Reflects <em>recorded</em> chemicals (122 of 256 sites list any).'; return; }
+  const subset = allSiteFeatures.filter(f => (f.properties.chems || []).includes(cx));
+  renderSites(subset);
+  const cancers = (CHEM_CANCER[cx] || []).map(c => ELEVATED.has(c) ? `<span class="elev">${c}↑</span>` : c).join(', ');
+  note.innerHTML = `<b>${subset.length}</b> sites list <b>${cx}</b>. Linked to: ${cancers}. <span style="color:var(--dim)">(↑ = elevated in county)</span>`;
+}
+function radMatch(p, filters) {
+  if (!p.rad_class) return false;
+  return filters.some(fl => fl === 'TENORM' ? p.rad_class === 'TENORM' : (p.rad_iso || []).includes(fl));
+}
+function renderRadioactive() {
+  layers.radioactive.clearLayers();
+  const filters = [...document.querySelectorAll('.rad-check:checked')].map(c => c.value);
+  document.querySelectorAll('.rad-opt').forEach(o => o.classList.toggle('active', o.querySelector('input').checked));
+  if (!filters.length) { map.removeLayer(layers.radioactive); return; }
+  allSiteFeatures.forEach(f => {
+    if (!radMatch(f.properties, filters)) return;
+    const [lon, lat] = f.geometry.coordinates;
+    L.circleMarker([lat, lon], { radius: 9, fillColor: '#f5e050', color: '#7a1212', weight: 2.5, fillOpacity: 0.9 })
+      .bindPopup(radPopup(f.properties), { maxWidth: 270 }).addTo(layers.radioactive);
+  });
+  if (!map.hasLayer(layers.radioactive)) layers.radioactive.addTo(map);
+}
+function radPopup(p) {
+  const names = { U: 'Uranium', Th: 'Thorium', Ra: 'Radium' };
+  const iso = (p.rad_iso && p.rad_iso.length) ? p.rad_iso.map(i => names[i]).join(', ') : 'not specified in dataset';
+  const src = p.rad_class === 'FUSRAP'
+    ? 'Manhattan Project / AEC legacy (FUSRAP). Isotope attribution: DOE Legacy Management / USACE.'
+    : 'TENORM — technologically-enhanced naturally-occurring radioactive material (industrial slag).';
+  return `<div class="popup-inner">
+    <div class="popup-tags"><span class="popup-tag" style="background:#f5e05022;color:#e8d44a;border:1px solid #f5e05055">${p.rad_class}</span></div>
+    <div class="popup-name">${p.site_name}</div>
+    <div class="popup-field"><div class="popup-field-lbl">Radionuclides</div><div class="popup-field-val">${iso}</div></div>
+    <div class="popup-narrative">${src}</div>
+  </div>`;
+}
+function updateRadCounts() {
+  const c = { U: 0, Th: 0, Ra: 0, TENORM: 0 };
+  allSiteFeatures.forEach(f => { const p = f.properties; if (!p.rad_class) return;
+    if (p.rad_class === 'TENORM') c.TENORM++; (p.rad_iso || []).forEach(i => { if (c[i] !== undefined) c[i]++; }); });
+  ['U','Th','Ra','TENORM'].forEach(k => { const e = document.getElementById('rc-' + k); if (e) e.textContent = c[k]; });
+}
+
 // ── MAP INIT ─────────────────────────────────────────────────────────────────
 const map = L.map('map', {
   center: [43.14, -78.98],
@@ -456,11 +556,12 @@ map.createPane('cancerPane');
 map.getPane('cancerPane').style.zIndex = 350;
 
 const layers = {
-  cancer:   L.layerGroup(),                 // off by default (selector)
-  tracts:   L.layerGroup(),                 // off by default
-  iz:       L.layerGroup(),                 // off by default
-  roads:    L.layerGroup(),                 // off by default
-  sites:    L.layerGroup().addTo(map),      // only hazard sites on at load
+  cancer:      L.layerGroup(),              // off by default (selector)
+  tracts:      L.layerGroup(),              // off by default
+  iz:          L.layerGroup(),              // off by default
+  roads:       L.layerGroup(),              // off by default
+  sites:       L.layerGroup().addTo(map),   // only hazard sites on at load
+  radioactive: L.layerGroup(),              // off by default (isotope sub-filters)
 };
 
 // ── ROAD STYLE ───────────────────────────────────────────────────────────────
@@ -621,6 +722,10 @@ async function loadAll() {
   // Hazard sites
   allSiteFeatures = sitesData.features;
   renderSites(sitesData.features);
+
+  // Chemical dropdown + radioactive sub-filter counts
+  populateChemDropdown();
+  updateRadCounts();
 }
 
 function renderSites(features) {
@@ -671,6 +776,11 @@ document.querySelectorAll('input[name="cancer"]').forEach(radio => {
     if (cancerData) renderCancer(radio.value);
   });
 });
+
+// ── RADIOACTIVE SUB-FILTERS ──────────────────────────────────────────────────
+document.querySelectorAll('.rad-check').forEach(cb => cb.addEventListener('change', () => {
+  if (allSiteFeatures.length) renderRadioactive();
+}));
 
 // ── SEARCH ───────────────────────────────────────────────────────────────────
 const searchInput = document.getElementById('search');

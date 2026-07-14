@@ -119,6 +119,8 @@ The web map at `web/map.html` requires an internet connection (for the basemap a
 **Features:**
 - Toggle layers on/off (hazard sites, contamination choropleth, impact zone, major roads) — only hazard sites are on at load
 - Select a per-cancer block-group **Cancer Incidence (SIR)** choropleth — the six cancers statistically elevated countywide (95% CI > 1) per NYSDOH 2011–2015: mesothelioma, esophagus, bladder, lung, oral, brain. SIR = observed ÷ expected (NYS-benchmarked); block groups with no cases or suppressed counts are shown distinctly
+- **Filter sites by chemical** (dropdown of 16 danger-ranked contaminants; each labeled with its associated cancer, elevated county cancers flagged). Reflects *recorded* contaminants
+- **Radioactive · Nuclear Legacy** sub-filters — Uranium / Thorium / Radium / TENORM. FUSRAP isotope attributions are DOE Legacy Management / USACE-sourced; TENORM = industrial radioactive slag
 - Click any site for a popup with name, designation, acreage, contaminants, and narrative excerpt
 - Click any census tract for contamination statistics
 - Search sites by name, address, city, or designation type
