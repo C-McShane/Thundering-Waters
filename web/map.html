@@ -317,6 +317,12 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .chem-note { font-size: 10px; color: var(--muted); line-height: 1.5; margin-top: 7px; }
 .chem-note b { color: var(--text); }
 .chem-note .elev { color: var(--amber); font-weight: 600; }
+/* ── MONITORING WELLS ── */
+#well-select { width: 100%; background: var(--bg); border: 1px solid var(--border2); border-radius: 3px; padding: 8px 10px; font-family: var(--mono); font-size: 11px; color: var(--text); outline: none; cursor: pointer; }
+#well-select:focus { border-color: var(--blue2); }
+.well-droplet { background: none; border: none; }
+.well-size-legend { display: flex; align-items: flex-end; gap: 14px; margin: 10px 2px 4px; }
+.well-size-legend .wsl { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--dim); font-size: 9px; font-family: var(--mono); }
 .rad-note { font-size: 10px; color: var(--dim); line-height: 1.5; margin-bottom: 8px; }
 .rad-opts { display: flex; flex-direction: column; gap: 3px; }
 .rad-opt { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 3px; cursor: pointer; border: 1px solid transparent; }
@@ -364,6 +370,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <button class="tab-btn active" data-tab="sites" role="tab" aria-selected="true">Sites &amp; Acreage</button>
       <button class="tab-btn" data-tab="cancer" role="tab" aria-selected="false">Cancer Risk</button>
       <button class="tab-btn" data-tab="chem" role="tab" aria-selected="false">Chemicals &amp; Radiation</button>
+      <button class="tab-btn" data-tab="wells" role="tab" aria-selected="false">Monitoring Wells</button>
     </div>
 
     <div class="tab-panel active" data-tab-panel="sites">
@@ -472,6 +479,34 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
     </div>
 
     </div><!-- /tab-panel: chem -->
+
+    <div class="tab-panel" data-tab-panel="wells">
+
+    <div class="section-label">Water-Testing &amp; Monitoring Wells</div>
+
+    <label class="layer-toggle" id="toggle-wellsWqp">
+      <input type="checkbox" class="toggle-check" data-layer="wellsWqp">
+      <span class="toggle-swatch" style="background:#3fc0f0; border:2px solid #0a5a80;"></span>
+      <span class="toggle-label">Water Quality Portal wells</span>
+      <span class="toggle-count">293 pts</span>
+    </label>
+
+    <label class="layer-toggle" id="toggle-wellsDec">
+      <input type="checkbox" class="toggle-check" data-layer="wellsDec">
+      <span class="toggle-swatch" style="background:#12b5a3; border:2px solid #075a50;"></span>
+      <span class="toggle-label">NYSDEC cleanup-site wells</span>
+      <span class="toggle-count">253 pts</span>
+    </label>
+
+    <div class="chem-note">Each <b>water droplet</b> is a well or sampling station. Droplet <b>size = number of distinct chemicals detected</b> at that well. <span style="color:#3fc0f0">Blue</span> = USGS/EPA Water Quality Portal; <span style="color:#12b5a3">teal</span> = NYSDEC remediation-report wells.</div>
+
+    <div class="well-size-legend" id="well-size-legend"></div>
+
+    <div class="section-label" style="margin-top:20px;">Filter Wells by Chemical</div>
+    <select id="well-select"><option value="">All wells</option></select>
+    <div class="chem-note" id="well-note">Shows wells where the selected contaminant was <em>detected</em>. Turn a well layer on above to see results.</div>
+
+    </div><!-- /tab-panel: wells -->
 
   </div>
 
@@ -708,6 +743,8 @@ map.getPane('sitesPane').style.zIndex = 450;         // above overlayPane (400)
 map.createPane('radioactivePane');
 map.getPane('radioactivePane').style.zIndex = 460;   // above sitesPane, so the
                                                        // radioactive highlight ring is never hidden by the base site dot
+map.createPane('wellsPane');
+map.getPane('wellsPane').style.zIndex = 470;         // droplets ride above hazard sites when both are shown
 
 const layers = {
   water:       L.layerGroup().addTo(map),   // on by default (base water context)
@@ -717,6 +754,8 @@ const layers = {
   roads:       L.layerGroup(),              // off by default
   sites:       L.layerGroup().addTo(map),   // only hazard sites on at load
   radioactive: L.layerGroup(),              // off by default (isotope sub-filters)
+  wellsWqp:    L.layerGroup(),              // off by default (Monitoring Wells tab)
+  wellsDec:    L.layerGroup(),              // off by default (Monitoring Wells tab)
 };
 
 // ── ROAD STYLE ───────────────────────────────────────────────────────────────
@@ -784,13 +823,15 @@ let allSiteFeatures = [];
 async function loadAll() {
   // revalidate data files so an updated map never renders against a stale cached GeoJSON
   const gj = u => fetch(u, { cache: 'no-cache' }).then(r => r.json());
-  const [sitesData, tractsData, izData, roadsData, cancerGeo, waterData] = await Promise.all([
+  const [sitesData, tractsData, izData, roadsData, cancerGeo, waterData, wellsWqpData, wellsDecData] = await Promise.all([
     gj('data/hazard_sites.geojson'),
     gj('data/census_tracts.geojson'),
     gj('data/impact_zone.geojson'),
     gj('data/major_roads.geojson'),
     gj('data/cancer_sir.geojson'),
     gj('data/water.geojson'),
+    gj('data/wells_wqp.geojson'),
+    gj('data/wells_dec.geojson'),
   ]);
   cancerData = cancerGeo;
 
@@ -887,6 +928,13 @@ async function loadAll() {
   allSiteFeatures = sitesData.features;
   renderSites(sitesData.features);
 
+  // Monitoring wells (off by default; toggled from the Monitoring Wells tab)
+  wellsWqpF = wellsWqpData.features;
+  wellsDecF = wellsDecData.features;
+  renderWells(wellsWqpF, layers.wellsWqp);
+  renderWells(wellsDecF, layers.wellsDec);
+  populateWellDropdown();
+
   // Chemical dropdown + radioactive sub-filter counts
   populateChemDropdown();
   updateRadCounts();
@@ -910,6 +958,84 @@ function renderSites(features) {
     marker.addTo(layers.sites);
     marker._siteProps = p;
   });
+}
+
+// ── MONITORING WELLS ─────────────────────────────────────────────────────────
+// Water-droplet symbol, height scaled by the number of chemicals detected at the
+// well (sqrt so a well with 100 detects isn't 100× a well with 1). Two sources
+// coloured distinctly; a shared chemical dropdown filters both.
+let wellsWqpF = [], wellsDecF = [];
+const WELL_COLORS = { WQP: ['#3fc0f0', '#0a5a80'], DEC: ['#12b5a3', '#075a50'] };
+function wellHeight(n) { return Math.min(44, 13 + 3.0 * Math.sqrt(n || 0)); }
+function dropletIcon(n, src) {
+  const h = wellHeight(n), w = h * 0.72, [fill, stroke] = WELL_COLORS[src] || WELL_COLORS.WQP;
+  const svg = `<svg width="${w}" height="${h}" viewBox="0 0 24 32">`
+    + `<path d="M12 1 C12 1 3 14 3 21 a9 9 0 0 0 18 0 C21 14 12 1 12 1 Z" `
+    + `fill="${fill}" fill-opacity="0.82" stroke="${stroke}" stroke-width="1.6"/></svg>`;
+  return L.divIcon({ className: 'well-droplet', html: svg, iconSize: [w, h], iconAnchor: [w/2, h/2] });
+}
+function wellPopup(p) {
+  const isW = p.src === 'WQP';
+  const title = isW ? 'Water Quality Portal' : (p.site || 'NYSDEC cleanup site');
+  const tagc = isW ? '#3fc0f0' : '#12b5a3';
+  const sub = isW ? (p.site_type || 'Sampling station') : (p.well_role || 'Monitoring well');
+  const yr = p.latest_detect || p.latest_year;
+  const chem = p.chemicals_found
+    ? `<div class="popup-field"><div class="popup-field-lbl">Chemicals detected (${p.n_found})</div><div class="popup-field-val">${p.chemicals_found.substring(0,160)}${p.chemicals_found.length>160?'…':''}</div></div>`
+    : `<div class="popup-field"><div class="popup-field-lbl">Chemicals detected</div><div class="popup-field-val">${p.n_found} distinct</div></div>`;
+  const toc = (!isW && p.toc_max != null)
+    ? `<div class="popup-field"><div class="popup-field-lbl">Total Organic Conc.</div><div class="popup-field-val">latest ${p.toc_latest ?? '—'} · max ${p.toc_max} µg/L</div></div>` : '';
+  const near = (isW && p.nearest_hazard)
+    ? `<div class="popup-field"><div class="popup-field-lbl">Nearest hazard site</div><div class="popup-field-val">${p.nearest_hazard}${p.nearest_m!=null?` (${Math.round(p.nearest_m)} m)`:''}</div></div>` : '';
+  return `<div class="popup-inner">
+    <div class="popup-tags"><span class="popup-tag" style="background:${tagc}22;color:${tagc};border:1px solid ${tagc}44">${title}</span></div>
+    <div class="popup-name">${p.well_id || 'Well'}</div>
+    <div class="popup-addr">${sub}${yr?` · latest ${yr}`:''}</div>
+    ${chem}${toc}${near}
+  </div>`;
+}
+function renderWells(features, layer, filterChem) {
+  layer.clearLayers();
+  features.forEach(f => {
+    const p = f.properties;
+    if (filterChem && !(p.chems || []).includes(filterChem)) return;
+    const [lon, lat] = f.geometry.coordinates;
+    L.marker([lat, lon], { icon: dropletIcon(p.n_found, p.src), pane: 'wellsPane' })
+      .bindPopup(wellPopup(p), { maxWidth: 300 }).addTo(layer);
+  });
+}
+const WELL_CHEM_PRIORITY = ['Trichloroethene (TCE)','Tetrachloroethene (PCE)','Vinyl chloride','Benzene','Arsenic','Lead','Mercury','PFAS (PFOA/PFOS)','PCBs','Dioxins / furans','Benzo(a)pyrene','Chromium','Cadmium'];
+function wellChemCount(cx) { return [...wellsWqpF, ...wellsDecF].filter(f => (f.properties.chems || []).includes(cx)).length; }
+function populateWellDropdown() {
+  const sel = document.getElementById('well-select');
+  const total = wellsWqpF.length + wellsDecF.length;
+  sel.querySelector('option').textContent = `All wells (${total})`;
+  const present = new Set([...wellsWqpF, ...wellsDecF].flatMap(f => f.properties.chems || []));
+  const grp = (label, names) => {
+    const list = names.filter(n => present.has(n));
+    if (!list.length) return;
+    const og = document.createElement('optgroup'); og.label = label;
+    list.sort((a,b) => wellChemCount(b) - wellChemCount(a));
+    list.forEach(n => { const o = document.createElement('option'); o.value = n; o.textContent = `${n} (${wellChemCount(n)})`; og.appendChild(o); });
+    sel.appendChild(og);
+  };
+  grp('Priority contaminants', WELL_CHEM_PRIORITY);
+  grp('Also detected', [...present].filter(n => !WELL_CHEM_PRIORITY.includes(n)));
+  sel.addEventListener('change', () => filterWells(sel.value));
+  // size legend
+  const leg = document.getElementById('well-size-legend');
+  leg.innerHTML = [1,10,40].map(n => {
+    const h = wellHeight(n), w = h*0.72;
+    return `<div class="wsl"><svg width="${w}" height="${h}" viewBox="0 0 24 32"><path d="M12 1 C12 1 3 14 3 21 a9 9 0 0 0 18 0 C21 14 12 1 12 1 Z" fill="#3fc0f0" fill-opacity="0.82" stroke="#0a5a80" stroke-width="1.6"/></svg><span>${n}</span></div>`;
+  }).join('') + `<div class="wsl" style="align-self:center"><span>chemicals<br>detected</span></div>`;
+}
+function filterWells(cx) {
+  renderWells(wellsWqpF, layers.wellsWqp, cx);
+  renderWells(wellsDecF, layers.wellsDec, cx);
+  const note = document.getElementById('well-note');
+  note.innerHTML = cx
+    ? `Showing wells where <b>${cx}</b> was detected (${wellChemCount(cx)} of ${wellsWqpF.length + wellsDecF.length}). Turn a well layer on above to see them.`
+    : 'Shows wells where the selected contaminant was <em>detected</em>. Turn a well layer on above to see results.';
 }
 
 loadAll().catch(err => {
