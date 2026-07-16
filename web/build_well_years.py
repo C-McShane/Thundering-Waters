@@ -32,9 +32,10 @@ DEC_SITES = {
 }
 
 def build_dec():
-    from wellextract import extract
+    from wellextract import extract, _agg_conc
     import time
-    raw = {}
+    raw = {}          # well -> analyte -> set(years)         (for the year filter)
+    rawc = {}         # well -> analyte -> year -> (val,status)  (for the pop-up plots)
     t0 = time.time()
     for site, files in DEC_SITES.items():
         for fn in files:
@@ -44,8 +45,13 @@ def build_dec():
                 wd = raw.setdefault(wid, {})
                 for chem, years in rec["found_by_year"].items():
                     wd.setdefault(chem, set()).update(years)
+                wc = rawc.setdefault(wid, {})
+                for analyte, yd in rec["conc"].items():
+                    ad = wc.setdefault(analyte, {})
+                    for yr, vs in yd.items():
+                        ad[yr] = _agg_conc(ad.get(yr), vs)
             print(f"  {fn}: {len(wells)} wells in {time.time()-t1:.0f}s", flush=True)
-    # fold raw analyte names through the curated lexicon
+    # fold analyte names through the curated lexicon (year data)
     out = {}
     for wid, chems in raw.items():
         for rawchem, years in chems.items():
@@ -54,7 +60,18 @@ def build_dec():
                 out.setdefault(wid, {}).setdefault(cur, set()).update(years)
     serial = {w: {c: sorted(y) for c, y in d.items()} for w, d in out.items()}
     json.dump(serial, open(os.path.join(CSV, 'Niagara_DEC_Wells_ChemYears.json'), 'w'), separators=(',', ':'))
-    print(f"DEC done in {time.time()-t0:.0f}s | {len(serial)} wells with curated chem-year data")
+    # fold analyte names through the curated lexicon (concentration series)
+    conc = {}   # well -> curated -> year -> (val,status)
+    for wid, analytes in rawc.items():
+        for analyte, yd in analytes.items():
+            cur = curated_name(analyte)
+            if not cur: continue
+            cd = conc.setdefault(wid, {}).setdefault(cur, {})
+            for yr, vs in yd.items():
+                cd[yr] = _agg_conc(cd.get(yr), vs)
+    conc_serial = {w: {c: {str(y): [v, s] for y, (v, s) in yd.items()} for c, yd in d.items()} for w, d in conc.items()}
+    json.dump(conc_serial, open(os.path.join(CSV, 'Niagara_DEC_Wells_ConcSeries.json'), 'w'), separators=(',', ':'))
+    print(f"DEC done in {time.time()-t0:.0f}s | {len(serial)} wells (years), {len(conc_serial)} wells (conc)")
 
 # ── WQP: per-year (station, chemical) from the raw result pull ─────────────────
 def build_wqp():
@@ -70,6 +87,44 @@ def build_wqp():
             out.setdefault(station, {})[chem] = years
     json.dump(out, open(os.path.join(CSV, 'Niagara_WQP_Wells_ChemYears.json'), 'w'), separators=(',', ':'))
     print(f"WQP done | {len(out)} stations with curated chem-year data")
+
+# ── WQP: per-year concentration series (values + non-detect limits), from raw zip ──
+def build_wqp_conc():
+    import pandas as pd, zipfile
+    from wellextract import _agg_conc
+    WATER_UNITS = {'ug/l', 'ug/L', 'mg/l', 'mg/L'}           # water-phase only; drop sediment mg/kg
+    TO_UGL = {'mg/l': 1000.0, 'mg/L': 1000.0}                # normalise to µg/L
+    zf = zipfile.ZipFile(os.path.join(CSV, '_wqp_raw_results.zip'))
+    with zf.open(zf.namelist()[0]) as fh:
+        r = pd.read_csv(fh, dtype=str, low_memory=False)
+    r = r[r['ActivityMediaName'] == 'Water'].copy()
+    r['curated'] = r['CharacteristicName'].map(curated_name)
+    r = r[r['curated'].notna()]
+    r = r[r['ResultMeasure/MeasureUnitCode'].isin(WATER_UNITS)].copy()
+    r['year'] = pd.to_datetime(r['ActivityStartDate'], errors='coerce').dt.year
+    r = r[r['year'].notna()]
+    r['val'] = pd.to_numeric(r['ResultMeasureValue'], errors='coerce')
+    r['dl']  = pd.to_numeric(r['DetectionQuantitationLimitMeasure/MeasureValue'], errors='coerce')
+    cond = r['ResultDetectionConditionText'].fillna('')
+    r['nd'] = cond.str.contains('not detected|non-detect|below', case=False) | (r['val'].isna() & r['dl'].notna())
+    r['mult'] = r['ResultMeasure/MeasureUnitCode'].map(TO_UGL).fillna(1.0)
+    conc = {}   # station -> curated -> year -> (value,status)
+    for row in r.itertuples(index=False):
+        if row.nd:
+            lim = row.dl if pd.notna(row.dl) else row.val
+            if pd.isna(lim): continue
+            sample = (float(lim) * row.mult, 'nondetect')
+        else:
+            if pd.isna(row.val): continue
+            sample = (float(row.val) * row.mult, 'detect')
+        yd = conc.setdefault(row.MonitoringLocationIdentifier, {}).setdefault(row.curated, {})
+        y = str(int(row.year))
+        yd[y] = _agg_conc(yd.get(y), sample)
+    serial = {st: {c: {y: [round(v, 4) if v is not None else None, s] for y, (v, s) in yd.items()}
+                   for c, yd in d.items()} for st, d in conc.items()}
+    json.dump(serial, open(os.path.join(CSV, 'Niagara_WQP_Wells_ConcSeries.json'), 'w'), separators=(',', ':'))
+    n_pairs = sum(len(v) for v in serial.values())
+    print(f"WQP conc done | {len(serial)} stations, {n_pairs} station-chemical series")
 
 # ── S-Area: per-year Total Organic Concentration (position-based table parse) ──
 PROG = {36: "V-Area (Table 2.3)", 44: "Shallow Bedrock SBCP (Table 3.7)",

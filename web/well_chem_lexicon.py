@@ -46,7 +46,8 @@ def chems_of(txt):
 def curated_name(raw_chemical_name):
     """Map one raw analyte name (e.g. from a DEC table or WQP CharacteristicName)
     to its curated category, or None if it doesn't match any curated chemical."""
+    s = raw_chemical_name if isinstance(raw_chemical_name, str) else ''
     for n, rx in CHEM_RX:
-        if rx.search(raw_chemical_name or ''):
+        if rx.search(s):
             return n
     return None

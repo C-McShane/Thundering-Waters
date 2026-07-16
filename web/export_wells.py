@@ -27,6 +27,8 @@ def _load(name):
 DEC_YEARS  = _load('Niagara_DEC_Wells_ChemYears.json')
 WQP_YEARS  = _load('Niagara_WQP_Wells_ChemYears.json')
 TOC_YEARS  = _load('Niagara_SArea_TOC_Years.json')
+DEC_CONC   = _load('Niagara_DEC_Wells_ConcSeries.json')      # {well:{chem:{year:[val,status]}}}
+WQP_CONC   = _load('Niagara_WQP_Wells_ConcSeries.json')      # {station:{chem:{year:[val,status]}}}
 
 def strip_header(blob):
     flags = blob[3]; env = (flags >> 1) & 0x07
@@ -55,6 +57,8 @@ for r in cur.fetchall():
         'chems': chems_of(cf), 'src': 'WQP'}
     cy = WQP_YEARS.get(safe(r[1]))
     if cy: props['chems_years'] = cy
+    cs = WQP_CONC.get(safe(r[1]))
+    if cs: props['conc_series'] = cs
     feats.append({'type':'Feature','geometry':{'type':'Point','coordinates':pt(r[0])},'properties':props})
 json.dump({'type':'FeatureCollection','features':feats}, open(os.path.join(outdir,'wells_wqp.geojson'),'w'), separators=(',',':'))
 print(f'WQP wells: {len(feats)} ({sum(1 for f in feats if f["properties"]["chems"])} with a curated chemical)')
@@ -75,6 +79,8 @@ for r in cur.fetchall():
         'chems': chems_of(cf), 'src': 'DEC'}
     cy = DEC_YEARS.get(wid)
     if cy: props['chems_years'] = cy
+    cs = DEC_CONC.get(wid)
+    if cs: props['conc_series'] = cs
     ts = TOC_YEARS.get(wid)
     if ts: props['toc_series'] = {int(k): v for k, v in ts.items()}
     feats.append({'type':'Feature','geometry':{'type':'Point','coordinates':pt(r[0])},'properties':props})

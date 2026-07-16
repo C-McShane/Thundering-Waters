@@ -55,6 +55,35 @@ def is_detect(cell):
     if any(re.fullmatch(r"\d*\.?\d+",t) for t in toks): return True
     return None
 
+def cell_value(cell):
+    """Return (value, status) for a result cell. status: 'detect' | 'nondetect' | 'none'.
+    '34 J'->(34,detect)  '5.0 U'/'<5.0'->(5.0,nondetect: the number IS the detection limit)
+    'R'/'--'/'NS'->(None,none)  bare 'ND'->(None,nondetect, no limit)."""
+    if not cell: return (None,'none')
+    toks=cell.split()
+    if any(t in ('R','UR','NS','NR','--','-') for t in toks): return (None,'none')
+    num=None
+    for t in toks:
+        tt=t.lstrip('<').replace(',','')
+        if re.fullmatch(r"\d*\.?\d+", tt): num=float(tt); break
+    if num is None:
+        if any(t in ('ND','U','UJ') for t in toks): return (None,'nondetect')
+        return (None,'none')
+    nd = any(t in ('U','UJ','U*') for t in toks) or any(t.startswith('<') for t in toks)
+    return (num, 'nondetect' if nd else 'detect')
+
+def _agg_conc(a, b):
+    """Combine two (value,status) samples for the same analyte/year: a detection beats a
+    non-detect; among detections take the max; among non-detects take the lowest limit."""
+    if a is None: return b
+    if b is None: return a
+    (va,sa),(vb,sb)=a,b
+    if sa=='detect' and sb=='detect':
+        vals=[v for v in (va,vb) if v is not None]; return (max(vals) if vals else None,'detect')
+    if sa=='detect': return a
+    if sb=='detect': return b
+    vals=[v for v in (va,vb) if v is not None]; return (min(vals) if vals else None,'nondetect')
+
 def parse_page(page):
     lines=words_by_line(page); wells=header(lines)
     if not wells: return None
@@ -77,8 +106,8 @@ def parse_page(page):
             xc=(w["x0"]+w["x1"])/2
             for k,(lo,hi) in enumerate(bounds):
                 if lo<=xc<hi: col_year[k]=y; break
-    # per column accumulate detects/tested
-    cols=[{"id":ids[k],"year":col_year[k],"detects":set(),"tested":set()} for k in range(len(ids))]
+    # per column accumulate detects/tested + numeric values
+    cols=[{"id":ids[k],"year":col_year[k],"detects":set(),"tested":set(),"values":{}} for k in range(len(ids))]
     for ln in lines:
         ui=None
         for j,w in enumerate(ln):
@@ -95,15 +124,20 @@ def parse_page(page):
             for k,(lo,hi) in enumerate(bounds):
                 if lo<=xc<hi: cell[k].append(w["text"]); break
         for k in range(len(ids)):
-            d=is_detect(" ".join(cell[k]).strip())
+            cs=" ".join(cell[k]).strip()
+            d=is_detect(cs)
             if d is not None: cols[k]["tested"].add(analyte)
             if d: cols[k]["detects"].add(analyte)
+            val,status=cell_value(cs)
+            if status!='none':
+                cols[k]["values"][analyte]=_agg_conc(cols[k]["values"].get(analyte),(val,status))
     return cols
 
 def extract(pdf_path):
     """returns {well_id: {'found':set,'tested':set,'years':set,'detect_years':set,
-    'found_by_year':{chemical:set(years)}}}. found_by_year is the per-(chemical,year)
-    detection detail — needed to answer "which wells had chemical X detected by year Y"."""
+    'found_by_year':{chemical:set(years)}, 'conc':{analyte:{year:(value,status)}}}}.
+    found_by_year answers "which wells had chemical X detected by year Y"; conc adds the
+    numeric concentration series (value + detect/nondetect) for the pop-up plots."""
     wells={}
     with pdfplumber.open(pdf_path) as pdf:
         for page in pdf.pages:
@@ -113,14 +147,18 @@ def extract(pdf_path):
             if not cols: continue
             for c in cols:
                 w=wells.setdefault(c["id"],{"found":set(),"tested":set(),"years":set(),
-                                             "detect_years":set(),"found_by_year":{}})
+                                             "detect_years":set(),"found_by_year":{},"conc":{}})
                 w["found"].update(c["detects"]); w["tested"].update(c["tested"])
                 if c["year"] is not None:
-                    if c["tested"] or c["detects"]: w["years"].add(c["year"])
+                    yr=c["year"]
+                    if c["tested"] or c["detects"]: w["years"].add(yr)
                     if c["detects"]:
-                        w["detect_years"].add(c["year"])
+                        w["detect_years"].add(yr)
                         for chem in c["detects"]:
-                            w["found_by_year"].setdefault(chem,set()).add(c["year"])
+                            w["found_by_year"].setdefault(chem,set()).add(yr)
+                    for analyte,(val,status) in c["values"].items():
+                        yd=w["conc"].setdefault(analyte,{})
+                        yd[yr]=_agg_conc(yd.get(yr),(val,status))
     return wells
 
 if __name__=="__main__":
