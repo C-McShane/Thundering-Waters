@@ -327,6 +327,11 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .conc-plot-legend { font-size: 9px; color: var(--muted); margin-top: 3px; font-family: var(--mono); }
 .conc-plot-legend .cd { color: #e0554e; } .conc-plot-legend .cn { color: #9aa4b2; }
 .conc-plot-note { font-size: 10px; color: var(--muted); margin-top: 7px; font-family: var(--mono); }
+.chem-trend-panel { background: var(--surface); border: 1px solid var(--border2); border-radius: 6px; padding: 8px 10px 7px; box-shadow: 0 2px 14px rgba(0,0,0,.55); width: 232px; }
+.ctp-title { font-family: var(--mono); font-size: 11px; color: var(--text); margin-bottom: 4px; }
+.ctp-title b { color: #e0554e; }
+.ctp-sub { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-top: 3px; }
+@media (max-width: 640px) { .chem-trend-panel { width: 190px; } }
 .well-size-legend { display: flex; align-items: flex-end; gap: 14px; margin: 10px 2px 4px; }
 .well-size-legend .wsl { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--dim); font-size: 9px; font-family: var(--mono); }
 .rad-note { font-size: 10px; color: var(--dim); line-height: 1.5; margin-bottom: 8px; }
@@ -1166,7 +1171,61 @@ function filterWells(cx, year) {
     const yearTxt = year != null ? ` by <b>${year}</b> or earlier` : '';
     note.innerHTML = `Showing wells where ${chemTxt} was detected${yearTxt} (${matched} of ${total}). Turn a well layer on above to see them.`;
   }
+  updateChemTrend();
 }
+
+// ── CHEMICAL SPREAD PANEL ────────────────────────────────────────────────────
+// A floating chart that appears when a chemical is selected (and a well layer is on),
+// showing the cumulative number of wells that had detected that chemical by each year
+// — the same count the year slider paints on the map, as one spread curve. It updates
+// when the chemical or the visible layers change, and hides when neither applies.
+let chemTrendEl = null;
+const chemTrendControl = L.control({ position: 'bottomleft' });
+chemTrendControl.onAdd = function () {
+  chemTrendEl = L.DomUtil.create('div', 'chem-trend-panel');
+  chemTrendEl.style.display = 'none';
+  L.DomEvent.disableClickPropagation(chemTrendEl);
+  L.DomEvent.disableScrollPropagation(chemTrendEl);
+  return chemTrendEl;
+};
+function onWellSources() {
+  const s = [];
+  if (map.hasLayer(layers.wellsWqp)) s.push(...wellsWqpF);
+  if (map.hasLayer(layers.wellsDec)) s.push(...wellsDecF);
+  return s;
+}
+function chemTrendSVG(chem, years, counts, total) {
+  const W = 214, H = 116, x0 = 30, x1 = W - 8, yT = 24, yB = H - 18;
+  const y0 = years[0], y1 = years[years.length - 1];
+  const sx = yr => y1 === y0 ? (x0 + x1) / 2 : x0 + (yr - y0) / (y1 - y0) * (x1 - x0);
+  const cmax = Math.max(...counts, 1);
+  const sy = c => yB - c / cmax * (yB - yT);
+  const linePts = counts.map((c, i) => `${sx(years[i]).toFixed(1)},${sy(c).toFixed(1)}`).join(' ');
+  const area = `${x0},${yB} ${linePts} ${x1},${yB}`;
+  return `<div class="ctp-title">Wells detecting <b>${chem}</b></div>`
+    + `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`
+    + `<polygon points="${area}" fill="#d1332e30"/>`
+    + `<polyline points="${linePts}" fill="none" stroke="#d1332e" stroke-width="1.8"/>`
+    + `<line x1="${x0}" y1="${yB}" x2="${x1}" y2="${yB}" stroke="#ffffff22" stroke-width="0.5"/>`
+    + `<text x="${x0 - 3}" y="${yB + 3}" text-anchor="end" font-size="8" fill="#9aa4b2">0</text>`
+    + `<text x="${x0 - 3}" y="${(sy(cmax) + 3).toFixed(1)}" text-anchor="end" font-size="8" fill="#9aa4b2">${cmax}</text>`
+    + `<text x="${x0}" y="${H - 5}" font-size="8" fill="#9aa4b2">${y0}</text>`
+    + `<text x="${x1}" y="${H - 5}" text-anchor="end" font-size="8" fill="#9aa4b2">${y1}</text>`
+    + `</svg><div class="ctp-sub">cumulative · ${total} well${total === 1 ? '' : 's'} total</div>`;
+}
+function updateChemTrend() {
+  if (!chemTrendEl) return;
+  const cx = (document.getElementById('well-select') || {}).value || '';
+  const feats = cx ? onWellSources().filter(f => f.properties.chems_years && f.properties.chems_years[cx]) : [];
+  if (!cx || !feats.length) { chemTrendEl.style.display = 'none'; return; }
+  const allYrs = feats.flatMap(f => f.properties.chems_years[cx]);
+  const y0 = Math.min(...allYrs), y1 = Math.max(...allYrs);
+  const years = []; for (let y = y0; y <= y1; y++) years.push(y);
+  const counts = years.map(y => feats.filter(f => f.properties.chems_years[cx].some(d => d <= y)).length);
+  chemTrendEl.innerHTML = chemTrendSVG(cx, years, counts, feats.length);
+  chemTrendEl.style.display = 'block';
+}
+chemTrendControl.addTo(map);
 
 // ── S-AREA: TOC INTENSITY OVER TIME ──────────────────────────────────────────
 // S-Area's wells report Total Organic Concentration (a single aggregate number),
@@ -1238,6 +1297,7 @@ document.querySelectorAll('.toggle-check').forEach(cb => {
       map.removeLayer(layers[key]);
       toggle.classList.remove('active');
     }
+    if (key === 'wellsWqp' || key === 'wellsDec') updateChemTrend();
   });
 });
 
