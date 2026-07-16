@@ -327,6 +327,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .conc-plot-legend { font-size: 9px; color: var(--muted); margin-top: 3px; font-family: var(--mono); }
 .conc-plot-legend .cd { color: #e0554e; } .conc-plot-legend .cn { color: #9aa4b2; }
 .conc-plot-note { font-size: 10px; color: var(--muted); margin-top: 7px; font-family: var(--mono); }
+.popup-loc { font-size: 10px; line-height: 1.4; color: #d69a5a; margin-top: 9px; padding-top: 7px; border-top: 1px solid #ffffff14; }
 .chem-trend-panel { background: var(--surface); border: 1px solid var(--border2); border-radius: 6px; padding: 8px 10px 7px; box-shadow: 0 2px 14px rgba(0,0,0,.55); width: 232px; }
 .ctp-title { font-family: var(--mono); font-size: 11px; color: var(--text); margin-bottom: 4px; }
 .ctp-title b { color: #e0554e; }
@@ -509,7 +510,14 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <span class="toggle-count">253 pts</span>
     </label>
 
-    <div class="chem-note">Each <b>water droplet</b> is a well or sampling station — a blue rim (the water) around a red core (the contamination). Droplet <b>size = number of distinct chemicals detected</b> at that well. <span style="color:#e0554e">Bright red</span> = USGS/EPA Water Quality Portal; <span style="color:#b83a48">deep red</span> = NYSDEC remediation-report wells.</div>
+    <label class="layer-toggle" id="toggle-wellsLegacy">
+      <input type="checkbox" class="toggle-check" data-layer="wellsLegacy">
+      <span class="toggle-swatch" style="background:#d67a1e; border:2px solid #4db8f0;"></span>
+      <span class="toggle-label">Legacy-site wells</span>
+      <span class="toggle-count">68 pts</span>
+    </label>
+
+    <div class="chem-note">Each <b>water droplet</b> is a well or sampling station — a blue rim (the water) around a red core (the contamination). Droplet <b>size = number of distinct chemicals detected</b> at that well. <span style="color:#e0554e">Bright red</span> = USGS/EPA Water Quality Portal; <span style="color:#b83a48">deep red</span> = NYSDEC remediation-report wells; <span style="color:#d67a1e">amber</span> = legacy hazardous/radioactive sites (Hyde Park, Forest Glen, Niagara Falls Storage Site, and others). Most amber wells are grouped at their <b>site's approximate location</b> — the original reports give no surveyed well coordinates; each popup's <b>⚑ note</b> says how that well was placed.</div>
 
     <div class="well-size-legend" id="well-size-legend"></div>
 
@@ -778,6 +786,7 @@ const layers = {
   radioactive: L.layerGroup(),              // off by default (isotope sub-filters)
   wellsWqp:    L.layerGroup(),              // off by default (Monitoring Wells tab)
   wellsDec:    L.layerGroup(),              // off by default (Monitoring Wells tab)
+  wellsLegacy: L.layerGroup(),              // off by default (Monitoring Wells tab)
   sareaToc:    L.layerGroup(),              // off by default (S-Area TOC-over-time selector); independent
                                              // of the wellsDec toggle/filter so the two features don't collide
 };
@@ -847,7 +856,7 @@ let allSiteFeatures = [];
 async function loadAll() {
   // revalidate data files so an updated map never renders against a stale cached GeoJSON
   const gj = u => fetch(u, { cache: 'no-cache' }).then(r => r.json());
-  const [sitesData, tractsData, izData, roadsData, cancerGeo, waterData, wellsWqpData, wellsDecData] = await Promise.all([
+  const [sitesData, tractsData, izData, roadsData, cancerGeo, waterData, wellsWqpData, wellsDecData, wellsLegacyData] = await Promise.all([
     gj('data/hazard_sites.geojson'),
     gj('data/census_tracts.geojson'),
     gj('data/impact_zone.geojson'),
@@ -856,6 +865,7 @@ async function loadAll() {
     gj('data/water.geojson'),
     gj('data/wells_wqp.geojson'),
     gj('data/wells_dec.geojson'),
+    gj('data/wells_legacy.geojson'),
   ]);
   cancerData = cancerGeo;
 
@@ -965,8 +975,10 @@ async function loadAll() {
   // Monitoring wells (off by default; toggled from the Monitoring Wells tab)
   wellsWqpF = wellsWqpData.features;
   wellsDecF = wellsDecData.features;
+  wellsLegacyF = wellsLegacyData.features;
   renderWells(wellsWqpF, layers.wellsWqp);
   renderWells(wellsDecF, layers.wellsDec);
+  renderWells(wellsLegacyF, layers.wellsLegacy);
   populateWellDropdown();
   populateWellYearDropdown();
   populateSAreaTocYearDropdown();
@@ -1000,11 +1012,11 @@ function renderSites(features) {
 // Water-droplet symbol, height scaled by the number of chemicals detected at the
 // well (sqrt so a well with 100 detects isn't 100× a well with 1). Two sources
 // coloured distinctly; a shared chemical dropdown filters both.
-let wellsWqpF = [], wellsDecF = [];
+let wellsWqpF = [], wellsDecF = [], wellsLegacyF = [];
 // Water-drop symbol: blue rim (the water) + blood-red core (the contamination).
 // WQP = bright red, DEC = deep blood-red, so the two sources stay distinguishable.
 const WELL_OUTLINE = '#4db8f0';                                   // blue rim (echoes the Rivers & Water layer)
-const WELL_COLORS = { WQP: ['#d1332e', WELL_OUTLINE], DEC: ['#8b1a2b', WELL_OUTLINE] };
+const WELL_COLORS = { WQP: ['#d1332e', WELL_OUTLINE], DEC: ['#8b1a2b', WELL_OUTLINE], LEGACY: ['#d67a1e', WELL_OUTLINE] };
 function wellHeight(n) { return Math.min(44, 13 + 3.0 * Math.sqrt(n || 0)); }
 function dropletSVG(h, fill, stroke) {
   const w = h * 0.72;
@@ -1019,7 +1031,8 @@ function dropletIcon(n, src) {
 // concPlotSVG: a small log-scale concentration-vs-year chart for one well+chemical.
 // series = { "year": [value, "detect"|"nondetect"] }. Detected points join into a red
 // line; non-detects show as hollow markers at their detection limit (tested-but-clean).
-function concPlotSVG(series, title) {
+function concPlotSVG(series, title, unit) {
+  unit = unit || 'µg/L';
   const yrs = Object.keys(series).map(Number).sort((a, b) => a - b);
   const pts = yrs.map(y => ({ yr: y, v: series[String(y)][0], nd: series[String(y)][1] === 'nondetect' }));
   const pos = pts.filter(p => p.v != null && p.v > 0).map(p => p.v);
@@ -1053,14 +1066,14 @@ function concPlotSVG(series, title) {
   const xlab = `<text x="${x0}" y="${H - 6}" font-size="8" fill="#9aa4b2">${yr0}</text>`
     + `<text x="${x1}" y="${H - 6}" text-anchor="end" font-size="8" fill="#9aa4b2">${yr1}</text>`;
   const hasND = pts.some(p => p.nd && p.v != null);
-  return `<div class="conc-plot"><div class="conc-plot-title">${title} · µg/L (log)</div>`
+  return `<div class="conc-plot"><div class="conc-plot-title">${title} · ${unit} (log)</div>`
     + `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${grid}${line}${dots}${xlab}</svg>`
     + `<div class="conc-plot-legend"><span class="cd">● detected</span>${hasND ? '  <span class="cn">○ non-detect (limit)</span>' : ''}</div></div>`;
 }
 function wellPlotBlock(p) {
   const sel = document.getElementById('well-select');
   const cx = sel ? sel.value : '';
-  if (cx && p.conc_series && p.conc_series[cx]) return concPlotSVG(p.conc_series[cx], cx);
+  if (cx && p.conc_series && p.conc_series[cx]) return concPlotSVG(p.conc_series[cx], cx, (p.conc_units || {})[cx]);
   if (p.toc_series) {                                            // S-Area: aggregate TOC, no per-chemical
     const s = {}; Object.keys(p.toc_series).forEach(y => s[y] = [p.toc_series[y], 'detect']);
     return concPlotSVG(s, 'Total Organic Concentration');
@@ -1069,24 +1082,35 @@ function wellPlotBlock(p) {
   return '';
 }
 function wellPopup(p) {
-  const isW = p.src === 'WQP';
-  const title = isW ? 'Water Quality Portal' : (p.site || 'NYSDEC cleanup site');
-  const tagc = isW ? '#e0554e' : '#c65a68';
-  const sub = isW ? (p.site_type || 'Sampling station') : (p.well_role || 'Monitoring well');
+  const isW = p.src === 'WQP', isL = p.src === 'LEGACY';
+  const title = isW ? 'Water Quality Portal' : isL ? (p.site || 'Legacy hazardous site') : (p.site || 'NYSDEC cleanup site');
+  const tagc = isW ? '#e0554e' : isL ? '#d67a1e' : '#c65a68';
+  const sub = isW ? (p.site_type || 'Sampling station')
+                  : isL ? (p.well_desc || p.well_role || 'Monitoring well')
+                        : (p.well_role || 'Monitoring well');
   const yr = p.latest_detect || p.latest_year;
   const chem = p.chemicals_found
     ? `<div class="popup-field"><div class="popup-field-lbl">Chemicals detected (${p.n_found})</div><div class="popup-field-val">${p.chemicals_found.substring(0,160)}${p.chemicals_found.length>160?'…':''}</div></div>`
     : `<div class="popup-field"><div class="popup-field-lbl">Chemicals detected</div><div class="popup-field-val">${p.n_found} distinct</div></div>`;
-  const toc = (!isW && p.toc_max != null)
+  const toc = (!isW && !isL && p.toc_max != null)
     ? `<div class="popup-field"><div class="popup-field-lbl">Total Organic Conc.</div><div class="popup-field-val">latest ${p.toc_latest ?? '—'} · max ${p.toc_max} µg/L</div></div>` : '';
   const near = (isW && p.nearest_hazard)
     ? `<div class="popup-field"><div class="popup-field-lbl">Nearest hazard site</div><div class="popup-field-val">${p.nearest_hazard}${p.nearest_m!=null?` (${Math.round(p.nearest_m)} m)`:''}</div></div>` : '';
+  const cp = p.coord_precision || '';
+  const corridor = p.program_number === '932156'
+    ? ` These wells span the multi-mile Eighteenmile Creek corridor; they are shown clustered, not at their true spread.` : '';
+  const loc = /map_relative/.test(cp)
+    ? `<div class="popup-loc">⚑ Well layout traced from the site's surveyed map, so the wells' <b>positions relative to each other</b> are accurate; the cluster is anchored to the site's street address, so its absolute position on this map is approximate.</div>`
+    : /centroid|approx/.test(cp)
+    ? `<div class="popup-loc">⚑ Approximate location — the source report gives no surveyed well coordinates, so this well is grouped at the site's mapped location.${corridor}</div>`
+    : '';
   return `<div class="popup-inner">
     <div class="popup-tags"><span class="popup-tag" style="background:${tagc}22;color:${tagc};border:1px solid ${tagc}44">${title}</span></div>
     <div class="popup-name">${p.well_id || 'Well'}</div>
     <div class="popup-addr">${sub}${yr?` · latest ${yr}`:''}</div>
     ${chem}${toc}${near}
     ${wellPlotBlock(p)}
+    ${loc}
   </div>`;
 }
 // wellPassesFilter: cx = curated chemical name or '' (any); year = integer or null (all time).
@@ -1114,16 +1138,16 @@ function renderWells(features, layer, filterChem, filterYear) {
   });
 }
 const WELL_CHEM_PRIORITY = ['Trichloroethene (TCE)','Tetrachloroethene (PCE)','Vinyl chloride','Benzene','Arsenic','Lead','Mercury','PFAS (PFOA/PFOS)','PCBs','Dioxins / furans','Benzo(a)pyrene','Chromium','Cadmium'];
-function wellChemCount(cx) { return [...wellsWqpF, ...wellsDecF].filter(f => (f.properties.chems || []).includes(cx)).length; }
+function wellChemCount(cx) { return [...wellsWqpF, ...wellsDecF, ...wellsLegacyF].filter(f => (f.properties.chems || []).includes(cx)).length; }
 function currentWellYear() {
   const v = document.getElementById('well-year-select').value;
   return v ? parseInt(v, 10) : null;
 }
 function populateWellDropdown() {
   const sel = document.getElementById('well-select');
-  const total = wellsWqpF.length + wellsDecF.length;
+  const total = wellsWqpF.length + wellsDecF.length + wellsLegacyF.length;
   sel.querySelector('option').textContent = `All wells (${total})`;
-  const present = new Set([...wellsWqpF, ...wellsDecF].flatMap(f => f.properties.chems || []));
+  const present = new Set([...wellsWqpF, ...wellsDecF, ...wellsLegacyF].flatMap(f => f.properties.chems || []));
   const grp = (label, names) => {
     const list = names.filter(n => present.has(n));
     if (!list.length) return;
@@ -1144,7 +1168,7 @@ function populateWellDropdown() {
 }
 function populateWellYearDropdown() {
   const sel = document.getElementById('well-year-select');
-  const allYears = [...wellsWqpF, ...wellsDecF]
+  const allYears = [...wellsWqpF, ...wellsDecF, ...wellsLegacyF]
     .flatMap(f => Object.values(f.properties.chems_years || {}))
     .flat();
   if (!allYears.length) return;
@@ -1161,9 +1185,10 @@ function populateWellYearDropdown() {
 function filterWells(cx, year) {
   renderWells(wellsWqpF, layers.wellsWqp, cx, year);
   renderWells(wellsDecF, layers.wellsDec, cx, year);
+  renderWells(wellsLegacyF, layers.wellsLegacy, cx, year);
   const note = document.getElementById('well-note');
-  const matched = [...wellsWqpF, ...wellsDecF].filter(f => wellPassesFilter(f.properties, cx, year)).length;
-  const total = wellsWqpF.length + wellsDecF.length;
+  const matched = [...wellsWqpF, ...wellsDecF, ...wellsLegacyF].filter(f => wellPassesFilter(f.properties, cx, year)).length;
+  const total = wellsWqpF.length + wellsDecF.length + wellsLegacyF.length;
   if (!cx && year == null) {
     note.innerHTML = 'Shows wells where the selected contaminant was <em>detected</em>. Turn a well layer on above to see results.';
   } else {
@@ -1192,6 +1217,7 @@ function onWellSources() {
   const s = [];
   if (map.hasLayer(layers.wellsWqp)) s.push(...wellsWqpF);
   if (map.hasLayer(layers.wellsDec)) s.push(...wellsDecF);
+  if (map.hasLayer(layers.wellsLegacy)) s.push(...wellsLegacyF);
   return s;
 }
 function chemTrendSVG(chem, years, counts, total) {
@@ -1297,7 +1323,7 @@ document.querySelectorAll('.toggle-check').forEach(cb => {
       map.removeLayer(layers[key]);
       toggle.classList.remove('active');
     }
-    if (key === 'wellsWqp' || key === 'wellsDec') updateChemTrend();
+    if (key === 'wellsWqp' || key === 'wellsDec' || key === 'wellsLegacy') updateChemTrend();
   });
 });
 
