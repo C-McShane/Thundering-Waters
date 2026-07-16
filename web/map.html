@@ -328,6 +328,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .conc-plot-legend .cd { color: #e0554e; } .conc-plot-legend .cn { color: #9aa4b2; }
 .conc-plot-note { font-size: 10px; color: var(--muted); margin-top: 7px; font-family: var(--mono); }
 .popup-loc { font-size: 10px; line-height: 1.4; color: #d69a5a; margin-top: 9px; padding-top: 7px; border-top: 1px solid #ffffff14; }
+.conc-plot-hint { font-size: 9.5px; line-height: 1.35; color: var(--muted); margin-top: 3px; font-style: italic; }
 .chem-trend-panel { background: var(--surface); border: 1px solid var(--border2); border-radius: 6px; padding: 8px 10px 7px; box-shadow: 0 2px 14px rgba(0,0,0,.55); width: 232px; }
 .ctp-title { font-family: var(--mono); font-size: 11px; color: var(--text); margin-bottom: 4px; }
 .ctp-title b { color: #e0554e; }
@@ -1070,6 +1071,18 @@ function concPlotSVG(series, title, unit) {
     + `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${grid}${line}${dots}${xlab}</svg>`
     + `<div class="conc-plot-legend"><span class="cd">● detected</span>${hasND ? '  <span class="cn">○ non-detect (limit)</span>' : ''}</div></div>`;
 }
+// headlineChem: the chemical with the highest DETECTED concentration at this well —
+// used to show a plot by default (no chemical picked yet) so every well with numeric
+// data surfaces its worst contaminant on click, not just after using the filter.
+function headlineChem(series) {
+  let best = null, bestPeak = -1;
+  for (const [chem, yd] of Object.entries(series)) {
+    for (const v of Object.values(yd)) {
+      if (v[1] === 'detect' && v[0] != null && v[0] > bestPeak) { bestPeak = v[0]; best = chem; }
+    }
+  }
+  return bestPeak > 0 ? best : null;
+}
 function wellPlotBlock(p) {
   const sel = document.getElementById('well-select');
   const cx = sel ? sel.value : '';
@@ -1077,6 +1090,11 @@ function wellPlotBlock(p) {
   if (p.toc_series) {                                            // S-Area: aggregate TOC, no per-chemical
     const s = {}; Object.keys(p.toc_series).forEach(y => s[y] = [p.toc_series[y], 'detect']);
     return concPlotSVG(s, 'Total Organic Concentration');
+  }
+  if (!cx && p.conc_series) {                                    // nothing picked → show the headline contaminant
+    const hc = headlineChem(p.conc_series);
+    if (hc) return concPlotSVG(p.conc_series[hc], hc, (p.conc_units || {})[hc])
+      + `<div class="conc-plot-hint">Highest-concentration contaminant. Pick another from the “Filter Wells by Chemical” menu.</div>`;
   }
   if (cx && p.chems && p.chems.includes(cx)) return `<div class="conc-plot-note">${cx} detected here, but no numeric time series is available for this well.</div>`;
   return '';
