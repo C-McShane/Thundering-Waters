@@ -318,8 +318,8 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .chem-note b { color: var(--text); }
 .chem-note .elev { color: var(--amber); font-weight: 600; }
 /* ── MONITORING WELLS ── */
-#well-select { width: 100%; background: var(--bg); border: 1px solid var(--border2); border-radius: 3px; padding: 8px 10px; font-family: var(--mono); font-size: 11px; color: var(--text); outline: none; cursor: pointer; }
-#well-select:focus { border-color: var(--blue2); }
+#well-select, #well-year-select, #sarea-toc-year-select { width: 100%; background: var(--bg); border: 1px solid var(--border2); border-radius: 3px; padding: 8px 10px; font-family: var(--mono); font-size: 11px; color: var(--text); outline: none; cursor: pointer; }
+#well-select:focus, #well-year-select:focus, #sarea-toc-year-select:focus { border-color: var(--blue2); }
 .well-droplet { background: none; border: none; }
 .well-size-legend { display: flex; align-items: flex-end; gap: 14px; margin: 10px 2px 4px; }
 .well-size-legend .wsl { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--dim); font-size: 9px; font-family: var(--mono); }
@@ -504,7 +504,16 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
     <div class="section-label" style="margin-top:20px;">Filter Wells by Chemical</div>
     <select id="well-select"><option value="">All wells</option></select>
+
+    <div class="section-label" style="margin-top:14px;">...by Year</div>
+    <select id="well-year-select"><option value="">All years</option></select>
     <div class="chem-note" id="well-note">Shows wells where the selected contaminant was <em>detected</em>. Turn a well layer on above to see results.</div>
+    <div class="chem-note" id="well-year-note" style="display:none">Pick a year to see which wells had a chemical detected <b>by that year or earlier</b> — this is how a contaminant's spread shows up: more wells lighting up as the year advances. Works best combined with a chemical above; with no chemical picked it shows wells with <em>any</em> tracked contaminant detected by that year.</div>
+
+    <div class="section-label" style="margin-top:20px;">S-Area: Contamination Intensity Over Time</div>
+    <div class="chem-note">S-Area's 184 wells report <b>Total Organic Concentration</b> (NAPL-era chemistry), not named chemicals, so they get their own year view. Pick a year to color wells by the <b>latest TOC reading known by that year</b>.</div>
+    <select id="sarea-toc-year-select"><option value="">Off</option></select>
+    <div class="well-size-legend" id="sarea-toc-legend"></div>
 
     </div><!-- /tab-panel: wells -->
 
@@ -745,6 +754,8 @@ map.getPane('radioactivePane').style.zIndex = 460;   // above sitesPane, so the
                                                        // radioactive highlight ring is never hidden by the base site dot
 map.createPane('wellsPane');
 map.getPane('wellsPane').style.zIndex = 470;         // droplets ride above hazard sites when both are shown
+map.createPane('sareaTocPane');
+map.getPane('sareaTocPane').style.zIndex = 480;      // TOC-over-time overlay rides above everything else
 
 const layers = {
   water:       L.layerGroup().addTo(map),   // on by default (base water context)
@@ -756,6 +767,8 @@ const layers = {
   radioactive: L.layerGroup(),              // off by default (isotope sub-filters)
   wellsWqp:    L.layerGroup(),              // off by default (Monitoring Wells tab)
   wellsDec:    L.layerGroup(),              // off by default (Monitoring Wells tab)
+  sareaToc:    L.layerGroup(),              // off by default (S-Area TOC-over-time selector); independent
+                                             // of the wellsDec toggle/filter so the two features don't collide
 };
 
 // ── ROAD STYLE ───────────────────────────────────────────────────────────────
@@ -944,6 +957,8 @@ async function loadAll() {
   renderWells(wellsWqpF, layers.wellsWqp);
   renderWells(wellsDecF, layers.wellsDec);
   populateWellDropdown();
+  populateWellYearDropdown();
+  populateSAreaTocYearDropdown();
 
   // Chemical dropdown + radioactive sub-filter counts
   populateChemDropdown();
@@ -1004,11 +1019,25 @@ function wellPopup(p) {
     ${chem}${toc}${near}
   </div>`;
 }
-function renderWells(features, layer, filterChem) {
+// wellPassesFilter: cx = curated chemical name or '' (any); year = integer or null (all time).
+// Cumulative semantics: a (chemical,year) match counts if it was detected in `year` OR EARLIER —
+// this is what makes a plume look like it's spreading to more wells as the year advances,
+// rather than flickering on/off based on which exact year a well happened to be sampled.
+function wellPassesFilter(p, cx, year) {
+  const cy = p.chems_years || {};
+  if (cx) {
+    const years = cy[cx];
+    if (!years) return false;
+    return year == null || years.some(y => y <= year);
+  }
+  if (year == null) return true;
+  return Object.values(cy).some(years => years.some(y => y <= year));
+}
+function renderWells(features, layer, filterChem, filterYear) {
   layer.clearLayers();
   features.forEach(f => {
     const p = f.properties;
-    if (filterChem && !(p.chems || []).includes(filterChem)) return;
+    if (!wellPassesFilter(p, filterChem, filterYear)) return;
     const [lon, lat] = f.geometry.coordinates;
     L.marker([lat, lon], { icon: dropletIcon(p.n_found, p.src), pane: 'wellsPane' })
       .bindPopup(wellPopup(p), { maxWidth: 300 }).addTo(layer);
@@ -1016,6 +1045,10 @@ function renderWells(features, layer, filterChem) {
 }
 const WELL_CHEM_PRIORITY = ['Trichloroethene (TCE)','Tetrachloroethene (PCE)','Vinyl chloride','Benzene','Arsenic','Lead','Mercury','PFAS (PFOA/PFOS)','PCBs','Dioxins / furans','Benzo(a)pyrene','Chromium','Cadmium'];
 function wellChemCount(cx) { return [...wellsWqpF, ...wellsDecF].filter(f => (f.properties.chems || []).includes(cx)).length; }
+function currentWellYear() {
+  const v = document.getElementById('well-year-select').value;
+  return v ? parseInt(v, 10) : null;
+}
 function populateWellDropdown() {
   const sel = document.getElementById('well-select');
   const total = wellsWqpF.length + wellsDecF.length;
@@ -1031,7 +1064,7 @@ function populateWellDropdown() {
   };
   grp('Priority contaminants', WELL_CHEM_PRIORITY);
   grp('Also detected', [...present].filter(n => !WELL_CHEM_PRIORITY.includes(n)));
-  sel.addEventListener('change', () => filterWells(sel.value));
+  sel.addEventListener('change', () => filterWells(sel.value, currentWellYear()));
   // size legend
   const leg = document.getElementById('well-size-legend');
   leg.innerHTML = [1,10,40].map(n => {
@@ -1039,13 +1072,86 @@ function populateWellDropdown() {
     return `<div class="wsl"><svg width="${w}" height="${h}" viewBox="0 0 24 32"><path d="M12 1 C12 1 3 14 3 21 a9 9 0 0 0 18 0 C21 14 12 1 12 1 Z" fill="#3fc0f0" fill-opacity="0.82" stroke="#0a5a80" stroke-width="1.6"/></svg><span>${n}</span></div>`;
   }).join('') + `<div class="wsl" style="align-self:center"><span>chemicals<br>detected</span></div>`;
 }
-function filterWells(cx) {
-  renderWells(wellsWqpF, layers.wellsWqp, cx);
-  renderWells(wellsDecF, layers.wellsDec, cx);
+function populateWellYearDropdown() {
+  const sel = document.getElementById('well-year-select');
+  const allYears = [...wellsWqpF, ...wellsDecF]
+    .flatMap(f => Object.values(f.properties.chems_years || {}))
+    .flat();
+  if (!allYears.length) return;
+  const lo = Math.min(...allYears), hi = Math.max(...allYears);
+  for (let y = hi; y >= lo; y--) {
+    const o = document.createElement('option'); o.value = y; o.textContent = y;
+    sel.appendChild(o);
+  }
+  sel.addEventListener('change', () => {
+    document.getElementById('well-year-note').style.display = sel.value ? 'block' : 'none';
+    filterWells(document.getElementById('well-select').value, currentWellYear());
+  });
+}
+function filterWells(cx, year) {
+  renderWells(wellsWqpF, layers.wellsWqp, cx, year);
+  renderWells(wellsDecF, layers.wellsDec, cx, year);
   const note = document.getElementById('well-note');
-  note.innerHTML = cx
-    ? `Showing wells where <b>${cx}</b> was detected (${wellChemCount(cx)} of ${wellsWqpF.length + wellsDecF.length}). Turn a well layer on above to see them.`
-    : 'Shows wells where the selected contaminant was <em>detected</em>. Turn a well layer on above to see results.';
+  const matched = [...wellsWqpF, ...wellsDecF].filter(f => wellPassesFilter(f.properties, cx, year)).length;
+  const total = wellsWqpF.length + wellsDecF.length;
+  if (!cx && year == null) {
+    note.innerHTML = 'Shows wells where the selected contaminant was <em>detected</em>. Turn a well layer on above to see results.';
+  } else {
+    const chemTxt = cx ? `<b>${cx}</b>` : 'a tracked contaminant';
+    const yearTxt = year != null ? ` by <b>${year}</b> or earlier` : '';
+    note.innerHTML = `Showing wells where ${chemTxt} was detected${yearTxt} (${matched} of ${total}). Turn a well layer on above to see them.`;
+  }
+}
+
+// ── S-AREA: TOC INTENSITY OVER TIME ──────────────────────────────────────────
+// S-Area's wells report Total Organic Concentration (a single aggregate number),
+// not named chemicals, so they don't fit the chemical dropdown above. This is a
+// self-contained view: picking a year colors each S-Area well by the latest TOC
+// reading known at or before that year, on its own layer (independent of the
+// wellsDec toggle/filter above, so the two features never conflict).
+const TOC_BINS = [
+  { max: 1,     color: '#2ecc71', label: '< 1' },
+  { max: 10,    color: '#a8d84a', label: '1–10' },
+  { max: 100,   color: '#f0d020', label: '10–100' },
+  { max: 1000,  color: '#e08a1e', label: '100–1,000' },
+  { max: 10000, color: '#c0392b', label: '1,000–10,000' },
+  { max: Infinity, color: '#6a1010', label: '> 10,000' },
+];
+function tocColor(v) { return (TOC_BINS.find(b => v < b.max) || TOC_BINS[TOC_BINS.length-1]).color; }
+function latestTocByYear(series, year) {
+  const yrs = Object.keys(series).map(Number).filter(y => y <= year);
+  return yrs.length ? series[Math.max(...yrs)] : null;
+}
+function populateSAreaTocYearDropdown() {
+  const sel = document.getElementById('sarea-toc-year-select');
+  const years = wellsDecF.flatMap(f => Object.keys(f.properties.toc_series || {}).map(Number));
+  if (!years.length) return;
+  const lo = Math.min(...years), hi = Math.max(...years);
+  for (let y = hi; y >= lo; y--) {
+    const o = document.createElement('option'); o.value = y; o.textContent = y;
+    sel.appendChild(o);
+  }
+  const leg = document.getElementById('sarea-toc-legend');
+  leg.innerHTML = TOC_BINS.map(b => `<div class="wsl"><svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="${b.color}" fill-opacity="0.85" stroke="#0008"/></svg><span>${b.label}</span></div>`).join('')
+    + `<div class="wsl" style="align-self:center"><span>µg/L</span></div>`;
+  sel.addEventListener('change', () => renderSAreaTocYear(sel.value ? parseInt(sel.value, 10) : null));
+}
+function renderSAreaTocYear(year) {
+  layers.sareaToc.clearLayers();
+  if (year == null) { map.removeLayer(layers.sareaToc); return; }
+  wellsDecF.forEach(f => {
+    const p = f.properties;
+    const series = p.toc_series;
+    if (!series) return;
+    const v = latestTocByYear(series, year);
+    if (v == null) return;
+    const [lon, lat] = f.geometry.coordinates;
+    L.circleMarker([lat, lon], { pane: 'sareaTocPane', radius: 7, fillColor: tocColor(v), fillOpacity: 0.85, color: '#0008', weight: 1 })
+      .bindPopup(`<div class="popup-inner"><div class="popup-name">${p.well_id}</div><div class="popup-addr">${p.site}</div>
+        <div class="popup-field"><div class="popup-field-lbl">TOC as of ${year}</div><div class="popup-field-val">${v.toLocaleString()} µg/L</div></div></div>`, { maxWidth: 260 })
+      .addTo(layers.sareaToc);
+  });
+  if (!map.hasLayer(layers.sareaToc)) layers.sareaToc.addTo(map);
 }
 
 loadAll().catch(err => {
