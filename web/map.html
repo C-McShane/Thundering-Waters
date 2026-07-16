@@ -486,19 +486,19 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
     <label class="layer-toggle" id="toggle-wellsWqp">
       <input type="checkbox" class="toggle-check" data-layer="wellsWqp">
-      <span class="toggle-swatch" style="background:#3fc0f0; border:2px solid #0a5a80;"></span>
+      <span class="toggle-swatch" style="background:#d1332e; border:2px solid #4db8f0;"></span>
       <span class="toggle-label">Water Quality Portal wells</span>
       <span class="toggle-count">293 pts</span>
     </label>
 
     <label class="layer-toggle" id="toggle-wellsDec">
       <input type="checkbox" class="toggle-check" data-layer="wellsDec">
-      <span class="toggle-swatch" style="background:#12b5a3; border:2px solid #075a50;"></span>
+      <span class="toggle-swatch" style="background:#8b1a2b; border:2px solid #4db8f0;"></span>
       <span class="toggle-label">NYSDEC cleanup-site wells</span>
       <span class="toggle-count">253 pts</span>
     </label>
 
-    <div class="chem-note">Each <b>water droplet</b> is a well or sampling station. Droplet <b>size = number of distinct chemicals detected</b> at that well. <span style="color:#3fc0f0">Blue</span> = USGS/EPA Water Quality Portal; <span style="color:#12b5a3">teal</span> = NYSDEC remediation-report wells.</div>
+    <div class="chem-note">Each <b>water droplet</b> is a well or sampling station — a blue rim (the water) around a red core (the contamination). Droplet <b>size = number of distinct chemicals detected</b> at that well. <span style="color:#e0554e">Bright red</span> = USGS/EPA Water Quality Portal; <span style="color:#b83a48">deep red</span> = NYSDEC remediation-report wells.</div>
 
     <div class="well-size-legend" id="well-size-legend"></div>
 
@@ -990,14 +990,20 @@ function renderSites(features) {
 // well (sqrt so a well with 100 detects isn't 100× a well with 1). Two sources
 // coloured distinctly; a shared chemical dropdown filters both.
 let wellsWqpF = [], wellsDecF = [];
-const WELL_COLORS = { WQP: ['#3fc0f0', '#0a5a80'], DEC: ['#12b5a3', '#075a50'] };
+// Water-drop symbol: blue rim (the water) + blood-red core (the contamination).
+// WQP = bright red, DEC = deep blood-red, so the two sources stay distinguishable.
+const WELL_OUTLINE = '#4db8f0';                                   // blue rim (echoes the Rivers & Water layer)
+const WELL_COLORS = { WQP: ['#d1332e', WELL_OUTLINE], DEC: ['#8b1a2b', WELL_OUTLINE] };
 function wellHeight(n) { return Math.min(44, 13 + 3.0 * Math.sqrt(n || 0)); }
+function dropletSVG(h, fill, stroke) {
+  const w = h * 0.72;
+  return `<svg width="${w}" height="${h}" viewBox="0 0 24 32">`
+    + `<path d="M12 1 C12 1 3 14 3 21 a9 9 0 0 0 18 0 C21 14 12 1 12 1 Z" `
+    + `fill="${fill}" fill-opacity="0.85" stroke="${stroke}" stroke-width="1.7"/></svg>`;
+}
 function dropletIcon(n, src) {
   const h = wellHeight(n), w = h * 0.72, [fill, stroke] = WELL_COLORS[src] || WELL_COLORS.WQP;
-  const svg = `<svg width="${w}" height="${h}" viewBox="0 0 24 32">`
-    + `<path d="M12 1 C12 1 3 14 3 21 a9 9 0 0 0 18 0 C21 14 12 1 12 1 Z" `
-    + `fill="${fill}" fill-opacity="0.82" stroke="${stroke}" stroke-width="1.6"/></svg>`;
-  return L.divIcon({ className: 'well-droplet', html: svg, iconSize: [w, h], iconAnchor: [w/2, h/2] });
+  return L.divIcon({ className: 'well-droplet', html: dropletSVG(h, fill, stroke), iconSize: [w, h], iconAnchor: [w/2, h/2] });
 }
 function wellPopup(p) {
   const isW = p.src === 'WQP';
@@ -1069,7 +1075,7 @@ function populateWellDropdown() {
   const leg = document.getElementById('well-size-legend');
   leg.innerHTML = [1,10,40].map(n => {
     const h = wellHeight(n), w = h*0.72;
-    return `<div class="wsl"><svg width="${w}" height="${h}" viewBox="0 0 24 32"><path d="M12 1 C12 1 3 14 3 21 a9 9 0 0 0 18 0 C21 14 12 1 12 1 Z" fill="#3fc0f0" fill-opacity="0.82" stroke="#0a5a80" stroke-width="1.6"/></svg><span>${n}</span></div>`;
+    return `<div class="wsl">${dropletSVG(h, '#d1332e', WELL_OUTLINE)}<span>${n}</span></div>`;
   }).join('') + `<div class="wsl" style="align-self:center"><span>chemicals<br>detected</span></div>`;
 }
 function populateWellYearDropdown() {
@@ -1132,7 +1138,7 @@ function populateSAreaTocYearDropdown() {
     sel.appendChild(o);
   }
   const leg = document.getElementById('sarea-toc-legend');
-  leg.innerHTML = TOC_BINS.map(b => `<div class="wsl"><svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="${b.color}" fill-opacity="0.85" stroke="#0008"/></svg><span>${b.label}</span></div>`).join('')
+  leg.innerHTML = TOC_BINS.map(b => `<div class="wsl">${dropletSVG(18, b.color, WELL_OUTLINE)}<span>${b.label}</span></div>`).join('')
     + `<div class="wsl" style="align-self:center"><span>µg/L</span></div>`;
   sel.addEventListener('change', () => renderSAreaTocYear(sel.value ? parseInt(sel.value, 10) : null));
 }
@@ -1146,7 +1152,8 @@ function renderSAreaTocYear(year) {
     const v = latestTocByYear(series, year);
     if (v == null) return;
     const [lon, lat] = f.geometry.coordinates;
-    L.circleMarker([lat, lon], { pane: 'sareaTocPane', radius: 7, fillColor: tocColor(v), fillOpacity: 0.85, color: '#0008', weight: 1 })
+    const th = 24;   // fixed-size droplet; color carries the TOC intensity, not size
+    L.marker([lat, lon], { pane: 'sareaTocPane', icon: L.divIcon({ className: 'well-droplet', html: dropletSVG(th, tocColor(v), WELL_OUTLINE), iconSize: [th*0.72, th], iconAnchor: [th*0.36, th/2] }) })
       .bindPopup(`<div class="popup-inner"><div class="popup-name">${p.well_id}</div><div class="popup-addr">${p.site}</div>
         <div class="popup-field"><div class="popup-field-lbl">TOC as of ${year}</div><div class="popup-field-val">${v.toLocaleString()} µg/L</div></div></div>`, { maxWidth: 260 })
       .addTo(layers.sareaToc);
