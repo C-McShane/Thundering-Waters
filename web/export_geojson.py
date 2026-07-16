@@ -196,15 +196,33 @@ with open(os.path.join(outdir, 'cancer_sir.geojson'), 'w') as f:
     json.dump({'type': 'FeatureCollection', 'features': features}, f, separators=(',', ':'))
 print(f'  {len(features)} block groups written')
 
-# ── 4c. WATER (hydro areas: Niagara River, canals, reservoirs, ponds) ───────────
+# ── 4c. WATER (hydro-area polygons + creeks that sit by a monitoring site) ──────
+# Polygon water bodies are always shown. In addition, any LINEAR waterway (creek)
+# that runs within WATER_NEAR_M of a monitoring well/station is added in full (the
+# whole named waterway), so the map shows the streams that contamination monitoring
+# actually sits on or beside.
 print('Exporting water...')
+import geopandas as _gpd, pandas as _pd
+WATER_NEAR_M = 150
 cur.execute('SELECT geom, FULLNAME FROM hydro_area')
-rows = cur.fetchall()
 features = [{'type': 'Feature', 'geometry': geom_to_geojson(r[0], 26917),
-            'properties': {'name': safe(r[1])}} for r in rows]
+            'properties': {'name': safe(r[1]), 'kind': 'area'}} for r in cur.fetchall()]
+_sites = _pd.concat([
+    _gpd.read_file(gpkg, layer='Niagara_Water_Testing_Sites')[['geometry']],
+    _gpd.read_file(gpkg, layer='Niagara_DEC_Monitoring_Wells')[['geometry']],
+], ignore_index=True)
+_su = _gpd.GeoDataFrame(_sites, crs='EPSG:4326').to_crs(26917).geometry.union_all()
+_lin = _gpd.read_file(gpkg, layer='hydro_linear').to_crs(26917)
+_qnames = set(_lin[_lin.geometry.distance(_su) <= WATER_NEAR_M].FULLNAME.dropna())
+_add = _lin[_lin.FULLNAME.isin(_qnames)].to_crs(4326)
+for _, rr in _add.iterrows():
+    features.append({'type': 'Feature',
+        'geometry': json.loads(json.dumps(rr.geometry.__geo_interface__)),
+        'properties': {'name': rr['FULLNAME'], 'kind': 'line'}})
 with open(os.path.join(outdir, 'water.geojson'), 'w') as f:
     json.dump({'type': 'FeatureCollection', 'features': features}, f, separators=(',', ':'))
-print(f'  {len(features)} water bodies written')
+_nl = sum(1 for x in features if x['properties']['kind'] == 'line')
+print(f'  {len(features)} water features ({len(features)-_nl} polygons + {_nl} creek segments within {WATER_NEAR_M} m of a monitoring site; {len(_qnames)} named waterways)')
 
 con.close()
 

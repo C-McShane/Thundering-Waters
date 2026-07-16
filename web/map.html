@@ -409,7 +409,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <input type="checkbox" class="toggle-check" checked data-layer="water">
       <span class="toggle-swatch square" style="background:#1fa6e0; border:1px solid #5fd0ff;"></span>
       <span class="toggle-label">Rivers &amp; Water</span>
-      <span class="toggle-count">Niagara R.</span>
+      <span class="toggle-count">+ creeks</span>
     </label>
 
     <details class="legend-details">
@@ -835,10 +835,20 @@ async function loadAll() {
   ]);
   cancerData = cancerGeo;
 
-  // Water — stark blue over the dark basemap, semi-transparent so labels read through
+  // Water — polygon bodies get a stark semi-transparent fill; creek lines (added
+  // where a monitoring site sits on/beside them) render as visible blue strokes.
   L.geoJSON(waterData, {
     pane: 'waterPane',
-    style: { fillColor: '#1fa6e0', fillOpacity: 0.42, color: '#5fd0ff', weight: 0.8, opacity: 0.75 }
+    style: f => f.properties.kind === 'line'
+      ? { color: '#5fd0ff', weight: 1.7, opacity: 0.85, lineCap: 'round' }
+      : { fillColor: '#1fa6e0', fillOpacity: 0.42, color: '#5fd0ff', weight: 0.8, opacity: 0.75 },
+    onEachFeature: (f, layer) => {
+      if (f.properties.name) layer.bindTooltip(f.properties.name, { sticky: true, direction: 'top', className: 'road-tip' });
+      if (f.properties.kind === 'line') {
+        layer.on('mouseover', function () { this.setStyle({ weight: 3.2, opacity: 1 }); });
+        layer.on('mouseout',  function () { this.setStyle({ weight: 1.7, opacity: 0.85 }); });
+      }
+    }
   }).addTo(layers.water);
 
   // Major roads (arterials + highways) — spatial context
