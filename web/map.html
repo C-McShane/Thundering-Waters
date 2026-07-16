@@ -270,6 +270,10 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .popup-narrative { font-size: 13px; color: #e2e0da; line-height: 1.65; border-top: 1px solid var(--border2); padding-top: 10px; margin-top: 4px; }
 .popup-link { display: block; margin-top: 10px; font-family: var(--mono); font-size: 10px; color: var(--blue); text-decoration: none; }
 .popup-link:hover { color: var(--text); }
+.popup-reports { margin-top: 11px; border-top: 1px solid var(--border2); padding-top: 9px; }
+.popup-report { display: block; font-size: 11.5px; line-height: 1.4; color: var(--blue); text-decoration: none; margin-top: 6px; }
+.popup-report:hover { color: var(--text); text-decoration: underline; }
+.popup-report-all { font-family: var(--mono); font-size: 10px; color: #a8a6b0; margin-top: 8px; }
 
 .popup-tract { padding: 14px 16px; }
 .popup-tract-name { font-family: var(--serif); font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
@@ -819,6 +823,14 @@ function sitePopup(p) {
   const link = p.website
     ? `<a class="popup-link" href="${p.website}" target="_blank" rel="noopener">View official record ↗</a>`
     : '';
+  // Primary-source reports (verify the data) + the site's full document folder.
+  const reps = (p.reports && p.reports.length) || p.docs_url
+    ? `<div class="popup-reports">`
+      + ((p.reports && p.reports.length) ? `<div class="popup-field-lbl">Source reports — verify the data</div>` : '')
+      + (p.reports || []).map(rp => `<a class="popup-report" href="${rp.url}" target="_blank" rel="noopener">📄 ${rp.title} ↗</a>`).join('')
+      + (p.docs_url ? `<a class="popup-report popup-report-all" href="${p.docs_url}" target="_blank" rel="noopener">📁 Browse all NYSDEC documents for this site ↗</a>` : '')
+      + `</div>`
+    : '';
   const narr = p.narrative
     ? `<div class="popup-narrative">${p.narrative}</div>` : '';
   const chems = p.chemicals
@@ -833,6 +845,7 @@ function sitePopup(p) {
     </div>
     ${chems}
     ${narr}
+    ${reps}
     ${link}
   </div>`;
 }
