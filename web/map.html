@@ -356,6 +356,20 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .stf-name { flex: 1; font-size: 12px; color: var(--text); }
 .stf-count { font-family: var(--mono); font-size: 10px; color: var(--dim); }
 .stf-opt input { cursor: pointer; }
+/* ── accordion sections (Monitoring Wells tab) ── */
+.acc { border-top: 1px solid var(--border2); }
+.acc-head { display: flex; align-items: center; gap: 8px; padding: 11px 2px; cursor: pointer; user-select: none; }
+.acc-head:hover .acc-title { color: var(--text); }
+.acc-title { flex: 1; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: #bcbac6; }
+.acc-info { background: none; border: 1px solid var(--border2); color: #9aa4b2; border-radius: 50%; width: 16px; height: 16px; font-size: 9px; line-height: 13px; text-align: center; cursor: pointer; flex-shrink: 0; padding: 0; }
+.acc-info:hover { color: #fff; border-color: var(--blue); }
+.acc-arrow { font-size: 9px; color: #888; transition: transform .15s ease; }
+.acc:not([data-open]) .acc-arrow { transform: rotate(-90deg); }
+.acc:not([data-open]) .acc-body { display: none; }
+.acc-body { padding: 0 0 12px; }
+.acc-help { display: none; font-size: 11px; color: #a8a6b0; line-height: 1.55; padding: 2px 2px 10px; }
+.acc-help.show { display: block; }
+.subsection-label { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; color: #8fa0b5; margin: 6px 0 5px; text-transform: uppercase; }
 </style>
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
@@ -506,64 +520,56 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
     <div class="tab-panel" data-tab-panel="wells">
 
-    <div class="section-label">Water-Testing &amp; Monitoring Wells</div>
+    <!-- Well layers -->
+    <div class="acc" data-open>
+      <div class="acc-head"><span class="acc-title">Well layers</span><button class="acc-info" title="How to read the wells">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help">Each <b>water droplet</b> is a well or sampling station — a <b>blood-red core</b> (contamination), <b>sized by the number of chemicals detected</b>, with a <b>ring colour showing what it samples</b> (see “Filter by sampling type”). The three toggles choose the data source; legacy wells' popups carry a <b>⚑ approximate-location note</b>.</div>
+        <label class="layer-toggle" id="toggle-wellsWqp"><input type="checkbox" class="toggle-check" data-layer="wellsWqp"><span class="toggle-label">Water Quality Portal wells</span><span class="toggle-count">293</span></label>
+        <label class="layer-toggle" id="toggle-wellsDec"><input type="checkbox" class="toggle-check" data-layer="wellsDec"><span class="toggle-label">NYSDEC cleanup-site wells</span><span class="toggle-count">259</span></label>
+        <label class="layer-toggle" id="toggle-wellsLegacy"><input type="checkbox" class="toggle-check" data-layer="wellsLegacy"><span class="toggle-label">Legacy-site wells</span><span class="toggle-count">110</span></label>
+        <div class="well-size-legend" id="well-size-legend"></div>
+      </div>
+    </div>
 
-    <label class="layer-toggle" id="toggle-wellsWqp">
-      <input type="checkbox" class="toggle-check" data-layer="wellsWqp">
-      <span class="toggle-swatch" style="background:#b81d24; border:2px solid #9aa;"></span>
-      <span class="toggle-label">Water Quality Portal wells</span>
-      <span class="toggle-count">293 pts</span>
-    </label>
+    <!-- Filter by sampling type -->
+    <div class="acc" data-open>
+      <div class="acc-head"><span class="acc-title">Filter by sampling type</span><button class="acc-info" title="What sampling type means">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help"><b>Ring colour</b> = what the point samples. Show or hide by type — bedrock vs. overburden groundwater, surface water, or remediation/recovery — across all sources at once.</div>
+        <div class="sample-type-filter" id="sample-type-filter"></div>
+      </div>
+    </div>
 
-    <label class="layer-toggle" id="toggle-wellsDec">
-      <input type="checkbox" class="toggle-check" data-layer="wellsDec">
-      <span class="toggle-swatch" style="background:#b81d24; border:2px solid #9aa;"></span>
-      <span class="toggle-label">NYSDEC cleanup-site wells</span>
-      <span class="toggle-count">259 pts</span>
-    </label>
+    <!-- Filter by chemical / year -->
+    <div class="acc">
+      <div class="acc-head"><span class="acc-title">Filter by chemical &amp; year</span><button class="acc-info" title="How the filters work">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help">Pick a <b>chemical</b> to show only wells where it was detected; add a <b>year</b> to show wells where it was detected <b>by that year or earlier</b> — a contaminant's spread appears as more wells light up as the year advances.</div>
+        <select id="well-select"><option value="">All wells</option></select>
+        <select id="well-year-select" style="margin-top:8px"><option value="">All years</option></select>
+        <div class="chem-note" id="well-note">Shows wells where the selected contaminant was <em>detected</em>. Turn a well layer on above to see results.</div>
+        <div class="chem-note" id="well-year-note" style="display:none">Pick a year to see which wells had a chemical detected <b>by that year or earlier</b>.</div>
+      </div>
+    </div>
 
-    <label class="layer-toggle" id="toggle-wellsLegacy">
-      <input type="checkbox" class="toggle-check" data-layer="wellsLegacy">
-      <span class="toggle-swatch" style="background:#b81d24; border:2px solid #9aa;"></span>
-      <span class="toggle-label">Legacy-site wells</span>
-      <span class="toggle-count">110 pts</span>
-    </label>
+    <!-- Site-specific views -->
+    <div class="acc">
+      <div class="acc-head"><span class="acc-title">Site-specific views</span><button class="acc-info" title="Special per-site layers">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help">A few sites report data that doesn't fit the chemical dropdown, so they get their own views.</div>
 
-    <div class="chem-note">Each <b>water droplet</b> is a well or sampling station — a <b>blood-red core</b> (the contamination), <b>sized by the number of chemicals detected</b>. Its <b>ring colour shows what it samples</b> (see the sampling-type legend below). The three toggles above choose the <b>data source</b> — USGS/EPA Water Quality Portal, NYSDEC cleanup-report wells, or legacy hazardous/radioactive sites. Each well's source and (for legacy wells) its <b>⚑ approximate-location note</b> are shown in its popup.</div>
+        <div class="subsection-label">S-Area — intensity over time</div>
+        <div class="chem-note" style="margin-top:2px">S-Area's 184 wells report <b>Total Organic Concentration</b>, not named chemicals. Pick a year to colour wells by the latest TOC reading known by that year.</div>
+        <select id="sarea-toc-year-select"><option value="">Off</option></select>
+        <div class="well-size-legend" id="sarea-toc-legend"></div>
 
-    <div class="well-size-legend" id="well-size-legend"></div>
-
-    <div class="section-label" style="margin-top:18px;">Filter by Sampling Type</div>
-    <div class="chem-note" style="margin-top:0"><b>Ring colour</b> = what the point samples. Show or hide by type — bedrock vs. overburden groundwater, surface water, or remediation/recovery wells — across all sources at once.</div>
-    <div class="sample-type-filter" id="sample-type-filter"></div>
-
-    <div class="section-label" style="margin-top:20px;">Filter Wells by Chemical</div>
-    <select id="well-select"><option value="">All wells</option></select>
-
-    <div class="section-label" style="margin-top:14px;">...by Year</div>
-    <select id="well-year-select"><option value="">All years</option></select>
-    <div class="chem-note" id="well-note">Shows wells where the selected contaminant was <em>detected</em>. Turn a well layer on above to see results.</div>
-    <div class="chem-note" id="well-year-note" style="display:none">Pick a year to see which wells had a chemical detected <b>by that year or earlier</b> — this is how a contaminant's spread shows up: more wells lighting up as the year advances. Works best combined with a chemical above; with no chemical picked it shows wells with <em>any</em> tracked contaminant detected by that year.</div>
-
-    <div class="section-label" style="margin-top:20px;">S-Area: Contamination Intensity Over Time</div>
-    <div class="chem-note">S-Area's 184 wells report <b>Total Organic Concentration</b> (NAPL-era chemistry), not named chemicals, so they get their own year view. Pick a year to color wells by the <b>latest TOC reading known by that year</b>.</div>
-    <select id="sarea-toc-year-select"><option value="">Off</option></select>
-    <div class="well-size-legend" id="sarea-toc-legend"></div>
-
-    <div class="section-label" style="margin-top:20px;">Love Canal: Detail Layers</div>
-    <label class="layer-toggle" id="toggle-lcPiezo">
-      <input type="checkbox" class="toggle-check" data-layer="lcPiezo">
-      <span class="toggle-swatch" style="background:#2f6fd0; border:2px solid #bfe0ff; border-radius:50%;"></span>
-      <span class="toggle-label">Piezometers (water levels)</span>
-      <span class="toggle-count">28 pts</span>
-    </label>
-    <label class="layer-toggle" id="toggle-lcPumps">
-      <input type="checkbox" class="toggle-check" data-layer="lcPumps">
-      <span class="toggle-swatch" style="background:#e0b93a; border:2px solid #111; border-radius:2px;"></span>
-      <span class="toggle-label">Pump chambers &amp; leachate tanks</span>
-      <span class="toggle-count">6 pts</span>
-    </label>
-    <div class="chem-note">The Love Canal <b>piezometers</b> (28) measure <b>groundwater levels</b>, not contaminants — click one for its water-level-over-time plot (ft above mean sea level, one line per geologic layer, 2015–2022). The <b>pump chambers &amp; leachate tanks</b> are the containment collection infrastructure.</div>
+        <div class="subsection-label" style="margin-top:16px">Love Canal — detail layers</div>
+        <label class="layer-toggle" id="toggle-lcPiezo"><input type="checkbox" class="toggle-check" data-layer="lcPiezo"><span class="toggle-swatch" style="background:#2f6fd0; border:2px solid #bfe0ff; border-radius:50%;"></span><span class="toggle-label">Piezometers — water levels</span><span class="toggle-count">28</span></label>
+        <label class="layer-toggle" id="toggle-lcPumps"><input type="checkbox" class="toggle-check" data-layer="lcPumps"><span class="toggle-swatch" style="background:#e0b93a; border:2px solid #111; border-radius:2px;"></span><span class="toggle-label">Pump chambers &amp; leachate tanks</span><span class="toggle-count">6</span></label>
+        <div class="chem-note">Piezometers measure <b>groundwater levels</b> (not contaminants) — click one for its water-level plot (ft above sea level, one line per geologic layer, 2015–2022). Pumps &amp; tanks are the containment collection infrastructure.</div>
+      </div>
+    </div>
 
     </div><!-- /tab-panel: wells -->
 
@@ -1477,6 +1483,21 @@ document.querySelectorAll('.toggle-check').forEach(cb => {
       toggle.classList.remove('active');
     }
     if (key === 'wellsWqp' || key === 'wellsDec' || key === 'wellsLegacy') updateChemTrend();
+  });
+});
+
+// ── accordion sections (Monitoring Wells tab): header toggles the body; ⓘ toggles help ──
+document.querySelectorAll('.acc-head').forEach(h => {
+  h.addEventListener('click', e => {
+    if (e.target.closest('.acc-info')) return;
+    h.closest('.acc').toggleAttribute('data-open');
+  });
+});
+document.querySelectorAll('.acc-info').forEach(b => {
+  b.addEventListener('click', e => {
+    e.stopPropagation();
+    const help = b.closest('.acc').querySelector('.acc-help');
+    if (help) help.classList.toggle('show');
   });
 });
 
