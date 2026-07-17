@@ -349,6 +349,13 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .rad-swatch { width: 12px; height: 12px; border-radius: 50%; background: #f5e050; border: 2px solid #7a1212; flex-shrink: 0; }
 .rad-name { flex: 1; font-size: 12px; color: var(--text); }
 .rad-count { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+.sample-type-filter { display: flex; flex-direction: column; gap: 1px; }
+.stf-opt { display: flex; align-items: center; gap: 8px; padding: 5px 10px; border-radius: 3px; cursor: pointer; border: 1px solid transparent; }
+.stf-opt:hover { background: var(--s2); }
+.stf-swatch { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #8b1a2b; flex-shrink: 0; }
+.stf-name { flex: 1; font-size: 12px; color: var(--text); }
+.stf-count { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+.stf-opt input { cursor: pointer; }
 </style>
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
@@ -503,28 +510,32 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
     <label class="layer-toggle" id="toggle-wellsWqp">
       <input type="checkbox" class="toggle-check" data-layer="wellsWqp">
-      <span class="toggle-swatch" style="background:#d1332e; border:2px solid #4db8f0;"></span>
+      <span class="toggle-swatch" style="background:#7f8791; border:2px solid #8b1a2b;"></span>
       <span class="toggle-label">Water Quality Portal wells</span>
       <span class="toggle-count">293 pts</span>
     </label>
 
     <label class="layer-toggle" id="toggle-wellsDec">
       <input type="checkbox" class="toggle-check" data-layer="wellsDec">
-      <span class="toggle-swatch" style="background:#8b1a2b; border:2px solid #4db8f0;"></span>
+      <span class="toggle-swatch" style="background:#7f8791; border:2px solid #8b1a2b;"></span>
       <span class="toggle-label">NYSDEC cleanup-site wells</span>
       <span class="toggle-count">253 pts</span>
     </label>
 
     <label class="layer-toggle" id="toggle-wellsLegacy">
       <input type="checkbox" class="toggle-check" data-layer="wellsLegacy">
-      <span class="toggle-swatch" style="background:#d67a1e; border:2px solid #4db8f0;"></span>
+      <span class="toggle-swatch" style="background:#7f8791; border:2px solid #8b1a2b;"></span>
       <span class="toggle-label">Legacy-site wells</span>
       <span class="toggle-count">68 pts</span>
     </label>
 
-    <div class="chem-note">Each <b>water droplet</b> is a well or sampling station — a blue rim (the water) around a red core (the contamination). Droplet <b>size = number of distinct chemicals detected</b> at that well. <span style="color:#e0554e">Bright red</span> = USGS/EPA Water Quality Portal; <span style="color:#b83a48">deep red</span> = NYSDEC remediation-report wells; <span style="color:#d67a1e">amber</span> = legacy hazardous/radioactive sites (Hyde Park, Forest Glen, Niagara Falls Storage Site, and others). Most amber wells are grouped at their <b>site's approximate location</b> — the original reports give no surveyed well coordinates; each popup's <b>⚑ note</b> says how that well was placed.</div>
+    <div class="chem-note">Each <b>water droplet</b> is a well or sampling station, <b>sized by the number of chemicals detected</b> and <b>coloured by what it samples</b> (see the sampling-type legend below). The three toggles above choose the <b>data source</b> — USGS/EPA Water Quality Portal, NYSDEC cleanup-report wells, or legacy hazardous/radioactive sites. Each well's source and (for legacy wells) its <b>⚑ approximate-location note</b> are shown in its popup.</div>
 
     <div class="well-size-legend" id="well-size-legend"></div>
+
+    <div class="section-label" style="margin-top:18px;">Filter by Sampling Type</div>
+    <div class="chem-note" style="margin-top:0">Colour = what the point samples. Show or hide by type — bedrock vs. overburden groundwater, surface water, or remediation/recovery wells — across all sources at once.</div>
+    <div class="sample-type-filter" id="sample-type-filter"></div>
 
     <div class="section-label" style="margin-top:20px;">Filter Wells by Chemical</div>
     <select id="well-select"><option value="">All wells</option></select>
@@ -994,6 +1005,7 @@ async function loadAll() {
   renderWells(wellsDecF, layers.wellsDec);
   renderWells(wellsLegacyF, layers.wellsLegacy);
   populateWellDropdown();
+  populateSampleTypeFilter();
   populateWellYearDropdown();
   populateSAreaTocYearDropdown();
 
@@ -1029,8 +1041,20 @@ function renderSites(features) {
 let wellsWqpF = [], wellsDecF = [], wellsLegacyF = [];
 // Water-drop symbol: blue rim (the water) + blood-red core (the contamination).
 // WQP = bright red, DEC = deep blood-red, so the two sources stay distinguishable.
-const WELL_OUTLINE = '#4db8f0';                                   // blue rim (echoes the Rivers & Water layer)
-const WELL_COLORS = { WQP: ['#d1332e', WELL_OUTLINE], DEC: ['#8b1a2b', WELL_OUTLINE], LEGACY: ['#d67a1e', WELL_OUTLINE] };
+const WELL_OUTLINE = '#8b1a2b';                                   // dark blood-red rim (contamination cue) on every droplet
+// Droplets are coloured by SAMPLING TYPE (what the point samples), shared across all
+// three source layers. Order = legend order; keep in sync with web/well_types.py.
+const SAMPLE_TYPE_ORDER = ['Bedrock groundwater','Overburden groundwater','Groundwater (unspecified)','Surface water','Remediation / recovery','Soil / test hole'];
+const SAMPLE_TYPE_COLORS = {
+  'Bedrock groundwater':      '#9b6dd6',
+  'Overburden groundwater':   '#2f5599',
+  'Groundwater (unspecified)':'#e0b93a',
+  'Surface water':            '#e8822e',
+  'Remediation / recovery':   '#d94f4f',
+  'Soil / test hole':         '#b0855a',
+};
+let activeSampleTypes = new Set(SAMPLE_TYPE_ORDER);
+function wellFill(t) { return SAMPLE_TYPE_COLORS[t] || '#888'; }
 function wellHeight(n) { return Math.min(44, 13 + 3.0 * Math.sqrt(n || 0)); }
 function dropletSVG(h, fill, stroke) {
   const w = h * 0.72;
@@ -1038,9 +1062,9 @@ function dropletSVG(h, fill, stroke) {
     + `<path d="M12 1 C12 1 3 14 3 21 a9 9 0 0 0 18 0 C21 14 12 1 12 1 Z" `
     + `fill="${fill}" fill-opacity="0.85" stroke="${stroke}" stroke-width="1.7"/></svg>`;
 }
-function dropletIcon(n, src) {
-  const h = wellHeight(n), w = h * 0.72, [fill, stroke] = WELL_COLORS[src] || WELL_COLORS.WQP;
-  return L.divIcon({ className: 'well-droplet', html: dropletSVG(h, fill, stroke), iconSize: [w, h], iconAnchor: [w/2, h/2] });
+function dropletIcon(n, sampleType) {
+  const h = wellHeight(n), w = h * 0.72;
+  return L.divIcon({ className: 'well-droplet', html: dropletSVG(h, wellFill(sampleType), WELL_OUTLINE), iconSize: [w, h], iconAnchor: [w/2, h/2] });
 }
 // concPlotSVG: a small log-scale concentration-vs-year chart for one well+chemical.
 // series = { "year": [value, "detect"|"nondetect"] }. Detected points join into a red
@@ -1162,9 +1186,10 @@ function renderWells(features, layer, filterChem, filterYear) {
   layer.clearLayers();
   features.forEach(f => {
     const p = f.properties;
+    if (!activeSampleTypes.has(p.sample_type)) return;
     if (!wellPassesFilter(p, filterChem, filterYear)) return;
     const [lon, lat] = f.geometry.coordinates;
-    L.marker([lat, lon], { icon: dropletIcon(p.n_found, p.src), pane: 'wellsPane' })
+    L.marker([lat, lon], { icon: dropletIcon(p.n_found, p.sample_type), pane: 'wellsPane' })
       .bindPopup(wellPopup(p), { maxWidth: 300 }).addTo(layer);
   });
 }
@@ -1194,8 +1219,24 @@ function populateWellDropdown() {
   const leg = document.getElementById('well-size-legend');
   leg.innerHTML = [1,10,40].map(n => {
     const h = wellHeight(n), w = h*0.72;
-    return `<div class="wsl">${dropletSVG(h, '#d1332e', WELL_OUTLINE)}<span>${n}</span></div>`;
+    return `<div class="wsl">${dropletSVG(h, '#8a8f98', WELL_OUTLINE)}<span>${n}</span></div>`;
   }).join('') + `<div class="wsl" style="align-self:center"><span>chemicals<br>detected</span></div>`;
+}
+// Sampling-type filter: colour-coded checkboxes (double as the colour legend) that show/hide
+// wells by what they sample, across all three source layers at once.
+function populateSampleTypeFilter() {
+  const wells = [...wellsWqpF, ...wellsDecF, ...wellsLegacyF];
+  const counts = {};
+  wells.forEach(f => { const t = f.properties.sample_type || 'Groundwater (unspecified)'; counts[t] = (counts[t]||0)+1; });
+  const box = document.getElementById('sample-type-filter');
+  box.innerHTML = SAMPLE_TYPE_ORDER.filter(t => counts[t]).map(t =>
+    `<label class="stf-opt"><input type="checkbox" class="stf-check" value="${t}" checked>`
+    + `<span class="stf-swatch" style="background:${SAMPLE_TYPE_COLORS[t]}"></span>`
+    + `<span class="stf-name">${t}</span><span class="stf-count">${counts[t]}</span></label>`).join('');
+  box.querySelectorAll('.stf-check').forEach(cb => cb.addEventListener('change', () => {
+    if (cb.checked) activeSampleTypes.add(cb.value); else activeSampleTypes.delete(cb.value);
+    filterWells(document.getElementById('well-select').value, currentWellYear());
+  }));
 }
 function populateWellYearDropdown() {
   const sel = document.getElementById('well-year-select');
@@ -1218,7 +1259,7 @@ function filterWells(cx, year) {
   renderWells(wellsDecF, layers.wellsDec, cx, year);
   renderWells(wellsLegacyF, layers.wellsLegacy, cx, year);
   const note = document.getElementById('well-note');
-  const matched = [...wellsWqpF, ...wellsDecF, ...wellsLegacyF].filter(f => wellPassesFilter(f.properties, cx, year)).length;
+  const matched = [...wellsWqpF, ...wellsDecF, ...wellsLegacyF].filter(f => activeSampleTypes.has(f.properties.sample_type) && wellPassesFilter(f.properties, cx, year)).length;
   const total = wellsWqpF.length + wellsDecF.length + wellsLegacyF.length;
   if (!cx && year == null) {
     note.innerHTML = 'Shows wells where the selected contaminant was <em>detected</em>. Turn a well layer on above to see results.';
@@ -1249,7 +1290,7 @@ function onWellSources() {
   if (map.hasLayer(layers.wellsWqp)) s.push(...wellsWqpF);
   if (map.hasLayer(layers.wellsDec)) s.push(...wellsDecF);
   if (map.hasLayer(layers.wellsLegacy)) s.push(...wellsLegacyF);
-  return s;
+  return s.filter(f => activeSampleTypes.has(f.properties.sample_type));
 }
 function chemTrendSVG(chem, years, counts, total) {
   const W = 214, H = 116, x0 = 30, x1 = W - 8, yT = 24, yB = H - 18;
