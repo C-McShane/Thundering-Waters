@@ -536,6 +536,15 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       </div>
     </div>
 
+    <!-- Radioactive soil zones (per-site toggles) -->
+    <div class="acc">
+      <div class="acc-head"><span class="acc-title">Radioactive Soil Zones</span><button class="acc-info" title="Soil/slag gamma zones by site">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help">Delineated soil / slag zones where a gamma survey found radioactive material (uranium, thorium, radium) — a footprint, not a groundwater plume. Toggle a site to map its zones. More sites will appear here as they're added.</div>
+        <div id="soil-site-toggles"></div>
+      </div>
+    </div>
+
     </div><!-- /tab-panel: chem (Radiation) -->
 
     <!-- ── CHEMICALS TAB ── -->
@@ -575,7 +584,6 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
         <label class="layer-toggle" id="toggle-wellsWqp"><input type="checkbox" class="toggle-check" data-layer="wellsWqp"><span class="toggle-label">Water Quality Portal wells</span><span class="toggle-count">293</span></label>
         <label class="layer-toggle" id="toggle-wellsDec"><input type="checkbox" class="toggle-check" data-layer="wellsDec"><span class="toggle-label">NYSDEC cleanup-site wells</span><span class="toggle-count">259</span></label>
         <label class="layer-toggle" id="toggle-wellsLegacy"><input type="checkbox" class="toggle-check" data-layer="wellsLegacy"><span class="toggle-label">Legacy-site wells</span><span class="toggle-count">110</span></label>
-        <label class="layer-toggle" id="toggle-soilRad"><input type="checkbox" class="toggle-check" data-layer="soilRad"><span class="toggle-swatch" style="background:#f5d000; border:2px solid #111; border-radius:50%;"></span><span class="toggle-label">Radioactive soil zones (Mill No.&nbsp;2)</span><span class="toggle-count">7</span></label>
         <div class="well-size-legend" id="well-size-legend"></div>
       </div>
     </div>
@@ -589,21 +597,25 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       </div>
     </div>
 
-    <!-- Site-specific views -->
+    <!-- S-Area (its own view) -->
     <div class="acc">
-      <div class="acc-head"><span class="acc-title">Site-specific views</span><button class="acc-info" title="Special per-site layers">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-head"><span class="acc-title">S-Area · Intensity Over Time</span><button class="acc-info" title="S-Area TOC-by-year view">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
-        <div class="acc-help">A few sites report data that doesn't fit the chemical dropdown, so they get their own views.</div>
-
-        <div class="subsection-label">S-Area — intensity over time</div>
-        <div class="chem-note" style="margin-top:2px">S-Area's 184 wells report <b>Total Organic Concentration</b>, not named chemicals. Pick a year to colour wells by the latest TOC reading known by that year.</div>
+        <div class="acc-help">S-Area's 184 wells report <b>Total Organic Concentration</b>, not named chemicals. Pick a year to colour the wells by the latest TOC reading known by that year.</div>
         <select id="sarea-toc-year-select"><option value="">Off</option></select>
         <div class="well-size-legend" id="sarea-toc-legend"></div>
+      </div>
+    </div>
 
-        <div class="subsection-label" style="margin-top:16px">Love Canal — detail layers</div>
+    <!-- Love Canal (all Love Canal data in one place) -->
+    <div class="acc">
+      <div class="acc-head"><span class="acc-title">Love Canal</span><button class="acc-info" title="All Love Canal layers">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help">Everything for Love Canal in one place — the monitoring wells (contaminant chemistry), the piezometers (water levels), and the leachate-containment infrastructure.</div>
+        <label class="layer-toggle" id="toggle-lcWells"><input type="checkbox" class="toggle-check" data-layer="lcWells"><span class="toggle-swatch" style="background:#b81d24; border:2px solid #cfcfcf; border-radius:50%;"></span><span class="toggle-label">Monitoring wells — chemistry</span><span class="toggle-count">55</span></label>
         <label class="layer-toggle" id="toggle-lcPiezo"><input type="checkbox" class="toggle-check" data-layer="lcPiezo"><span class="toggle-swatch" style="background:#2f6fd0; border:2px solid #bfe0ff; border-radius:50%;"></span><span class="toggle-label">Piezometers — water levels</span><span class="toggle-count">28</span></label>
         <label class="layer-toggle" id="toggle-lcPumps"><input type="checkbox" class="toggle-check" data-layer="lcPumps"><span class="toggle-swatch" style="background:#e0b93a; border:2px solid #111; border-radius:2px;"></span><span class="toggle-label">Pump chambers &amp; leachate tanks</span><span class="toggle-count">6</span></label>
-        <div class="chem-note">Piezometers measure <b>groundwater levels</b> (not contaminants) — click one for its water-level plot (ft above sea level, one line per geologic layer, 2015–2022). Pumps &amp; tanks are the containment collection infrastructure.</div>
+        <div class="chem-note">Wells carry <b>contaminant chemistry</b> (click one for its concentration-vs-year plot). Piezometers measure <b>groundwater levels</b> (2015–2022). Pumps &amp; tanks are the containment collection infrastructure.</div>
       </div>
     </div>
 
@@ -1003,6 +1015,7 @@ const layers = {
   lcPiezo:     L.layerGroup(),              // Love Canal piezometers (water-level series)
   soilRad:     L.layerGroup(),              // radioactive soil/slag zones (non-well soil sites)
   radWells:    L.layerGroup(),              // Radiation tab: wells & soil selected by radionuclide
+  lcWells:     L.layerGroup(),              // Love Canal monitoring wells (dedicated toggle)
   sareaToc:    L.layerGroup(),              // off by default (S-Area TOC-over-time selector); independent
                                              // of the wellsDec toggle/filter so the two features don't collide
 };
@@ -1099,7 +1112,7 @@ async function loadAll() {
   ]);
   renderLcPumps(lcPumpsData.features);
   renderLcPiezo(lcPiezoData.features);
-  renderSoilRad(soilRadData.features);
+  soilRadFeatures = soilRadData.features; buildSoilSiteToggles();   // per-site toggles (Radiation tab), off by default
   radData = radNuclides; buildRadSelectors();
   cancerData = cancerGeo;
 
@@ -1244,6 +1257,7 @@ async function loadAll() {
   renderWells(wellsWqpF, layers.wellsWqp);
   renderWells(wellsDecF, layers.wellsDec);
   renderWells(wellsLegacyF, layers.wellsLegacy);
+  renderWells(wellsDecF.filter(f => f.properties.site === 'Love Canal (Occidental)'), layers.lcWells);   // dedicated Love Canal wells toggle
   populateWellDropdown();
   populateSampleTypeFilter();
   populateWellYearDropdown();
@@ -1505,18 +1519,41 @@ const RAD_TREFOIL = '<svg width="20" height="20" viewBox="0 0 18 18">'
   + '<path d="M9,9 L16,9 A7,7 0 0 1 12.5,15.06 Z" fill="#111"/>'
   + '<path d="M9,9 L5.5,15.06 A7,7 0 0 1 2,9 Z" fill="#111"/>'
   + '<circle cx="9" cy="9" r="2" fill="#111"/></svg>';
-function renderSoilRad(features){
+// Radioactive soil zones — per-site toggles in the Radiation tab (grows as sites are added)
+let soilRadFeatures = [];
+const activeSoilSites = new Set();
+function siteShort(s) { return (s || '').replace(/\s*\(.*?\)\s*/g, '').trim(); }   // "Former Mill No. 2 (Greenpac Mill)" -> "Former Mill No. 2"
+function buildSoilSiteToggles() {
+  const box = document.getElementById('soil-site-toggles');
+  if (!box) return;
+  const bySite = {};
+  soilRadFeatures.forEach(f => { const s = f.properties.site; (bySite[s] = bySite[s] || []).push(f); });
+  box.innerHTML = Object.keys(bySite).sort().map(s =>
+    `<label class="layer-toggle" data-soilsite="${s}"><input type="checkbox" class="soil-site-check">`
+    + `<span class="toggle-swatch" style="background:#f5d000; border:2px solid #111; border-radius:50%;"></span>`
+    + `<span class="toggle-label">${siteShort(s)}</span><span class="toggle-count">${bySite[s].length}</span></label>`).join('');
+  box.querySelectorAll('.soil-site-check').forEach(cb => cb.addEventListener('change', () => {
+    const lbl = cb.closest('.layer-toggle'), site = lbl.dataset.soilsite;
+    if (cb.checked) { activeSoilSites.add(site); lbl.classList.add('active'); }
+    else { activeSoilSites.delete(site); lbl.classList.remove('active'); }
+    renderSoilRad();
+  }));
+}
+function renderSoilRad() {
   layers.soilRad.clearLayers();
-  features.forEach(f => {
-    const p = f.properties, [lon,lat] = f.geometry.coordinates;
+  soilRadFeatures.forEach(f => {
+    if (!activeSoilSites.has(f.properties.site)) return;
+    const p = f.properties, [lon, lat] = f.geometry.coordinates;
     const icon = L.divIcon({ className:'well-droplet', iconSize:[20,20], iconAnchor:[10,10], html: RAD_TREFOIL });
     const html = `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:#f5d00022;color:#e0c000;border:1px solid #f5d00055">Radioactive soil zone</span></div>`
       + `<div class="popup-name">${p.zone_id}</div><div class="popup-addr">${p.site} · ${p.medium}</div>`
       + `<div class="conc-plot-note" style="margin-top:6px">${p.desc}</div>`
       + `<div class="popup-addr" style="margin-top:6px">Gamma: <b>${p.gamma_cpm}</b><br>${p.hazard}</div>`
       + `<div class="popup-addr" style="margin-top:4px;opacity:0.75">⚑ ${p.coord_precision}. Source: ${p.source}</div></div>`;
-    L.marker([lat,lon], { icon, pane:'wellsPane' }).bindPopup(html, { maxWidth:300 }).addTo(layers.soilRad);
+    L.marker([lat, lon], { icon, pane:'wellsPane' }).bindPopup(html, { maxWidth:300 }).addTo(layers.soilRad);
   });
+  if (activeSoilSites.size && !map.hasLayer(layers.soilRad)) layers.soilRad.addTo(map);
+  else if (!activeSoilSites.size && map.hasLayer(layers.soilRad)) map.removeLayer(layers.soilRad);
 }
 const WELL_CHEM_PRIORITY = ['Trichloroethene (TCE)','Tetrachloroethene (PCE)','Vinyl chloride','Benzene','Arsenic','Lead','Mercury','PFAS (PFOA/PFOS)','PCBs','Dioxins / furans','Benzo(a)pyrene','Chromium','Cadmium'];
 function wellChemCount(cx) { return [...wellsWqpF, ...wellsDecF, ...wellsLegacyF].filter(f => (f.properties.chems || []).includes(cx)).length; }
