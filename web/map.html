@@ -544,9 +544,9 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
     <!-- Radioactive soil zones (per-site toggles) -->
     <div class="acc">
-      <div class="acc-head"><span class="acc-title">Radioactive Soil Zones</span><button class="acc-info" title="Soil/slag gamma zones by site">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-head"><span class="acc-title">Radioactive Sites · Wells &amp; Soil</span><button class="acc-info" title="Per-site wells + gamma slag zones">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
-        <div class="acc-help">Delineated soil / slag zones where a gamma survey found radioactive material (uranium, thorium, radium) — a footprint, not a groundwater plume. Toggle a site to map its zones. More sites will appear here as they're added.</div>
+        <div class="acc-help">Everything at a radioactive site in one place — its <b>monitoring wells</b> plus the <b>soil/slag zones</b> a gamma survey flagged for radioactive material (uranium, thorium, radium). Toggle a site to map all of its points. More sites will appear here as they're added.</div>
         <div id="soil-site-toggles"></div>
       </div>
     </div>
@@ -1134,7 +1134,7 @@ async function loadAll() {
   ]);
   renderLcPumps(lcPumpsData.features);
   renderLcPiezo(lcPiezoData.features);
-  soilRadFeatures = soilRadData.features; buildSoilSiteToggles();   // per-site toggles (Radiation tab), off by default
+  soilRadFeatures = soilRadData.features;   // per-site toggles built after the wells load (below)
   radData = radNuclides; buildRadSelectors();
   cancerData = cancerGeo;
 
@@ -1280,6 +1280,7 @@ async function loadAll() {
   renderWells(wellsDecF, layers.wellsDec);
   renderWells(wellsLegacyF, layers.wellsLegacy);
   renderWells(wellsDecF.filter(f => f.properties.site === 'Love Canal (Occidental)'), layers.lcWells);   // dedicated Love Canal wells toggle
+  buildSoilSiteToggles();   // Radiation-tab per-site toggles (wells + soil), now that legacy wells are loaded
   populateWellDropdown();
   populateSampleTypeFilter();
   populateWellYearDropdown();
@@ -1551,10 +1552,15 @@ function buildSoilSiteToggles() {
   if (!box) return;
   const bySite = {};
   soilRadFeatures.forEach(f => { const s = f.properties.site; (bySite[s] = bySite[s] || []).push(f); });
-  box.innerHTML = Object.keys(bySite).sort().map(s =>
-    `<label class="layer-toggle" data-soilsite="${s}"><input type="checkbox" class="soil-site-check">`
-    + `<span class="toggle-swatch" style="background:#f5d000; border:2px solid #111; border-radius:50%;"></span>`
-    + `<span class="toggle-label">${siteShort(s)}</span><span class="toggle-count">${bySite[s].length}</span></label>`).join('');
+  const wellsBySite = {};
+  wellsLegacyF.forEach(f => { const s = f.properties.site; if (bySite[s]) (wellsBySite[s] = wellsBySite[s] || []).push(f); });
+  box.innerHTML = Object.keys(bySite).sort().map(s => {
+    const nz = bySite[s].length, nw = (wellsBySite[s] || []).length;
+    const cnt = nw ? `${nz} zone${nz > 1 ? 's' : ''} · ${nw} well${nw > 1 ? 's' : ''}` : `${nz} zone${nz > 1 ? 's' : ''}`;
+    return `<label class="layer-toggle" data-soilsite="${s}"><input type="checkbox" class="soil-site-check">`
+      + `<span class="toggle-swatch" style="background:#f5d000; border:2px solid #111; border-radius:50%;"></span>`
+      + `<span class="toggle-label">${siteShort(s)}</span><span class="toggle-count">${cnt}</span></label>`;
+  }).join('');
   box.querySelectorAll('.soil-site-check').forEach(cb => cb.addEventListener('change', () => {
     const lbl = cb.closest('.layer-toggle'), site = lbl.dataset.soilsite;
     if (cb.checked) { activeSoilSites.add(site); lbl.classList.add('active'); }
@@ -1564,6 +1570,7 @@ function buildSoilSiteToggles() {
 }
 function renderSoilRad() {
   layers.soilRad.clearLayers();
+  // gamma slag zones for the active sites
   soilRadFeatures.forEach(f => {
     if (!activeSoilSites.has(f.properties.site)) return;
     const p = f.properties, [lon, lat] = f.geometry.coordinates;
@@ -1574,6 +1581,13 @@ function renderSoilRad() {
       + `<div class="popup-addr" style="margin-top:6px">Gamma: <b>${p.gamma_cpm}</b><br>${p.hazard}</div>`
       + `<div class="popup-addr" style="margin-top:4px;opacity:0.75">⚑ ${p.coord_precision}. Source: ${p.source}</div></div>`;
     L.marker([lat, lon], { icon, pane:'wellsPane' }).bindPopup(html, { maxWidth:300 }).addTo(layers.soilRad);
+  });
+  // the monitoring wells that sit on those radioactive sites
+  wellsLegacyF.forEach(f => {
+    if (!activeSoilSites.has(f.properties.site)) return;
+    const p = f.properties, [lon, lat] = f.geometry.coordinates;
+    L.marker([lat, lon], { icon: dropletIcon(p.n_found, p.sample_type), pane:'wellsPane' })
+      .bindPopup(wellPopup(p), { maxWidth:300 }).addTo(layers.soilRad);
   });
   if (activeSoilSites.size && !map.hasLayer(layers.soilRad)) layers.soilRad.addTo(map);
   else if (!activeSoilSites.size && map.hasLayer(layers.soilRad)) map.removeLayer(layers.soilRad);
