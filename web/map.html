@@ -176,9 +176,10 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   letter-spacing: .12em; text-transform: uppercase; color: var(--amber);
 }
 .tab-heading svg { flex-shrink: 0; }
+.tab-heading-sub { margin-top: 6px; margin-bottom: 20px; }
 .tab-bar {
   position: sticky; top: 0; z-index: 5;
-  display: flex; flex-direction: column; gap: 4px; margin-bottom: 18px; padding: 5px;
+  display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px; padding: 5px;
   background: var(--bg); border: 1px solid var(--border2); border-radius: 8px;
 }
 .tab-row { display: flex; gap: 4px; }
@@ -441,6 +442,11 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       </div>
     </div>
 
+    <div class="tab-heading tab-heading-sub">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      Expand the drop-down menus for data layers
+    </div>
+
     <div class="tab-panel active" data-tab-panel="sites">
 
     <!-- Hazard site points -->
@@ -583,7 +589,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
         <div class="acc-help">Each <b>water droplet</b> is a well or sampling station — a <b>blood-red core</b> (contamination), <b>sized by the number of chemicals detected</b>, with a <b>ring colour showing what it samples</b> (see “Filter by sampling type”). The three toggles choose the data source; legacy wells' popups carry a <b>⚑ approximate-location note</b>.</div>
         <label class="layer-toggle" id="toggle-wellsWqp"><input type="checkbox" class="toggle-check" data-layer="wellsWqp"><span class="toggle-label">Water Quality Portal wells</span><span class="toggle-count">293</span></label>
         <label class="layer-toggle" id="toggle-wellsDec"><input type="checkbox" class="toggle-check" data-layer="wellsDec"><span class="toggle-label">NYSDEC cleanup-site wells</span><span class="toggle-count">259</span></label>
-        <label class="layer-toggle" id="toggle-wellsLegacy"><input type="checkbox" class="toggle-check" data-layer="wellsLegacy"><span class="toggle-label">Legacy-site wells</span><span class="toggle-count">110</span></label>
+        <label class="layer-toggle" id="toggle-wellsLegacy"><input type="checkbox" class="toggle-check" data-layer="wellsLegacy"><span class="toggle-label">Legacy-site wells</span><span class="toggle-count">177</span></label>
         <div class="well-size-legend" id="well-size-legend"></div>
       </div>
     </div>
