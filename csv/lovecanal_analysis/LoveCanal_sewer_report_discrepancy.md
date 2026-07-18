@@ -100,7 +100,39 @@ The discrepancy is real in STRUCTURE, and it is the kind of thing that warrants 
   DEC record. I could NOT independently source the exact "two directions" phrasing from
   accessible material (news sites block automated access; SSIR not online in DecDocs).
 
-## To confirm/source the "two directions" quote (recommended next steps)
+## The SECOND missing report — and the un-reported "east" result (hunted 2026-07-17)
+The SSIR's own summary (p iv) states the follow-up plan: install two bedrock wells
+(up/downgradient) AND **"up to two soil borings along the Colvin Boulevard Sanitary
+Sewer system to the east of the repair area to verify no additional chemistry is present
+east of the repair area."** East is the direction of the **pool digger (1026 99th St,
+~290 m ENE)**. The results are in the **"Colvin Boulevard Sewer Repair Supplemental
+Subsurface Investigation Report [CRA, 2011]"** — named in the 2011 PRR.
+
+Hunt outcome (this report could NOT be located publicly):
+- NOT in DecDocs 932020 (176-file archive holds only the two work plans).
+- NOT at the DEC `regions_pdf/` path where the SSIR sits (URL guesses 404).
+- NOT summarized in any Periodic Review Report (2010-2023) — searched.
+- NOT reported in the EPA 2nd/3rd/4th/5th Five-Year Reviews. Each FYR states the borings
+  were installed "to verify no additional contamination... east" but **never reports the
+  result.** The Fifth FYR (2024) references list cites the SSIR but not the supplemental
+  report at all.
+=> The single result most relevant to whether contamination extends EAST toward the pool
+digger — the east soil borings + downgradient bedrock well (MW-1) — is **reported in NO
+public document.** The report exists (named in the 2011 PRR) but is not in the public record.
+
+Where to get it: **NYSDEC FOIL** (definitive); the **Judge John T. Curtin / WDNY Love
+Canal litigation docket** — the Fifth FYR references a "Love Canal Superfund Site Report
+[prepared for the honorable John T. Curtin]," so OCC/GSH environmental reports were filed
+there and the supplemental report may be a court exhibit; or the current **994-plaintiff
+suits** (NY Sup. Ct., Niagara Co.), whose discovery would include it.
+
+## SIDE FINDING (Fifth FYR, 2024) — emerging contaminants at 10135
+2019 state-led sampling found MW-10135 with **PFOA 65 µg/L, PFOS 11 µg/L (both > 10 µg/L
+MCL), and 1,4-dioxane 2,300 µg/L** — a new contaminant class at the hotspot, not in the
+VOC/pesticide suite. Worth adding to the site's contaminant profile.
+
+## To confirm/source the "central and western portions" quote (already done — see above)
+## Further sourcing / next steps
 1. **Obtain the two CRA 2011 reports** — the March-2011 SSIR AND the "Colvin Boulevard
    Sewer Repair Supplemental Subsurface Investigation Report [CRA, 2011]" — via NYSDEC
    FOIL request, EPA SEMS docket (semspub.epa.gov, Love Canal OU), or the litigation
