@@ -370,6 +370,8 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .acc-help { display: none; font-size: 11px; color: #a8a6b0; line-height: 1.55; padding: 2px 2px 10px; }
 .acc-help.show { display: block; }
 .subsection-label { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; color: #8fa0b5; margin: 6px 0 5px; text-transform: uppercase; }
+.auto-legend { padding: 6px 4px 10px 8px; margin: 2px 0 4px; border-left: 2px solid var(--border2); }
+.auto-legend-title { font-family: var(--mono); font-size: 9.5px; letter-spacing: .05em; color: #9aa4b2; text-transform: uppercase; margin-bottom: 4px; }
 </style>
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
@@ -405,7 +407,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       Tap a tab below to explore the data
     </div>
     <div class="tab-bar" role="tablist">
-      <button class="tab-btn active" data-tab="sites" role="tab" aria-selected="true">Sites &amp; Acreage</button>
+      <button class="tab-btn active" data-tab="sites" role="tab" aria-selected="true">Hazard Sites</button>
       <button class="tab-btn" data-tab="cancer" role="tab" aria-selected="false">Cancer Risk</button>
       <button class="tab-btn" data-tab="chem" role="tab" aria-selected="false">Chemicals &amp; Radiation</button>
       <button class="tab-btn" data-tab="wells" role="tab" aria-selected="false">Monitoring Wells</button>
@@ -413,73 +415,43 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
     <div class="tab-panel active" data-tab-panel="sites">
 
-    <div class="section-label">Map Layers</div>
-
-    <label class="layer-toggle active" id="toggle-sites">
-      <input type="checkbox" class="toggle-check" checked data-layer="sites">
-      <span class="toggle-swatch" style="background:#c0392b; border: 2px solid #7a2a22;"></span>
-      <span class="toggle-label">Hazard Sites</span>
-      <span class="toggle-count">256 pts</span>
-    </label>
-
-    <label class="layer-toggle" id="toggle-tracts">
-      <input type="checkbox" class="toggle-check" data-layer="tracts">
-      <span class="toggle-swatch square" style="background:rgba(192,57,43,.4); border: 1px solid #c0392b;"></span>
-      <span class="toggle-label">Contamination by Tract</span>
-      <span class="toggle-count">66 tracts</span>
-    </label>
-
-    <label class="layer-toggle" id="toggle-iz">
-      <input type="checkbox" class="toggle-check" data-layer="iz">
-      <span class="toggle-swatch square" style="background:rgba(212,168,67,.25); border: 1px solid #d4a843;"></span>
-      <span class="toggle-label">NF Impact Zone</span>
-      <span class="toggle-count">perimeter</span>
-    </label>
-
-    <label class="layer-toggle" id="toggle-roads">
-      <input type="checkbox" class="toggle-check" data-layer="roads">
-      <span class="toggle-swatch" style="background:#cabfa8; width:14px; height:3px; border-radius:1px;"></span>
-      <span class="toggle-label">Major Roads</span>
-      <span class="toggle-count">13 roads</span>
-    </label>
-
-    <label class="layer-toggle active" id="toggle-water">
-      <input type="checkbox" class="toggle-check" checked data-layer="water">
-      <span class="toggle-swatch square" style="background:#1fa6e0; border:1px solid #5fd0ff;"></span>
-      <span class="toggle-label">Rivers &amp; Water</span>
-      <span class="toggle-count">+ creeks</span>
-    </label>
-
-    <details class="legend-details">
-      <summary>What do the site colors mean?</summary>
-      <div class="legend-grid">
-        <div class="legend-item"><div class="legend-dot" style="background:#c0392b"></div><div class="legend-txt">NY State Superfund</div></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#d4a843"></div><div class="legend-txt">Brownfield</div></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#4a7fa5"></div><div class="legend-txt">Federal Facility</div></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#9b59b6"></div><div class="legend-txt">FUSRAP-LM</div></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#c0622b"></div><div class="legend-txt">RCRA Corrective</div></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#8b0000"></div><div class="legend-txt">Federal NPL Active</div></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#7f8c8d"></div><div class="legend-txt">NPL Deleted</div></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#3d8a7a"></div><div class="legend-txt">CERCLA Non-NPL</div></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#27ae60"></div><div class="legend-txt">Env. Restoration</div></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#16a085"></div><div class="legend-txt">Voluntary Cleanup</div></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#a0522d"></div><div class="legend-txt">CERCLA/Brownfield</div></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#555"></div><div class="legend-txt">Information Not Available</div></div>
+    <!-- Hazard site points -->
+    <div class="acc" data-open>
+      <div class="acc-head"><span class="acc-title">Hazard site points</span><button class="acc-info" title="About the hazard sites">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help">Every documented contaminated site in Niagara County, each dot coloured by its <b>regulatory programme</b>. Turn the layer on or off, or show/hide individual programme types below — the list doubles as the colour legend.</div>
+        <label class="layer-toggle active" id="toggle-sites"><input type="checkbox" class="toggle-check" checked data-layer="sites"><span class="toggle-swatch" style="background:#c0392b; border:2px solid #7a2a22;"></span><span class="toggle-label">Show hazard sites</span><span class="toggle-count">256 pts</span></label>
+        <div class="subsection-label" style="margin-top:12px">Filter by site type</div>
+        <div class="sample-type-filter" id="site-type-filter"></div>
       </div>
-    </details>
+    </div>
 
-    <details class="legend-details">
-      <summary>What does the tract shading mean?</summary>
-      <div class="choro-bar"></div>
-      <div class="choro-labels"><span>0%</span><span>3.6%</span><span>9.9%</span><span>20%</span><span>55%+</span></div>
-    </details>
+    <!-- Area layers (polygons) -->
+    <div class="acc">
+      <div class="acc-head"><span class="acc-title">Area layers</span><button class="acc-info" title="Polygon overlays">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help">Shaded areas rather than points. <b>Contamination by tract</b> shades each census tract by the share of its land that is contaminated; the <b>impact zone</b> outlines the Niagara Falls area where most sites cluster. Each legend appears automatically when you switch its layer on.</div>
+        <label class="layer-toggle" id="toggle-tracts"><input type="checkbox" class="toggle-check" data-layer="tracts"><span class="toggle-swatch square" style="background:rgba(192,57,43,.4); border:1px solid #c0392b;"></span><span class="toggle-label">Contamination by Tract</span><span class="toggle-count">66 tracts</span></label>
+        <div class="auto-legend" id="legend-tracts" style="display:none">
+          <div class="auto-legend-title">Share of tract land contaminated</div>
+          <div class="choro-bar"></div>
+          <div class="choro-labels"><span>0%</span><span>3.6%</span><span>9.9%</span><span>20%</span><span>55%+</span></div>
+        </div>
+        <label class="layer-toggle" id="toggle-iz"><input type="checkbox" class="toggle-check" data-layer="iz"><span class="toggle-swatch square" style="background:rgba(212,168,67,.25); border:1px solid #d4a843;"></span><span class="toggle-label">NF Impact Zone</span><span class="toggle-count">perimeter</span></label>
+        <div class="auto-legend" id="legend-iz" style="display:none">
+          <div class="legend-item"><div class="legend-dot" style="border-radius:2px;background:rgba(212,168,67,.25);border:1px solid #d4a843"></div><div class="legend-txt">Niagara Falls impact-zone perimeter — the concentration area holding most documented sites.</div></div>
+        </div>
+      </div>
+    </div>
 
-    <div class="section-label" style="margin-top:20px;">County Statistics</div>
-    <div class="stat-grid">
-      <div class="stat-box"><div class="stat-val">256</div><div class="stat-lbl">Documented Sites</div></div>
-      <div class="stat-box"><div class="stat-val">~5%</div><div class="stat-lbl">County Land Contaminated</div></div>
-      <div class="stat-box"><div class="stat-val">158</div><div class="stat-lbl">Sites in Impact Zone</div></div>
-      <div class="stat-box"><div class="stat-val">1 in 5</div><div class="stat-lbl">Acres in Impact Zone</div></div>
+    <!-- Water & Infrastructure -->
+    <div class="acc">
+      <div class="acc-head"><span class="acc-title">Water &amp; Infrastructure</span><button class="acc-info" title="Water and roads context">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help">Base-map context: the Niagara River, creeks and water bodies near monitoring sites, plus the county's major roads.</div>
+        <label class="layer-toggle active" id="toggle-water"><input type="checkbox" class="toggle-check" checked data-layer="water"><span class="toggle-swatch square" style="background:#1fa6e0; border:1px solid #5fd0ff;"></span><span class="toggle-label">Rivers &amp; Water</span><span class="toggle-count">+ creeks</span></label>
+        <label class="layer-toggle" id="toggle-roads"><input type="checkbox" class="toggle-check" data-layer="roads"><span class="toggle-swatch" style="background:#cabfa8; width:14px; height:3px; border-radius:1px;"></span><span class="toggle-label">Major Roads</span><span class="toggle-count">13 roads</span></label>
+      </div>
     </div>
 
     </div><!-- /tab-panel: sites -->
@@ -650,6 +622,7 @@ function renderCancer(cx) {
     map.removeLayer(layers.tracts);
     const t = document.getElementById('toggle-tracts');
     if (t) { t.classList.remove('active'); const cb = t.querySelector('input'); if (cb) cb.checked = false; }
+    const lg = document.getElementById('legend-tracts'); if (lg) lg.style.display = 'none';
   }
   L.geoJSON(cancerData, {
     pane: 'cancerPane',
@@ -740,10 +713,39 @@ function populateChemDropdown() {
 }
 function filterByChemical(cx) {
   const note = document.getElementById('chem-note');
-  if (!cx) { renderSites(allSiteFeatures); note.innerHTML = 'Shows sites that list the selected contaminant. Reflects <em>recorded</em> chemicals (122 of 256 sites list any).'; return; }
-  const subset = allSiteFeatures.filter(f => (f.properties.chems || []).includes(cx));
-  renderSites(subset);
-  note.innerHTML = `<b>${subset.length}</b> sites list <b>${cx}</b>. ${formatAssociation(cx)} <span style="color:var(--dim)">(↑ = elevated in county)</span>`;
+  if (!cx) { note.innerHTML = 'Shows sites that list the selected contaminant. Reflects <em>recorded</em> chemicals (122 of 256 sites list any).'; }
+  else {
+    const subset = allSiteFeatures.filter(f => (f.properties.chems || []).includes(cx));
+    note.innerHTML = `<b>${subset.length}</b> sites list <b>${cx}</b>. ${formatAssociation(cx)} <span style="color:var(--dim)">(↑ = elevated in county)</span>`;
+  }
+  applySiteFilters();
+}
+// ── SITE-TYPE FILTER (Hazard Sites tab) ──────────────────────────────────────
+// The programme-type checkboxes double as the colour legend; they combine with the
+// chemical dropdown (a site must pass BOTH filters to render).
+let activeDesignations = new Set(Object.keys(DESIG_COLOR));
+function desigOf(p) { return p.designation || 'Information Not Available'; }
+function populateSiteTypeFilter() {
+  const counts = {};
+  allSiteFeatures.forEach(f => { const d = desigOf(f.properties); counts[d] = (counts[d] || 0) + 1; });
+  const order = Object.keys(DESIG_COLOR).filter(d => counts[d]);
+  Object.keys(counts).forEach(d => { if (!order.includes(d)) order.push(d); });
+  activeDesignations = new Set(order);
+  const box = document.getElementById('site-type-filter');
+  box.innerHTML = order.map(d =>
+    `<label class="stf-opt"><input type="checkbox" class="stf-check-site" value="${d}" checked>`
+    + `<span class="stf-swatch" style="background:${desigColor(d)};border:2px solid #0d0d0e"></span>`
+    + `<span class="stf-name">${d}</span><span class="stf-count">${counts[d]}</span></label>`).join('');
+  box.querySelectorAll('.stf-check-site').forEach(cb => cb.addEventListener('change', () => {
+    if (cb.checked) activeDesignations.add(cb.value); else activeDesignations.delete(cb.value);
+    applySiteFilters();
+  }));
+}
+function applySiteFilters() {
+  const cx = document.getElementById('chem-select').value;
+  let feats = allSiteFeatures.filter(f => activeDesignations.has(desigOf(f.properties)));
+  if (cx) feats = feats.filter(f => (f.properties.chems || []).includes(cx));
+  renderSites(feats);
 }
 function radMatch(p, filters) {
   if (!p.rad_class) return false;
@@ -1043,6 +1045,7 @@ async function loadAll() {
 
   // Chemical dropdown + radioactive sub-filter counts
   populateChemDropdown();
+  populateSiteTypeFilter();
   updateRadCounts();
 }
 
@@ -1507,6 +1510,11 @@ document.querySelectorAll('.toggle-check').forEach(cb => {
       toggle.classList.remove('active');
     }
     if (key === 'wellsWqp' || key === 'wellsDec' || key === 'wellsLegacy') updateChemTrend();
+    // polygon layers reveal their legend automatically while toggled on
+    if (key === 'tracts' || key === 'iz') {
+      const lg = document.getElementById('legend-' + key);
+      if (lg) lg.style.display = cb.checked ? 'block' : 'none';
+    }
   });
 });
 
