@@ -85,6 +85,7 @@ well,chem,year,value_ugL,detect
 10135,"1,1,2,2-Tetrachloroethane",2002,56.0,detect
 10135,"1,1,2,2-Tetrachloroethane",2003,38.0,detect
 10135,"1,1,2,2-Tetrachloroethane",2007,16.0,detect
+10135,"1,1,2,2-Tetrachloroethane",2018,500.0,nondetect
 10135,"1,2,4-Trichlorobenzene",2000,45.0,detect
 10135,"1,2,4-Trichlorobenzene",2001,42.0,detect
 10135,"1,2,4-Trichlorobenzene",2002,2000.0,nondetect
@@ -92,12 +93,14 @@ well,chem,year,value_ugL,detect
 10135,"1,2,4-Trichlorobenzene",2005,67.0,detect
 10135,"1,2,4-Trichlorobenzene",2006,63.0,detect
 10135,"1,2,4-Trichlorobenzene",2007,47.0,detect
+10135,"1,2,4-Trichlorobenzene",2018,470.0,nondetect
 10135,"1,2-Dichlorobenzene",2000,22.0,detect
 10135,"1,2-Dichlorobenzene",2001,48.0,detect
 10135,"1,2-Dichlorobenzene",2003,59.0,detect
 10135,"1,2-Dichlorobenzene",2005,36.0,detect
 10135,"1,2-Dichlorobenzene",2006,37.0,detect
 10135,"1,2-Dichlorobenzene",2007,31.0,detect
+10135,"1,2-Dichlorobenzene",2018,470.0,nondetect
 10135,"1,2-Dichloroethane",2015,500.0,nondetect
 10135,"1,2-Dichloroethane",2016,1000.0,nondetect
 10135,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -108,6 +111,7 @@ well,chem,year,value_ugL,detect
 10135,"1,4-Dichlorobenzene",2005,100.0,detect
 10135,"1,4-Dichlorobenzene",2006,100.0,detect
 10135,"1,4-Dichlorobenzene",2007,84.0,detect
+10135,"1,4-Dichlorobenzene",2018,470.0,nondetect
 10135,Benzene,2000,6400.0,detect
 10135,Benzene,2001,7600.0,detect
 10135,Benzene,2002,5900.0,detect
@@ -121,6 +125,7 @@ well,chem,year,value_ugL,detect
 10135,Benzene,2015,6200.0,detect
 10135,Benzene,2016,7100.0,detect
 10135,Benzene,2017,6300.0,detect
+10135,Benzene,2018,6200.0,detect
 10135,Benzene,2019,5700.0,detect
 10135,Benzo(a)pyrene,2015,46.0,nondetect
 10135,Benzo(a)pyrene,2016,94.0,nondetect
@@ -140,6 +145,7 @@ well,chem,year,value_ugL,detect
 10135,Chlorobenzene,2015,2600.0,detect
 10135,Chlorobenzene,2016,2700.0,detect
 10135,Chlorobenzene,2017,2600.0,detect
+10135,Chlorobenzene,2018,2400.0,detect
 10135,Chlorobenzene,2019,2400.0,detect
 10135,Chloroform / THMs,2000,100.0,detect
 10135,Chloroform / THMs,2003,110.0,detect
@@ -171,6 +177,7 @@ well,chem,year,value_ugL,detect
 10135,Ethylbenzene,2015,500.0,nondetect
 10135,Ethylbenzene,2016,1000.0,nondetect
 10135,Ethylbenzene,2017,14.0,detect
+10135,Ethylbenzene,2018,500.0,nondetect
 10135,Ethylbenzene,2019,11.0,detect
 10135,Lindane / BHC,2015,20.0,detect
 10135,Lindane / BHC,2016,25.0,detect
@@ -197,6 +204,7 @@ well,chem,year,value_ugL,detect
 10135,Tetrachloroethene (PCE),2015,500.0,nondetect
 10135,Tetrachloroethene (PCE),2016,1000.0,nondetect
 10135,Tetrachloroethene (PCE),2017,17.0,detect
+10135,Tetrachloroethene (PCE),2018,500.0,nondetect
 10135,Tetrachloroethene (PCE),2019,5.3,detect
 10135,Toluene,2000,21000.0,detect
 10135,Toluene,2001,22000.0,detect
@@ -212,6 +220,7 @@ well,chem,year,value_ugL,detect
 10135,Toluene,2015,20000.0,detect
 10135,Toluene,2016,23000.0,detect
 10135,Toluene,2017,19000.0,detect
+10135,Toluene,2018,21000.0,detect
 10135,Toluene,2019,19000.0,detect
 10135,Trichloroethene (TCE),2000,60.0,detect
 10135,Trichloroethene (TCE),2001,140.0,detect
@@ -226,6 +235,7 @@ well,chem,year,value_ugL,detect
 10135,Trichloroethene (TCE),2015,110.0,detect
 10135,Trichloroethene (TCE),2016,78.0,detect
 10135,Trichloroethene (TCE),2017,73.0,detect
+10135,Trichloroethene (TCE),2018,71.0,detect
 10135,Trichloroethene (TCE),2019,28.0,detect
 10135,Vinyl chloride,2000,110.0,detect
 10135,Vinyl chloride,2001,75.0,detect
@@ -238,6 +248,7 @@ well,chem,year,value_ugL,detect
 10135,Vinyl chloride,2015,500.0,nondetect
 10135,Vinyl chloride,2016,1000.0,nondetect
 10135,Vinyl chloride,2017,15.0,detect
+10135,Vinyl chloride,2018,500.0,nondetect
 10135,Vinyl chloride,2019,3.9,detect
 10135,Xylene,2000,42.0,detect
 10135,Xylene,2007,37.0,detect
@@ -248,6 +259,7 @@ well,chem,year,value_ugL,detect
 10135,Xylene,2015,1000.0,nondetect
 10135,Xylene,2016,1000.0,nondetect
 10135,Xylene,2017,58.0,detect
+10135,Xylene,2018,35.0,detect
 10135,Xylene,2019,48.0,detect
 10147,"1,1,2,2-Tetrachloroethane",2007,10.0,nondetect
 10147,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
@@ -392,16 +404,21 @@ well,chem,year,value_ugL,detect
 10178,Toluene,2002,10.0,nondetect
 10178,Trichloroethene (TCE),2002,10.0,nondetect
 10178,Vinyl chloride,2002,10.0,nondetect
+10178A,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 10178A,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
+10178A,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 10178A,"1,2-Dichlorobenzene",2006,10.0,nondetect
+10178A,"1,2-Dichlorobenzene",2018,9.4,nondetect
 10178A,"1,2-Dichloroethane",2016,5.0,nondetect
 10178A,"1,2-Dichloroethane",2017,5.0,nondetect
 10178A,"1,2-Dichloroethane",2019,5.0,nondetect
 10178A,"1,4-Dichlorobenzene",2006,10.0,nondetect
+10178A,"1,4-Dichlorobenzene",2018,9.4,nondetect
 10178A,Benzene,2006,10.0,nondetect
 10178A,Benzene,2014,5.0,nondetect
 10178A,Benzene,2016,5.0,nondetect
 10178A,Benzene,2017,5.0,nondetect
+10178A,Benzene,2018,5.0,nondetect
 10178A,Benzene,2019,5.0,nondetect
 10178A,Benzo(a)pyrene,2016,9.4,nondetect
 10178A,Benzo(a)pyrene,2017,9.4,nondetect
@@ -410,6 +427,7 @@ well,chem,year,value_ugL,detect
 10178A,Chlorobenzene,2014,5.0,nondetect
 10178A,Chlorobenzene,2016,5.0,nondetect
 10178A,Chlorobenzene,2017,5.0,nondetect
+10178A,Chlorobenzene,2018,5.0,nondetect
 10178A,Chlorobenzene,2019,5.0,nondetect
 10178A,Chloroform / THMs,2016,5.0,nondetect
 10178A,Chloroform / THMs,2017,5.0,nondetect
@@ -426,6 +444,7 @@ well,chem,year,value_ugL,detect
 10178A,Ethylbenzene,2014,5.0,nondetect
 10178A,Ethylbenzene,2016,5.0,nondetect
 10178A,Ethylbenzene,2017,5.0,nondetect
+10178A,Ethylbenzene,2018,5.0,nondetect
 10178A,Ethylbenzene,2019,5.0,nondetect
 10178A,Lindane / BHC,2016,0.047,nondetect
 10178A,Lindane / BHC,2017,0.047,nondetect
@@ -440,24 +459,29 @@ well,chem,year,value_ugL,detect
 10178A,Tetrachloroethene (PCE),2014,5.0,nondetect
 10178A,Tetrachloroethene (PCE),2016,5.0,nondetect
 10178A,Tetrachloroethene (PCE),2017,5.0,nondetect
+10178A,Tetrachloroethene (PCE),2018,5.0,nondetect
 10178A,Tetrachloroethene (PCE),2019,5.0,nondetect
 10178A,Toluene,2006,10.0,nondetect
 10178A,Toluene,2014,5.0,nondetect
 10178A,Toluene,2016,5.0,nondetect
 10178A,Toluene,2017,5.0,nondetect
+10178A,Toluene,2018,5.0,nondetect
 10178A,Toluene,2019,5.0,nondetect
 10178A,Trichloroethene (TCE),2006,10.0,nondetect
 10178A,Trichloroethene (TCE),2014,5.0,nondetect
 10178A,Trichloroethene (TCE),2016,5.0,nondetect
 10178A,Trichloroethene (TCE),2017,5.0,nondetect
+10178A,Trichloroethene (TCE),2018,5.0,nondetect
 10178A,Trichloroethene (TCE),2019,5.0,nondetect
 10178A,Vinyl chloride,2014,5.0,nondetect
 10178A,Vinyl chloride,2016,5.0,nondetect
 10178A,Vinyl chloride,2017,5.0,nondetect
+10178A,Vinyl chloride,2018,5.0,nondetect
 10178A,Vinyl chloride,2019,5.0,nondetect
 10178A,Xylene,2014,10.0,nondetect
 10178A,Xylene,2016,5.0,nondetect
 10178A,Xylene,2017,5.0,nondetect
+10178A,Xylene,2018,5.0,nondetect
 10178A,Xylene,2019,5.0,nondetect
 10205,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 10205,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
@@ -465,6 +489,7 @@ well,chem,year,value_ugL,detect
 10205,"1,1,2,2-Tetrachloroethane",2003,10.0,nondetect
 10205,"1,1,2,2-Tetrachloroethane",2007,10.0,nondetect
 10205,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+10205,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 10205,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 10205,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 10205,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
@@ -472,12 +497,14 @@ well,chem,year,value_ugL,detect
 10205,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 10205,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 10205,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+10205,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 10205,"1,2-Dichlorobenzene",2000,10.0,nondetect
 10205,"1,2-Dichlorobenzene",2001,10.0,nondetect
 10205,"1,2-Dichlorobenzene",2003,10.0,nondetect
 10205,"1,2-Dichlorobenzene",2005,9.4,nondetect
 10205,"1,2-Dichlorobenzene",2006,10.0,nondetect
 10205,"1,2-Dichlorobenzene",2007,10.0,nondetect
+10205,"1,2-Dichlorobenzene",2018,9.4,nondetect
 10205,"1,2-Dichloroethane",2015,5.0,nondetect
 10205,"1,2-Dichloroethane",2016,5.0,nondetect
 10205,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -488,6 +515,7 @@ well,chem,year,value_ugL,detect
 10205,"1,4-Dichlorobenzene",2005,9.4,nondetect
 10205,"1,4-Dichlorobenzene",2006,10.0,nondetect
 10205,"1,4-Dichlorobenzene",2007,10.0,nondetect
+10205,"1,4-Dichlorobenzene",2018,9.4,nondetect
 10205,Benzene,2000,10.0,nondetect
 10205,Benzene,2001,2.0,detect
 10205,Benzene,2002,10.0,nondetect
@@ -501,6 +529,7 @@ well,chem,year,value_ugL,detect
 10205,Benzene,2015,5.0,nondetect
 10205,Benzene,2016,5.0,nondetect
 10205,Benzene,2017,5.0,nondetect
+10205,Benzene,2018,5.0,nondetect
 10205,Benzene,2019,5.0,nondetect
 10205,Benzo(a)pyrene,2015,1.9,nondetect
 10205,Benzo(a)pyrene,2016,9.4,nondetect
@@ -520,6 +549,7 @@ well,chem,year,value_ugL,detect
 10205,Chlorobenzene,2015,5.0,nondetect
 10205,Chlorobenzene,2016,5.0,nondetect
 10205,Chlorobenzene,2017,5.0,nondetect
+10205,Chlorobenzene,2018,5.0,nondetect
 10205,Chlorobenzene,2019,5.0,nondetect
 10205,Chloroform / THMs,2000,10.0,nondetect
 10205,Chloroform / THMs,2003,10.0,nondetect
@@ -551,6 +581,7 @@ well,chem,year,value_ugL,detect
 10205,Ethylbenzene,2015,5.0,nondetect
 10205,Ethylbenzene,2016,5.0,nondetect
 10205,Ethylbenzene,2017,5.0,nondetect
+10205,Ethylbenzene,2018,5.0,nondetect
 10205,Ethylbenzene,2019,5.0,nondetect
 10205,Lindane / BHC,2015,0.1,detect
 10205,Lindane / BHC,2016,0.62,detect
@@ -577,6 +608,7 @@ well,chem,year,value_ugL,detect
 10205,Tetrachloroethene (PCE),2015,5.0,nondetect
 10205,Tetrachloroethene (PCE),2016,5.0,nondetect
 10205,Tetrachloroethene (PCE),2017,5.0,nondetect
+10205,Tetrachloroethene (PCE),2018,5.0,nondetect
 10205,Tetrachloroethene (PCE),2019,5.0,nondetect
 10205,Toluene,2000,10.0,nondetect
 10205,Toluene,2001,10.0,nondetect
@@ -592,6 +624,7 @@ well,chem,year,value_ugL,detect
 10205,Toluene,2015,5.0,nondetect
 10205,Toluene,2016,5.0,nondetect
 10205,Toluene,2017,5.0,nondetect
+10205,Toluene,2018,5.0,nondetect
 10205,Toluene,2019,5.0,nondetect
 10205,Trichloroethene (TCE),2000,10.0,nondetect
 10205,Trichloroethene (TCE),2001,10.0,nondetect
@@ -606,6 +639,7 @@ well,chem,year,value_ugL,detect
 10205,Trichloroethene (TCE),2015,5.0,nondetect
 10205,Trichloroethene (TCE),2016,5.0,nondetect
 10205,Trichloroethene (TCE),2017,5.0,nondetect
+10205,Trichloroethene (TCE),2018,5.0,nondetect
 10205,Trichloroethene (TCE),2019,5.0,nondetect
 10205,Vinyl chloride,2000,10.0,nondetect
 10205,Vinyl chloride,2001,10.0,nondetect
@@ -618,6 +652,7 @@ well,chem,year,value_ugL,detect
 10205,Vinyl chloride,2015,5.0,nondetect
 10205,Vinyl chloride,2016,5.0,nondetect
 10205,Vinyl chloride,2017,5.0,nondetect
+10205,Vinyl chloride,2018,5.0,nondetect
 10205,Vinyl chloride,2019,5.0,nondetect
 10205,Xylene,2000,10.0,nondetect
 10205,Xylene,2007,10.0,nondetect
@@ -628,20 +663,24 @@ well,chem,year,value_ugL,detect
 10205,Xylene,2015,10.0,nondetect
 10205,Xylene,2016,5.0,nondetect
 10205,Xylene,2017,5.0,nondetect
+10205,Xylene,2018,5.0,nondetect
 10205,Xylene,2019,5.0,nondetect
 10210A,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
 10210A,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
 10210A,"1,1,2,2-Tetrachloroethane",2007,50.0,nondetect
 10210A,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+10210A,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 10210A,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 10210A,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 10210A,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 10210A,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 10210A,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+10210A,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 10210A,"1,2-Dichlorobenzene",2001,10.0,nondetect
 10210A,"1,2-Dichlorobenzene",2005,9.4,nondetect
 10210A,"1,2-Dichlorobenzene",2006,10.0,nondetect
 10210A,"1,2-Dichlorobenzene",2007,10.0,nondetect
+10210A,"1,2-Dichlorobenzene",2018,9.4,nondetect
 10210A,"1,2-Dichloroethane",2015,5.0,nondetect
 10210A,"1,2-Dichloroethane",2016,5.0,nondetect
 10210A,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -650,6 +689,7 @@ well,chem,year,value_ugL,detect
 10210A,"1,4-Dichlorobenzene",2005,9.4,nondetect
 10210A,"1,4-Dichlorobenzene",2006,10.0,nondetect
 10210A,"1,4-Dichlorobenzene",2007,10.0,nondetect
+10210A,"1,4-Dichlorobenzene",2018,9.4,nondetect
 10210A,Benzene,2001,10.0,nondetect
 10210A,Benzene,2002,10.0,nondetect
 10210A,Benzene,2006,10.0,nondetect
@@ -661,6 +701,7 @@ well,chem,year,value_ugL,detect
 10210A,Benzene,2015,5.0,nondetect
 10210A,Benzene,2016,5.0,nondetect
 10210A,Benzene,2017,5.0,nondetect
+10210A,Benzene,2018,5.0,nondetect
 10210A,Benzene,2019,5.0,nondetect
 10210A,Benzo(a)pyrene,2015,1.9,nondetect
 10210A,Benzo(a)pyrene,2016,9.4,nondetect
@@ -678,6 +719,7 @@ well,chem,year,value_ugL,detect
 10210A,Chlorobenzene,2015,5.0,nondetect
 10210A,Chlorobenzene,2016,5.0,nondetect
 10210A,Chlorobenzene,2017,5.0,nondetect
+10210A,Chlorobenzene,2018,5.0,nondetect
 10210A,Chlorobenzene,2019,5.0,nondetect
 10210A,Chloroform / THMs,2015,5.0,nondetect
 10210A,Chloroform / THMs,2016,5.0,nondetect
@@ -705,6 +747,7 @@ well,chem,year,value_ugL,detect
 10210A,Ethylbenzene,2015,5.0,nondetect
 10210A,Ethylbenzene,2016,0.28,detect
 10210A,Ethylbenzene,2017,0.35,detect
+10210A,Ethylbenzene,2018,5.0,nondetect
 10210A,Ethylbenzene,2019,5.0,nondetect
 10210A,Lindane / BHC,2015,0.025,nondetect
 10210A,Lindane / BHC,2016,0.086,detect
@@ -729,6 +772,7 @@ well,chem,year,value_ugL,detect
 10210A,Tetrachloroethene (PCE),2015,5.0,nondetect
 10210A,Tetrachloroethene (PCE),2016,5.0,nondetect
 10210A,Tetrachloroethene (PCE),2017,5.0,nondetect
+10210A,Tetrachloroethene (PCE),2018,5.0,nondetect
 10210A,Tetrachloroethene (PCE),2019,5.0,nondetect
 10210A,Toluene,2001,10.0,nondetect
 10210A,Toluene,2002,10.0,nondetect
@@ -742,6 +786,7 @@ well,chem,year,value_ugL,detect
 10210A,Toluene,2015,5.0,nondetect
 10210A,Toluene,2016,5.0,nondetect
 10210A,Toluene,2017,5.0,nondetect
+10210A,Toluene,2018,5.0,nondetect
 10210A,Toluene,2019,5.0,nondetect
 10210A,Trichloroethene (TCE),2001,10.0,nondetect
 10210A,Trichloroethene (TCE),2002,10.0,nondetect
@@ -754,6 +799,7 @@ well,chem,year,value_ugL,detect
 10210A,Trichloroethene (TCE),2015,5.0,nondetect
 10210A,Trichloroethene (TCE),2016,5.0,nondetect
 10210A,Trichloroethene (TCE),2017,5.0,nondetect
+10210A,Trichloroethene (TCE),2018,5.0,nondetect
 10210A,Trichloroethene (TCE),2019,5.0,nondetect
 10210A,Vinyl chloride,2001,10.0,nondetect
 10210A,Vinyl chloride,2002,10.0,nondetect
@@ -764,6 +810,7 @@ well,chem,year,value_ugL,detect
 10210A,Vinyl chloride,2015,5.0,nondetect
 10210A,Vinyl chloride,2016,5.0,nondetect
 10210A,Vinyl chloride,2017,5.0,nondetect
+10210A,Vinyl chloride,2018,5.0,nondetect
 10210A,Vinyl chloride,2019,5.0,nondetect
 10210A,Xylene,2007,50.0,nondetect
 10210A,Xylene,2009,10.0,nondetect
@@ -773,6 +820,7 @@ well,chem,year,value_ugL,detect
 10210A,Xylene,2015,10.0,nondetect
 10210A,Xylene,2016,5.0,nondetect
 10210A,Xylene,2017,5.0,nondetect
+10210A,Xylene,2018,5.0,nondetect
 10210A,Xylene,2019,0.29,detect
 10210B,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 10210B,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
@@ -780,6 +828,7 @@ well,chem,year,value_ugL,detect
 10210B,"1,1,2,2-Tetrachloroethane",2003,10.0,nondetect
 10210B,"1,1,2,2-Tetrachloroethane",2007,50.0,nondetect
 10210B,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+10210B,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 10210B,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 10210B,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 10210B,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
@@ -787,12 +836,14 @@ well,chem,year,value_ugL,detect
 10210B,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 10210B,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 10210B,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+10210B,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 10210B,"1,2-Dichlorobenzene",2000,10.0,nondetect
 10210B,"1,2-Dichlorobenzene",2001,10.0,nondetect
 10210B,"1,2-Dichlorobenzene",2003,10.0,nondetect
 10210B,"1,2-Dichlorobenzene",2005,9.4,nondetect
 10210B,"1,2-Dichlorobenzene",2006,10.0,nondetect
 10210B,"1,2-Dichlorobenzene",2007,10.0,nondetect
+10210B,"1,2-Dichlorobenzene",2018,9.4,nondetect
 10210B,"1,2-Dichloroethane",2015,5.0,nondetect
 10210B,"1,2-Dichloroethane",2016,5.0,nondetect
 10210B,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -803,6 +854,7 @@ well,chem,year,value_ugL,detect
 10210B,"1,4-Dichlorobenzene",2005,9.4,nondetect
 10210B,"1,4-Dichlorobenzene",2006,10.0,nondetect
 10210B,"1,4-Dichlorobenzene",2007,10.0,nondetect
+10210B,"1,4-Dichlorobenzene",2018,9.4,nondetect
 10210B,Benzene,2000,10.0,nondetect
 10210B,Benzene,2001,10.0,nondetect
 10210B,Benzene,2002,10.0,nondetect
@@ -816,6 +868,7 @@ well,chem,year,value_ugL,detect
 10210B,Benzene,2015,5.0,nondetect
 10210B,Benzene,2016,5.0,nondetect
 10210B,Benzene,2017,5.0,nondetect
+10210B,Benzene,2018,5.0,nondetect
 10210B,Benzene,2019,5.0,nondetect
 10210B,Benzo(a)pyrene,2015,1.9,nondetect
 10210B,Benzo(a)pyrene,2016,9.4,nondetect
@@ -835,6 +888,7 @@ well,chem,year,value_ugL,detect
 10210B,Chlorobenzene,2015,5.0,nondetect
 10210B,Chlorobenzene,2016,5.0,nondetect
 10210B,Chlorobenzene,2017,5.0,nondetect
+10210B,Chlorobenzene,2018,5.0,nondetect
 10210B,Chlorobenzene,2019,5.0,nondetect
 10210B,Chloroform / THMs,2000,10.0,nondetect
 10210B,Chloroform / THMs,2003,10.0,nondetect
@@ -866,6 +920,7 @@ well,chem,year,value_ugL,detect
 10210B,Ethylbenzene,2015,5.0,nondetect
 10210B,Ethylbenzene,2016,5.0,nondetect
 10210B,Ethylbenzene,2017,5.0,nondetect
+10210B,Ethylbenzene,2018,5.0,nondetect
 10210B,Ethylbenzene,2019,5.0,nondetect
 10210B,Lindane / BHC,2015,0.052,nondetect
 10210B,Lindane / BHC,2016,0.17,detect
@@ -892,6 +947,7 @@ well,chem,year,value_ugL,detect
 10210B,Tetrachloroethene (PCE),2015,5.0,nondetect
 10210B,Tetrachloroethene (PCE),2016,5.0,nondetect
 10210B,Tetrachloroethene (PCE),2017,5.0,nondetect
+10210B,Tetrachloroethene (PCE),2018,5.0,nondetect
 10210B,Tetrachloroethene (PCE),2019,5.0,nondetect
 10210B,Toluene,2000,1.0,detect
 10210B,Toluene,2001,10.0,nondetect
@@ -907,6 +963,7 @@ well,chem,year,value_ugL,detect
 10210B,Toluene,2015,5.0,nondetect
 10210B,Toluene,2016,5.0,nondetect
 10210B,Toluene,2017,5.0,nondetect
+10210B,Toluene,2018,5.0,nondetect
 10210B,Toluene,2019,5.0,nondetect
 10210B,Trichloroethene (TCE),2000,10.0,nondetect
 10210B,Trichloroethene (TCE),2001,10.0,nondetect
@@ -921,6 +978,7 @@ well,chem,year,value_ugL,detect
 10210B,Trichloroethene (TCE),2015,5.0,nondetect
 10210B,Trichloroethene (TCE),2016,5.0,nondetect
 10210B,Trichloroethene (TCE),2017,5.0,nondetect
+10210B,Trichloroethene (TCE),2018,5.0,nondetect
 10210B,Trichloroethene (TCE),2019,5.0,nondetect
 10210B,Vinyl chloride,2000,10.0,nondetect
 10210B,Vinyl chloride,2001,10.0,nondetect
@@ -933,6 +991,7 @@ well,chem,year,value_ugL,detect
 10210B,Vinyl chloride,2015,5.0,nondetect
 10210B,Vinyl chloride,2016,5.0,nondetect
 10210B,Vinyl chloride,2017,5.0,nondetect
+10210B,Vinyl chloride,2018,5.0,nondetect
 10210B,Vinyl chloride,2019,5.0,nondetect
 10210B,Xylene,2000,10.0,nondetect
 10210B,Xylene,2007,50.0,nondetect
@@ -943,20 +1002,24 @@ well,chem,year,value_ugL,detect
 10210B,Xylene,2015,10.0,nondetect
 10210B,Xylene,2016,5.0,nondetect
 10210B,Xylene,2017,5.0,nondetect
+10210B,Xylene,2018,5.0,nondetect
 10210B,Xylene,2019,5.0,nondetect
 10210C,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 10210C,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
 10210C,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
 10210C,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+10210C,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 10210C,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 10210C,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 10210C,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 10210C,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 10210C,"1,2,4-Trichlorobenzene",2006,6.0,detect
+10210C,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 10210C,"1,2-Dichlorobenzene",2000,10.0,nondetect
 10210C,"1,2-Dichlorobenzene",2001,10.0,nondetect
 10210C,"1,2-Dichlorobenzene",2005,9.4,nondetect
 10210C,"1,2-Dichlorobenzene",2006,10.0,nondetect
+10210C,"1,2-Dichlorobenzene",2018,9.4,nondetect
 10210C,"1,2-Dichloroethane",2015,5.0,nondetect
 10210C,"1,2-Dichloroethane",2016,5.0,nondetect
 10210C,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -965,6 +1028,7 @@ well,chem,year,value_ugL,detect
 10210C,"1,4-Dichlorobenzene",2001,10.0,nondetect
 10210C,"1,4-Dichlorobenzene",2005,9.4,nondetect
 10210C,"1,4-Dichlorobenzene",2006,10.0,nondetect
+10210C,"1,4-Dichlorobenzene",2018,9.4,nondetect
 10210C,Benzene,2000,10.0,nondetect
 10210C,Benzene,2001,10.0,nondetect
 10210C,Benzene,2002,10.0,nondetect
@@ -976,6 +1040,7 @@ well,chem,year,value_ugL,detect
 10210C,Benzene,2015,5.0,nondetect
 10210C,Benzene,2016,5.0,nondetect
 10210C,Benzene,2017,5.0,nondetect
+10210C,Benzene,2018,5.0,nondetect
 10210C,Benzene,2019,5.0,nondetect
 10210C,Benzo(a)pyrene,2015,1.9,nondetect
 10210C,Benzo(a)pyrene,2016,9.4,nondetect
@@ -993,6 +1058,7 @@ well,chem,year,value_ugL,detect
 10210C,Chlorobenzene,2015,5.0,nondetect
 10210C,Chlorobenzene,2016,5.0,nondetect
 10210C,Chlorobenzene,2017,5.0,nondetect
+10210C,Chlorobenzene,2018,5.0,nondetect
 10210C,Chlorobenzene,2019,5.0,nondetect
 10210C,Chloroform / THMs,2000,10.0,nondetect
 10210C,Chloroform / THMs,2015,5.0,nondetect
@@ -1021,6 +1087,7 @@ well,chem,year,value_ugL,detect
 10210C,Ethylbenzene,2015,5.0,nondetect
 10210C,Ethylbenzene,2016,5.0,nondetect
 10210C,Ethylbenzene,2017,5.0,nondetect
+10210C,Ethylbenzene,2018,5.0,nondetect
 10210C,Ethylbenzene,2019,5.0,nondetect
 10210C,Lindane / BHC,2015,0.052,nondetect
 10210C,Lindane / BHC,2016,0.14,detect
@@ -1045,6 +1112,7 @@ well,chem,year,value_ugL,detect
 10210C,Tetrachloroethene (PCE),2015,5.0,nondetect
 10210C,Tetrachloroethene (PCE),2016,5.0,nondetect
 10210C,Tetrachloroethene (PCE),2017,5.0,nondetect
+10210C,Tetrachloroethene (PCE),2018,5.0,nondetect
 10210C,Tetrachloroethene (PCE),2019,5.0,nondetect
 10210C,Toluene,2000,10.0,nondetect
 10210C,Toluene,2001,10.0,nondetect
@@ -1058,6 +1126,7 @@ well,chem,year,value_ugL,detect
 10210C,Toluene,2015,5.0,nondetect
 10210C,Toluene,2016,5.0,nondetect
 10210C,Toluene,2017,5.0,nondetect
+10210C,Toluene,2018,5.0,nondetect
 10210C,Toluene,2019,5.0,nondetect
 10210C,Trichloroethene (TCE),2000,10.0,nondetect
 10210C,Trichloroethene (TCE),2001,10.0,nondetect
@@ -1070,6 +1139,7 @@ well,chem,year,value_ugL,detect
 10210C,Trichloroethene (TCE),2015,5.0,nondetect
 10210C,Trichloroethene (TCE),2016,5.0,nondetect
 10210C,Trichloroethene (TCE),2017,5.0,nondetect
+10210C,Trichloroethene (TCE),2018,5.0,nondetect
 10210C,Trichloroethene (TCE),2019,5.0,nondetect
 10210C,Vinyl chloride,2000,10.0,nondetect
 10210C,Vinyl chloride,2001,10.0,nondetect
@@ -1081,6 +1151,7 @@ well,chem,year,value_ugL,detect
 10210C,Vinyl chloride,2015,5.0,nondetect
 10210C,Vinyl chloride,2016,5.0,nondetect
 10210C,Vinyl chloride,2017,5.0,nondetect
+10210C,Vinyl chloride,2018,5.0,nondetect
 10210C,Vinyl chloride,2019,5.0,nondetect
 10210C,Xylene,2000,10.0,nondetect
 10210C,Xylene,2009,10.0,nondetect
@@ -1090,23 +1161,27 @@ well,chem,year,value_ugL,detect
 10210C,Xylene,2015,10.0,nondetect
 10210C,Xylene,2016,5.0,nondetect
 10210C,Xylene,2017,5.0,nondetect
+10210C,Xylene,2018,5.0,nondetect
 10210C,Xylene,2019,5.0,nondetect
 10215,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 10215,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
 10215,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
 10215,"1,1,2,2-Tetrachloroethane",2003,10.0,nondetect
 10215,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+10215,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 10215,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 10215,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 10215,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 10215,"1,2,4-Trichlorobenzene",2003,10.0,nondetect
 10215,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 10215,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
+10215,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 10215,"1,2-Dichlorobenzene",2000,10.0,nondetect
 10215,"1,2-Dichlorobenzene",2001,10.0,nondetect
 10215,"1,2-Dichlorobenzene",2003,10.0,nondetect
 10215,"1,2-Dichlorobenzene",2005,9.4,nondetect
 10215,"1,2-Dichlorobenzene",2006,10.0,nondetect
+10215,"1,2-Dichlorobenzene",2018,9.4,nondetect
 10215,"1,2-Dichloroethane",2015,5.0,nondetect
 10215,"1,2-Dichloroethane",2016,5.0,nondetect
 10215,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -1116,6 +1191,7 @@ well,chem,year,value_ugL,detect
 10215,"1,4-Dichlorobenzene",2003,10.0,nondetect
 10215,"1,4-Dichlorobenzene",2005,9.4,nondetect
 10215,"1,4-Dichlorobenzene",2006,10.0,nondetect
+10215,"1,4-Dichlorobenzene",2018,9.4,nondetect
 10215,Benzene,2000,10.0,nondetect
 10215,Benzene,2001,10.0,nondetect
 10215,Benzene,2002,10.0,nondetect
@@ -1128,6 +1204,7 @@ well,chem,year,value_ugL,detect
 10215,Benzene,2015,5.0,nondetect
 10215,Benzene,2016,5.0,nondetect
 10215,Benzene,2017,5.0,nondetect
+10215,Benzene,2018,5.0,nondetect
 10215,Benzene,2019,5.0,nondetect
 10215,Benzo(a)pyrene,2015,1.9,nondetect
 10215,Benzo(a)pyrene,2016,9.4,nondetect
@@ -1146,6 +1223,7 @@ well,chem,year,value_ugL,detect
 10215,Chlorobenzene,2015,5.0,nondetect
 10215,Chlorobenzene,2016,5.0,nondetect
 10215,Chlorobenzene,2017,5.0,nondetect
+10215,Chlorobenzene,2018,5.0,nondetect
 10215,Chlorobenzene,2019,5.0,nondetect
 10215,Chloroform / THMs,2000,10.0,nondetect
 10215,Chloroform / THMs,2003,10.0,nondetect
@@ -1176,6 +1254,7 @@ well,chem,year,value_ugL,detect
 10215,Ethylbenzene,2015,5.0,nondetect
 10215,Ethylbenzene,2016,5.0,nondetect
 10215,Ethylbenzene,2017,5.0,nondetect
+10215,Ethylbenzene,2018,0.43,detect
 10215,Ethylbenzene,2019,5.0,nondetect
 10215,Lindane / BHC,2015,0.061,detect
 10215,Lindane / BHC,2016,0.25,detect
@@ -1201,6 +1280,7 @@ well,chem,year,value_ugL,detect
 10215,Tetrachloroethene (PCE),2015,5.0,nondetect
 10215,Tetrachloroethene (PCE),2016,5.0,nondetect
 10215,Tetrachloroethene (PCE),2017,5.0,nondetect
+10215,Tetrachloroethene (PCE),2018,5.0,nondetect
 10215,Tetrachloroethene (PCE),2019,5.0,nondetect
 10215,Toluene,2000,1.0,detect
 10215,Toluene,2001,10.0,nondetect
@@ -1215,6 +1295,7 @@ well,chem,year,value_ugL,detect
 10215,Toluene,2015,5.0,nondetect
 10215,Toluene,2016,5.0,nondetect
 10215,Toluene,2017,5.0,nondetect
+10215,Toluene,2018,0.27,detect
 10215,Toluene,2019,5.0,nondetect
 10215,Trichloroethene (TCE),2000,10.0,nondetect
 10215,Trichloroethene (TCE),2001,10.0,nondetect
@@ -1228,6 +1309,7 @@ well,chem,year,value_ugL,detect
 10215,Trichloroethene (TCE),2015,5.0,nondetect
 10215,Trichloroethene (TCE),2016,5.0,nondetect
 10215,Trichloroethene (TCE),2017,5.0,nondetect
+10215,Trichloroethene (TCE),2018,5.0,nondetect
 10215,Trichloroethene (TCE),2019,5.0,nondetect
 10215,Vinyl chloride,2000,10.0,nondetect
 10215,Vinyl chloride,2001,10.0,nondetect
@@ -1240,6 +1322,7 @@ well,chem,year,value_ugL,detect
 10215,Vinyl chloride,2015,5.0,nondetect
 10215,Vinyl chloride,2016,5.0,nondetect
 10215,Vinyl chloride,2017,5.0,nondetect
+10215,Vinyl chloride,2018,5.0,nondetect
 10215,Vinyl chloride,2019,5.0,nondetect
 10215,Xylene,2000,10.0,nondetect
 10215,Xylene,2009,10.0,nondetect
@@ -1249,6 +1332,7 @@ well,chem,year,value_ugL,detect
 10215,Xylene,2015,10.0,nondetect
 10215,Xylene,2016,5.0,nondetect
 10215,Xylene,2017,5.0,nondetect
+10215,Xylene,2018,5.0,nondetect
 10215,Xylene,2019,5.0,nondetect
 10225A,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 10225A,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
@@ -1256,6 +1340,7 @@ well,chem,year,value_ugL,detect
 10225A,"1,1,2,2-Tetrachloroethane",2003,10.0,nondetect
 10225A,"1,1,2,2-Tetrachloroethane",2007,50.0,nondetect
 10225A,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+10225A,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 10225A,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 10225A,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 10225A,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
@@ -1263,12 +1348,14 @@ well,chem,year,value_ugL,detect
 10225A,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 10225A,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 10225A,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+10225A,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 10225A,"1,2-Dichlorobenzene",2000,10.0,nondetect
 10225A,"1,2-Dichlorobenzene",2001,10.0,nondetect
 10225A,"1,2-Dichlorobenzene",2003,10.0,nondetect
 10225A,"1,2-Dichlorobenzene",2005,9.4,nondetect
 10225A,"1,2-Dichlorobenzene",2006,10.0,nondetect
 10225A,"1,2-Dichlorobenzene",2007,10.0,nondetect
+10225A,"1,2-Dichlorobenzene",2018,9.4,nondetect
 10225A,"1,2-Dichloroethane",2015,5.0,nondetect
 10225A,"1,2-Dichloroethane",2016,5.0,nondetect
 10225A,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -1279,6 +1366,7 @@ well,chem,year,value_ugL,detect
 10225A,"1,4-Dichlorobenzene",2005,9.4,nondetect
 10225A,"1,4-Dichlorobenzene",2006,10.0,nondetect
 10225A,"1,4-Dichlorobenzene",2007,10.0,nondetect
+10225A,"1,4-Dichlorobenzene",2018,9.4,nondetect
 10225A,Benzene,2000,10.0,nondetect
 10225A,Benzene,2001,10.0,nondetect
 10225A,Benzene,2002,10.0,nondetect
@@ -1292,6 +1380,7 @@ well,chem,year,value_ugL,detect
 10225A,Benzene,2015,5.0,nondetect
 10225A,Benzene,2016,5.0,nondetect
 10225A,Benzene,2017,5.0,nondetect
+10225A,Benzene,2018,5.0,nondetect
 10225A,Benzene,2019,5.0,nondetect
 10225A,Benzo(a)pyrene,2015,1.9,nondetect
 10225A,Benzo(a)pyrene,2016,9.4,nondetect
@@ -1311,6 +1400,7 @@ well,chem,year,value_ugL,detect
 10225A,Chlorobenzene,2015,5.0,nondetect
 10225A,Chlorobenzene,2016,5.0,nondetect
 10225A,Chlorobenzene,2017,5.0,nondetect
+10225A,Chlorobenzene,2018,5.0,nondetect
 10225A,Chlorobenzene,2019,5.0,nondetect
 10225A,Chloroform / THMs,2000,10.0,nondetect
 10225A,Chloroform / THMs,2003,10.0,nondetect
@@ -1342,6 +1432,7 @@ well,chem,year,value_ugL,detect
 10225A,Ethylbenzene,2015,0.73,detect
 10225A,Ethylbenzene,2016,0.37,detect
 10225A,Ethylbenzene,2017,0.43,detect
+10225A,Ethylbenzene,2018,5.0,nondetect
 10225A,Ethylbenzene,2019,0.35,detect
 10225A,Lindane / BHC,2015,0.025,nondetect
 10225A,Lindane / BHC,2016,0.2,detect
@@ -1368,6 +1459,7 @@ well,chem,year,value_ugL,detect
 10225A,Tetrachloroethene (PCE),2015,5.0,nondetect
 10225A,Tetrachloroethene (PCE),2016,5.0,nondetect
 10225A,Tetrachloroethene (PCE),2017,5.0,nondetect
+10225A,Tetrachloroethene (PCE),2018,5.0,nondetect
 10225A,Tetrachloroethene (PCE),2019,5.0,nondetect
 10225A,Toluene,2000,10.0,nondetect
 10225A,Toluene,2001,10.0,nondetect
@@ -1383,6 +1475,7 @@ well,chem,year,value_ugL,detect
 10225A,Toluene,2015,5.0,nondetect
 10225A,Toluene,2016,0.25,detect
 10225A,Toluene,2017,0.27,detect
+10225A,Toluene,2018,0.29,detect
 10225A,Toluene,2019,0.27,detect
 10225A,Trichloroethene (TCE),2000,10.0,nondetect
 10225A,Trichloroethene (TCE),2001,10.0,nondetect
@@ -1397,6 +1490,7 @@ well,chem,year,value_ugL,detect
 10225A,Trichloroethene (TCE),2015,5.0,nondetect
 10225A,Trichloroethene (TCE),2016,5.0,nondetect
 10225A,Trichloroethene (TCE),2017,5.0,nondetect
+10225A,Trichloroethene (TCE),2018,5.0,nondetect
 10225A,Trichloroethene (TCE),2019,5.0,nondetect
 10225A,Vinyl chloride,2000,10.0,nondetect
 10225A,Vinyl chloride,2001,10.0,nondetect
@@ -1409,6 +1503,7 @@ well,chem,year,value_ugL,detect
 10225A,Vinyl chloride,2015,5.0,nondetect
 10225A,Vinyl chloride,2016,5.0,nondetect
 10225A,Vinyl chloride,2017,5.0,nondetect
+10225A,Vinyl chloride,2018,5.0,nondetect
 10225A,Vinyl chloride,2019,5.0,nondetect
 10225A,Xylene,2000,10.0,nondetect
 10225A,Xylene,2007,50.0,nondetect
@@ -1419,6 +1514,7 @@ well,chem,year,value_ugL,detect
 10225A,Xylene,2015,10.0,nondetect
 10225A,Xylene,2016,5.0,nondetect
 10225A,Xylene,2017,5.0,nondetect
+10225A,Xylene,2018,5.0,nondetect
 10225A,Xylene,2019,0.45,detect
 10225B,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 10225B,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
@@ -1426,6 +1522,7 @@ well,chem,year,value_ugL,detect
 10225B,"1,1,2,2-Tetrachloroethane",2003,10.0,nondetect
 10225B,"1,1,2,2-Tetrachloroethane",2007,50.0,nondetect
 10225B,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+10225B,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 10225B,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 10225B,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 10225B,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
@@ -1433,12 +1530,14 @@ well,chem,year,value_ugL,detect
 10225B,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 10225B,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 10225B,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+10225B,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 10225B,"1,2-Dichlorobenzene",2000,10.0,nondetect
 10225B,"1,2-Dichlorobenzene",2001,10.0,nondetect
 10225B,"1,2-Dichlorobenzene",2003,10.0,nondetect
 10225B,"1,2-Dichlorobenzene",2005,9.4,nondetect
 10225B,"1,2-Dichlorobenzene",2006,10.0,nondetect
 10225B,"1,2-Dichlorobenzene",2007,10.0,nondetect
+10225B,"1,2-Dichlorobenzene",2018,9.4,nondetect
 10225B,"1,2-Dichloroethane",2015,5.0,nondetect
 10225B,"1,2-Dichloroethane",2016,5.0,nondetect
 10225B,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -1449,6 +1548,7 @@ well,chem,year,value_ugL,detect
 10225B,"1,4-Dichlorobenzene",2005,9.4,nondetect
 10225B,"1,4-Dichlorobenzene",2006,10.0,nondetect
 10225B,"1,4-Dichlorobenzene",2007,10.0,nondetect
+10225B,"1,4-Dichlorobenzene",2018,9.4,nondetect
 10225B,Benzene,2000,10.0,nondetect
 10225B,Benzene,2001,10.0,nondetect
 10225B,Benzene,2002,10.0,nondetect
@@ -1462,6 +1562,7 @@ well,chem,year,value_ugL,detect
 10225B,Benzene,2015,5.0,nondetect
 10225B,Benzene,2016,5.0,nondetect
 10225B,Benzene,2017,5.0,nondetect
+10225B,Benzene,2018,5.0,nondetect
 10225B,Benzene,2019,5.0,nondetect
 10225B,Benzo(a)pyrene,2015,1.9,nondetect
 10225B,Benzo(a)pyrene,2016,9.4,nondetect
@@ -1481,6 +1582,7 @@ well,chem,year,value_ugL,detect
 10225B,Chlorobenzene,2015,5.0,nondetect
 10225B,Chlorobenzene,2016,5.0,nondetect
 10225B,Chlorobenzene,2017,5.0,nondetect
+10225B,Chlorobenzene,2018,5.0,nondetect
 10225B,Chlorobenzene,2019,5.0,nondetect
 10225B,Chloroform / THMs,2000,10.0,nondetect
 10225B,Chloroform / THMs,2003,10.0,nondetect
@@ -1512,6 +1614,7 @@ well,chem,year,value_ugL,detect
 10225B,Ethylbenzene,2015,5.0,nondetect
 10225B,Ethylbenzene,2016,5.0,nondetect
 10225B,Ethylbenzene,2017,5.0,nondetect
+10225B,Ethylbenzene,2018,5.0,nondetect
 10225B,Ethylbenzene,2019,5.0,nondetect
 10225B,Lindane / BHC,2015,0.025,nondetect
 10225B,Lindane / BHC,2016,0.1,detect
@@ -1538,6 +1641,7 @@ well,chem,year,value_ugL,detect
 10225B,Tetrachloroethene (PCE),2015,5.0,nondetect
 10225B,Tetrachloroethene (PCE),2016,5.0,nondetect
 10225B,Tetrachloroethene (PCE),2017,5.0,nondetect
+10225B,Tetrachloroethene (PCE),2018,5.0,nondetect
 10225B,Tetrachloroethene (PCE),2019,5.0,nondetect
 10225B,Toluene,2000,10.0,nondetect
 10225B,Toluene,2001,10.0,nondetect
@@ -1553,6 +1657,7 @@ well,chem,year,value_ugL,detect
 10225B,Toluene,2015,5.0,nondetect
 10225B,Toluene,2016,0.29,detect
 10225B,Toluene,2017,0.33,detect
+10225B,Toluene,2018,0.33,detect
 10225B,Toluene,2019,0.23,detect
 10225B,Trichloroethene (TCE),2000,10.0,nondetect
 10225B,Trichloroethene (TCE),2001,10.0,nondetect
@@ -1567,6 +1672,7 @@ well,chem,year,value_ugL,detect
 10225B,Trichloroethene (TCE),2015,5.0,nondetect
 10225B,Trichloroethene (TCE),2016,5.0,nondetect
 10225B,Trichloroethene (TCE),2017,5.0,nondetect
+10225B,Trichloroethene (TCE),2018,5.0,nondetect
 10225B,Trichloroethene (TCE),2019,5.0,nondetect
 10225B,Vinyl chloride,2000,10.0,nondetect
 10225B,Vinyl chloride,2001,10.0,nondetect
@@ -1579,6 +1685,7 @@ well,chem,year,value_ugL,detect
 10225B,Vinyl chloride,2015,5.0,nondetect
 10225B,Vinyl chloride,2016,5.0,nondetect
 10225B,Vinyl chloride,2017,5.0,nondetect
+10225B,Vinyl chloride,2018,5.0,nondetect
 10225B,Vinyl chloride,2019,5.0,nondetect
 10225B,Xylene,2000,10.0,nondetect
 10225B,Xylene,2007,50.0,nondetect
@@ -1589,6 +1696,7 @@ well,chem,year,value_ugL,detect
 10225B,Xylene,2015,10.0,nondetect
 10225B,Xylene,2016,5.0,nondetect
 10225B,Xylene,2017,5.0,nondetect
+10225B,Xylene,2018,5.0,nondetect
 10225B,Xylene,2019,5.0,nondetect
 10225C,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 10225C,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
@@ -1596,6 +1704,7 @@ well,chem,year,value_ugL,detect
 10225C,"1,1,2,2-Tetrachloroethane",2003,10.0,nondetect
 10225C,"1,1,2,2-Tetrachloroethane",2007,50.0,nondetect
 10225C,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+10225C,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 10225C,"1,2,4-Trichlorobenzene",2000,6.0,detect
 10225C,"1,2,4-Trichlorobenzene",2001,3.0,detect
 10225C,"1,2,4-Trichlorobenzene",2002,5.0,detect
@@ -1603,12 +1712,14 @@ well,chem,year,value_ugL,detect
 10225C,"1,2,4-Trichlorobenzene",2005,5.1,detect
 10225C,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 10225C,"1,2,4-Trichlorobenzene",2007,3.0,detect
+10225C,"1,2,4-Trichlorobenzene",2018,7.7,detect
 10225C,"1,2-Dichlorobenzene",2000,10.0,nondetect
 10225C,"1,2-Dichlorobenzene",2001,10.0,nondetect
 10225C,"1,2-Dichlorobenzene",2003,1.0,detect
 10225C,"1,2-Dichlorobenzene",2005,9.4,nondetect
 10225C,"1,2-Dichlorobenzene",2006,10.0,nondetect
 10225C,"1,2-Dichlorobenzene",2007,10.0,nondetect
+10225C,"1,2-Dichlorobenzene",2018,9.4,nondetect
 10225C,"1,2-Dichloroethane",2015,5.0,nondetect
 10225C,"1,2-Dichloroethane",2016,5.0,nondetect
 10225C,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -1619,6 +1730,7 @@ well,chem,year,value_ugL,detect
 10225C,"1,4-Dichlorobenzene",2005,9.4,nondetect
 10225C,"1,4-Dichlorobenzene",2006,10.0,nondetect
 10225C,"1,4-Dichlorobenzene",2007,10.0,nondetect
+10225C,"1,4-Dichlorobenzene",2018,9.4,nondetect
 10225C,Benzene,2000,10.0,nondetect
 10225C,Benzene,2001,10.0,nondetect
 10225C,Benzene,2002,10.0,nondetect
@@ -1632,6 +1744,7 @@ well,chem,year,value_ugL,detect
 10225C,Benzene,2015,5.0,nondetect
 10225C,Benzene,2016,5.0,nondetect
 10225C,Benzene,2017,5.0,nondetect
+10225C,Benzene,2018,5.0,nondetect
 10225C,Benzene,2019,5.0,nondetect
 10225C,Benzo(a)pyrene,2015,1.9,nondetect
 10225C,Benzo(a)pyrene,2016,9.4,nondetect
@@ -1651,6 +1764,7 @@ well,chem,year,value_ugL,detect
 10225C,Chlorobenzene,2015,2.0,detect
 10225C,Chlorobenzene,2016,0.89,detect
 10225C,Chlorobenzene,2017,1.1,detect
+10225C,Chlorobenzene,2018,1.1,detect
 10225C,Chlorobenzene,2019,1.0,detect
 10225C,Chloroform / THMs,2000,10.0,nondetect
 10225C,Chloroform / THMs,2003,10.0,nondetect
@@ -1682,6 +1796,7 @@ well,chem,year,value_ugL,detect
 10225C,Ethylbenzene,2015,5.0,nondetect
 10225C,Ethylbenzene,2016,5.0,nondetect
 10225C,Ethylbenzene,2017,5.0,nondetect
+10225C,Ethylbenzene,2018,5.0,nondetect
 10225C,Ethylbenzene,2019,5.0,nondetect
 10225C,Lindane / BHC,2015,0.085,detect
 10225C,Lindane / BHC,2016,0.047,nondetect
@@ -1708,6 +1823,7 @@ well,chem,year,value_ugL,detect
 10225C,Tetrachloroethene (PCE),2015,5.0,nondetect
 10225C,Tetrachloroethene (PCE),2016,5.0,nondetect
 10225C,Tetrachloroethene (PCE),2017,5.0,nondetect
+10225C,Tetrachloroethene (PCE),2018,5.0,nondetect
 10225C,Tetrachloroethene (PCE),2019,5.0,nondetect
 10225C,Toluene,2000,10.0,nondetect
 10225C,Toluene,2001,10.0,nondetect
@@ -1723,6 +1839,7 @@ well,chem,year,value_ugL,detect
 10225C,Toluene,2015,5.0,nondetect
 10225C,Toluene,2016,5.0,nondetect
 10225C,Toluene,2017,5.0,nondetect
+10225C,Toluene,2018,5.0,nondetect
 10225C,Toluene,2019,5.0,nondetect
 10225C,Trichloroethene (TCE),2000,7.0,detect
 10225C,Trichloroethene (TCE),2001,8.0,detect
@@ -1737,6 +1854,7 @@ well,chem,year,value_ugL,detect
 10225C,Trichloroethene (TCE),2015,15.0,detect
 10225C,Trichloroethene (TCE),2016,6.4,detect
 10225C,Trichloroethene (TCE),2017,8.0,detect
+10225C,Trichloroethene (TCE),2018,8.0,detect
 10225C,Trichloroethene (TCE),2019,6.5,detect
 10225C,Vinyl chloride,2000,10.0,nondetect
 10225C,Vinyl chloride,2001,10.0,nondetect
@@ -1749,6 +1867,7 @@ well,chem,year,value_ugL,detect
 10225C,Vinyl chloride,2015,5.0,nondetect
 10225C,Vinyl chloride,2016,5.0,nondetect
 10225C,Vinyl chloride,2017,5.0,nondetect
+10225C,Vinyl chloride,2018,5.0,nondetect
 10225C,Vinyl chloride,2019,5.0,nondetect
 10225C,Xylene,2000,10.0,nondetect
 10225C,Xylene,2007,50.0,nondetect
@@ -1759,6 +1878,7 @@ well,chem,year,value_ugL,detect
 10225C,Xylene,2015,10.0,nondetect
 10225C,Xylene,2016,5.0,nondetect
 10225C,Xylene,2017,5.0,nondetect
+10225C,Xylene,2018,5.0,nondetect
 10225C,Xylene,2019,5.0,nondetect
 10270,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 10270,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
@@ -1766,6 +1886,7 @@ well,chem,year,value_ugL,detect
 10270,"1,1,2,2-Tetrachloroethane",2003,10.0,nondetect
 10270,"1,1,2,2-Tetrachloroethane",2007,10.0,nondetect
 10270,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+10270,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 10270,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 10270,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 10270,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
@@ -1773,12 +1894,14 @@ well,chem,year,value_ugL,detect
 10270,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 10270,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 10270,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+10270,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 10270,"1,2-Dichlorobenzene",2000,10.0,nondetect
 10270,"1,2-Dichlorobenzene",2001,10.0,nondetect
 10270,"1,2-Dichlorobenzene",2003,10.0,nondetect
 10270,"1,2-Dichlorobenzene",2005,9.4,nondetect
 10270,"1,2-Dichlorobenzene",2006,10.0,nondetect
 10270,"1,2-Dichlorobenzene",2007,10.0,nondetect
+10270,"1,2-Dichlorobenzene",2018,9.4,nondetect
 10270,"1,2-Dichloroethane",2015,5.0,nondetect
 10270,"1,2-Dichloroethane",2016,5.0,nondetect
 10270,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -1789,6 +1912,7 @@ well,chem,year,value_ugL,detect
 10270,"1,4-Dichlorobenzene",2005,9.4,nondetect
 10270,"1,4-Dichlorobenzene",2006,10.0,nondetect
 10270,"1,4-Dichlorobenzene",2007,10.0,nondetect
+10270,"1,4-Dichlorobenzene",2018,9.4,nondetect
 10270,Benzene,2000,10.0,nondetect
 10270,Benzene,2001,10.0,nondetect
 10270,Benzene,2002,10.0,nondetect
@@ -1802,6 +1926,7 @@ well,chem,year,value_ugL,detect
 10270,Benzene,2015,5.0,nondetect
 10270,Benzene,2016,5.0,nondetect
 10270,Benzene,2017,5.0,nondetect
+10270,Benzene,2018,5.0,nondetect
 10270,Benzene,2019,5.0,nondetect
 10270,Benzo(a)pyrene,2015,1.9,nondetect
 10270,Benzo(a)pyrene,2016,9.4,nondetect
@@ -1821,6 +1946,7 @@ well,chem,year,value_ugL,detect
 10270,Chlorobenzene,2015,5.0,nondetect
 10270,Chlorobenzene,2016,5.0,nondetect
 10270,Chlorobenzene,2017,5.0,nondetect
+10270,Chlorobenzene,2018,5.0,nondetect
 10270,Chlorobenzene,2019,5.0,nondetect
 10270,Chloroform / THMs,2000,10.0,nondetect
 10270,Chloroform / THMs,2003,10.0,nondetect
@@ -1852,6 +1978,7 @@ well,chem,year,value_ugL,detect
 10270,Ethylbenzene,2015,5.0,nondetect
 10270,Ethylbenzene,2016,5.0,nondetect
 10270,Ethylbenzene,2017,5.0,nondetect
+10270,Ethylbenzene,2018,5.0,nondetect
 10270,Ethylbenzene,2019,5.0,nondetect
 10270,Lindane / BHC,2015,0.05,nondetect
 10270,Lindane / BHC,2016,0.08,detect
@@ -1878,6 +2005,7 @@ well,chem,year,value_ugL,detect
 10270,Tetrachloroethene (PCE),2015,5.0,nondetect
 10270,Tetrachloroethene (PCE),2016,5.0,nondetect
 10270,Tetrachloroethene (PCE),2017,5.0,nondetect
+10270,Tetrachloroethene (PCE),2018,5.0,nondetect
 10270,Tetrachloroethene (PCE),2019,5.0,nondetect
 10270,Toluene,2000,2.0,detect
 10270,Toluene,2001,10.0,nondetect
@@ -1893,6 +2021,7 @@ well,chem,year,value_ugL,detect
 10270,Toluene,2015,5.0,nondetect
 10270,Toluene,2016,5.0,nondetect
 10270,Toluene,2017,5.0,nondetect
+10270,Toluene,2018,5.0,nondetect
 10270,Toluene,2019,5.0,nondetect
 10270,Trichloroethene (TCE),2000,10.0,nondetect
 10270,Trichloroethene (TCE),2001,10.0,nondetect
@@ -1907,6 +2036,7 @@ well,chem,year,value_ugL,detect
 10270,Trichloroethene (TCE),2015,5.0,nondetect
 10270,Trichloroethene (TCE),2016,5.0,nondetect
 10270,Trichloroethene (TCE),2017,5.0,nondetect
+10270,Trichloroethene (TCE),2018,5.0,nondetect
 10270,Trichloroethene (TCE),2019,5.0,nondetect
 10270,Vinyl chloride,2000,10.0,nondetect
 10270,Vinyl chloride,2001,10.0,nondetect
@@ -1919,6 +2049,7 @@ well,chem,year,value_ugL,detect
 10270,Vinyl chloride,2015,5.0,nondetect
 10270,Vinyl chloride,2016,5.0,nondetect
 10270,Vinyl chloride,2017,5.0,nondetect
+10270,Vinyl chloride,2018,5.0,nondetect
 10270,Vinyl chloride,2019,5.0,nondetect
 10270,Xylene,2000,10.0,nondetect
 10270,Xylene,2007,3.0,detect
@@ -1929,6 +2060,7 @@ well,chem,year,value_ugL,detect
 10270,Xylene,2015,10.0,nondetect
 10270,Xylene,2016,5.0,nondetect
 10270,Xylene,2017,5.0,nondetect
+10270,Xylene,2018,5.0,nondetect
 10270,Xylene,2019,5.0,nondetect
 10272,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 10272,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
@@ -1936,17 +2068,20 @@ well,chem,year,value_ugL,detect
 10272,"1,1,2,2-Tetrachloroethane",2003,10.0,nondetect
 10272,"1,1,2,2-Tetrachloroethane",2007,10.0,nondetect
 10272,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+10272,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 10272,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 10272,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 10272,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 10272,"1,2,4-Trichlorobenzene",2003,10.0,nondetect
 10272,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 10272,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+10272,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 10272,"1,2-Dichlorobenzene",2000,10.0,nondetect
 10272,"1,2-Dichlorobenzene",2001,10.0,nondetect
 10272,"1,2-Dichlorobenzene",2003,10.0,nondetect
 10272,"1,2-Dichlorobenzene",2005,9.4,nondetect
 10272,"1,2-Dichlorobenzene",2007,10.0,nondetect
+10272,"1,2-Dichlorobenzene",2018,9.4,nondetect
 10272,"1,2-Dichloroethane",2015,5.0,nondetect
 10272,"1,2-Dichloroethane",2016,5.0,nondetect
 10272,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -1956,6 +2091,7 @@ well,chem,year,value_ugL,detect
 10272,"1,4-Dichlorobenzene",2003,10.0,nondetect
 10272,"1,4-Dichlorobenzene",2005,9.4,nondetect
 10272,"1,4-Dichlorobenzene",2007,10.0,nondetect
+10272,"1,4-Dichlorobenzene",2018,9.4,nondetect
 10272,Benzene,2000,10.0,nondetect
 10272,Benzene,2001,10.0,nondetect
 10272,Benzene,2002,10.0,nondetect
@@ -1968,6 +2104,7 @@ well,chem,year,value_ugL,detect
 10272,Benzene,2015,5.0,nondetect
 10272,Benzene,2016,5.0,nondetect
 10272,Benzene,2017,5.0,nondetect
+10272,Benzene,2018,5.0,nondetect
 10272,Benzene,2019,5.0,nondetect
 10272,Benzo(a)pyrene,2015,1.9,nondetect
 10272,Benzo(a)pyrene,2016,9.4,nondetect
@@ -1986,6 +2123,7 @@ well,chem,year,value_ugL,detect
 10272,Chlorobenzene,2015,5.0,nondetect
 10272,Chlorobenzene,2016,5.0,nondetect
 10272,Chlorobenzene,2017,5.0,nondetect
+10272,Chlorobenzene,2018,5.0,nondetect
 10272,Chlorobenzene,2019,5.0,nondetect
 10272,Chloroform / THMs,2000,10.0,nondetect
 10272,Chloroform / THMs,2003,10.0,nondetect
@@ -2017,6 +2155,7 @@ well,chem,year,value_ugL,detect
 10272,Ethylbenzene,2015,5.0,nondetect
 10272,Ethylbenzene,2016,5.0,nondetect
 10272,Ethylbenzene,2017,5.0,nondetect
+10272,Ethylbenzene,2018,5.0,nondetect
 10272,Ethylbenzene,2019,5.0,nondetect
 10272,Lindane / BHC,2015,0.05,nondetect
 10272,Lindane / BHC,2016,0.23,detect
@@ -2042,6 +2181,7 @@ well,chem,year,value_ugL,detect
 10272,Tetrachloroethene (PCE),2015,5.0,nondetect
 10272,Tetrachloroethene (PCE),2016,5.0,nondetect
 10272,Tetrachloroethene (PCE),2017,5.0,nondetect
+10272,Tetrachloroethene (PCE),2018,5.0,nondetect
 10272,Tetrachloroethene (PCE),2019,5.0,nondetect
 10272,Toluene,2000,10.0,nondetect
 10272,Toluene,2001,10.0,nondetect
@@ -2056,6 +2196,7 @@ well,chem,year,value_ugL,detect
 10272,Toluene,2015,5.0,nondetect
 10272,Toluene,2016,5.0,nondetect
 10272,Toluene,2017,5.0,nondetect
+10272,Toluene,2018,5.0,nondetect
 10272,Toluene,2019,5.0,nondetect
 10272,Trichloroethene (TCE),2000,10.0,nondetect
 10272,Trichloroethene (TCE),2001,10.0,nondetect
@@ -2069,6 +2210,7 @@ well,chem,year,value_ugL,detect
 10272,Trichloroethene (TCE),2015,5.0,nondetect
 10272,Trichloroethene (TCE),2016,5.0,nondetect
 10272,Trichloroethene (TCE),2017,5.0,nondetect
+10272,Trichloroethene (TCE),2018,5.0,nondetect
 10272,Trichloroethene (TCE),2019,5.0,nondetect
 10272,Vinyl chloride,2000,10.0,nondetect
 10272,Vinyl chloride,2001,10.0,nondetect
@@ -2081,6 +2223,7 @@ well,chem,year,value_ugL,detect
 10272,Vinyl chloride,2015,5.0,nondetect
 10272,Vinyl chloride,2016,5.0,nondetect
 10272,Vinyl chloride,2017,5.0,nondetect
+10272,Vinyl chloride,2018,5.0,nondetect
 10272,Vinyl chloride,2019,5.0,nondetect
 10272,Xylene,2000,10.0,nondetect
 10272,Xylene,2007,10.0,nondetect
@@ -2091,6 +2234,7 @@ well,chem,year,value_ugL,detect
 10272,Xylene,2015,10.0,nondetect
 10272,Xylene,2016,5.0,nondetect
 10272,Xylene,2017,5.0,nondetect
+10272,Xylene,2018,5.0,nondetect
 10272,Xylene,2019,5.0,nondetect
 10278,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 10278,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
@@ -2098,6 +2242,7 @@ well,chem,year,value_ugL,detect
 10278,"1,1,2,2-Tetrachloroethane",2003,10.0,nondetect
 10278,"1,1,2,2-Tetrachloroethane",2007,50.0,nondetect
 10278,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+10278,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 10278,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 10278,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 10278,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
@@ -2105,12 +2250,14 @@ well,chem,year,value_ugL,detect
 10278,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 10278,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 10278,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+10278,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 10278,"1,2-Dichlorobenzene",2000,10.0,nondetect
 10278,"1,2-Dichlorobenzene",2001,10.0,nondetect
 10278,"1,2-Dichlorobenzene",2003,10.0,nondetect
 10278,"1,2-Dichlorobenzene",2005,9.4,nondetect
 10278,"1,2-Dichlorobenzene",2006,10.0,nondetect
 10278,"1,2-Dichlorobenzene",2007,10.0,nondetect
+10278,"1,2-Dichlorobenzene",2018,9.4,nondetect
 10278,"1,2-Dichloroethane",2015,5.0,nondetect
 10278,"1,2-Dichloroethane",2016,5.0,nondetect
 10278,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -2121,6 +2268,7 @@ well,chem,year,value_ugL,detect
 10278,"1,4-Dichlorobenzene",2005,9.4,nondetect
 10278,"1,4-Dichlorobenzene",2006,10.0,nondetect
 10278,"1,4-Dichlorobenzene",2007,10.0,nondetect
+10278,"1,4-Dichlorobenzene",2018,9.4,nondetect
 10278,Benzene,2000,10.0,nondetect
 10278,Benzene,2001,10.0,nondetect
 10278,Benzene,2002,10.0,nondetect
@@ -2134,6 +2282,7 @@ well,chem,year,value_ugL,detect
 10278,Benzene,2015,5.0,nondetect
 10278,Benzene,2016,5.0,nondetect
 10278,Benzene,2017,5.0,nondetect
+10278,Benzene,2018,5.0,nondetect
 10278,Benzene,2019,5.0,nondetect
 10278,Benzo(a)pyrene,2015,1.9,nondetect
 10278,Benzo(a)pyrene,2016,9.4,nondetect
@@ -2153,6 +2302,7 @@ well,chem,year,value_ugL,detect
 10278,Chlorobenzene,2015,5.0,nondetect
 10278,Chlorobenzene,2016,5.0,nondetect
 10278,Chlorobenzene,2017,5.0,nondetect
+10278,Chlorobenzene,2018,5.0,nondetect
 10278,Chlorobenzene,2019,5.0,nondetect
 10278,Chloroform / THMs,2000,10.0,nondetect
 10278,Chloroform / THMs,2003,10.0,nondetect
@@ -2184,6 +2334,7 @@ well,chem,year,value_ugL,detect
 10278,Ethylbenzene,2015,5.0,nondetect
 10278,Ethylbenzene,2016,5.0,nondetect
 10278,Ethylbenzene,2017,5.0,nondetect
+10278,Ethylbenzene,2018,5.0,nondetect
 10278,Ethylbenzene,2019,5.0,nondetect
 10278,Lindane / BHC,2015,0.035,detect
 10278,Lindane / BHC,2016,0.21,detect
@@ -2210,6 +2361,7 @@ well,chem,year,value_ugL,detect
 10278,Tetrachloroethene (PCE),2015,5.0,nondetect
 10278,Tetrachloroethene (PCE),2016,5.0,nondetect
 10278,Tetrachloroethene (PCE),2017,5.0,nondetect
+10278,Tetrachloroethene (PCE),2018,5.0,nondetect
 10278,Tetrachloroethene (PCE),2019,5.0,nondetect
 10278,Toluene,2000,10.0,nondetect
 10278,Toluene,2001,10.0,nondetect
@@ -2225,6 +2377,7 @@ well,chem,year,value_ugL,detect
 10278,Toluene,2015,5.0,nondetect
 10278,Toluene,2016,5.0,nondetect
 10278,Toluene,2017,5.0,nondetect
+10278,Toluene,2018,5.0,nondetect
 10278,Toluene,2019,5.0,nondetect
 10278,Trichloroethene (TCE),2000,10.0,nondetect
 10278,Trichloroethene (TCE),2001,10.0,nondetect
@@ -2239,6 +2392,7 @@ well,chem,year,value_ugL,detect
 10278,Trichloroethene (TCE),2015,5.0,nondetect
 10278,Trichloroethene (TCE),2016,5.0,nondetect
 10278,Trichloroethene (TCE),2017,5.0,nondetect
+10278,Trichloroethene (TCE),2018,5.0,nondetect
 10278,Trichloroethene (TCE),2019,5.0,nondetect
 10278,Vinyl chloride,2000,10.0,nondetect
 10278,Vinyl chloride,2001,10.0,nondetect
@@ -2251,6 +2405,7 @@ well,chem,year,value_ugL,detect
 10278,Vinyl chloride,2015,5.0,nondetect
 10278,Vinyl chloride,2016,5.0,nondetect
 10278,Vinyl chloride,2017,5.0,nondetect
+10278,Vinyl chloride,2018,5.0,nondetect
 10278,Vinyl chloride,2019,5.0,nondetect
 10278,Xylene,2000,10.0,nondetect
 10278,Xylene,2007,50.0,nondetect
@@ -2261,6 +2416,7 @@ well,chem,year,value_ugL,detect
 10278,Xylene,2015,10.0,nondetect
 10278,Xylene,2016,5.0,nondetect
 10278,Xylene,2017,5.0,nondetect
+10278,Xylene,2018,5.0,nondetect
 10278,Xylene,2019,0.32,detect
 1181A,Benzene,2011,5.0,nondetect
 1181A,Chlorobenzene,2011,5.0,nondetect
@@ -2283,12 +2439,15 @@ well,chem,year,value_ugL,detect
 3157,Vinyl chloride,2001,10.0,nondetect
 3257,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 3257,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+3257,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 3257,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 3257,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 3257,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
+3257,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 3257,"1,2-Dichlorobenzene",2000,10.0,nondetect
 3257,"1,2-Dichlorobenzene",2005,9.4,nondetect
 3257,"1,2-Dichlorobenzene",2006,10.0,nondetect
+3257,"1,2-Dichlorobenzene",2018,9.4,nondetect
 3257,"1,2-Dichloroethane",2015,5.0,nondetect
 3257,"1,2-Dichloroethane",2016,5.0,nondetect
 3257,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -2296,6 +2455,7 @@ well,chem,year,value_ugL,detect
 3257,"1,4-Dichlorobenzene",2000,10.0,nondetect
 3257,"1,4-Dichlorobenzene",2005,9.4,nondetect
 3257,"1,4-Dichlorobenzene",2006,10.0,nondetect
+3257,"1,4-Dichlorobenzene",2018,9.4,nondetect
 3257,Benzene,2000,10.0,nondetect
 3257,Benzene,2006,10.0,nondetect
 3257,Benzene,2009,10.0,nondetect
@@ -2307,6 +2467,7 @@ well,chem,year,value_ugL,detect
 3257,Benzene,2015,5.0,nondetect
 3257,Benzene,2016,5.0,nondetect
 3257,Benzene,2017,5.0,nondetect
+3257,Benzene,2018,5.0,nondetect
 3257,Benzene,2019,5.0,nondetect
 3257,Benzo(a)pyrene,2015,1.9,nondetect
 3257,Benzo(a)pyrene,2016,9.4,nondetect
@@ -2324,6 +2485,7 @@ well,chem,year,value_ugL,detect
 3257,Chlorobenzene,2015,5.0,nondetect
 3257,Chlorobenzene,2016,5.0,nondetect
 3257,Chlorobenzene,2017,5.0,nondetect
+3257,Chlorobenzene,2018,5.0,nondetect
 3257,Chlorobenzene,2019,5.0,nondetect
 3257,Chloroform / THMs,2000,10.0,nondetect
 3257,Chloroform / THMs,2015,5.0,nondetect
@@ -2352,6 +2514,7 @@ well,chem,year,value_ugL,detect
 3257,Ethylbenzene,2015,5.0,nondetect
 3257,Ethylbenzene,2016,5.0,nondetect
 3257,Ethylbenzene,2017,5.0,nondetect
+3257,Ethylbenzene,2018,5.0,nondetect
 3257,Ethylbenzene,2019,5.0,nondetect
 3257,Lindane / BHC,2015,0.035,detect
 3257,Lindane / BHC,2016,0.047,nondetect
@@ -2376,6 +2539,7 @@ well,chem,year,value_ugL,detect
 3257,Tetrachloroethene (PCE),2015,5.0,nondetect
 3257,Tetrachloroethene (PCE),2016,5.0,nondetect
 3257,Tetrachloroethene (PCE),2017,5.0,nondetect
+3257,Tetrachloroethene (PCE),2018,5.0,nondetect
 3257,Tetrachloroethene (PCE),2019,5.0,nondetect
 3257,Toluene,2000,10.0,nondetect
 3257,Toluene,2005,10.0,nondetect
@@ -2389,6 +2553,7 @@ well,chem,year,value_ugL,detect
 3257,Toluene,2015,5.0,nondetect
 3257,Toluene,2016,5.0,nondetect
 3257,Toluene,2017,5.0,nondetect
+3257,Toluene,2018,5.0,nondetect
 3257,Toluene,2019,5.0,nondetect
 3257,Trichloroethene (TCE),2000,10.0,nondetect
 3257,Trichloroethene (TCE),2006,10.0,nondetect
@@ -2401,6 +2566,7 @@ well,chem,year,value_ugL,detect
 3257,Trichloroethene (TCE),2015,5.0,nondetect
 3257,Trichloroethene (TCE),2016,5.0,nondetect
 3257,Trichloroethene (TCE),2017,5.0,nondetect
+3257,Trichloroethene (TCE),2018,5.0,nondetect
 3257,Trichloroethene (TCE),2019,5.0,nondetect
 3257,Vinyl chloride,2000,10.0,nondetect
 3257,Vinyl chloride,2009,10.0,nondetect
@@ -2412,6 +2578,7 @@ well,chem,year,value_ugL,detect
 3257,Vinyl chloride,2015,5.0,nondetect
 3257,Vinyl chloride,2016,5.0,nondetect
 3257,Vinyl chloride,2017,5.0,nondetect
+3257,Vinyl chloride,2018,5.0,nondetect
 3257,Vinyl chloride,2019,5.0,nondetect
 3257,Xylene,2000,10.0,nondetect
 3257,Xylene,2009,10.0,nondetect
@@ -2423,16 +2590,21 @@ well,chem,year,value_ugL,detect
 3257,Xylene,2015,10.0,nondetect
 3257,Xylene,2016,5.0,nondetect
 3257,Xylene,2017,5.0,nondetect
+3257,Xylene,2018,5.0,nondetect
 3257,Xylene,2019,5.0,nondetect
 5221,"1,1,2,2-Tetrachloroethane",2007,10.0,nondetect
 5221,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+5221,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 5221,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+5221,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 5221,"1,2-Dichlorobenzene",2007,10.0,nondetect
+5221,"1,2-Dichlorobenzene",2018,9.4,nondetect
 5221,"1,2-Dichloroethane",2015,5.0,nondetect
 5221,"1,2-Dichloroethane",2016,5.0,nondetect
 5221,"1,2-Dichloroethane",2017,5.0,nondetect
 5221,"1,2-Dichloroethane",2019,5.0,nondetect
 5221,"1,4-Dichlorobenzene",2007,10.0,nondetect
+5221,"1,4-Dichlorobenzene",2018,9.4,nondetect
 5221,Benzene,2007,10.0,nondetect
 5221,Benzene,2009,10.0,nondetect
 5221,Benzene,2010,5.0,nondetect
@@ -2443,6 +2615,7 @@ well,chem,year,value_ugL,detect
 5221,Benzene,2015,5.0,nondetect
 5221,Benzene,2016,5.0,nondetect
 5221,Benzene,2017,5.0,nondetect
+5221,Benzene,2018,5.0,nondetect
 5221,Benzene,2019,5.0,nondetect
 5221,Benzo(a)pyrene,2015,1.9,nondetect
 5221,Benzo(a)pyrene,2016,9.4,nondetect
@@ -2458,6 +2631,7 @@ well,chem,year,value_ugL,detect
 5221,Chlorobenzene,2015,5.0,nondetect
 5221,Chlorobenzene,2016,5.0,nondetect
 5221,Chlorobenzene,2017,5.0,nondetect
+5221,Chlorobenzene,2018,5.0,nondetect
 5221,Chlorobenzene,2019,5.0,nondetect
 5221,Chloroform / THMs,2015,5.0,nondetect
 5221,Chloroform / THMs,2016,5.0,nondetect
@@ -2485,6 +2659,7 @@ well,chem,year,value_ugL,detect
 5221,Ethylbenzene,2015,5.0,nondetect
 5221,Ethylbenzene,2016,5.0,nondetect
 5221,Ethylbenzene,2017,5.0,nondetect
+5221,Ethylbenzene,2018,5.0,nondetect
 5221,Ethylbenzene,2019,5.0,nondetect
 5221,Lindane / BHC,2015,0.032,detect
 5221,Lindane / BHC,2016,0.095,detect
@@ -2508,6 +2683,7 @@ well,chem,year,value_ugL,detect
 5221,Tetrachloroethene (PCE),2015,5.0,nondetect
 5221,Tetrachloroethene (PCE),2016,5.0,nondetect
 5221,Tetrachloroethene (PCE),2017,5.0,nondetect
+5221,Tetrachloroethene (PCE),2018,5.0,nondetect
 5221,Tetrachloroethene (PCE),2019,5.0,nondetect
 5221,Toluene,2007,10.0,nondetect
 5221,Toluene,2009,10.0,nondetect
@@ -2519,6 +2695,7 @@ well,chem,year,value_ugL,detect
 5221,Toluene,2015,5.0,nondetect
 5221,Toluene,2016,5.0,nondetect
 5221,Toluene,2017,5.0,nondetect
+5221,Toluene,2018,5.0,nondetect
 5221,Toluene,2019,5.0,nondetect
 5221,Trichloroethene (TCE),2007,10.0,nondetect
 5221,Trichloroethene (TCE),2009,10.0,nondetect
@@ -2530,6 +2707,7 @@ well,chem,year,value_ugL,detect
 5221,Trichloroethene (TCE),2015,5.0,nondetect
 5221,Trichloroethene (TCE),2016,5.0,nondetect
 5221,Trichloroethene (TCE),2017,5.0,nondetect
+5221,Trichloroethene (TCE),2018,5.0,nondetect
 5221,Trichloroethene (TCE),2019,5.0,nondetect
 5221,Vinyl chloride,2009,10.0,nondetect
 5221,Vinyl chloride,2010,5.0,nondetect
@@ -2540,6 +2718,7 @@ well,chem,year,value_ugL,detect
 5221,Vinyl chloride,2015,5.0,nondetect
 5221,Vinyl chloride,2016,5.0,nondetect
 5221,Vinyl chloride,2017,5.0,nondetect
+5221,Vinyl chloride,2018,5.0,nondetect
 5221,Vinyl chloride,2019,5.0,nondetect
 5221,Xylene,2007,10.0,nondetect
 5221,Xylene,2009,10.0,nondetect
@@ -2551,6 +2730,7 @@ well,chem,year,value_ugL,detect
 5221,Xylene,2015,10.0,nondetect
 5221,Xylene,2016,5.0,nondetect
 5221,Xylene,2017,5.0,nondetect
+5221,Xylene,2018,5.0,nondetect
 5221,Xylene,2019,5.0,nondetect
 5222,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 5222,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
@@ -2610,15 +2790,18 @@ well,chem,year,value_ugL,detect
 6209,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
 6209,"1,1,2,2-Tetrachloroethane",2007,10.0,nondetect
 6209,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+6209,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 6209,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 6209,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 6209,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 6209,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 6209,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+6209,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 6209,"1,2-Dichlorobenzene",2000,10.0,nondetect
 6209,"1,2-Dichlorobenzene",2001,10.0,nondetect
 6209,"1,2-Dichlorobenzene",2006,10.0,nondetect
 6209,"1,2-Dichlorobenzene",2007,10.0,nondetect
+6209,"1,2-Dichlorobenzene",2018,9.4,nondetect
 6209,"1,2-Dichloroethane",2015,5.0,nondetect
 6209,"1,2-Dichloroethane",2016,5.0,nondetect
 6209,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -2627,6 +2810,7 @@ well,chem,year,value_ugL,detect
 6209,"1,4-Dichlorobenzene",2001,10.0,nondetect
 6209,"1,4-Dichlorobenzene",2006,10.0,nondetect
 6209,"1,4-Dichlorobenzene",2007,10.0,nondetect
+6209,"1,4-Dichlorobenzene",2018,9.4,nondetect
 6209,Benzene,2000,10.0,nondetect
 6209,Benzene,2001,10.0,nondetect
 6209,Benzene,2002,10.0,nondetect
@@ -2641,6 +2825,7 @@ well,chem,year,value_ugL,detect
 6209,Benzene,2015,5.0,nondetect
 6209,Benzene,2016,5.0,nondetect
 6209,Benzene,2017,5.0,nondetect
+6209,Benzene,2018,5.0,nondetect
 6209,Benzene,2019,5.0,nondetect
 6209,Benzo(a)pyrene,2015,1.9,nondetect
 6209,Benzo(a)pyrene,2016,9.4,nondetect
@@ -2660,6 +2845,7 @@ well,chem,year,value_ugL,detect
 6209,Chlorobenzene,2015,5.0,nondetect
 6209,Chlorobenzene,2016,5.0,nondetect
 6209,Chlorobenzene,2017,5.0,nondetect
+6209,Chlorobenzene,2018,5.0,nondetect
 6209,Chlorobenzene,2019,5.0,nondetect
 6209,Chloroform / THMs,2000,10.0,nondetect
 6209,Chloroform / THMs,2015,5.0,nondetect
@@ -2691,6 +2877,7 @@ well,chem,year,value_ugL,detect
 6209,Ethylbenzene,2015,5.0,nondetect
 6209,Ethylbenzene,2016,5.0,nondetect
 6209,Ethylbenzene,2017,5.0,nondetect
+6209,Ethylbenzene,2018,5.0,nondetect
 6209,Ethylbenzene,2019,5.0,nondetect
 6209,Lindane / BHC,2015,0.052,nondetect
 6209,Lindane / BHC,2016,0.33,detect
@@ -2718,6 +2905,7 @@ well,chem,year,value_ugL,detect
 6209,Tetrachloroethene (PCE),2015,5.0,nondetect
 6209,Tetrachloroethene (PCE),2016,5.0,nondetect
 6209,Tetrachloroethene (PCE),2017,5.0,nondetect
+6209,Tetrachloroethene (PCE),2018,5.0,nondetect
 6209,Tetrachloroethene (PCE),2019,5.0,nondetect
 6209,Toluene,2000,10.0,nondetect
 6209,Toluene,2001,10.0,nondetect
@@ -2733,6 +2921,7 @@ well,chem,year,value_ugL,detect
 6209,Toluene,2015,0.95,detect
 6209,Toluene,2016,5.0,nondetect
 6209,Toluene,2017,5.0,nondetect
+6209,Toluene,2018,5.0,nondetect
 6209,Toluene,2019,5.0,nondetect
 6209,Trichloroethene (TCE),2000,10.0,nondetect
 6209,Trichloroethene (TCE),2001,10.0,nondetect
@@ -2748,6 +2937,7 @@ well,chem,year,value_ugL,detect
 6209,Trichloroethene (TCE),2015,5.0,nondetect
 6209,Trichloroethene (TCE),2016,5.0,nondetect
 6209,Trichloroethene (TCE),2017,5.0,nondetect
+6209,Trichloroethene (TCE),2018,5.0,nondetect
 6209,Trichloroethene (TCE),2019,5.0,nondetect
 6209,Vinyl chloride,2000,10.0,nondetect
 6209,Vinyl chloride,2001,10.0,nondetect
@@ -2761,6 +2951,7 @@ well,chem,year,value_ugL,detect
 6209,Vinyl chloride,2015,5.0,nondetect
 6209,Vinyl chloride,2016,5.0,nondetect
 6209,Vinyl chloride,2017,5.0,nondetect
+6209,Vinyl chloride,2018,5.0,nondetect
 6209,Vinyl chloride,2019,5.0,nondetect
 6209,Xylene,2000,10.0,nondetect
 6209,Xylene,2007,10.0,nondetect
@@ -2773,19 +2964,25 @@ well,chem,year,value_ugL,detect
 6209,Xylene,2015,10.0,nondetect
 6209,Xylene,2016,5.0,nondetect
 6209,Xylene,2017,5.0,nondetect
+6209,Xylene,2018,5.0,nondetect
 6209,Xylene,2019,5.0,nondetect
 7115,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
+7115,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 7115,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 7115,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
+7115,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 7115,"1,2-Dichlorobenzene",2006,10.0,nondetect
+7115,"1,2-Dichlorobenzene",2018,9.4,nondetect
 7115,"1,2-Dichloroethane",2016,5.0,nondetect
 7115,"1,4-Dichlorobenzene",2006,10.0,nondetect
+7115,"1,4-Dichlorobenzene",2018,9.4,nondetect
 7115,Benzene,2002,10.0,nondetect
 7115,Benzene,2006,10.0,nondetect
 7115,Benzene,2010,5.0,nondetect
 7115,Benzene,2012,5.0,nondetect
 7115,Benzene,2014,5.0,nondetect
 7115,Benzene,2016,5.0,nondetect
+7115,Benzene,2018,5.0,nondetect
 7115,Benzo(a)pyrene,2016,9.4,nondetect
 7115,Chlorobenzene,2002,10.0,nondetect
 7115,Chlorobenzene,2006,10.0,nondetect
@@ -2793,6 +2990,7 @@ well,chem,year,value_ugL,detect
 7115,Chlorobenzene,2012,5.0,nondetect
 7115,Chlorobenzene,2014,5.0,nondetect
 7115,Chlorobenzene,2016,5.0,nondetect
+7115,Chlorobenzene,2018,5.0,nondetect
 7115,Chloroform / THMs,2016,5.0,nondetect
 7115,DDT / DDE / DDD,2016,0.047,nondetect
 7115,Dieldrin,2016,0.047,nondetect
@@ -2802,6 +3000,7 @@ well,chem,year,value_ugL,detect
 7115,Ethylbenzene,2012,5.0,nondetect
 7115,Ethylbenzene,2014,5.0,nondetect
 7115,Ethylbenzene,2016,5.0,nondetect
+7115,Ethylbenzene,2018,5.0,nondetect
 7115,Lindane / BHC,2016,0.047,nondetect
 7115,Naphthalene,2016,9.4,nondetect
 7115,PCBs,2016,0.94,nondetect
@@ -2811,27 +3010,32 @@ well,chem,year,value_ugL,detect
 7115,Tetrachloroethene (PCE),2012,5.0,nondetect
 7115,Tetrachloroethene (PCE),2014,5.0,nondetect
 7115,Tetrachloroethene (PCE),2016,5.0,nondetect
+7115,Tetrachloroethene (PCE),2018,5.0,nondetect
 7115,Toluene,2002,10.0,nondetect
 7115,Toluene,2006,10.0,nondetect
 7115,Toluene,2010,5.0,nondetect
 7115,Toluene,2012,5.0,nondetect
 7115,Toluene,2014,5.0,nondetect
 7115,Toluene,2016,5.0,nondetect
+7115,Toluene,2018,0.21,detect
 7115,Trichloroethene (TCE),2002,10.0,nondetect
 7115,Trichloroethene (TCE),2006,10.0,nondetect
 7115,Trichloroethene (TCE),2010,5.0,nondetect
 7115,Trichloroethene (TCE),2012,5.0,nondetect
 7115,Trichloroethene (TCE),2014,5.0,nondetect
 7115,Trichloroethene (TCE),2016,5.0,nondetect
+7115,Trichloroethene (TCE),2018,5.0,nondetect
 7115,Vinyl chloride,2002,10.0,nondetect
 7115,Vinyl chloride,2010,5.0,nondetect
 7115,Vinyl chloride,2012,5.0,nondetect
 7115,Vinyl chloride,2014,5.0,nondetect
 7115,Vinyl chloride,2016,5.0,nondetect
+7115,Vinyl chloride,2018,5.0,nondetect
 7115,Xylene,2010,15.0,nondetect
 7115,Xylene,2012,15.0,nondetect
 7115,Xylene,2014,10.0,nondetect
 7115,Xylene,2016,5.0,nondetect
+7115,Xylene,2018,5.0,nondetect
 7120,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
 7120,"1,1,2,2-Tetrachloroethane",2003,10.0,nondetect
 7120,"1,1,2,2-Tetrachloroethane",2007,10.0,nondetect
@@ -2949,14 +3153,18 @@ well,chem,year,value_ugL,detect
 7120,Xylene,2019,5.0,nondetect
 7125,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 7125,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
+7125,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 7125,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 7125,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 7125,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
+7125,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 7125,"1,2-Dichlorobenzene",2000,10.0,nondetect
 7125,"1,2-Dichlorobenzene",2006,10.0,nondetect
+7125,"1,2-Dichlorobenzene",2018,9.4,nondetect
 7125,"1,2-Dichloroethane",2016,5.0,nondetect
 7125,"1,4-Dichlorobenzene",2000,10.0,nondetect
 7125,"1,4-Dichlorobenzene",2006,10.0,nondetect
+7125,"1,4-Dichlorobenzene",2018,9.4,nondetect
 7125,Benzene,2000,10.0,nondetect
 7125,Benzene,2002,10.0,nondetect
 7125,Benzene,2006,10.0,nondetect
@@ -2964,6 +3172,7 @@ well,chem,year,value_ugL,detect
 7125,Benzene,2012,5.0,nondetect
 7125,Benzene,2014,5.0,nondetect
 7125,Benzene,2016,5.0,nondetect
+7125,Benzene,2018,5.0,nondetect
 7125,Benzo(a)pyrene,2016,9.4,nondetect
 7125,Chlorobenzene,2000,10.0,nondetect
 7125,Chlorobenzene,2002,10.0,nondetect
@@ -2972,6 +3181,7 @@ well,chem,year,value_ugL,detect
 7125,Chlorobenzene,2012,5.0,nondetect
 7125,Chlorobenzene,2014,5.0,nondetect
 7125,Chlorobenzene,2016,5.0,nondetect
+7125,Chlorobenzene,2018,5.0,nondetect
 7125,Chloroform / THMs,2000,10.0,nondetect
 7125,Chloroform / THMs,2016,5.0,nondetect
 7125,DDT / DDE / DDD,2016,0.047,nondetect
@@ -2983,6 +3193,7 @@ well,chem,year,value_ugL,detect
 7125,Ethylbenzene,2012,5.0,nondetect
 7125,Ethylbenzene,2014,5.0,nondetect
 7125,Ethylbenzene,2016,5.0,nondetect
+7125,Ethylbenzene,2018,5.0,nondetect
 7125,Lindane / BHC,2016,0.047,nondetect
 7125,Naphthalene,2016,9.4,nondetect
 7125,PCBs,2016,0.94,nondetect
@@ -2993,6 +3204,7 @@ well,chem,year,value_ugL,detect
 7125,Tetrachloroethene (PCE),2012,5.0,nondetect
 7125,Tetrachloroethene (PCE),2014,5.0,nondetect
 7125,Tetrachloroethene (PCE),2016,5.0,nondetect
+7125,Tetrachloroethene (PCE),2018,5.0,nondetect
 7125,Toluene,2000,10.0,nondetect
 7125,Toluene,2002,10.0,nondetect
 7125,Toluene,2006,10.0,nondetect
@@ -3000,6 +3212,7 @@ well,chem,year,value_ugL,detect
 7125,Toluene,2012,5.0,nondetect
 7125,Toluene,2014,5.0,nondetect
 7125,Toluene,2016,5.0,nondetect
+7125,Toluene,2018,5.0,nondetect
 7125,Trichloroethene (TCE),2000,10.0,nondetect
 7125,Trichloroethene (TCE),2002,10.0,nondetect
 7125,Trichloroethene (TCE),2006,10.0,nondetect
@@ -3007,27 +3220,33 @@ well,chem,year,value_ugL,detect
 7125,Trichloroethene (TCE),2012,5.0,nondetect
 7125,Trichloroethene (TCE),2014,5.0,nondetect
 7125,Trichloroethene (TCE),2016,5.0,nondetect
+7125,Trichloroethene (TCE),2018,3.7,detect
 7125,Vinyl chloride,2000,10.0,nondetect
 7125,Vinyl chloride,2002,10.0,nondetect
 7125,Vinyl chloride,2010,5.0,nondetect
 7125,Vinyl chloride,2012,5.0,nondetect
 7125,Vinyl chloride,2014,5.0,nondetect
 7125,Vinyl chloride,2016,5.0,nondetect
+7125,Vinyl chloride,2018,5.0,nondetect
 7125,Xylene,2000,10.0,nondetect
 7125,Xylene,2010,15.0,nondetect
 7125,Xylene,2012,15.0,nondetect
 7125,Xylene,2014,10.0,nondetect
 7125,Xylene,2016,5.0,nondetect
+7125,Xylene,2018,5.0,nondetect
 7130,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
 7130,"1,1,2,2-Tetrachloroethane",2007,10.0,nondetect
 7130,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+7130,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 7130,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 7130,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 7130,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 7130,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+7130,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 7130,"1,2-Dichlorobenzene",2005,9.4,nondetect
 7130,"1,2-Dichlorobenzene",2006,10.0,nondetect
 7130,"1,2-Dichlorobenzene",2007,10.0,nondetect
+7130,"1,2-Dichlorobenzene",2018,9.4,nondetect
 7130,"1,2-Dichloroethane",2015,5.0,nondetect
 7130,"1,2-Dichloroethane",2016,5.0,nondetect
 7130,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -3035,6 +3254,7 @@ well,chem,year,value_ugL,detect
 7130,"1,4-Dichlorobenzene",2005,9.4,nondetect
 7130,"1,4-Dichlorobenzene",2006,10.0,nondetect
 7130,"1,4-Dichlorobenzene",2007,10.0,nondetect
+7130,"1,4-Dichlorobenzene",2018,9.4,nondetect
 7130,Benzene,2002,10.0,nondetect
 7130,Benzene,2006,10.0,nondetect
 7130,Benzene,2007,10.0,nondetect
@@ -3047,6 +3267,7 @@ well,chem,year,value_ugL,detect
 7130,Benzene,2015,5.0,nondetect
 7130,Benzene,2016,5.0,nondetect
 7130,Benzene,2017,5.0,nondetect
+7130,Benzene,2018,5.0,nondetect
 7130,Benzene,2019,5.0,nondetect
 7130,Benzo(a)pyrene,2015,1.9,nondetect
 7130,Benzo(a)pyrene,2016,9.4,nondetect
@@ -3065,6 +3286,7 @@ well,chem,year,value_ugL,detect
 7130,Chlorobenzene,2015,5.0,nondetect
 7130,Chlorobenzene,2016,5.0,nondetect
 7130,Chlorobenzene,2017,5.0,nondetect
+7130,Chlorobenzene,2018,5.0,nondetect
 7130,Chlorobenzene,2019,5.0,nondetect
 7130,Chloroform / THMs,2015,5.0,nondetect
 7130,Chloroform / THMs,2016,5.0,nondetect
@@ -3093,6 +3315,7 @@ well,chem,year,value_ugL,detect
 7130,Ethylbenzene,2015,5.0,nondetect
 7130,Ethylbenzene,2016,5.0,nondetect
 7130,Ethylbenzene,2017,5.0,nondetect
+7130,Ethylbenzene,2018,5.0,nondetect
 7130,Ethylbenzene,2019,5.0,nondetect
 7130,Lindane / BHC,2015,0.05,nondetect
 7130,Lindane / BHC,2016,0.047,nondetect
@@ -3118,6 +3341,7 @@ well,chem,year,value_ugL,detect
 7130,Tetrachloroethene (PCE),2015,5.0,nondetect
 7130,Tetrachloroethene (PCE),2016,5.0,nondetect
 7130,Tetrachloroethene (PCE),2017,5.0,nondetect
+7130,Tetrachloroethene (PCE),2018,5.0,nondetect
 7130,Tetrachloroethene (PCE),2019,5.0,nondetect
 7130,Toluene,2002,10.0,nondetect
 7130,Toluene,2005,10.0,nondetect
@@ -3132,6 +3356,7 @@ well,chem,year,value_ugL,detect
 7130,Toluene,2015,5.0,nondetect
 7130,Toluene,2016,5.0,nondetect
 7130,Toluene,2017,5.0,nondetect
+7130,Toluene,2018,5.0,nondetect
 7130,Toluene,2019,5.0,nondetect
 7130,Trichloroethene (TCE),2002,10.0,nondetect
 7130,Trichloroethene (TCE),2006,10.0,nondetect
@@ -3145,6 +3370,7 @@ well,chem,year,value_ugL,detect
 7130,Trichloroethene (TCE),2015,5.0,nondetect
 7130,Trichloroethene (TCE),2016,5.0,nondetect
 7130,Trichloroethene (TCE),2017,5.0,nondetect
+7130,Trichloroethene (TCE),2018,5.0,nondetect
 7130,Trichloroethene (TCE),2019,5.0,nondetect
 7130,Vinyl chloride,2002,10.0,nondetect
 7130,Vinyl chloride,2009,10.0,nondetect
@@ -3156,6 +3382,7 @@ well,chem,year,value_ugL,detect
 7130,Vinyl chloride,2015,5.0,nondetect
 7130,Vinyl chloride,2016,5.0,nondetect
 7130,Vinyl chloride,2017,5.0,nondetect
+7130,Vinyl chloride,2018,5.0,nondetect
 7130,Vinyl chloride,2019,5.0,nondetect
 7130,Xylene,2007,10.0,nondetect
 7130,Xylene,2009,10.0,nondetect
@@ -3167,23 +3394,27 @@ well,chem,year,value_ugL,detect
 7130,Xylene,2015,10.0,nondetect
 7130,Xylene,2016,5.0,nondetect
 7130,Xylene,2017,5.0,nondetect
+7130,Xylene,2018,5.0,nondetect
 7130,Xylene,2019,5.0,nondetect
 7132,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
 7132,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
 7132,"1,1,2,2-Tetrachloroethane",2003,10.0,nondetect
 7132,"1,1,2,2-Tetrachloroethane",2007,10.0,nondetect
 7132,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+7132,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 7132,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 7132,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 7132,"1,2,4-Trichlorobenzene",2003,10.0,nondetect
 7132,"1,2,4-Trichlorobenzene",2005,9.5,nondetect
 7132,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 7132,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+7132,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 7132,"1,2-Dichlorobenzene",2001,10.0,nondetect
 7132,"1,2-Dichlorobenzene",2003,10.0,nondetect
 7132,"1,2-Dichlorobenzene",2005,9.5,nondetect
 7132,"1,2-Dichlorobenzene",2006,10.0,nondetect
 7132,"1,2-Dichlorobenzene",2007,10.0,nondetect
+7132,"1,2-Dichlorobenzene",2018,9.4,nondetect
 7132,"1,2-Dichloroethane",2015,5.0,nondetect
 7132,"1,2-Dichloroethane",2016,5.0,nondetect
 7132,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -3193,6 +3424,7 @@ well,chem,year,value_ugL,detect
 7132,"1,4-Dichlorobenzene",2005,9.5,nondetect
 7132,"1,4-Dichlorobenzene",2006,10.0,nondetect
 7132,"1,4-Dichlorobenzene",2007,10.0,nondetect
+7132,"1,4-Dichlorobenzene",2018,9.4,nondetect
 7132,Benzene,2001,10.0,nondetect
 7132,Benzene,2002,10.0,nondetect
 7132,Benzene,2003,10.0,nondetect
@@ -3207,6 +3439,7 @@ well,chem,year,value_ugL,detect
 7132,Benzene,2015,5.0,nondetect
 7132,Benzene,2016,5.0,nondetect
 7132,Benzene,2017,5.0,nondetect
+7132,Benzene,2018,5.0,nondetect
 7132,Benzene,2019,5.0,nondetect
 7132,Benzo(a)pyrene,2015,1.9,nondetect
 7132,Benzo(a)pyrene,2016,9.4,nondetect
@@ -3227,6 +3460,7 @@ well,chem,year,value_ugL,detect
 7132,Chlorobenzene,2015,5.0,nondetect
 7132,Chlorobenzene,2016,5.0,nondetect
 7132,Chlorobenzene,2017,5.0,nondetect
+7132,Chlorobenzene,2018,5.0,nondetect
 7132,Chlorobenzene,2019,5.0,nondetect
 7132,Chloroform / THMs,2003,10.0,nondetect
 7132,Chloroform / THMs,2015,5.0,nondetect
@@ -3258,6 +3492,7 @@ well,chem,year,value_ugL,detect
 7132,Ethylbenzene,2015,5.0,nondetect
 7132,Ethylbenzene,2016,5.0,nondetect
 7132,Ethylbenzene,2017,5.0,nondetect
+7132,Ethylbenzene,2018,5.0,nondetect
 7132,Ethylbenzene,2019,5.0,nondetect
 7132,Lindane / BHC,2015,0.05,nondetect
 7132,Lindane / BHC,2016,0.047,nondetect
@@ -3285,6 +3520,7 @@ well,chem,year,value_ugL,detect
 7132,Tetrachloroethene (PCE),2015,5.0,nondetect
 7132,Tetrachloroethene (PCE),2016,5.0,nondetect
 7132,Tetrachloroethene (PCE),2017,5.0,nondetect
+7132,Tetrachloroethene (PCE),2018,5.0,nondetect
 7132,Tetrachloroethene (PCE),2019,5.0,nondetect
 7132,Toluene,2001,10.0,nondetect
 7132,Toluene,2002,10.0,nondetect
@@ -3301,6 +3537,7 @@ well,chem,year,value_ugL,detect
 7132,Toluene,2015,5.0,nondetect
 7132,Toluene,2016,5.0,nondetect
 7132,Toluene,2017,5.0,nondetect
+7132,Toluene,2018,5.0,nondetect
 7132,Toluene,2019,5.0,nondetect
 7132,Trichloroethene (TCE),2001,10.0,nondetect
 7132,Trichloroethene (TCE),2002,10.0,nondetect
@@ -3316,6 +3553,7 @@ well,chem,year,value_ugL,detect
 7132,Trichloroethene (TCE),2015,5.0,nondetect
 7132,Trichloroethene (TCE),2016,5.0,nondetect
 7132,Trichloroethene (TCE),2017,5.0,nondetect
+7132,Trichloroethene (TCE),2018,5.0,nondetect
 7132,Trichloroethene (TCE),2019,5.0,nondetect
 7132,Vinyl chloride,2001,10.0,nondetect
 7132,Vinyl chloride,2002,10.0,nondetect
@@ -3329,6 +3567,7 @@ well,chem,year,value_ugL,detect
 7132,Vinyl chloride,2015,5.0,nondetect
 7132,Vinyl chloride,2016,5.0,nondetect
 7132,Vinyl chloride,2017,5.0,nondetect
+7132,Vinyl chloride,2018,5.0,nondetect
 7132,Vinyl chloride,2019,5.0,nondetect
 7132,Xylene,2007,10.0,nondetect
 7132,Xylene,2009,10.0,nondetect
@@ -3340,6 +3579,7 @@ well,chem,year,value_ugL,detect
 7132,Xylene,2015,10.0,nondetect
 7132,Xylene,2016,5.0,nondetect
 7132,Xylene,2017,5.0,nondetect
+7132,Xylene,2018,5.0,nondetect
 7132,Xylene,2019,5.0,nondetect
 7155,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
 7155,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
@@ -3510,15 +3750,18 @@ well,chem,year,value_ugL,detect
 7205,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
 7205,"1,1,2,2-Tetrachloroethane",2007,10.0,nondetect
 7205,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+7205,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 7205,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 7205,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 7205,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 7205,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 7205,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+7205,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 7205,"1,2-Dichlorobenzene",2001,10.0,nondetect
 7205,"1,2-Dichlorobenzene",2005,9.4,nondetect
 7205,"1,2-Dichlorobenzene",2006,10.0,nondetect
 7205,"1,2-Dichlorobenzene",2007,10.0,nondetect
+7205,"1,2-Dichlorobenzene",2018,9.4,nondetect
 7205,"1,2-Dichloroethane",2015,5.0,nondetect
 7205,"1,2-Dichloroethane",2016,5.0,nondetect
 7205,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -3527,6 +3770,7 @@ well,chem,year,value_ugL,detect
 7205,"1,4-Dichlorobenzene",2005,9.4,nondetect
 7205,"1,4-Dichlorobenzene",2006,10.0,nondetect
 7205,"1,4-Dichlorobenzene",2007,10.0,nondetect
+7205,"1,4-Dichlorobenzene",2018,9.4,nondetect
 7205,Benzene,2001,10.0,nondetect
 7205,Benzene,2002,10.0,nondetect
 7205,Benzene,2006,10.0,nondetect
@@ -3540,6 +3784,7 @@ well,chem,year,value_ugL,detect
 7205,Benzene,2015,5.0,nondetect
 7205,Benzene,2016,5.0,nondetect
 7205,Benzene,2017,5.0,nondetect
+7205,Benzene,2018,5.0,nondetect
 7205,Benzene,2019,5.0,nondetect
 7205,Benzo(a)pyrene,2015,1.9,nondetect
 7205,Benzo(a)pyrene,2016,9.4,nondetect
@@ -3559,6 +3804,7 @@ well,chem,year,value_ugL,detect
 7205,Chlorobenzene,2015,5.0,nondetect
 7205,Chlorobenzene,2016,5.0,nondetect
 7205,Chlorobenzene,2017,5.0,nondetect
+7205,Chlorobenzene,2018,5.0,nondetect
 7205,Chlorobenzene,2019,5.0,nondetect
 7205,Chloroform / THMs,2015,5.0,nondetect
 7205,Chloroform / THMs,2016,5.0,nondetect
@@ -3588,6 +3834,7 @@ well,chem,year,value_ugL,detect
 7205,Ethylbenzene,2015,5.0,nondetect
 7205,Ethylbenzene,2016,5.0,nondetect
 7205,Ethylbenzene,2017,5.0,nondetect
+7205,Ethylbenzene,2018,5.0,nondetect
 7205,Ethylbenzene,2019,5.0,nondetect
 7205,Lindane / BHC,2015,0.3,detect
 7205,Lindane / BHC,2016,0.18,detect
@@ -3614,6 +3861,7 @@ well,chem,year,value_ugL,detect
 7205,Tetrachloroethene (PCE),2015,5.0,nondetect
 7205,Tetrachloroethene (PCE),2016,5.0,nondetect
 7205,Tetrachloroethene (PCE),2017,5.0,nondetect
+7205,Tetrachloroethene (PCE),2018,5.0,nondetect
 7205,Tetrachloroethene (PCE),2019,5.0,nondetect
 7205,Toluene,2001,10.0,nondetect
 7205,Toluene,2002,10.0,nondetect
@@ -3629,6 +3877,7 @@ well,chem,year,value_ugL,detect
 7205,Toluene,2015,5.0,nondetect
 7205,Toluene,2016,5.0,nondetect
 7205,Toluene,2017,5.0,nondetect
+7205,Toluene,2018,5.0,nondetect
 7205,Toluene,2019,5.0,nondetect
 7205,Trichloroethene (TCE),2001,10.0,nondetect
 7205,Trichloroethene (TCE),2002,10.0,nondetect
@@ -3643,6 +3892,7 @@ well,chem,year,value_ugL,detect
 7205,Trichloroethene (TCE),2015,5.0,nondetect
 7205,Trichloroethene (TCE),2016,5.0,nondetect
 7205,Trichloroethene (TCE),2017,5.0,nondetect
+7205,Trichloroethene (TCE),2018,5.0,nondetect
 7205,Trichloroethene (TCE),2019,5.0,nondetect
 7205,Vinyl chloride,2001,10.0,nondetect
 7205,Vinyl chloride,2002,10.0,nondetect
@@ -3655,6 +3905,7 @@ well,chem,year,value_ugL,detect
 7205,Vinyl chloride,2015,5.0,nondetect
 7205,Vinyl chloride,2016,5.0,nondetect
 7205,Vinyl chloride,2017,5.0,nondetect
+7205,Vinyl chloride,2018,5.0,nondetect
 7205,Vinyl chloride,2019,5.0,nondetect
 7205,Xylene,2007,10.0,nondetect
 7205,Xylene,2009,10.0,nondetect
@@ -3666,23 +3917,27 @@ well,chem,year,value_ugL,detect
 7205,Xylene,2015,10.0,nondetect
 7205,Xylene,2016,5.0,nondetect
 7205,Xylene,2017,5.0,nondetect
+7205,Xylene,2018,5.0,nondetect
 7205,Xylene,2019,5.0,nondetect
 8106,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 8106,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
 8106,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
 8106,"1,1,2,2-Tetrachloroethane",2003,10.0,nondetect
 8106,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+8106,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 8106,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 8106,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 8106,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 8106,"1,2,4-Trichlorobenzene",2003,10.0,nondetect
 8106,"1,2,4-Trichlorobenzene",2005,9.6,nondetect
 8106,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
+8106,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 8106,"1,2-Dichlorobenzene",2000,10.0,nondetect
 8106,"1,2-Dichlorobenzene",2001,10.0,nondetect
 8106,"1,2-Dichlorobenzene",2003,10.0,nondetect
 8106,"1,2-Dichlorobenzene",2005,9.6,nondetect
 8106,"1,2-Dichlorobenzene",2006,10.0,nondetect
+8106,"1,2-Dichlorobenzene",2018,9.4,nondetect
 8106,"1,2-Dichloroethane",2015,5.0,nondetect
 8106,"1,2-Dichloroethane",2016,5.0,nondetect
 8106,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -3692,6 +3947,7 @@ well,chem,year,value_ugL,detect
 8106,"1,4-Dichlorobenzene",2003,10.0,nondetect
 8106,"1,4-Dichlorobenzene",2005,9.6,nondetect
 8106,"1,4-Dichlorobenzene",2006,10.0,nondetect
+8106,"1,4-Dichlorobenzene",2018,9.4,nondetect
 8106,Benzene,2000,10.0,nondetect
 8106,Benzene,2001,10.0,nondetect
 8106,Benzene,2002,10.0,nondetect
@@ -3706,6 +3962,7 @@ well,chem,year,value_ugL,detect
 8106,Benzene,2015,5.0,nondetect
 8106,Benzene,2016,5.0,nondetect
 8106,Benzene,2017,5.0,nondetect
+8106,Benzene,2018,5.0,nondetect
 8106,Benzene,2019,5.0,nondetect
 8106,Benzo(a)pyrene,2015,1.9,nondetect
 8106,Benzo(a)pyrene,2016,9.4,nondetect
@@ -3726,6 +3983,7 @@ well,chem,year,value_ugL,detect
 8106,Chlorobenzene,2015,5.0,nondetect
 8106,Chlorobenzene,2016,5.0,nondetect
 8106,Chlorobenzene,2017,5.0,nondetect
+8106,Chlorobenzene,2018,5.0,nondetect
 8106,Chlorobenzene,2019,5.0,nondetect
 8106,Chloroform / THMs,2000,10.0,nondetect
 8106,Chloroform / THMs,2003,10.0,nondetect
@@ -3758,6 +4016,7 @@ well,chem,year,value_ugL,detect
 8106,Ethylbenzene,2015,5.0,nondetect
 8106,Ethylbenzene,2016,5.0,nondetect
 8106,Ethylbenzene,2017,5.0,nondetect
+8106,Ethylbenzene,2018,5.0,nondetect
 8106,Ethylbenzene,2019,5.0,nondetect
 8106,Lindane / BHC,2015,0.05,nondetect
 8106,Lindane / BHC,2016,0.047,nondetect
@@ -3785,6 +4044,7 @@ well,chem,year,value_ugL,detect
 8106,Tetrachloroethene (PCE),2015,5.0,nondetect
 8106,Tetrachloroethene (PCE),2016,5.0,nondetect
 8106,Tetrachloroethene (PCE),2017,5.0,nondetect
+8106,Tetrachloroethene (PCE),2018,5.0,nondetect
 8106,Tetrachloroethene (PCE),2019,5.0,nondetect
 8106,Toluene,2000,10.0,nondetect
 8106,Toluene,2001,10.0,nondetect
@@ -3801,6 +4061,7 @@ well,chem,year,value_ugL,detect
 8106,Toluene,2015,5.0,nondetect
 8106,Toluene,2016,5.0,nondetect
 8106,Toluene,2017,5.0,nondetect
+8106,Toluene,2018,5.0,nondetect
 8106,Toluene,2019,5.0,nondetect
 8106,Trichloroethene (TCE),2000,10.0,nondetect
 8106,Trichloroethene (TCE),2001,10.0,nondetect
@@ -3816,6 +4077,7 @@ well,chem,year,value_ugL,detect
 8106,Trichloroethene (TCE),2015,5.0,nondetect
 8106,Trichloroethene (TCE),2016,5.0,nondetect
 8106,Trichloroethene (TCE),2017,5.0,nondetect
+8106,Trichloroethene (TCE),2018,5.0,nondetect
 8106,Trichloroethene (TCE),2019,5.0,nondetect
 8106,Vinyl chloride,2000,10.0,nondetect
 8106,Vinyl chloride,2001,10.0,nondetect
@@ -3830,6 +4092,7 @@ well,chem,year,value_ugL,detect
 8106,Vinyl chloride,2015,5.0,nondetect
 8106,Vinyl chloride,2016,5.0,nondetect
 8106,Vinyl chloride,2017,5.0,nondetect
+8106,Vinyl chloride,2018,5.0,nondetect
 8106,Vinyl chloride,2019,5.0,nondetect
 8106,Xylene,2000,10.0,nondetect
 8106,Xylene,2009,10.0,nondetect
@@ -3841,6 +4104,7 @@ well,chem,year,value_ugL,detect
 8106,Xylene,2015,10.0,nondetect
 8106,Xylene,2016,5.0,nondetect
 8106,Xylene,2017,5.0,nondetect
+8106,Xylene,2018,5.0,nondetect
 8106,Xylene,2019,5.0,nondetect
 8110,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
 8110,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
@@ -3927,17 +4191,22 @@ well,chem,year,value_ugL,detect
 8110,Xylene,2017,5.0,nondetect
 8110,Xylene,2019,1.1,detect
 8115,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
+8115,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 8115,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 8115,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
+8115,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 8115,"1,2-Dichlorobenzene",2006,10.0,nondetect
+8115,"1,2-Dichlorobenzene",2018,9.4,nondetect
 8115,"1,2-Dichloroethane",2016,5.0,nondetect
 8115,"1,4-Dichlorobenzene",2006,10.0,nondetect
+8115,"1,4-Dichlorobenzene",2018,9.4,nondetect
 8115,Benzene,2002,10.0,nondetect
 8115,Benzene,2006,10.0,nondetect
 8115,Benzene,2010,5.0,nondetect
 8115,Benzene,2012,5.0,nondetect
 8115,Benzene,2014,5.0,nondetect
 8115,Benzene,2016,5.0,nondetect
+8115,Benzene,2018,5.0,nondetect
 8115,Benzo(a)pyrene,2016,9.4,nondetect
 8115,Chlorobenzene,2002,10.0,nondetect
 8115,Chlorobenzene,2006,10.0,nondetect
@@ -3945,6 +4214,7 @@ well,chem,year,value_ugL,detect
 8115,Chlorobenzene,2012,5.0,nondetect
 8115,Chlorobenzene,2014,5.0,nondetect
 8115,Chlorobenzene,2016,5.0,nondetect
+8115,Chlorobenzene,2018,5.0,nondetect
 8115,Chloroform / THMs,2016,5.0,nondetect
 8115,DDT / DDE / DDD,2016,0.047,nondetect
 8115,Dieldrin,2016,0.047,nondetect
@@ -3954,6 +4224,7 @@ well,chem,year,value_ugL,detect
 8115,Ethylbenzene,2012,5.0,nondetect
 8115,Ethylbenzene,2014,5.0,nondetect
 8115,Ethylbenzene,2016,5.0,nondetect
+8115,Ethylbenzene,2018,5.0,nondetect
 8115,Lindane / BHC,2016,0.047,nondetect
 8115,Naphthalene,2016,9.4,nondetect
 8115,PCBs,2016,0.94,nondetect
@@ -3963,27 +4234,32 @@ well,chem,year,value_ugL,detect
 8115,Tetrachloroethene (PCE),2012,5.0,nondetect
 8115,Tetrachloroethene (PCE),2014,5.0,nondetect
 8115,Tetrachloroethene (PCE),2016,5.0,nondetect
+8115,Tetrachloroethene (PCE),2018,5.0,nondetect
 8115,Toluene,2002,10.0,nondetect
 8115,Toluene,2006,10.0,nondetect
 8115,Toluene,2010,5.0,nondetect
 8115,Toluene,2012,5.0,nondetect
 8115,Toluene,2014,5.0,nondetect
 8115,Toluene,2016,5.0,nondetect
+8115,Toluene,2018,5.0,nondetect
 8115,Trichloroethene (TCE),2002,10.0,nondetect
 8115,Trichloroethene (TCE),2006,10.0,nondetect
 8115,Trichloroethene (TCE),2010,5.0,nondetect
 8115,Trichloroethene (TCE),2012,5.0,nondetect
 8115,Trichloroethene (TCE),2014,5.0,nondetect
 8115,Trichloroethene (TCE),2016,5.0,nondetect
+8115,Trichloroethene (TCE),2018,5.0,nondetect
 8115,Vinyl chloride,2002,10.0,nondetect
 8115,Vinyl chloride,2010,5.0,nondetect
 8115,Vinyl chloride,2012,5.0,nondetect
 8115,Vinyl chloride,2014,5.0,nondetect
 8115,Vinyl chloride,2016,5.0,nondetect
+8115,Vinyl chloride,2018,5.0,nondetect
 8115,Xylene,2010,15.0,nondetect
 8115,Xylene,2012,15.0,nondetect
 8115,Xylene,2014,10.0,nondetect
 8115,Xylene,2016,5.0,nondetect
+8115,Xylene,2018,5.0,nondetect
 8120,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
 8120,"1,1,2,2-Tetrachloroethane",2007,10.0,nondetect
 8120,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
@@ -4081,14 +4357,18 @@ well,chem,year,value_ugL,detect
 8120,Xylene,2019,5.0,nondetect
 8125,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 8125,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
+8125,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 8125,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 8125,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 8125,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
+8125,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 8125,"1,2-Dichlorobenzene",2000,10.0,nondetect
 8125,"1,2-Dichlorobenzene",2006,10.0,nondetect
+8125,"1,2-Dichlorobenzene",2018,9.4,nondetect
 8125,"1,2-Dichloroethane",2016,5.0,nondetect
 8125,"1,4-Dichlorobenzene",2000,10.0,nondetect
 8125,"1,4-Dichlorobenzene",2006,10.0,nondetect
+8125,"1,4-Dichlorobenzene",2018,9.4,nondetect
 8125,Benzene,2000,10.0,nondetect
 8125,Benzene,2002,10.0,nondetect
 8125,Benzene,2006,10.0,nondetect
@@ -4096,6 +4376,7 @@ well,chem,year,value_ugL,detect
 8125,Benzene,2012,5.0,nondetect
 8125,Benzene,2014,5.0,nondetect
 8125,Benzene,2016,5.0,nondetect
+8125,Benzene,2018,5.0,nondetect
 8125,Benzo(a)pyrene,2016,9.4,nondetect
 8125,Chlorobenzene,2000,10.0,nondetect
 8125,Chlorobenzene,2002,10.0,nondetect
@@ -4104,6 +4385,7 @@ well,chem,year,value_ugL,detect
 8125,Chlorobenzene,2012,5.0,nondetect
 8125,Chlorobenzene,2014,5.0,nondetect
 8125,Chlorobenzene,2016,5.0,nondetect
+8125,Chlorobenzene,2018,5.0,nondetect
 8125,Chloroform / THMs,2000,10.0,nondetect
 8125,Chloroform / THMs,2016,5.0,nondetect
 8125,DDT / DDE / DDD,2016,0.047,nondetect
@@ -4115,6 +4397,7 @@ well,chem,year,value_ugL,detect
 8125,Ethylbenzene,2012,5.0,nondetect
 8125,Ethylbenzene,2014,5.0,nondetect
 8125,Ethylbenzene,2016,5.0,nondetect
+8125,Ethylbenzene,2018,5.0,nondetect
 8125,Lindane / BHC,2016,0.047,nondetect
 8125,Naphthalene,2016,9.4,nondetect
 8125,PCBs,2016,0.94,nondetect
@@ -4125,6 +4408,7 @@ well,chem,year,value_ugL,detect
 8125,Tetrachloroethene (PCE),2012,5.0,nondetect
 8125,Tetrachloroethene (PCE),2014,5.0,nondetect
 8125,Tetrachloroethene (PCE),2016,5.0,nondetect
+8125,Tetrachloroethene (PCE),2018,5.0,nondetect
 8125,Toluene,2000,10.0,nondetect
 8125,Toluene,2002,10.0,nondetect
 8125,Toluene,2006,10.0,nondetect
@@ -4132,6 +4416,7 @@ well,chem,year,value_ugL,detect
 8125,Toluene,2012,5.0,nondetect
 8125,Toluene,2014,5.0,nondetect
 8125,Toluene,2016,5.0,nondetect
+8125,Toluene,2018,5.0,nondetect
 8125,Trichloroethene (TCE),2000,10.0,nondetect
 8125,Trichloroethene (TCE),2002,10.0,nondetect
 8125,Trichloroethene (TCE),2006,10.0,nondetect
@@ -4139,17 +4424,20 @@ well,chem,year,value_ugL,detect
 8125,Trichloroethene (TCE),2012,5.0,nondetect
 8125,Trichloroethene (TCE),2014,5.0,nondetect
 8125,Trichloroethene (TCE),2016,5.0,nondetect
+8125,Trichloroethene (TCE),2018,5.0,nondetect
 8125,Vinyl chloride,2000,10.0,nondetect
 8125,Vinyl chloride,2002,10.0,nondetect
 8125,Vinyl chloride,2010,5.0,nondetect
 8125,Vinyl chloride,2012,5.0,nondetect
 8125,Vinyl chloride,2014,5.0,nondetect
 8125,Vinyl chloride,2016,5.0,nondetect
+8125,Vinyl chloride,2018,5.0,nondetect
 8125,Xylene,2000,10.0,nondetect
 8125,Xylene,2010,15.0,nondetect
 8125,Xylene,2012,15.0,nondetect
 8125,Xylene,2014,10.0,nondetect
 8125,Xylene,2016,5.0,nondetect
+8125,Xylene,2018,5.0,nondetect
 8130,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
 8130,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
 8130,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
@@ -4333,13 +4621,16 @@ well,chem,year,value_ugL,detect
 8210,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
 8210,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
 8210,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+8210,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 8210,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 8210,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 8210,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 8210,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
+8210,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 8210,"1,2-Dichlorobenzene",2000,10.0,nondetect
 8210,"1,2-Dichlorobenzene",2001,10.0,nondetect
 8210,"1,2-Dichlorobenzene",2006,10.0,nondetect
+8210,"1,2-Dichlorobenzene",2018,9.4,nondetect
 8210,"1,2-Dichloroethane",2015,5.0,nondetect
 8210,"1,2-Dichloroethane",2016,5.0,nondetect
 8210,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -4347,6 +4638,7 @@ well,chem,year,value_ugL,detect
 8210,"1,4-Dichlorobenzene",2000,10.0,nondetect
 8210,"1,4-Dichlorobenzene",2001,10.0,nondetect
 8210,"1,4-Dichlorobenzene",2006,10.0,nondetect
+8210,"1,4-Dichlorobenzene",2018,9.4,nondetect
 8210,Benzene,2000,10.0,nondetect
 8210,Benzene,2001,10.0,nondetect
 8210,Benzene,2002,10.0,nondetect
@@ -4360,6 +4652,7 @@ well,chem,year,value_ugL,detect
 8210,Benzene,2015,5.0,nondetect
 8210,Benzene,2016,5.0,nondetect
 8210,Benzene,2017,5.0,nondetect
+8210,Benzene,2018,5.0,nondetect
 8210,Benzene,2019,5.0,nondetect
 8210,Benzo(a)pyrene,2015,1.9,nondetect
 8210,Benzo(a)pyrene,2016,9.4,nondetect
@@ -4378,6 +4671,7 @@ well,chem,year,value_ugL,detect
 8210,Chlorobenzene,2015,5.0,nondetect
 8210,Chlorobenzene,2016,5.0,nondetect
 8210,Chlorobenzene,2017,5.0,nondetect
+8210,Chlorobenzene,2018,5.0,nondetect
 8210,Chlorobenzene,2019,5.0,nondetect
 8210,Chloroform / THMs,2000,10.0,nondetect
 8210,Chloroform / THMs,2015,5.0,nondetect
@@ -4408,6 +4702,7 @@ well,chem,year,value_ugL,detect
 8210,Ethylbenzene,2015,5.0,nondetect
 8210,Ethylbenzene,2016,5.0,nondetect
 8210,Ethylbenzene,2017,5.0,nondetect
+8210,Ethylbenzene,2018,5.0,nondetect
 8210,Ethylbenzene,2019,5.0,nondetect
 8210,Lindane / BHC,2015,0.056,nondetect
 8210,Lindane / BHC,2016,0.1,detect
@@ -4434,6 +4729,7 @@ well,chem,year,value_ugL,detect
 8210,Tetrachloroethene (PCE),2015,5.0,nondetect
 8210,Tetrachloroethene (PCE),2016,5.0,nondetect
 8210,Tetrachloroethene (PCE),2017,5.0,nondetect
+8210,Tetrachloroethene (PCE),2018,5.0,nondetect
 8210,Tetrachloroethene (PCE),2019,5.0,nondetect
 8210,Toluene,2000,10.0,nondetect
 8210,Toluene,2001,10.0,nondetect
@@ -4448,6 +4744,7 @@ well,chem,year,value_ugL,detect
 8210,Toluene,2015,5.0,nondetect
 8210,Toluene,2016,5.0,nondetect
 8210,Toluene,2017,0.25,detect
+8210,Toluene,2018,0.25,detect
 8210,Toluene,2019,5.0,nondetect
 8210,Trichloroethene (TCE),2000,10.0,nondetect
 8210,Trichloroethene (TCE),2001,10.0,nondetect
@@ -4462,6 +4759,7 @@ well,chem,year,value_ugL,detect
 8210,Trichloroethene (TCE),2015,5.0,nondetect
 8210,Trichloroethene (TCE),2016,5.0,nondetect
 8210,Trichloroethene (TCE),2017,5.0,nondetect
+8210,Trichloroethene (TCE),2018,5.0,nondetect
 8210,Trichloroethene (TCE),2019,5.0,nondetect
 8210,Vinyl chloride,2000,10.0,nondetect
 8210,Vinyl chloride,2001,10.0,nondetect
@@ -4475,6 +4773,7 @@ well,chem,year,value_ugL,detect
 8210,Vinyl chloride,2015,5.0,nondetect
 8210,Vinyl chloride,2016,5.0,nondetect
 8210,Vinyl chloride,2017,5.0,nondetect
+8210,Vinyl chloride,2018,5.0,nondetect
 8210,Vinyl chloride,2019,5.0,nondetect
 8210,Xylene,2000,10.0,nondetect
 8210,Xylene,2009,10.0,nondetect
@@ -4486,17 +4785,22 @@ well,chem,year,value_ugL,detect
 8210,Xylene,2015,10.0,nondetect
 8210,Xylene,2016,5.0,nondetect
 8210,Xylene,2017,5.0,nondetect
+8210,Xylene,2018,5.0,nondetect
 8210,Xylene,2019,5.0,nondetect
 9105,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 9105,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
+9105,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 9105,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 9105,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 9105,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
+9105,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 9105,"1,2-Dichlorobenzene",2000,10.0,nondetect
 9105,"1,2-Dichlorobenzene",2006,10.0,nondetect
+9105,"1,2-Dichlorobenzene",2018,9.4,nondetect
 9105,"1,2-Dichloroethane",2016,5.0,nondetect
 9105,"1,4-Dichlorobenzene",2000,10.0,nondetect
 9105,"1,4-Dichlorobenzene",2006,10.0,nondetect
+9105,"1,4-Dichlorobenzene",2018,9.4,nondetect
 9105,Benzene,2000,10.0,nondetect
 9105,Benzene,2002,10.0,nondetect
 9105,Benzene,2006,10.0,nondetect
@@ -4504,6 +4808,7 @@ well,chem,year,value_ugL,detect
 9105,Benzene,2012,5.0,nondetect
 9105,Benzene,2014,5.0,nondetect
 9105,Benzene,2016,5.0,nondetect
+9105,Benzene,2018,5.0,nondetect
 9105,Benzo(a)pyrene,2016,9.4,nondetect
 9105,Chlorobenzene,2000,10.0,nondetect
 9105,Chlorobenzene,2002,10.0,nondetect
@@ -4512,6 +4817,7 @@ well,chem,year,value_ugL,detect
 9105,Chlorobenzene,2012,5.0,nondetect
 9105,Chlorobenzene,2014,5.0,nondetect
 9105,Chlorobenzene,2016,5.0,nondetect
+9105,Chlorobenzene,2018,5.0,nondetect
 9105,Chloroform / THMs,2000,10.0,nondetect
 9105,Chloroform / THMs,2016,5.0,nondetect
 9105,DDT / DDE / DDD,2016,0.047,nondetect
@@ -4523,6 +4829,7 @@ well,chem,year,value_ugL,detect
 9105,Ethylbenzene,2012,5.0,nondetect
 9105,Ethylbenzene,2014,5.0,nondetect
 9105,Ethylbenzene,2016,5.0,nondetect
+9105,Ethylbenzene,2018,5.0,nondetect
 9105,Lindane / BHC,2016,0.047,nondetect
 9105,Naphthalene,2016,9.4,nondetect
 9105,PCBs,2016,0.94,nondetect
@@ -4533,6 +4840,7 @@ well,chem,year,value_ugL,detect
 9105,Tetrachloroethene (PCE),2012,5.0,nondetect
 9105,Tetrachloroethene (PCE),2014,5.0,nondetect
 9105,Tetrachloroethene (PCE),2016,5.0,nondetect
+9105,Tetrachloroethene (PCE),2018,5.0,nondetect
 9105,Toluene,2000,10.0,nondetect
 9105,Toluene,2002,10.0,nondetect
 9105,Toluene,2006,10.0,nondetect
@@ -4540,6 +4848,7 @@ well,chem,year,value_ugL,detect
 9105,Toluene,2012,5.0,nondetect
 9105,Toluene,2014,5.0,nondetect
 9105,Toluene,2016,5.0,nondetect
+9105,Toluene,2018,5.0,nondetect
 9105,Trichloroethene (TCE),2000,10.0,nondetect
 9105,Trichloroethene (TCE),2002,10.0,nondetect
 9105,Trichloroethene (TCE),2006,10.0,nondetect
@@ -4547,17 +4856,20 @@ well,chem,year,value_ugL,detect
 9105,Trichloroethene (TCE),2012,5.0,nondetect
 9105,Trichloroethene (TCE),2014,5.0,nondetect
 9105,Trichloroethene (TCE),2016,5.0,nondetect
+9105,Trichloroethene (TCE),2018,5.0,nondetect
 9105,Vinyl chloride,2000,10.0,nondetect
 9105,Vinyl chloride,2002,10.0,nondetect
 9105,Vinyl chloride,2010,5.0,nondetect
 9105,Vinyl chloride,2012,5.0,nondetect
 9105,Vinyl chloride,2014,5.0,nondetect
 9105,Vinyl chloride,2016,5.0,nondetect
+9105,Vinyl chloride,2018,5.0,nondetect
 9105,Xylene,2000,10.0,nondetect
 9105,Xylene,2010,15.0,nondetect
 9105,Xylene,2012,15.0,nondetect
 9105,Xylene,2014,10.0,nondetect
 9105,Xylene,2016,5.0,nondetect
+9105,Xylene,2018,5.0,nondetect
 9110,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
 9110,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
 9110,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
@@ -4644,14 +4956,18 @@ well,chem,year,value_ugL,detect
 9110,Xylene,2019,5.0,nondetect
 9113,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 9113,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
+9113,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 9113,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 9113,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 9113,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
+9113,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 9113,"1,2-Dichlorobenzene",2000,10.0,nondetect
 9113,"1,2-Dichlorobenzene",2006,10.0,nondetect
+9113,"1,2-Dichlorobenzene",2018,9.4,nondetect
 9113,"1,2-Dichloroethane",2016,5.0,nondetect
 9113,"1,4-Dichlorobenzene",2000,10.0,nondetect
 9113,"1,4-Dichlorobenzene",2006,10.0,nondetect
+9113,"1,4-Dichlorobenzene",2018,9.4,nondetect
 9113,Benzene,2000,10.0,nondetect
 9113,Benzene,2002,10.0,nondetect
 9113,Benzene,2006,10.0,nondetect
@@ -4659,6 +4975,7 @@ well,chem,year,value_ugL,detect
 9113,Benzene,2012,5.0,nondetect
 9113,Benzene,2014,5.0,nondetect
 9113,Benzene,2016,5.0,nondetect
+9113,Benzene,2018,5.0,nondetect
 9113,Benzo(a)pyrene,2016,9.4,nondetect
 9113,Chlorobenzene,2000,10.0,nondetect
 9113,Chlorobenzene,2002,10.0,nondetect
@@ -4667,6 +4984,7 @@ well,chem,year,value_ugL,detect
 9113,Chlorobenzene,2012,5.0,nondetect
 9113,Chlorobenzene,2014,5.0,nondetect
 9113,Chlorobenzene,2016,5.0,nondetect
+9113,Chlorobenzene,2018,5.0,nondetect
 9113,Chloroform / THMs,2000,10.0,nondetect
 9113,Chloroform / THMs,2016,5.0,nondetect
 9113,DDT / DDE / DDD,2016,0.047,nondetect
@@ -4678,6 +4996,7 @@ well,chem,year,value_ugL,detect
 9113,Ethylbenzene,2012,5.0,nondetect
 9113,Ethylbenzene,2014,5.0,nondetect
 9113,Ethylbenzene,2016,5.0,nondetect
+9113,Ethylbenzene,2018,5.0,nondetect
 9113,Lindane / BHC,2016,0.047,nondetect
 9113,Naphthalene,2016,9.4,nondetect
 9113,PCBs,2016,0.94,nondetect
@@ -4688,6 +5007,7 @@ well,chem,year,value_ugL,detect
 9113,Tetrachloroethene (PCE),2012,5.0,nondetect
 9113,Tetrachloroethene (PCE),2014,5.0,nondetect
 9113,Tetrachloroethene (PCE),2016,5.0,nondetect
+9113,Tetrachloroethene (PCE),2018,5.0,nondetect
 9113,Toluene,2000,10.0,nondetect
 9113,Toluene,2002,10.0,nondetect
 9113,Toluene,2006,10.0,nondetect
@@ -4695,6 +5015,7 @@ well,chem,year,value_ugL,detect
 9113,Toluene,2012,5.0,nondetect
 9113,Toluene,2014,5.0,nondetect
 9113,Toluene,2016,5.0,nondetect
+9113,Toluene,2018,5.0,nondetect
 9113,Trichloroethene (TCE),2000,10.0,nondetect
 9113,Trichloroethene (TCE),2002,10.0,nondetect
 9113,Trichloroethene (TCE),2006,10.0,nondetect
@@ -4702,17 +5023,20 @@ well,chem,year,value_ugL,detect
 9113,Trichloroethene (TCE),2012,5.0,nondetect
 9113,Trichloroethene (TCE),2014,5.0,nondetect
 9113,Trichloroethene (TCE),2016,5.0,nondetect
+9113,Trichloroethene (TCE),2018,5.0,nondetect
 9113,Vinyl chloride,2000,10.0,nondetect
 9113,Vinyl chloride,2002,10.0,nondetect
 9113,Vinyl chloride,2010,5.0,nondetect
 9113,Vinyl chloride,2012,5.0,nondetect
 9113,Vinyl chloride,2014,5.0,nondetect
 9113,Vinyl chloride,2016,5.0,nondetect
+9113,Vinyl chloride,2018,5.0,nondetect
 9113,Xylene,2000,10.0,nondetect
 9113,Xylene,2010,15.0,nondetect
 9113,Xylene,2012,15.0,nondetect
 9113,Xylene,2014,10.0,nondetect
 9113,Xylene,2016,5.0,nondetect
+9113,Xylene,2018,5.0,nondetect
 9115,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
 9115,"1,1,2,2-Tetrachloroethane",2007,10.0,nondetect
 9115,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
@@ -4803,20 +5127,24 @@ well,chem,year,value_ugL,detect
 9118,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 9118,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
 9118,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
+9118,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 9118,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 9118,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 9118,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 9118,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 9118,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
+9118,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 9118,"1,2-Dichlorobenzene",2000,10.0,nondetect
 9118,"1,2-Dichlorobenzene",2001,10.0,nondetect
 9118,"1,2-Dichlorobenzene",2005,9.4,nondetect
 9118,"1,2-Dichlorobenzene",2006,10.0,nondetect
+9118,"1,2-Dichlorobenzene",2018,9.4,nondetect
 9118,"1,2-Dichloroethane",2016,5.0,nondetect
 9118,"1,4-Dichlorobenzene",2000,10.0,nondetect
 9118,"1,4-Dichlorobenzene",2001,10.0,nondetect
 9118,"1,4-Dichlorobenzene",2005,9.4,nondetect
 9118,"1,4-Dichlorobenzene",2006,10.0,nondetect
+9118,"1,4-Dichlorobenzene",2018,9.4,nondetect
 9118,Benzene,2000,10.0,nondetect
 9118,Benzene,2001,10.0,nondetect
 9118,Benzene,2002,10.0,nondetect
@@ -4825,6 +5153,7 @@ well,chem,year,value_ugL,detect
 9118,Benzene,2012,5.0,nondetect
 9118,Benzene,2014,5.0,nondetect
 9118,Benzene,2016,5.0,nondetect
+9118,Benzene,2018,5.0,nondetect
 9118,Benzo(a)pyrene,2016,9.4,nondetect
 9118,Chlorobenzene,2000,10.0,nondetect
 9118,Chlorobenzene,2001,10.0,nondetect
@@ -4835,6 +5164,7 @@ well,chem,year,value_ugL,detect
 9118,Chlorobenzene,2012,5.0,nondetect
 9118,Chlorobenzene,2014,5.0,nondetect
 9118,Chlorobenzene,2016,5.0,nondetect
+9118,Chlorobenzene,2018,5.0,nondetect
 9118,Chloroform / THMs,2000,10.0,nondetect
 9118,Chloroform / THMs,2016,5.0,nondetect
 9118,DDT / DDE / DDD,2016,0.047,nondetect
@@ -4847,6 +5177,7 @@ well,chem,year,value_ugL,detect
 9118,Ethylbenzene,2012,5.0,nondetect
 9118,Ethylbenzene,2014,5.0,nondetect
 9118,Ethylbenzene,2016,5.0,nondetect
+9118,Ethylbenzene,2018,5.0,nondetect
 9118,Lindane / BHC,2016,0.047,nondetect
 9118,Naphthalene,2016,9.4,nondetect
 9118,PCBs,2016,0.94,nondetect
@@ -4858,6 +5189,7 @@ well,chem,year,value_ugL,detect
 9118,Tetrachloroethene (PCE),2012,5.0,nondetect
 9118,Tetrachloroethene (PCE),2014,5.0,nondetect
 9118,Tetrachloroethene (PCE),2016,5.0,nondetect
+9118,Tetrachloroethene (PCE),2018,5.0,nondetect
 9118,Toluene,2000,10.0,nondetect
 9118,Toluene,2001,10.0,nondetect
 9118,Toluene,2002,10.0,nondetect
@@ -4867,6 +5199,7 @@ well,chem,year,value_ugL,detect
 9118,Toluene,2012,5.0,nondetect
 9118,Toluene,2014,5.0,nondetect
 9118,Toluene,2016,5.0,nondetect
+9118,Toluene,2018,5.0,nondetect
 9118,Trichloroethene (TCE),2000,10.0,nondetect
 9118,Trichloroethene (TCE),2001,10.0,nondetect
 9118,Trichloroethene (TCE),2002,10.0,nondetect
@@ -4875,6 +5208,7 @@ well,chem,year,value_ugL,detect
 9118,Trichloroethene (TCE),2012,5.0,nondetect
 9118,Trichloroethene (TCE),2014,5.0,nondetect
 9118,Trichloroethene (TCE),2016,5.0,nondetect
+9118,Trichloroethene (TCE),2018,5.0,nondetect
 9118,Vinyl chloride,2000,10.0,nondetect
 9118,Vinyl chloride,2001,10.0,nondetect
 9118,Vinyl chloride,2002,10.0,nondetect
@@ -4882,11 +5216,13 @@ well,chem,year,value_ugL,detect
 9118,Vinyl chloride,2012,5.0,nondetect
 9118,Vinyl chloride,2014,5.0,nondetect
 9118,Vinyl chloride,2016,5.0,nondetect
+9118,Vinyl chloride,2018,5.0,nondetect
 9118,Xylene,2000,10.0,nondetect
 9118,Xylene,2010,15.0,nondetect
 9118,Xylene,2012,15.0,nondetect
 9118,Xylene,2014,10.0,nondetect
 9118,Xylene,2016,5.0,nondetect
+9118,Xylene,2018,5.0,nondetect
 9120,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
 9120,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 9120,"1,2-Dichlorobenzene",2005,9.4,nondetect
@@ -5220,15 +5556,18 @@ well,chem,year,value_ugL,detect
 9205,"1,1,2,2-Tetrachloroethane",2002,10.0,nondetect
 9205,"1,1,2,2-Tetrachloroethane",2007,10.0,nondetect
 9205,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+9205,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 9205,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 9205,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 9205,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
 9205,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 9205,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+9205,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 9205,"1,2-Dichlorobenzene",2000,10.0,nondetect
 9205,"1,2-Dichlorobenzene",2001,10.0,nondetect
 9205,"1,2-Dichlorobenzene",2006,10.0,nondetect
 9205,"1,2-Dichlorobenzene",2007,10.0,nondetect
+9205,"1,2-Dichlorobenzene",2018,9.4,nondetect
 9205,"1,2-Dichloroethane",2015,5.0,nondetect
 9205,"1,2-Dichloroethane",2016,5.0,nondetect
 9205,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -5237,6 +5576,7 @@ well,chem,year,value_ugL,detect
 9205,"1,4-Dichlorobenzene",2001,10.0,nondetect
 9205,"1,4-Dichlorobenzene",2006,10.0,nondetect
 9205,"1,4-Dichlorobenzene",2007,10.0,nondetect
+9205,"1,4-Dichlorobenzene",2018,9.4,nondetect
 9205,Benzene,2000,10.0,nondetect
 9205,Benzene,2001,10.0,nondetect
 9205,Benzene,2002,10.0,nondetect
@@ -5250,6 +5590,7 @@ well,chem,year,value_ugL,detect
 9205,Benzene,2015,5.0,nondetect
 9205,Benzene,2016,5.0,nondetect
 9205,Benzene,2017,5.0,nondetect
+9205,Benzene,2018,5.0,nondetect
 9205,Benzene,2019,5.0,nondetect
 9205,Benzo(a)pyrene,2015,1.9,nondetect
 9205,Benzo(a)pyrene,2016,9.4,nondetect
@@ -5268,6 +5609,7 @@ well,chem,year,value_ugL,detect
 9205,Chlorobenzene,2015,5.0,nondetect
 9205,Chlorobenzene,2016,5.0,nondetect
 9205,Chlorobenzene,2017,5.0,nondetect
+9205,Chlorobenzene,2018,5.0,nondetect
 9205,Chlorobenzene,2019,5.0,nondetect
 9205,Chloroform / THMs,2000,10.0,nondetect
 9205,Chloroform / THMs,2015,5.0,nondetect
@@ -5298,6 +5640,7 @@ well,chem,year,value_ugL,detect
 9205,Ethylbenzene,2015,5.0,nondetect
 9205,Ethylbenzene,2016,5.0,nondetect
 9205,Ethylbenzene,2017,5.0,nondetect
+9205,Ethylbenzene,2018,5.0,nondetect
 9205,Ethylbenzene,2019,5.0,nondetect
 9205,Lindane / BHC,2015,0.09,detect
 9205,Lindane / BHC,2016,0.067,detect
@@ -5324,6 +5667,7 @@ well,chem,year,value_ugL,detect
 9205,Tetrachloroethene (PCE),2015,5.0,nondetect
 9205,Tetrachloroethene (PCE),2016,5.0,nondetect
 9205,Tetrachloroethene (PCE),2017,5.0,nondetect
+9205,Tetrachloroethene (PCE),2018,5.0,nondetect
 9205,Tetrachloroethene (PCE),2019,5.0,nondetect
 9205,Toluene,2000,15.0,detect
 9205,Toluene,2001,10.0,nondetect
@@ -5338,6 +5682,7 @@ well,chem,year,value_ugL,detect
 9205,Toluene,2015,5.0,nondetect
 9205,Toluene,2016,5.0,nondetect
 9205,Toluene,2017,5.0,nondetect
+9205,Toluene,2018,5.0,nondetect
 9205,Toluene,2019,5.0,nondetect
 9205,Trichloroethene (TCE),2000,10.0,nondetect
 9205,Trichloroethene (TCE),2001,10.0,nondetect
@@ -5352,6 +5697,7 @@ well,chem,year,value_ugL,detect
 9205,Trichloroethene (TCE),2015,5.0,nondetect
 9205,Trichloroethene (TCE),2016,5.0,nondetect
 9205,Trichloroethene (TCE),2017,5.0,nondetect
+9205,Trichloroethene (TCE),2018,5.0,nondetect
 9205,Trichloroethene (TCE),2019,5.0,nondetect
 9205,Vinyl chloride,2000,10.0,nondetect
 9205,Vinyl chloride,2001,10.0,nondetect
@@ -5364,6 +5710,7 @@ well,chem,year,value_ugL,detect
 9205,Vinyl chloride,2015,5.0,nondetect
 9205,Vinyl chloride,2016,5.0,nondetect
 9205,Vinyl chloride,2017,5.0,nondetect
+9205,Vinyl chloride,2018,5.0,nondetect
 9205,Vinyl chloride,2019,5.0,nondetect
 9205,Xylene,2000,10.0,nondetect
 9205,Xylene,2007,10.0,nondetect
@@ -5375,6 +5722,7 @@ well,chem,year,value_ugL,detect
 9205,Xylene,2015,10.0,nondetect
 9205,Xylene,2016,5.0,nondetect
 9205,Xylene,2017,5.0,nondetect
+9205,Xylene,2018,5.0,nondetect
 9205,Xylene,2019,5.0,nondetect
 9210,"1,1,2,2-Tetrachloroethane",2000,10.0,nondetect
 9210,"1,1,2,2-Tetrachloroethane",2001,10.0,nondetect
@@ -5382,6 +5730,7 @@ well,chem,year,value_ugL,detect
 9210,"1,1,2,2-Tetrachloroethane",2003,10.0,nondetect
 9210,"1,1,2,2-Tetrachloroethane",2007,50.0,nondetect
 9210,"1,1,2,2-Tetrachloroethane",2009,10.0,nondetect
+9210,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
 9210,"1,2,4-Trichlorobenzene",2000,10.0,nondetect
 9210,"1,2,4-Trichlorobenzene",2001,10.0,nondetect
 9210,"1,2,4-Trichlorobenzene",2002,10.0,nondetect
@@ -5389,12 +5738,14 @@ well,chem,year,value_ugL,detect
 9210,"1,2,4-Trichlorobenzene",2005,9.4,nondetect
 9210,"1,2,4-Trichlorobenzene",2006,10.0,nondetect
 9210,"1,2,4-Trichlorobenzene",2007,10.0,nondetect
+9210,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
 9210,"1,2-Dichlorobenzene",2000,10.0,nondetect
 9210,"1,2-Dichlorobenzene",2001,10.0,nondetect
 9210,"1,2-Dichlorobenzene",2003,10.0,nondetect
 9210,"1,2-Dichlorobenzene",2005,9.4,nondetect
 9210,"1,2-Dichlorobenzene",2006,10.0,nondetect
 9210,"1,2-Dichlorobenzene",2007,10.0,nondetect
+9210,"1,2-Dichlorobenzene",2018,9.4,nondetect
 9210,"1,2-Dichloroethane",2015,5.0,nondetect
 9210,"1,2-Dichloroethane",2016,5.0,nondetect
 9210,"1,2-Dichloroethane",2017,5.0,nondetect
@@ -5405,6 +5756,7 @@ well,chem,year,value_ugL,detect
 9210,"1,4-Dichlorobenzene",2005,9.4,nondetect
 9210,"1,4-Dichlorobenzene",2006,10.0,nondetect
 9210,"1,4-Dichlorobenzene",2007,10.0,nondetect
+9210,"1,4-Dichlorobenzene",2018,9.4,nondetect
 9210,Benzene,2000,10.0,nondetect
 9210,Benzene,2001,10.0,nondetect
 9210,Benzene,2002,10.0,nondetect
@@ -5418,6 +5770,7 @@ well,chem,year,value_ugL,detect
 9210,Benzene,2015,5.0,nondetect
 9210,Benzene,2016,5.0,nondetect
 9210,Benzene,2017,5.0,nondetect
+9210,Benzene,2018,5.0,nondetect
 9210,Benzene,2019,5.0,nondetect
 9210,Benzo(a)pyrene,2015,1.9,nondetect
 9210,Benzo(a)pyrene,2016,9.4,nondetect
@@ -5437,6 +5790,7 @@ well,chem,year,value_ugL,detect
 9210,Chlorobenzene,2015,5.0,nondetect
 9210,Chlorobenzene,2016,5.0,nondetect
 9210,Chlorobenzene,2017,5.0,nondetect
+9210,Chlorobenzene,2018,5.0,nondetect
 9210,Chlorobenzene,2019,5.0,nondetect
 9210,Chloroform / THMs,2000,10.0,nondetect
 9210,Chloroform / THMs,2003,10.0,nondetect
@@ -5468,6 +5822,7 @@ well,chem,year,value_ugL,detect
 9210,Ethylbenzene,2015,5.0,nondetect
 9210,Ethylbenzene,2016,5.0,nondetect
 9210,Ethylbenzene,2017,5.0,nondetect
+9210,Ethylbenzene,2018,5.0,nondetect
 9210,Ethylbenzene,2019,5.0,nondetect
 9210,Lindane / BHC,2015,0.026,nondetect
 9210,Lindane / BHC,2016,0.2,detect
@@ -5494,6 +5849,7 @@ well,chem,year,value_ugL,detect
 9210,Tetrachloroethene (PCE),2015,5.0,nondetect
 9210,Tetrachloroethene (PCE),2016,5.0,nondetect
 9210,Tetrachloroethene (PCE),2017,5.0,nondetect
+9210,Tetrachloroethene (PCE),2018,5.0,nondetect
 9210,Tetrachloroethene (PCE),2019,5.0,nondetect
 9210,Toluene,2000,10.0,nondetect
 9210,Toluene,2001,10.0,nondetect
@@ -5509,6 +5865,7 @@ well,chem,year,value_ugL,detect
 9210,Toluene,2015,5.0,nondetect
 9210,Toluene,2016,5.0,nondetect
 9210,Toluene,2017,5.0,nondetect
+9210,Toluene,2018,5.0,nondetect
 9210,Toluene,2019,5.0,nondetect
 9210,Trichloroethene (TCE),2000,10.0,nondetect
 9210,Trichloroethene (TCE),2001,10.0,nondetect
@@ -5523,6 +5880,7 @@ well,chem,year,value_ugL,detect
 9210,Trichloroethene (TCE),2015,5.0,nondetect
 9210,Trichloroethene (TCE),2016,5.0,nondetect
 9210,Trichloroethene (TCE),2017,5.0,nondetect
+9210,Trichloroethene (TCE),2018,5.0,nondetect
 9210,Trichloroethene (TCE),2019,5.0,nondetect
 9210,Vinyl chloride,2000,10.0,nondetect
 9210,Vinyl chloride,2001,10.0,nondetect
@@ -5535,6 +5893,7 @@ well,chem,year,value_ugL,detect
 9210,Vinyl chloride,2015,5.0,nondetect
 9210,Vinyl chloride,2016,5.0,nondetect
 9210,Vinyl chloride,2017,5.0,nondetect
+9210,Vinyl chloride,2018,5.0,nondetect
 9210,Vinyl chloride,2019,5.0,nondetect
 9210,Xylene,2000,10.0,nondetect
 9210,Xylene,2007,50.0,nondetect
@@ -5545,15 +5904,21 @@ well,chem,year,value_ugL,detect
 9210,Xylene,2015,10.0,nondetect
 9210,Xylene,2016,5.0,nondetect
 9210,Xylene,2017,5.0,nondetect
+9210,Xylene,2018,5.0,nondetect
 9210,Xylene,2019,5.0,nondetect
+MW-01,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
+MW-01,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
+MW-01,"1,2-Dichlorobenzene",2018,9.4,nondetect
 MW-01,"1,2-Dichloroethane",2015,5.0,nondetect
 MW-01,"1,2-Dichloroethane",2016,5.0,nondetect
 MW-01,"1,2-Dichloroethane",2017,5.0,nondetect
 MW-01,"1,2-Dichloroethane",2019,5.0,nondetect
+MW-01,"1,4-Dichlorobenzene",2018,9.4,nondetect
 MW-01,Benzene,2012,5.0,nondetect
 MW-01,Benzene,2015,5.0,nondetect
 MW-01,Benzene,2016,5.0,nondetect
 MW-01,Benzene,2017,5.0,nondetect
+MW-01,Benzene,2018,5.0,nondetect
 MW-01,Benzene,2019,5.0,nondetect
 MW-01,Benzo(a)pyrene,2015,1.9,nondetect
 MW-01,Benzo(a)pyrene,2016,9.4,nondetect
@@ -5563,6 +5928,7 @@ MW-01,Chlorobenzene,2012,5.0,nondetect
 MW-01,Chlorobenzene,2015,5.0,nondetect
 MW-01,Chlorobenzene,2016,5.0,nondetect
 MW-01,Chlorobenzene,2017,5.0,nondetect
+MW-01,Chlorobenzene,2018,5.0,nondetect
 MW-01,Chlorobenzene,2019,5.0,nondetect
 MW-01,Chloroform / THMs,2015,5.0,nondetect
 MW-01,Chloroform / THMs,2016,5.0,nondetect
@@ -5584,6 +5950,7 @@ MW-01,Ethylbenzene,2012,5.0,nondetect
 MW-01,Ethylbenzene,2015,5.0,nondetect
 MW-01,Ethylbenzene,2016,5.0,nondetect
 MW-01,Ethylbenzene,2017,5.0,nondetect
+MW-01,Ethylbenzene,2018,5.0,nondetect
 MW-01,Ethylbenzene,2019,5.0,nondetect
 MW-01,Lindane / BHC,2015,0.042,detect
 MW-01,Lindane / BHC,2016,0.047,nondetect
@@ -5601,35 +5968,45 @@ MW-01,Tetrachloroethene (PCE),2012,5.0,nondetect
 MW-01,Tetrachloroethene (PCE),2015,5.0,nondetect
 MW-01,Tetrachloroethene (PCE),2016,5.0,nondetect
 MW-01,Tetrachloroethene (PCE),2017,5.0,nondetect
+MW-01,Tetrachloroethene (PCE),2018,5.0,nondetect
 MW-01,Tetrachloroethene (PCE),2019,5.0,nondetect
 MW-01,Toluene,2012,5.0,nondetect
 MW-01,Toluene,2015,5.0,nondetect
 MW-01,Toluene,2016,5.0,nondetect
 MW-01,Toluene,2017,5.0,nondetect
+MW-01,Toluene,2018,5.0,nondetect
 MW-01,Toluene,2019,5.0,nondetect
 MW-01,Trichloroethene (TCE),2012,5.0,nondetect
 MW-01,Trichloroethene (TCE),2015,5.0,nondetect
 MW-01,Trichloroethene (TCE),2016,5.0,nondetect
 MW-01,Trichloroethene (TCE),2017,5.0,nondetect
+MW-01,Trichloroethene (TCE),2018,5.0,nondetect
 MW-01,Trichloroethene (TCE),2019,5.0,nondetect
 MW-01,Vinyl chloride,2012,5.0,nondetect
 MW-01,Vinyl chloride,2015,5.0,nondetect
 MW-01,Vinyl chloride,2016,5.0,nondetect
 MW-01,Vinyl chloride,2017,5.0,nondetect
+MW-01,Vinyl chloride,2018,5.0,nondetect
 MW-01,Vinyl chloride,2019,5.0,nondetect
 MW-01,Xylene,2012,15.0,nondetect
 MW-01,Xylene,2015,10.0,nondetect
 MW-01,Xylene,2016,5.0,nondetect
 MW-01,Xylene,2017,5.0,nondetect
+MW-01,Xylene,2018,5.0,nondetect
 MW-01,Xylene,2019,5.0,nondetect
+MW-02,"1,1,2,2-Tetrachloroethane",2018,5.0,nondetect
+MW-02,"1,2,4-Trichlorobenzene",2018,9.4,nondetect
+MW-02,"1,2-Dichlorobenzene",2018,9.4,nondetect
 MW-02,"1,2-Dichloroethane",2015,5.0,nondetect
 MW-02,"1,2-Dichloroethane",2016,5.0,nondetect
 MW-02,"1,2-Dichloroethane",2017,5.0,nondetect
 MW-02,"1,2-Dichloroethane",2019,5.0,nondetect
+MW-02,"1,4-Dichlorobenzene",2018,9.4,nondetect
 MW-02,Benzene,2012,5.0,nondetect
 MW-02,Benzene,2015,5.0,nondetect
 MW-02,Benzene,2016,5.0,nondetect
 MW-02,Benzene,2017,5.0,nondetect
+MW-02,Benzene,2018,5.0,nondetect
 MW-02,Benzene,2019,5.0,nondetect
 MW-02,Benzo(a)pyrene,2015,1.9,nondetect
 MW-02,Benzo(a)pyrene,2016,9.4,nondetect
@@ -5639,6 +6016,7 @@ MW-02,Chlorobenzene,2012,5.0,nondetect
 MW-02,Chlorobenzene,2015,5.0,nondetect
 MW-02,Chlorobenzene,2016,5.0,nondetect
 MW-02,Chlorobenzene,2017,5.0,nondetect
+MW-02,Chlorobenzene,2018,5.0,nondetect
 MW-02,Chlorobenzene,2019,5.0,nondetect
 MW-02,Chloroform / THMs,2015,5.0,nondetect
 MW-02,Chloroform / THMs,2016,5.0,nondetect
@@ -5660,6 +6038,7 @@ MW-02,Ethylbenzene,2012,5.0,nondetect
 MW-02,Ethylbenzene,2015,5.0,nondetect
 MW-02,Ethylbenzene,2016,5.0,nondetect
 MW-02,Ethylbenzene,2017,5.0,nondetect
+MW-02,Ethylbenzene,2018,5.0,nondetect
 MW-02,Ethylbenzene,2019,5.0,nondetect
 MW-02,Lindane / BHC,2015,0.025,detect
 MW-02,Lindane / BHC,2016,0.047,nondetect
@@ -5677,26 +6056,31 @@ MW-02,Tetrachloroethene (PCE),2012,5.0,nondetect
 MW-02,Tetrachloroethene (PCE),2015,5.0,nondetect
 MW-02,Tetrachloroethene (PCE),2016,5.0,nondetect
 MW-02,Tetrachloroethene (PCE),2017,5.0,nondetect
+MW-02,Tetrachloroethene (PCE),2018,5.0,nondetect
 MW-02,Tetrachloroethene (PCE),2019,5.0,nondetect
 MW-02,Toluene,2012,5.0,nondetect
 MW-02,Toluene,2015,5.0,nondetect
 MW-02,Toluene,2016,5.0,nondetect
 MW-02,Toluene,2017,5.0,nondetect
+MW-02,Toluene,2018,5.0,nondetect
 MW-02,Toluene,2019,0.2,detect
 MW-02,Trichloroethene (TCE),2012,5.0,nondetect
 MW-02,Trichloroethene (TCE),2015,5.0,nondetect
 MW-02,Trichloroethene (TCE),2016,5.0,nondetect
 MW-02,Trichloroethene (TCE),2017,5.0,nondetect
+MW-02,Trichloroethene (TCE),2018,5.0,nondetect
 MW-02,Trichloroethene (TCE),2019,5.0,nondetect
 MW-02,Vinyl chloride,2012,5.0,nondetect
 MW-02,Vinyl chloride,2015,5.0,nondetect
 MW-02,Vinyl chloride,2016,5.0,nondetect
 MW-02,Vinyl chloride,2017,5.0,nondetect
+MW-02,Vinyl chloride,2018,5.0,nondetect
 MW-02,Vinyl chloride,2019,5.0,nondetect
 MW-02,Xylene,2012,15.0,nondetect
 MW-02,Xylene,2015,10.0,nondetect
 MW-02,Xylene,2016,5.0,nondetect
 MW-02,Xylene,2017,5.0,nondetect
+MW-02,Xylene,2018,5.0,nondetect
 MW-02,Xylene,2019,5.0,nondetect
 MW-16I,Benzene,2019,0.52,detect
 MW-16I,Chlorobenzene,2019,1.89,detect
