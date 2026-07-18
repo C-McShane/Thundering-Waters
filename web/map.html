@@ -430,8 +430,9 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
     </div>
     <div class="tab-bar" role="tablist">
       <button class="tab-btn active" data-tab="sites" role="tab" aria-selected="true">Hazard Sites</button>
-      <button class="tab-btn" data-tab="cancer" role="tab" aria-selected="false">Cancer Risk</button>
+      <button class="tab-btn" data-tab="chemicals" role="tab" aria-selected="false">Chemicals</button>
       <button class="tab-btn" data-tab="chem" role="tab" aria-selected="false">Radiation</button>
+      <button class="tab-btn" data-tab="cancer" role="tab" aria-selected="false">Cancer Risk</button>
       <button class="tab-btn" data-tab="wells" role="tab" aria-selected="false">Monitoring Wells</button>
     </div>
 
@@ -530,13 +531,34 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       </div>
     </div>
 
-    <!-- chemical-filter code preserved for the future Chemicals tab (still referenced by the Hazard Sites site-type filter) -->
-    <div id="chem-tab-stash" style="display:none">
-      <select id="chem-select"><option value="">All sites</option></select>
-      <div class="chem-note" id="chem-note">Shows sites that list the selected contaminant. Reflects <em>recorded</em> chemicals (122 of 256 sites list any).</div>
-    </div>
-
     </div><!-- /tab-panel: chem (Radiation) -->
+
+    <!-- ── CHEMICALS TAB ── -->
+    <div class="tab-panel" data-tab-panel="chemicals">
+      <div class="acc-help" style="display:block;padding:2px 2px 12px">Filter by contaminant across the hazard sites and the monitoring-well network. Wells carry sampling dates — their menu adds a year filter, per-well time-series plots, and a running total by year.</div>
+
+      <!-- Hazard Sites (chemical presence) -->
+      <div class="acc">
+        <div class="acc-head"><span class="acc-title">Hazard Sites</span><button class="acc-info" title="How the site filter works">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+        <div class="acc-body">
+          <div class="acc-help">Sites that list a contaminant in their NYSDEC record. These are chemical <b>presence</b> flags — sites don't carry sampling dates, so there's no year filter or trend on this side.</div>
+          <select id="chem-select"><option value="">All sites</option></select>
+          <div class="chem-note" id="chem-note">Shows sites that list the selected contaminant. Reflects <em>recorded</em> chemicals (107 of 256 sites list any).</div>
+        </div>
+      </div>
+
+      <!-- Monitoring Wells & Soil (measured chemistry) -->
+      <div class="acc">
+        <div class="acc-head"><span class="acc-title">Monitoring Wells &amp; Soil</span><button class="acc-info" title="How the well filter works">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+        <div class="acc-body">
+          <div class="acc-help">Wells with measured chemistry. Pick a <b>chemical</b> to map where it was detected (the well layers switch on automatically); add a <b>year</b> to show detections by that year or earlier. Click a well for its concentration-vs-year plot; the running total appears bottom-left.</div>
+          <select id="well-select"><option value="">All wells</option></select>
+          <select id="well-year-select" style="margin-top:8px"><option value="">All years</option></select>
+          <div class="chem-note" id="well-note">Shows wells where the selected contaminant was <em>detected</em>.</div>
+          <div class="chem-note" id="well-year-note" style="display:none">Pick a year to see which wells had a chemical detected <b>by that year or earlier</b>.</div>
+        </div>
+      </div>
+    </div><!-- /tab-panel: chemicals -->
 
     <div class="tab-panel" data-tab-panel="wells">
 
@@ -559,18 +581,6 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <div class="acc-body">
         <div class="acc-help"><b>Ring colour</b> = what the point samples. Show or hide by type — bedrock vs. overburden groundwater, surface water, or remediation/recovery — across all sources at once.</div>
         <div class="sample-type-filter" id="sample-type-filter"></div>
-      </div>
-    </div>
-
-    <!-- Filter by chemical / year -->
-    <div class="acc">
-      <div class="acc-head"><span class="acc-title">Filter by chemical &amp; year</span><button class="acc-info" title="How the filters work">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
-      <div class="acc-body">
-        <div class="acc-help">Pick a <b>chemical</b> to show only wells where it was detected; add a <b>year</b> to show wells where it was detected <b>by that year or earlier</b> — a contaminant's spread appears as more wells light up as the year advances.</div>
-        <select id="well-select"><option value="">All wells</option></select>
-        <select id="well-year-select" style="margin-top:8px"><option value="">All years</option></select>
-        <div class="chem-note" id="well-note">Shows wells where the selected contaminant was <em>detected</em>. Turn a well layer on above to see results.</div>
-        <div class="chem-note" id="well-year-note" style="display:none">Pick a year to see which wells had a chemical detected <b>by that year or earlier</b>.</div>
       </div>
     </div>
 
@@ -750,13 +760,8 @@ function chemCount(cx) { return allSiteFeatures.filter(f => (f.properties.chems 
 function populateChemDropdown() {
   const sel = document.getElementById('chem-select');
   sel.querySelector('option').textContent = `All sites (${allSiteFeatures.length})`;
-  const grp = (label, names) => {
-    const og = document.createElement('optgroup'); og.label = label;
-    names.forEach(n => { const o = document.createElement('option'); o.value = n; o.textContent = `${n} (${chemCount(n)})`; og.appendChild(o); });
-    sel.appendChild(og);
-  };
-  grp('Most dangerous (top 10)', CHEM_TOP10);
-  grp('Also severe', CHEM_ALSO);
+  const present = [...new Set(allSiteFeatures.flatMap(f => f.properties.chems || []))].sort((a, b) => a.localeCompare(b));
+  present.forEach(n => { const o = document.createElement('option'); o.value = n; o.textContent = `${n} (${chemCount(n)})`; sel.appendChild(o); });
   sel.addEventListener('change', () => filterByChemical(sel.value));
 }
 function filterByChemical(cx) {
@@ -1278,6 +1283,10 @@ const SAMPLE_TYPE_COLORS = {
 };
 let activeSampleTypes = new Set(SAMPLE_TYPE_ORDER);
 function typeStroke(t) { return SAMPLE_TYPE_COLORS[t] || '#f2f2f2'; }
+// Default symbology = blood-red drop + light-grey outline. The sampling-TYPE colour outline
+// only appears once the user engages "Filter by sampling type" (narrows it from all-on).
+let sampleTypeEngaged = false;
+const WELL_OUTLINE_DEFAULT = '#cfcfcf';
 function wellHeight(n) { return Math.min(44, 13 + 3.0 * Math.sqrt(n || 0)); }
 function dropletSVG(h, fill, stroke, sw) {
   const w = h * 0.72;
@@ -1287,7 +1296,9 @@ function dropletSVG(h, fill, stroke, sw) {
 }
 function dropletIcon(n, sampleType) {
   const h = wellHeight(n), w = h * 0.72;
-  return L.divIcon({ className: 'well-droplet', html: dropletSVG(h, WELL_FILL, typeStroke(sampleType), 2.8), iconSize: [w, h], iconAnchor: [w/2, h/2] });
+  const stroke = sampleTypeEngaged ? typeStroke(sampleType) : WELL_OUTLINE_DEFAULT;
+  const sw = sampleTypeEngaged ? 2.8 : 1.7;
+  return L.divIcon({ className: 'well-droplet', html: dropletSVG(h, WELL_FILL, stroke, sw), iconSize: [w, h], iconAnchor: [w/2, h/2] });
 }
 // concPlotSVG: a small log-scale concentration-vs-year chart for one well+chemical.
 // series = { "year": [value, "detect"|"nondetect"] }. Detected points join into a red
@@ -1500,22 +1511,23 @@ function currentWellYear() {
   const v = document.getElementById('well-year-select').value;
   return v ? parseInt(v, 10) : null;
 }
+function autoEnableWellLayers(cx) {   // Chemicals tab: reveal the wells so a filter isn't invisible
+  if (!cx) return;
+  ['wellsWqp', 'wellsDec', 'wellsLegacy'].forEach(key => {
+    if (!map.hasLayer(layers[key])) {
+      map.addLayer(layers[key]);
+      const t = document.getElementById('toggle-' + key);
+      if (t) { t.classList.add('active'); const cb = t.querySelector('input'); if (cb) cb.checked = true; }
+    }
+  });
+}
 function populateWellDropdown() {
   const sel = document.getElementById('well-select');
   const total = wellsWqpF.length + wellsDecF.length + wellsLegacyF.length;
   sel.querySelector('option').textContent = `All wells (${total})`;
-  const present = new Set([...wellsWqpF, ...wellsDecF, ...wellsLegacyF].flatMap(f => f.properties.chems || []));
-  const grp = (label, names) => {
-    const list = names.filter(n => present.has(n));
-    if (!list.length) return;
-    const og = document.createElement('optgroup'); og.label = label;
-    list.sort((a,b) => wellChemCount(b) - wellChemCount(a));
-    list.forEach(n => { const o = document.createElement('option'); o.value = n; o.textContent = `${n} (${wellChemCount(n)})`; og.appendChild(o); });
-    sel.appendChild(og);
-  };
-  grp('Priority contaminants', WELL_CHEM_PRIORITY);
-  grp('Also detected', [...present].filter(n => !WELL_CHEM_PRIORITY.includes(n)));
-  sel.addEventListener('change', () => filterWells(sel.value, currentWellYear()));
+  const present = [...new Set([...wellsWqpF, ...wellsDecF, ...wellsLegacyF].flatMap(f => f.properties.chems || []))].sort((a, b) => a.localeCompare(b));
+  present.forEach(n => { const o = document.createElement('option'); o.value = n; o.textContent = `${n} (${wellChemCount(n)})`; sel.appendChild(o); });
+  sel.addEventListener('change', () => { autoEnableWellLayers(sel.value); filterWells(sel.value, currentWellYear()); updateChemTrend(); });
   // size legend
   const leg = document.getElementById('well-size-legend');
   leg.innerHTML = [1,10,40].map(n => {
@@ -1529,13 +1541,15 @@ function populateSampleTypeFilter() {
   const wells = [...wellsWqpF, ...wellsDecF, ...wellsLegacyF];
   const counts = {};
   wells.forEach(f => { const t = f.properties.sample_type || 'Groundwater (unspecified)'; counts[t] = (counts[t]||0)+1; });
+  const present = SAMPLE_TYPE_ORDER.filter(t => counts[t]);
   const box = document.getElementById('sample-type-filter');
-  box.innerHTML = SAMPLE_TYPE_ORDER.filter(t => counts[t]).map(t =>
+  box.innerHTML = present.map(t =>
     `<label class="stf-opt"><input type="checkbox" class="stf-check" value="${t}" checked>`
     + `<span class="stf-swatch" style="background:#b81d24;border:2px solid ${SAMPLE_TYPE_COLORS[t]}"></span>`
     + `<span class="stf-name">${t}</span><span class="stf-count">${counts[t]}</span></label>`).join('');
   box.querySelectorAll('.stf-check').forEach(cb => cb.addEventListener('change', () => {
     if (cb.checked) activeSampleTypes.add(cb.value); else activeSampleTypes.delete(cb.value);
+    sampleTypeEngaged = activeSampleTypes.size < present.length;   // colour outlines only once narrowed
     filterWells(document.getElementById('well-select').value, currentWellYear());
   }));
 }
