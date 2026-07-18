@@ -2,7 +2,7 @@
 
 Prepared 2026-07-18. NYSDEC BCP Site **C932150**. Source: **Revised RI Report (ERM, May 2012)**,
 Tables 5, 6a–6d and §3.2.7; well locations from Figure 4 (site boring map). Integrated into
-`web/data/wells_legacy.geojson` (site = "Former Mill No. 2 (Greenpac Mill)") — 14 wells.
+`web/data/wells_legacy.geojson` (site = "Former Mill No. 2 (Greenpac Mill)") — 15 wells.
 
 ## The radioactivity is SOIL, not groundwater — read this first
 Mill No. 2's radioactive contamination is **radioactive slag** (uranium, thorium, radium) in
@@ -18,7 +18,8 @@ Two distinct well sets, sampled once each; the PRRs (2013, 2018) contain **no** 
 groundwater monitoring, so no multi-year series exists.
 - **2008** (Labella wells): MW-1, MW-2, MW-3 — VOCs/SVOCs/pesticides (no metals run).
 - **2011** (RI wells): MW-02, MW-03, MW-04, MW-08, MW-09 — VOCs/SVOCs/pesticides/metals.
-- Not sampled: MW-01/05/06 (dry), MW-07 (dry), MW-10/11 (destroyed / no sample).
+- Not sampled (carried as no-data wells): MW-01/05/06 (dry), MW-07 (dry), MW-10/11
+  (destroyed), MW-4 (2008 Labella well, not sampled — kept for RI "MW-1 through MW-4" completeness).
 
 ### Critical: MW-1 ≠ MW-01 (and MW-2 ≠ MW-02, MW-3 ≠ MW-03)
 The 2008 "MW-1/2/3/4" and 2011 "MW-0X" are **different physical boreholes** (Table 5: MW-3 total
