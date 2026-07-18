@@ -38,7 +38,7 @@ The data supports the book's core findings:
 /
 ├── Niagara_Site_Narratives_updated.html   — Interactive site narrative browser (89 sites)
 ├── spatial_layers/
-│   └── Niagara_County_HazWaste.gpkg        — Master GeoPackage (18 spatial layers)
+│   └── Niagara_County_HazWaste.gpkg        — Master GeoPackage (21 spatial layers)
 ├── csv/
 │   ├── Niagara_DEC_Wells_ConcSeries.json   — Per-well contaminant concentration time series (µg/L by year)
 │   ├── Niagara_DEC_Wells_ChemYears.json    — Per-well detected-by-year index (drives the map year filter)
@@ -64,7 +64,7 @@ The data supports the book's core findings:
 
 ## The GeoPackage
 
-`Niagara_County_HazWaste.gpkg` is a GeoPackage (SQLite-based) file readable in QGIS, ArcGIS, R (`sf`), Python (`geopandas`), and most modern GIS tools. It contains 18 layers:
+`Niagara_County_HazWaste.gpkg` is a GeoPackage (SQLite-based) file readable in QGIS, ArcGIS, R (`sf`), Python (`geopandas`), and most modern GIS tools. It contains 21 layers:
 
 | Layer | Description |
 |---|---|
@@ -72,6 +72,9 @@ The data supports the book's core findings:
 | `Niagara_Water_Testing_Sites` | 293 USGS/EPA Water Quality Portal sampling stations |
 | `Niagara_DEC_Monitoring_Wells` | 259 NYSDEC remediation monitoring wells |
 | `Niagara_Legacy_Monitoring_Wells` | 110 monitoring wells across 10 hand-compiled legacy sites |
+| `Niagara_LoveCanal_Piezometers` | 28 barrier-drain piezometers (multi-year water-level series in `water_series`) |
+| `Niagara_LoveCanal_Pumps` | 6 Love Canal leachate pump chambers & storage tanks |
+| `Niagara_LoveCanal_Colvin_Sewer_2011` | 2011 Colvin Blvd sewer NAPL remediation corridor + investigation wells |
 | `census_tracts_contamination` | 66 census tracts with contamination acreage and coverage % |
 | `NiagaraFalls_Area_ImpactZone` | 26 tracts defining the Niagara Falls impact zone |
 | `block_group_healthPOP_stats` | 176 block groups with cancer SIR data, demographics, and contamination metrics |

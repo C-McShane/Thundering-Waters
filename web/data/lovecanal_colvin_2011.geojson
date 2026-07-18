@@ -1,0 +1,121 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -78.95042666666666,
+      43.085
+     ],
+     [
+      -78.95154,
+      43.085
+     ],
+     [
+      -78.95710666666665,
+      43.085
+     ]
+    ]
+   },
+   "properties": {
+    "name": "Colvin Blvd sanitary sewer sediment removal (97th->91st St lift station), 2011",
+    "kind": "sewer_sediment_removal",
+    "precision": "approx_street_grid",
+    "event": "2011 Colvin sewer investigation",
+    "source": "CRA/GSH 2011 work plans; EPA 4th FYR (2019)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      -78.95154,
+      43.085
+     ],
+     [
+      -78.95042666666666,
+      43.085
+     ]
+    ]
+   },
+   "properties": {
+    "name": "Colvin Blvd sewer repair: 50-ft section, impacted bedding + NAPL excavated to bedrock (Feb 2011)",
+    "kind": "sewer_repair_napl",
+    "precision": "approx_street_grid",
+    "event": "2011 Colvin sewer investigation"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -78.951409,
+     43.084885
+    ]
+   },
+   "properties": {
+    "name": "MW-01",
+    "kind": "colvin_investigation_well",
+    "precision": "surveyed",
+    "role": "bedrock MW, up/downgradient of Colvin sewer repair",
+    "event": "2011 Colvin sewer investigation"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -78.951765,
+     43.08504
+    ]
+   },
+   "properties": {
+    "name": "MW-02",
+    "kind": "colvin_investigation_well",
+    "precision": "surveyed",
+    "role": "bedrock MW, up/downgradient of Colvin sewer repair",
+    "event": "2011 Colvin sewer investigation"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -78.95154,
+     43.084955
+    ]
+   },
+   "properties": {
+    "name": "MW-3",
+    "kind": "colvin_investigation_well",
+    "precision": "surveyed",
+    "role": "installed IN repaired-sewer bedding to watch residual NAPL; none detected 2011-2018 (NAPL deemed limited in volume/mobility)",
+    "event": "2011 Colvin sewer investigation"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -78.9482019,
+     43.0858505
+    ]
+   },
+   "properties": {
+    "name": "Pool-digger contamination: 1026 99th St + adjacent lot",
+    "kind": "reported_contamination",
+    "precision": "geocoded_address",
+    "role": "99th St residential side, btwn Colvin & Moschel; ~10-15 ft deep; ~290 m ENE of documented 2011 Colvin sewer NAPL (MW-3)"
+   }
+  }
+ ]
+}
