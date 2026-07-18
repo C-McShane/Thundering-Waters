@@ -1,10 +1,19 @@
 # Colvin sewer NAPL — the characterization discrepancy
 
-Prepared 2026-07-17. Investigates a reported discrepancy: an early account of NAPL
-"pouring into the sewer system from two different directions" vs. the final official
-conclusion that the NAPL was essentially "just sitting there" (limited/immobile).
-Method: full-text search of all 176 archived NYSDEC 932020 documents + external
-news/litigation search.
+Prepared 2026-07-17. Investigates a reported discrepancy: an early account describing
+NAPL found in / entering the sewer excavation at its **"central and western portions"**
+(i.e. present in more than one part of the trench, not a single point) vs. the final
+official conclusion that the NAPL was essentially "just sitting there" — "limited in
+volume and mobility." Method: full-text search of all 176 archived NYSDEC 932020
+documents + external news/litigation search.
+
+## Bottom line
+Neither the phrase **"central and western portions"** nor any multi-area / active
+description of the 2011 Colvin NAPL appears anywhere in the 176-document public
+archive. Every public document either (a) minimizes the NAPL to "limited/residual/
+sporadic," or (b) DEFERS the detail to a CRA 2011 report that is itself NOT in the
+public archive. The primary observational documents are missing; only the sanitized
+conclusion survives in the record.
 
 ## What the OFFICIAL record says (the "just sitting there" version) — consistent across ≥5 reports
 The 2011 Colvin NAPL is characterized identically everywhere it appears in the DEC/EPA
@@ -28,12 +37,19 @@ That is the uniform, propagated conclusion: limited, residual, stationary, old, 
   actively pouring/entering the sewer from two (or any) directions during the 2011 event.
   The only "directional/active" language anywhere is the *historical* (1970s) migration
   narrative ("along utility bedding, eventually seeping into basements" — 2008 FYR p10).
-- **The primary field document is MISSING from the public repository.** Every later report
-  cites the **"March 2011 Sanitary Sewer Investigation and Remediation Report" (SSIR,
-  Conestoga-Rovers)** as the source of the "limited volume and mobility" conclusion — but
-  the SSIR itself is **not in DecDocs 932020**, which is otherwise complete back to 1977.
-  The document that would contain the *raw field observations* (including any "two
-  directions" description) is the one document absent from the public archive.
+- **The primary field documents are MISSING from the public repository — TWO of them.**
+  The public reports cite, but do not include:
+  1. **"Sanitary Sewer Investigation and Remediation Report" (SSIR, CRA, March 2011)** —
+     the sewer-repair/remediation report.
+  2. **"Colvin Boulevard Sewer Repair Supplemental Subsurface Investigation Report
+     [CRA, 2011]"** — the follow-up subsurface investigation (bedrock wells + soil borings).
+  DecDocs 932020 holds only the two *work plans* for these (Jan-2011 and Jun-2011), NOT
+  the results reports. The event-year **2011 PRR** itself, describing 111,620 lbs of
+  impacted Colvin soil disposed, explicitly refers the reader to the CRA-2011 subsurface
+  report "for details" — i.e. the record's own pointer leads to a document withheld from
+  the public archive. The raw field observations — including a "central and western
+  portions" description of where NAPL was found in the excavation — would be in these two
+  reports.
 
 ## The litigation frames it very differently
 994+ residents sued Occidental/OxyChem, the City, and contractors over the 2011 sewer
@@ -52,9 +68,11 @@ The discrepancy is real in STRUCTURE, and it is the kind of thing that warrants 
   accessible material (news sites block automated access; SSIR not online in DecDocs).
 
 ## To confirm/source the "two directions" quote (recommended next steps)
-1. **Obtain the March 2011 SSIR report** — via NYSDEC FOIL request, EPA SEMS docket
-   (semspub.epa.gov, Love Canal OU), or the litigation record (it was submitted to EPA,
-   NYSDEC, NYSDOH, the City, and NFWB — a discoverable document).
+1. **Obtain the two CRA 2011 reports** — the March-2011 SSIR AND the "Colvin Boulevard
+   Sewer Repair Supplemental Subsurface Investigation Report [CRA, 2011]" — via NYSDEC
+   FOIL request, EPA SEMS docket (semspub.epa.gov, Love Canal OU), or the litigation
+   record (both were submitted to EPA, NYSDEC, NYSDOH, the City, and NFWB — discoverable).
+   The "central and western portions" language is expected in one of these.
 2. **Pull the court complaints** (NY Supreme Court, Niagara County; and the removed
    federal cases, WDNY / Judge Geraci) — plaintiffs' filings quote the contemporaneous
    observations and likely contain the "two directions" characterization verbatim.
