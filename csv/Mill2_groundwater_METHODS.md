@@ -4,6 +4,20 @@ Prepared 2026-07-18. NYSDEC BCP Site **C932150**. Source: **Revised RI Report (E
 Tables 5, 6a–6d and §3.2.7; well locations from Figure 4 (site boring map). Integrated into
 `web/data/wells_legacy.geojson` (site = "Former Mill No. 2 (Greenpac Mill)") — 15 wells.
 
+## Radioactive soil zones now ON THE MAP (new layer, 2026-07-18)
+The 7 **Rad Zones** delineated in RI Figure 3 are now a distinct map layer
+(`web/data/soil_radzones.geojson`, gpkg layer `Niagara_Mill2_Radioactive_Soil_Zones`,
+toggle "Radioactive soil zones (Mill No. 2)", radiation-trefoil markers — **not** water
+droplets). These are the genuine radiological delineation ("Rad Zone 1–7" labeled on the
+figure), each a soil/slag hot zone where the gamma survey read >10,000 cpm. Georeferenced
+from Figure 3 (p71) via an affine transform fit to 10 borings-that-became-wells (B-169=MW-01,
+etc.), **RMS 12.4 m** (`coord_precision = georeferenced_figure3_approx`). NOTE: the RI's
+Figures 6–10 ("Areas Exceeding Soil Cleanup Objectives") are **all-contaminant** exceedance
+areas (metals/VOCs/PCBs + slag), NOT the radiological delineation — only the Figure-3
+"Rad Zone" labels are used, to avoid mislabeling mixed contamination as radioactive.
+Appendix C (Radiological Survey Reports) is **scanned images** with no extractable located
+gamma readings or pCi/g values, so no per-point measurement data could be pulled.
+
 ## The radioactivity is SOIL, not groundwater — read this first
 Mill No. 2's radioactive contamination is **radioactive slag** (uranium, thorium, radium) in
 historic fill, delineated by a **gamma survey** (Ludlum 2221 meter) as "rad zones" exceeding the

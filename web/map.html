@@ -528,6 +528,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
         <label class="layer-toggle" id="toggle-wellsWqp"><input type="checkbox" class="toggle-check" data-layer="wellsWqp"><span class="toggle-label">Water Quality Portal wells</span><span class="toggle-count">293</span></label>
         <label class="layer-toggle" id="toggle-wellsDec"><input type="checkbox" class="toggle-check" data-layer="wellsDec"><span class="toggle-label">NYSDEC cleanup-site wells</span><span class="toggle-count">259</span></label>
         <label class="layer-toggle" id="toggle-wellsLegacy"><input type="checkbox" class="toggle-check" data-layer="wellsLegacy"><span class="toggle-label">Legacy-site wells</span><span class="toggle-count">110</span></label>
+        <label class="layer-toggle" id="toggle-soilRad"><input type="checkbox" class="toggle-check" data-layer="soilRad"><span class="toggle-swatch" style="background:#f5d000; border:2px solid #111; border-radius:50%;"></span><span class="toggle-label">Radioactive soil zones (Mill No.&nbsp;2)</span><span class="toggle-count">7</span></label>
         <div class="well-size-legend" id="well-size-legend"></div>
       </div>
     </div>
@@ -826,6 +827,7 @@ const layers = {
   wellsLegacy: L.layerGroup(),              // off by default (Monitoring Wells tab)
   lcPumps:     L.layerGroup(),              // Love Canal pump chambers / leachate tanks
   lcPiezo:     L.layerGroup(),              // Love Canal piezometers (water-level series)
+  soilRad:     L.layerGroup(),              // radioactive soil/slag zones (non-well soil sites)
   sareaToc:    L.layerGroup(),              // off by default (S-Area TOC-over-time selector); independent
                                              // of the wellsDec toggle/filter so the two features don't collide
 };
@@ -915,11 +917,13 @@ async function loadAll() {
     gj('data/wells_dec.geojson'),
     gj('data/wells_legacy.geojson'),
   ]);
-  const [lcPumpsData, lcPiezoData] = await Promise.all([
+  const [lcPumpsData, lcPiezoData, soilRadData] = await Promise.all([
     gj('data/wells_lc_pumps.geojson'), gj('data/wells_lc_piezometers.geojson'),
+    gj('data/soil_radzones.geojson'),
   ]);
   renderLcPumps(lcPumpsData.features);
   renderLcPiezo(lcPiezoData.features);
+  renderSoilRad(soilRadData.features);
   cancerData = cancerGeo;
 
   // Water — polygon bodies get a stark semi-transparent fill; creek lines (added
@@ -1278,6 +1282,26 @@ function renderLcPumps(features){
     const html = `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:${col}22;color:${col};border:1px solid ${col}44">${p.kind}</span></div>`
       + `<div class="popup-name">${p.well_id}</div><div class="popup-addr">Love Canal leachate collection infrastructure</div></div>`;
     L.marker([lat,lon], { icon, pane:'wellsPane' }).bindPopup(html, { maxWidth:260 }).addTo(layers.lcPumps);
+  });
+}
+// radiation-trefoil marker: yellow disc + 3 black blades + hub — reads "radioactive", not a water well
+const RAD_TREFOIL = '<svg width="20" height="20" viewBox="0 0 18 18">'
+  + '<circle cx="9" cy="9" r="8.4" fill="#f5d000" stroke="#111" stroke-width="1"/>'
+  + '<path d="M9,9 L5.5,2.94 A7,7 0 0 1 12.5,2.94 Z" fill="#111"/>'
+  + '<path d="M9,9 L16,9 A7,7 0 0 1 12.5,15.06 Z" fill="#111"/>'
+  + '<path d="M9,9 L5.5,15.06 A7,7 0 0 1 2,9 Z" fill="#111"/>'
+  + '<circle cx="9" cy="9" r="2" fill="#111"/></svg>';
+function renderSoilRad(features){
+  layers.soilRad.clearLayers();
+  features.forEach(f => {
+    const p = f.properties, [lon,lat] = f.geometry.coordinates;
+    const icon = L.divIcon({ className:'well-droplet', iconSize:[20,20], iconAnchor:[10,10], html: RAD_TREFOIL });
+    const html = `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:#f5d00022;color:#e0c000;border:1px solid #f5d00055">Radioactive soil zone</span></div>`
+      + `<div class="popup-name">${p.zone_id}</div><div class="popup-addr">${p.site} · ${p.medium}</div>`
+      + `<div class="conc-plot-note" style="margin-top:6px">${p.desc}</div>`
+      + `<div class="popup-addr" style="margin-top:6px">Gamma: <b>${p.gamma_cpm}</b><br>${p.hazard}</div>`
+      + `<div class="popup-addr" style="margin-top:4px;opacity:0.75">⚑ ${p.coord_precision}. Source: ${p.source}</div></div>`;
+    L.marker([lat,lon], { icon, pane:'wellsPane' }).bindPopup(html, { maxWidth:300 }).addTo(layers.soilRad);
   });
 }
 const WELL_CHEM_PRIORITY = ['Trichloroethene (TCE)','Tetrachloroethene (PCE)','Vinyl chloride','Benzene','Arsenic','Lead','Mercury','PFAS (PFOA/PFOS)','PCBs','Dioxins / furans','Benzo(a)pyrene','Chromium','Cadmium'];
