@@ -527,7 +527,6 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
           <div class="acc-body"><div id="rad-well-filter"></div></div>
         </div>
         <div class="chem-note" id="rad-well-note">Select a radionuclide to map the wells &amp; soil that carry it.</div>
-        <div class="conc-plot" id="rad-trend" style="display:none;margin-top:8px"></div>
       </div>
     </div>
 
@@ -895,33 +894,48 @@ function radSoilPopup(z) {
     <div class="popup-name">${z.zone_id}</div><div class="popup-addr">${z.site} · ${z.medium}</div>
     <div class="conc-plot-note" style="margin-top:6px">Gamma survey: <b>${z.gamma_cpm||''}</b>. Radionuclides: ${z.materials.join(', ')}. ${z.note}</div></div>`;
 }
-// cumulative distinct wells+soil that have DETECTED the selection, by year — mirrors the wells-tab trend
+// Floating trend panel (same bottom-left control as the wells tab): x = year,
+// y = cumulative number of wells & soil zones registering the selected radionuclide(s).
+const SOIL_SURVEY_YEAR = 2012;   // Mill No. 2 gamma survey (RI year) — soil zones have no time series
 function updateRadTrend(sel) {
-  const box = document.getElementById('rad-trend');
-  if (!box) return;
-  if (!sel || !sel.length) { box.style.display = 'none'; box.innerHTML = ''; return; }
-  const firstDet = {};   // key -> first detect year
+  if (!chemTrendEl) return;
+  if (!sel || !sel.length) { chemTrendEl.style.display = 'none'; return; }
+  const firstYear = {};   // well/soil key -> first year it registers the selection
   sel.forEach(rn => radData.wells[rn].points.forEach(p => {
     const yrs = Object.entries(p.series).filter(([y, v]) => v[1] === 'detect').map(([y]) => +y);
     if (!yrs.length) return;
-    const k = p.well_id + '|' + p.src, y = Math.min(...yrs);
-    if (firstDet[k] === undefined || y < firstDet[k]) firstDet[k] = y;
+    const k = 'w|' + p.well_id + '|' + p.src, y = Math.min(...yrs);
+    if (firstYear[k] === undefined || y < firstYear[k]) firstYear[k] = y;
   }));
-  const years = Object.values(firstDet);
-  if (years.length < 2) { box.style.display = 'none'; return; }
-  const lo = Math.min(...years), hi = Math.max(...years);
-  const cum = []; for (let y = lo; y <= hi; y++) cum.push([y, years.filter(v => v <= y).length]);
-  const W = 250, H = 84, x0 = 26, x1 = W - 8, yT = 8, yB = H - 18, mx = cum[cum.length-1][1];
-  const sx = y => x0 + (hi===lo?0.5:(y-lo)/(hi-lo))*(x1-x0), sy = v => yB - (v/mx)*(yB-yT);
-  const pts = cum.map(([y,v]) => `${sx(y).toFixed(1)},${sy(v).toFixed(1)}`).join(' ');
-  box.style.display = 'block';
-  box.innerHTML = `<div class="conc-plot-title">Wells &amp; soil with a detection, cumulative by year</div>`
+  const parents = new Set(sel.map(rn => radData.wells[rn].parent));
+  let nsoil = 0;
+  (radData.soil || []).forEach(z => { if (z.materials.some(m => parents.has(m))) { firstYear['s|' + z.zone_id] = SOIL_SURVEY_YEAR; nsoil++; } });
+  const yearsArr = Object.values(firstYear);
+  if (!yearsArr.length) { chemTrendEl.style.display = 'none'; return; }
+  const y0 = Math.min(...yearsArr), y1 = Math.max(...yearsArr);
+  const years = []; for (let y = y0; y <= y1; y++) years.push(y);
+  const counts = years.map(y => yearsArr.filter(v => v <= y).length);
+  chemTrendEl.innerHTML = radTrendSVG(sel, years, counts, yearsArr.length, nsoil);
+  chemTrendEl.style.display = 'block';
+}
+function radTrendSVG(sel, years, counts, total, nsoil) {
+  const W = 214, H = 116, x0 = 30, x1 = W - 8, yT = 24, yB = H - 18;
+  const y0 = years[0], y1 = years[years.length - 1];
+  const sx = yr => y1 === y0 ? (x0 + x1) / 2 : x0 + (yr - y0) / (y1 - y0) * (x1 - x0);
+  const cmax = Math.max(...counts, 1);
+  const sy = c => yB - c / cmax * (yB - yT);
+  const linePts = counts.map((c, i) => `${sx(years[i]).toFixed(1)},${sy(c).toFixed(1)}`).join(' ');
+  const title = sel.length === 1 ? sel[0] : `${sel.length} radionuclides`;
+  return `<div class="ctp-title">Wells &amp; soil with <b>${title}</b></div>`
     + `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`
-    + `<polyline points="${sx(lo).toFixed(1)},${yB} ${pts} ${sx(hi).toFixed(1)},${yB}" fill="#f5d00022" stroke="none"/>`
-    + `<polyline points="${pts}" fill="none" stroke="#f5d000" stroke-width="1.8"/>`
-    + `<text x="${x0-3}" y="${sy(mx)+3}" text-anchor="end" font-size="8" fill="#9aa4b2">${mx}</text>`
-    + `<text x="${x0}" y="${H-4}" font-size="8" fill="#9aa4b2">${lo}</text>`
-    + `<text x="${x1}" y="${H-4}" text-anchor="end" font-size="8" fill="#9aa4b2">${hi}</text></svg>`;
+    + `<polygon points="${x0},${yB} ${linePts} ${x1},${yB}" fill="#f5d00030"/>`
+    + `<polyline points="${linePts}" fill="none" stroke="#f5d000" stroke-width="1.8"/>`
+    + `<line x1="${x0}" y1="${yB}" x2="${x1}" y2="${yB}" stroke="#ffffff22" stroke-width="0.5"/>`
+    + `<text x="${x0 - 3}" y="${yB + 3}" text-anchor="end" font-size="8" fill="#9aa4b2">0</text>`
+    + `<text x="${x0 - 3}" y="${(sy(cmax) + 3).toFixed(1)}" text-anchor="end" font-size="8" fill="#9aa4b2">${cmax}</text>`
+    + `<text x="${x0}" y="${H - 5}" font-size="8" fill="#9aa4b2">${y0}</text>`
+    + `<text x="${x1}" y="${H - 5}" text-anchor="end" font-size="8" fill="#9aa4b2">${y1}</text>`
+    + `</svg><div class="ctp-sub">cumulative · ${total} site${total === 1 ? '' : 's'}${nsoil ? ` (incl. ${nsoil} soil)` : ''}</div>`;
 }
 
 // ── MAP INIT ─────────────────────────────────────────────────────────────────
