@@ -483,7 +483,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <div class="acc-body">
         <div class="acc-help">Base-map context: the Niagara River, creeks and water bodies near monitoring sites, plus the county's major roads.</div>
         <label class="layer-toggle active" id="toggle-water"><input type="checkbox" class="toggle-check" checked data-layer="water"><span class="toggle-swatch square" style="background:#1fa6e0; border:1px solid #5fd0ff;"></span><span class="toggle-label">Rivers &amp; Water</span><span class="toggle-count">+ creeks</span></label>
-        <label class="layer-toggle" id="toggle-roads"><input type="checkbox" class="toggle-check" data-layer="roads"><span class="toggle-swatch" style="background:#cabfa8; width:14px; height:3px; border-radius:1px;"></span><span class="toggle-label">Major Roads</span><span class="toggle-count">13 roads</span></label>
+        <label class="layer-toggle active" id="toggle-roads"><input type="checkbox" class="toggle-check" checked data-layer="roads"><span class="toggle-swatch" style="background:#9d8fbf; width:14px; height:3px; border-radius:1px;"></span><span class="toggle-label">Major Roads</span><span class="toggle-count">13 roads</span></label>
       </div>
     </div>
 
@@ -985,7 +985,7 @@ const layers = {
   cancer:      L.layerGroup(),              // off by default (selector)
   tracts:      L.layerGroup(),              // off by default
   iz:          L.layerGroup(),              // off by default
-  roads:       L.layerGroup(),              // off by default
+  roads:       L.layerGroup().addTo(map),   // on by default (purple dashed context)
   sites:       L.layerGroup().addTo(map),   // only hazard sites on at load
   radioactive: L.layerGroup(),              // off by default (isotope sub-filters)
   wellsWqp:    L.layerGroup(),              // off by default (Monitoring Wells tab)
@@ -1002,8 +1002,8 @@ const layers = {
 // ── ROAD STYLE ───────────────────────────────────────────────────────────────
 function roadStyle(cls) {
   return cls === 'Highway'
-    ? { color: '#cabfa8', weight: 2.8, opacity: 0.9,  lineCap: 'round' }
-    : { color: '#9a9080', weight: 2.0, opacity: 0.9,  lineCap: 'round' };
+    ? { color: '#9d8fbf', weight: 2.4, opacity: 0.95, lineCap: 'round', dashArray: '5,3' }
+    : { color: '#9d8fbf', weight: 1.9, opacity: 0.9,  lineCap: 'round', dashArray: '4,3' };
 }
 // rough geometry length (for picking one label anchor per road name)
 function geomLen(g) {
@@ -1111,8 +1111,10 @@ async function loadAll() {
     }
   }).addTo(layers.water);
 
-  // Major roads (arterials + highways) — spatial context
-  const roadReps = {};  // road name -> longest feature layer (label anchor)
+  // Major roads (arterials + highways) — purple dashed, on by default, with dynamic
+  // viewport-following labels: whenever a road is on screen its label is placed on the
+  // visible part of it (the vertex nearest the map centre that is within the view).
+  const roadReps = {};  // road name -> longest feature (representative geometry)
   const roadsGeo = L.geoJSON(roadsData, {
     style: f => roadStyle(f.properties.road_class),
     onEachFeature: (f, layer) => {
@@ -1121,47 +1123,45 @@ async function loadAll() {
       layer.on('mouseout',  function () { this.setStyle(roadStyle(f.properties.road_class)); });
       if (name) {
         const len = geomLen(f.geometry);
-        if (!roadReps[name] || len > roadReps[name].len) roadReps[name] = { len, layer };
+        if (!roadReps[name] || len > roadReps[name].len) roadReps[name] = { len, geom: f.geometry };
       }
     }
   });
   roadsGeo.addTo(layers.roads);
-
-  // Manual label placement for roads whose longest-segment center reads poorly
-  const LABEL_OVERRIDE = {
-    'Pine Ave':   [43.095097, -79.036725],  // between Hyde Park Blvd & Portage Rd
-    'Walnut Ave': [43.093463, -79.036714],
-  };
+  // representative polyline per road name (longest segment) as [lat,lng] vertices
+  const roadLineByName = {};
+  Object.entries(roadReps).forEach(([name, rep]) => {
+    const g = rep.geom;
+    const coords = g.type === 'LineString' ? g.coordinates
+      : (g.coordinates.reduce((a, b) => (a && a.length >= b.length ? a : b), null) || []);
+    roadLineByName[name] = coords.map(c => [c[1], c[0]]);
+  });
   const _emptyIcon = L.divIcon({ className: '', html: '', iconSize: [0, 0] });
-  let overrideMarkers = [];
-
-  // Hover labels at low zoom; one persistent label per road at high zoom
-  function refreshRoadLabels() {
-    const persistent = map.getZoom() >= LABEL_ZOOM;
-    overrideMarkers.forEach(m => layers.roads.removeLayer(m));
-    overrideMarkers = [];
-    roadsGeo.eachLayer(l => {
-      const name = l.feature.properties.name;
-      if (!name) return;
-      l.unbindTooltip();
-      const isAnchor = roadReps[name] && roadReps[name].layer === l;
-      if (persistent && isAnchor && !LABEL_OVERRIDE[name]) {
-        l.bindTooltip(name, { permanent: true, direction: 'center', className: 'road-label' });
-      } else {
-        l.bindTooltip(name, { sticky: true, direction: 'top', className: 'road-tip' });
-      }
+  let roadLabelMarkers = [];
+  function updateRoadLabels() {
+    roadLabelMarkers.forEach(m => layers.roads.removeLayer(m));
+    roadLabelMarkers = [];
+    if (!map.hasLayer(layers.roads)) return;
+    const b = map.getBounds().pad(-0.03), c = map.getCenter();
+    const placed = [];   // container-pixel positions of labels already placed (greedy de-overlap)
+    // longest roads first so arterials win label priority when two would collide
+    Object.keys(roadLineByName).sort((a, z) => roadReps[z].len - roadReps[a].len).forEach(name => {
+      const pts = roadLineByName[name];
+      let best = null, bd = Infinity;
+      for (const p of pts) { if (!b.contains(p)) continue; const d = map.distance(c, p); if (d < bd) { bd = d; best = p; } }
+      if (!best) return;
+      const cp = map.latLngToContainerPoint(best);
+      if (placed.some(q => Math.abs(q.x - cp.x) < 52 && Math.abs(q.y - cp.y) < 15)) return;   // would overlap → skip
+      placed.push(cp);
+      const mk = L.marker(best, { icon: _emptyIcon, interactive: false, keyboard: false })
+        .bindTooltip(name, { permanent: true, direction: 'center', className: 'road-label' });
+      layers.roads.addLayer(mk);
+      roadLabelMarkers.push(mk);
     });
-    if (persistent) {
-      for (const [name, latlng] of Object.entries(LABEL_OVERRIDE)) {
-        const mk = L.marker(latlng, { icon: _emptyIcon, interactive: false, keyboard: false });
-        mk.bindTooltip(name, { permanent: true, direction: 'center', className: 'road-label' });
-        layers.roads.addLayer(mk);
-        overrideMarkers.push(mk);
-      }
-    }
   }
-  refreshRoadLabels();
-  map.on('zoomend', refreshRoadLabels);
+  window.__updateRoadLabels = updateRoadLabels;   // let the roads toggle refresh labels immediately
+  updateRoadLabels();
+  map.on('moveend', updateRoadLabels);   // moveend fires after both pan and zoom
 
   // Local streets near major regulated sites (Superfund/FUSRAP/RCRA/NPL/CERCLA) — appear
   // only when the Roads layer is on AND you're zoomed into a site. Purplish-grey + dashed
@@ -1716,6 +1716,7 @@ document.querySelectorAll('.toggle-check').forEach(cb => {
       toggle.classList.remove('active');
     }
     if (key === 'wellsWqp' || key === 'wellsDec' || key === 'wellsLegacy') updateChemTrend();
+    if (key === 'roads' && cb.checked && window.__updateRoadLabels) window.__updateRoadLabels();
     // polygon layers reveal their legend automatically while toggled on
     if (key === 'tracts' || key === 'iz') {
       const lg = document.getElementById('legend-' + key);
