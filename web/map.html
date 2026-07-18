@@ -590,9 +590,9 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
     <!-- Filter by sampling type -->
     <div class="acc">
-      <div class="acc-head"><span class="acc-title">Highlight by Sampling Type</span><button class="acc-info" title="What sampling type means">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-head"><span class="acc-title">Filter by Sampling Type</span><button class="acc-info" title="What sampling type means">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
-        <div class="acc-help">Every well is a blood-red drop with a grey outline. Tick a type — bedrock vs. overburden groundwater, surface water, remediation/recovery — and the wells of that type <b>light up</b> (their outline turns the type colour). Nothing is hidden; the swatches are the colour key.</div>
+        <div class="acc-help">With nothing ticked, every well shows as a blood-red drop with a grey outline. Tick one or more types — bedrock vs. overburden groundwater, surface water, remediation/recovery — to show <b>only</b> those wells (the rest hide), their outlines taking the type colour. The swatches are the colour key.</div>
         <div class="sample-type-filter" id="sample-type-filter"></div>
       </div>
     </div>
@@ -1314,9 +1314,9 @@ const SAMPLE_TYPE_COLORS = {
   'Remediation / recovery':   '#ffd21e',   // yellow
   'Soil / test hole':         '#ff56c4',   // magenta
 };
-// Sampling-type HIGHLIGHT (not a filter): the set of types the user has ticked. Empty by
-// default → every well is a blood-red drop with a light-grey outline. Ticking a type makes
-// only the wells OF THAT TYPE light up (their outline turns the type colour); nothing hides.
+// Sampling-type FILTER: the set of types the user has ticked. Empty by default → every well
+// shows as a blood-red drop with a light-grey outline. Tick one or more types → only those
+// wells show (the rest are hidden) and their outlines take the type colour.
 let activeSampleTypes = new Set();
 function typeStroke(t) { return SAMPLE_TYPE_COLORS[t] || '#f2f2f2'; }
 const WELL_OUTLINE_DEFAULT = '#cfcfcf';
@@ -1454,7 +1454,8 @@ function renderWells(features, layer, filterChem, filterYear) {
   layer.clearLayers();
   features.forEach(f => {
     const p = f.properties;
-    if (!wellPassesFilter(p, filterChem, filterYear)) return;   // sampling type highlights, never hides
+    if (activeSampleTypes.size && !activeSampleTypes.has(p.sample_type)) return;   // types selected → show only those
+    if (!wellPassesFilter(p, filterChem, filterYear)) return;
     const [lon, lat] = f.geometry.coordinates;
     L.marker([lat, lon], { icon: dropletIcon(p.n_found, p.sample_type), pane: 'wellsPane' })
       .bindPopup(wellPopup(p), { maxWidth: 300 }).addTo(layer);
@@ -1630,7 +1631,7 @@ function filterWells(cx, year) {
   renderWells(wellsDecF, layers.wellsDec, cx, year);
   renderWells(wellsLegacyF, layers.wellsLegacy, cx, year);
   const note = document.getElementById('well-note');
-  const matched = [...wellsWqpF, ...wellsDecF, ...wellsLegacyF].filter(f => wellPassesFilter(f.properties, cx, year)).length;
+  const matched = [...wellsWqpF, ...wellsDecF, ...wellsLegacyF].filter(f => (!activeSampleTypes.size || activeSampleTypes.has(f.properties.sample_type)) && wellPassesFilter(f.properties, cx, year)).length;
   const total = wellsWqpF.length + wellsDecF.length + wellsLegacyF.length;
   if (!cx && year == null) {
     note.innerHTML = 'Shows wells where the selected contaminant was <em>detected</em>. Turn a well layer on above to see results.';
@@ -1661,7 +1662,7 @@ function onWellSources() {
   if (map.hasLayer(layers.wellsWqp)) s.push(...wellsWqpF);
   if (map.hasLayer(layers.wellsDec)) s.push(...wellsDecF);
   if (map.hasLayer(layers.wellsLegacy)) s.push(...wellsLegacyF);
-  return s;   // sampling type only highlights now, so it no longer narrows the trend
+  return activeSampleTypes.size ? s.filter(f => activeSampleTypes.has(f.properties.sample_type)) : s;
 }
 function chemTrendSVG(chem, years, counts, total) {
   const W = 214, H = 116, x0 = 30, x1 = W - 8, yT = 24, yB = H - 18;
