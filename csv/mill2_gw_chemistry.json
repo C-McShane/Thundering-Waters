@@ -1,0 +1,2357 @@
+{
+"MW-02": {
+"1,1,1-Trichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Trichlorobenzenes": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Ethylbenzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dichlorobenzenes": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Acetone / ketones": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Benzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Methylene chloride": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chloroform / THMs": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Carbon disulfide": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chlorobenzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chloroethane / -methane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethene (DCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethene (PCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Toluene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Trichloroethene (TCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Vinyl chloride": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Xylene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chlorophenols": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Phenols": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Naphthalene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"PAHs (other)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Atrazine": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Benzo(a)pyrene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dioxins / furans": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"DDT / DDE / DDD": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Aldrin": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Lindane / BHC": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dieldrin": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Endosulfan": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"PCBs": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Antimony": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Arsenic": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Barium": {
+"_unit": "µg/l",
+"2011": [
+53.2,
+"detect"
+]
+},
+"Beryllium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Cadmium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chromium": {
+"_unit": "µg/l",
+"2011": [
+13.1,
+"detect"
+]
+},
+"Cobalt": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Copper": {
+"_unit": "µg/l",
+"2011": [
+3.9,
+"detect"
+]
+},
+"Lead": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Mercury": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Nickel": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Selenium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Thallium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Vanadium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Zinc": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+}
+},
+"MW-03": {
+"1,1,1-Trichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Trichlorobenzenes": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Ethylbenzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dichlorobenzenes": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Acetone / ketones": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Benzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Methylene chloride": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chloroform / THMs": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Carbon disulfide": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chlorobenzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chloroethane / -methane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethene (DCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethene (PCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Toluene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Trichloroethene (TCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Vinyl chloride": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Xylene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chlorophenols": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Phenols": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Naphthalene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"PAHs (other)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Atrazine": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Benzo(a)pyrene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dioxins / furans": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"DDT / DDE / DDD": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Aldrin": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Lindane / BHC": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dieldrin": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Endosulfan": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"PCBs": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Antimony": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Arsenic": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Barium": {
+"_unit": "µg/l",
+"2011": [
+56.5,
+"detect"
+]
+},
+"Beryllium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Cadmium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chromium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Cobalt": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Copper": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Lead": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Mercury": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Nickel": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Selenium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Thallium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Vanadium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Zinc": {
+"_unit": "µg/l",
+"2011": [
+24.3,
+"detect"
+]
+}
+},
+"MW-04": {
+"1,1,1-Trichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Trichlorobenzenes": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Ethylbenzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dichlorobenzenes": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Acetone / ketones": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Benzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Methylene chloride": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chloroform / THMs": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Carbon disulfide": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chlorobenzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chloroethane / -methane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethene (DCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethene (PCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Toluene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Trichloroethene (TCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Vinyl chloride": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Xylene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chlorophenols": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Phenols": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Naphthalene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"PAHs (other)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Atrazine": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Benzo(a)pyrene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dioxins / furans": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"DDT / DDE / DDD": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Aldrin": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Lindane / BHC": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dieldrin": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Endosulfan": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"PCBs": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Antimony": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Arsenic": {
+"_unit": "µg/l",
+"2011": [
+4.6,
+"detect"
+]
+},
+"Barium": {
+"_unit": "µg/l",
+"2011": [
+34.9,
+"detect"
+]
+},
+"Beryllium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Cadmium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chromium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Cobalt": {
+"_unit": "µg/l",
+"2011": [
+13.9,
+"detect"
+]
+},
+"Copper": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Lead": {
+"_unit": "µg/l",
+"2011": [
+21.8,
+"detect"
+]
+},
+"Mercury": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Nickel": {
+"_unit": "µg/l",
+"2011": [
+18.6,
+"detect"
+]
+},
+"Selenium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Thallium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Vanadium": {
+"_unit": "µg/l",
+"2011": [
+2.9,
+"detect"
+]
+},
+"Zinc": {
+"_unit": "µg/l",
+"2011": [
+83.5,
+"detect"
+]
+}
+},
+"MW-08": {
+"1,1,1-Trichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Trichlorobenzenes": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Ethylbenzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dichlorobenzenes": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Acetone / ketones": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Benzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Methylene chloride": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chloroform / THMs": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Carbon disulfide": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chlorobenzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chloroethane / -methane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethene (DCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethene (PCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Toluene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Trichloroethene (TCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Vinyl chloride": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Xylene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chlorophenols": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Phenols": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Naphthalene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"PAHs (other)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Atrazine": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Benzo(a)pyrene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dioxins / furans": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"DDT / DDE / DDD": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Aldrin": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Lindane / BHC": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dieldrin": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Endosulfan": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"PCBs": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Antimony": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Arsenic": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Barium": {
+"_unit": "µg/l",
+"2011": [
+114.0,
+"detect"
+]
+},
+"Beryllium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Cadmium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chromium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Cobalt": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Copper": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Lead": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Mercury": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Nickel": {
+"_unit": "µg/l",
+"2011": [
+5.0,
+"detect"
+]
+},
+"Selenium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Thallium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Vanadium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Zinc": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+}
+},
+"MW-09": {
+"1,1,1-Trichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Trichlorobenzenes": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Ethylbenzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dichlorobenzenes": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Acetone / ketones": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Benzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Methylene chloride": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chloroform / THMs": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Carbon disulfide": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chlorobenzene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chloroethane / -methane": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethene (DCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethene (PCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Toluene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Trichloroethene (TCE)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Vinyl chloride": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Xylene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chlorophenols": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Phenols": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Naphthalene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"PAHs (other)": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Atrazine": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Benzo(a)pyrene": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dioxins / furans": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"DDT / DDE / DDD": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Aldrin": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Lindane / BHC": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Dieldrin": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Endosulfan": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"PCBs": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Antimony": {
+"_unit": "µg/l",
+"2011": [
+4.9,
+"detect"
+],
+"_exceed": [
+"2011"
+]
+},
+"Arsenic": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Barium": {
+"_unit": "µg/l",
+"2011": [
+57.9,
+"detect"
+]
+},
+"Beryllium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Cadmium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Chromium": {
+"_unit": "µg/l",
+"2011": [
+9.2,
+"detect"
+]
+},
+"Cobalt": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Copper": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Lead": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Mercury": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Nickel": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Selenium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Thallium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Vanadium": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+},
+"Zinc": {
+"_unit": "µg/l",
+"2011": [
+null,
+"nondetect"
+]
+}
+},
+"MW-1": {
+"1,1,1-Trichloroethane": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethane": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethane": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Trichlorobenzenes": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Ethylbenzene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Dichlorobenzenes": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethane": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Acetone / ketones": {
+"_unit": "µg/l",
+"2008": [
+3.0,
+"detect"
+]
+},
+"Benzene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Methylene chloride": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Chloroform / THMs": {
+"_unit": "µg/l",
+"2008": [
+2.0,
+"detect"
+]
+},
+"Carbon disulfide": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Chlorobenzene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Chloroethane / -methane": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethene (DCE)": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Naphthalene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethene (PCE)": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Toluene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Trichloroethene (TCE)": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Vinyl chloride": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Xylene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Chlorophenols": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Phenols": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"PAHs (other)": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Atrazine": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Benzo(a)pyrene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Dioxins / furans": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"PCBs": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+}
+},
+"MW-2": {
+"1,1,1-Trichloroethane": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethane": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethane": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Trichlorobenzenes": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Ethylbenzene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Dichlorobenzenes": {
+"_unit": "µg/l",
+"2008": [
+1.0,
+"detect"
+]
+},
+"1,2-Dichloroethane": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Acetone / ketones": {
+"_unit": "µg/l",
+"2008": [
+6.0,
+"detect"
+]
+},
+"Benzene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Methylene chloride": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Chloroform / THMs": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Carbon disulfide": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Chlorobenzene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Chloroethane / -methane": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethene (DCE)": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Naphthalene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethene (PCE)": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Toluene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Trichloroethene (TCE)": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Vinyl chloride": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Xylene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Chlorophenols": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Phenols": {
+"_unit": "µg/l",
+"2008": [
+1.0,
+"detect"
+]
+},
+"PAHs (other)": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Atrazine": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Benzo(a)pyrene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Dioxins / furans": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"PCBs": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+}
+},
+"MW-3": {
+"1,1,1-Trichloroethane": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethane": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"1,1-Dichloroethane": {
+"_unit": "µg/l",
+"2008": [
+1.0,
+"detect"
+]
+},
+"1,1-Dichloroethene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Trichlorobenzenes": {
+"_unit": "µg/l",
+"2008": [
+3.0,
+"detect"
+]
+},
+"Ethylbenzene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Dichlorobenzenes": {
+"_unit": "µg/l",
+"2008": [
+34.0,
+"detect"
+],
+"_exceed": [
+"2008"
+]
+},
+"1,2-Dichloroethane": {
+"_unit": "µg/l",
+"2008": [
+0.7,
+"detect"
+],
+"_exceed": [
+"2008"
+]
+},
+"Acetone / ketones": {
+"_unit": "µg/l",
+"2008": [
+3.0,
+"detect"
+]
+},
+"Benzene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Methylene chloride": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Chloroform / THMs": {
+"_unit": "µg/l",
+"2008": [
+4.0,
+"detect"
+]
+},
+"Carbon disulfide": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Chlorobenzene": {
+"_unit": "µg/l",
+"2008": [
+6.0,
+"detect"
+],
+"_exceed": [
+"2008"
+]
+},
+"Chloroethane / -methane": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"1,2-Dichloroethene (DCE)": {
+"_unit": "µg/l",
+"2008": [
+13.0,
+"detect"
+],
+"_exceed": [
+"2008"
+]
+},
+"Naphthalene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Tetrachloroethene (PCE)": {
+"_unit": "µg/l",
+"2008": [
+4.0,
+"detect"
+]
+},
+"Toluene": {
+"_unit": "µg/l",
+"2008": [
+0.6,
+"detect"
+]
+},
+"Trichloroethene (TCE)": {
+"_unit": "µg/l",
+"2008": [
+5.0,
+"detect"
+]
+},
+"Vinyl chloride": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Xylene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Chlorophenols": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Phenols": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"PAHs (other)": {
+"_unit": "µg/l",
+"2008": [
+0.9,
+"detect"
+]
+},
+"Atrazine": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Benzo(a)pyrene": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"Dioxins / furans": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+},
+"PCBs": {
+"_unit": "µg/l",
+"2008": [
+null,
+"nondetect"
+]
+}
+}
+}
