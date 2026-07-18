@@ -362,6 +362,9 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .rad-swatch { width: 12px; height: 12px; border-radius: 50%; background: #f5e050; border: 2px solid #7a1212; flex-shrink: 0; }
 .rad-name { flex: 1; font-size: 12px; color: var(--text); }
 .rad-count { font-family: var(--mono); font-size: 10px; color: var(--dim); }
+.rad-group-label { font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: #e0c000; margin: 8px 0 3px 2px; }
+.rad-group-label:first-child { margin-top: 2px; }
+.rad-yr { font-family: var(--mono); font-size: 8.5px; color: var(--dim); margin-left: 6px; }
 .sample-type-filter { display: flex; flex-direction: column; gap: 1px; }
 .stf-opt { display: flex; align-items: center; gap: 8px; padding: 5px 10px; border-radius: 3px; cursor: pointer; border: 1px solid transparent; }
 .stf-opt:hover { background: var(--s2); }
@@ -428,7 +431,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
     <div class="tab-bar" role="tablist">
       <button class="tab-btn active" data-tab="sites" role="tab" aria-selected="true">Hazard Sites</button>
       <button class="tab-btn" data-tab="cancer" role="tab" aria-selected="false">Cancer Risk</button>
-      <button class="tab-btn" data-tab="chem" role="tab" aria-selected="false">Chemicals &amp; Radiation</button>
+      <button class="tab-btn" data-tab="chem" role="tab" aria-selected="false">Radiation</button>
       <button class="tab-btn" data-tab="wells" role="tab" aria-selected="false">Monitoring Wells</button>
     </div>
 
@@ -499,20 +502,42 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
     <div class="tab-panel" data-tab-panel="chem">
 
-    <div class="section-label">Filter Sites by Chemical</div>
-    <select id="chem-select"><option value="">All sites</option></select>
-    <div class="chem-note" id="chem-note">Shows sites that list the selected contaminant. Reflects <em>recorded</em> chemicals (122 of 256 sites list any).</div>
+    <div class="acc-help" style="display:block;padding:2px 2px 12px">Everything with radioactive material or radionuclides — sites, wells and soil. Pick a material or radionuclide in a section below to map it; well &amp; soil points show a time-series plot when clicked, with a running total by year.</div>
 
-    <div class="section-label" style="margin-top:20px;">Radioactive · Nuclear Legacy</div>
-    <div class="rad-note">18 sites with radioactive contamination. FUSRAP isotope tags are DOE/USACE‑sourced; TENORM = industrial radioactive slag.</div>
-    <div class="rad-opts">
-      <label class="rad-opt"><input type="checkbox" class="rad-check" value="U"><span class="rad-swatch"></span><span class="rad-name">Uranium</span><span class="rad-count" id="rc-U"></span></label>
-      <label class="rad-opt"><input type="checkbox" class="rad-check" value="Th"><span class="rad-swatch"></span><span class="rad-name">Thorium</span><span class="rad-count" id="rc-Th"></span></label>
-      <label class="rad-opt"><input type="checkbox" class="rad-check" value="Ra"><span class="rad-swatch"></span><span class="rad-name">Radium</span><span class="rad-count" id="rc-Ra"></span></label>
-      <label class="rad-opt"><input type="checkbox" class="rad-check" value="TENORM"><span class="rad-swatch"></span><span class="rad-name">TENORM (slag)</span><span class="rad-count" id="rc-TENORM"></span></label>
+    <!-- Radioactive hazard sites -->
+    <div class="acc">
+      <div class="acc-head"><span class="acc-title">Hazard Sites</span><button class="acc-info" title="Radioactive hazard sites">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help">Documented radioactive/radiological sites, by the material they contain — isotopes (U/Th/Ra) and class (TENORM slag, FUSRAP Manhattan-Project legacy, MED-AEC weapons-era facilities).</div>
+        <div class="sub-acc">
+          <div class="acc-head"><span class="acc-title">Select radioactive material</span><span class="acc-arrow">&#9662;</span></div>
+          <div class="acc-body"><div class="rad-opts" id="rad-site-filter"></div></div>
+        </div>
+        <div class="chem-note" id="rad-site-note">Select a material to show the sites that contain it.</div>
+      </div>
     </div>
 
-    </div><!-- /tab-panel: chem -->
+    <!-- Monitoring wells & soil -->
+    <div class="acc">
+      <div class="acc-head"><span class="acc-title">Monitoring Wells &amp; Soil</span><button class="acc-info" title="Radionuclide wells and soil">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help">Wells and soil zones with measured radionuclides, grouped by element. Total Uranium &amp; Radium-226 have multi-year trends; the isotopes are mostly single-year snapshots; Mill No.&nbsp;2 soil is a one-time gamma survey (no time series). Click any point for its plot.</div>
+        <div class="sub-acc">
+          <div class="acc-head"><span class="acc-title">Select radionuclide</span><span class="acc-arrow">&#9662;</span></div>
+          <div class="acc-body"><div id="rad-well-filter"></div></div>
+        </div>
+        <div class="chem-note" id="rad-well-note">Select a radionuclide to map the wells &amp; soil that carry it.</div>
+        <div class="conc-plot" id="rad-trend" style="display:none;margin-top:8px"></div>
+      </div>
+    </div>
+
+    <!-- chemical-filter code preserved for the future Chemicals tab (still referenced by the Hazard Sites site-type filter) -->
+    <div id="chem-tab-stash" style="display:none">
+      <select id="chem-select"><option value="">All sites</option></select>
+      <div class="chem-note" id="chem-note">Shows sites that list the selected contaminant. Reflects <em>recorded</em> chemicals (122 of 256 sites list any).</div>
+    </div>
+
+    </div><!-- /tab-panel: chem (Radiation) -->
 
     <div class="tab-panel" data-tab-panel="wells">
 
@@ -775,37 +800,128 @@ function radMatch(p, filters) {
   if (!p.rad_class) return false;
   return filters.some(fl => fl === 'TENORM' ? p.rad_class === 'TENORM' : (p.rad_iso || []).includes(fl));
 }
-function renderRadioactive() {
-  layers.radioactive.clearLayers();
-  const filters = [...document.querySelectorAll('.rad-check:checked')].map(c => c.value);
-  document.querySelectorAll('.rad-opt').forEach(o => o.classList.toggle('active', o.querySelector('input').checked));
-  if (!filters.length) { map.removeLayer(layers.radioactive); return; }
-  allSiteFeatures.forEach(f => {
-    if (!radMatch(f.properties, filters)) return;
-    const [lon, lat] = f.geometry.coordinates;
-    L.circleMarker([lat, lon], { pane: 'radioactivePane', radius: 9, fillColor: '#f5e050', color: '#7a1212', weight: 2.5, fillOpacity: 0.9 })
-      .bindPopup(radPopup(f.properties), { maxWidth: 270 }).addTo(layers.radioactive);
+// ── RADIATION TAB (sites + wells/soil, isotope-level) ────────────────────────
+let radData = null;   // data/radionuclides.json
+const RAD_SITE_ORDER  = ['Uranium','Thorium','Radium','TENORM','FUSRAP','MED-AEC'];
+const RAD_SITE_LABEL  = { Uranium:'Uranium', Thorium:'Thorium', Radium:'Radium',
+  TENORM:'TENORM (industrial slag)', FUSRAP:'FUSRAP (Manhattan Project legacy)', 'MED-AEC':'MED-AEC (weapons-era facility)' };
+const RAD_PARENT_ORDER = ['Uranium','Thorium','Radium','Radon','Other'];
+function radTrefoilIcon(sz) {
+  return L.divIcon({ className:'well-droplet', iconSize:[sz,sz], iconAnchor:[sz/2,sz/2],
+    html: RAD_TREFOIL.replace('width="20" height="20"', `width="${sz}" height="${sz}"`) });
+}
+function buildRadSelectors() {
+  const sf = document.getElementById('rad-site-filter');
+  sf.innerHTML = RAD_SITE_ORDER.filter(k => radData.sites[k]).map(k =>
+    `<label class="rad-opt"><input type="checkbox" class="rad-site-check" value="${k}"><span class="rad-swatch"></span>`
+    + `<span class="rad-name">${RAD_SITE_LABEL[k] || k}</span><span class="rad-count">${new Set(radData.sites[k].map(s=>s.program_number+'|'+s.site_name)).size}</span></label>`).join('');
+  sf.querySelectorAll('.rad-site-check').forEach(cb => cb.addEventListener('change', renderRadSites));
+  const wf = document.getElementById('rad-well-filter');
+  let html = '';
+  RAD_PARENT_ORDER.forEach(par => {
+    const kids = radData.groups[par] || [];
+    if (!kids.length) return;
+    html += `<div class="rad-group-label">${par}</div>`;
+    kids.forEach(rn => {
+      const n = radData.wells[rn].points.length;
+      const yrs = [...new Set(radData.wells[rn].points.flatMap(p => Object.keys(p.series)))].map(Number);
+      const span = yrs.length ? (Math.min(...yrs) === Math.max(...yrs) ? `${Math.min(...yrs)}` : `${Math.min(...yrs)}–${Math.max(...yrs)}`) : '';
+      html += `<label class="rad-opt"><input type="checkbox" class="rad-well-check" value="${rn}"><span class="rad-swatch"></span>`
+        + `<span class="rad-name">${rn}<span class="rad-yr">${span}</span></span><span class="rad-count">${n}</span></label>`;
+    });
   });
+  wf.innerHTML = html;
+  wf.querySelectorAll('.rad-well-check').forEach(cb => cb.addEventListener('change', renderRadWells));
+}
+function renderRadSites() {
+  layers.radioactive.clearLayers();
+  const sel = [...document.querySelectorAll('.rad-site-check:checked')].map(c => c.value);
+  document.querySelectorAll('#rad-site-filter .rad-opt').forEach(o => o.classList.toggle('active', o.querySelector('input').checked));
+  const note = document.getElementById('rad-site-note');
+  if (!sel.length) { map.removeLayer(layers.radioactive); note.textContent = 'Select a material to show the sites that contain it.'; return; }
+  const seen = new Set(); let n = 0;
+  sel.forEach(mat => (radData.sites[mat] || []).forEach(s => {
+    const id = s.program_number + '|' + s.site_name;
+    if (seen.has(id)) return; seen.add(id); n++;
+    L.circleMarker([s.lat, s.lon], { pane:'radioactivePane', radius:9, fillColor:'#f5e050', color:'#7a1212', weight:2.5, fillOpacity:0.9 })
+      .bindPopup(radSitePopup(s), { maxWidth:290 }).addTo(layers.radioactive);
+  }));
   if (!map.hasLayer(layers.radioactive)) layers.radioactive.addTo(map);
+  note.innerHTML = `<b>${n}</b> radioactive site${n===1?'':'s'} — ${sel.map(s => RAD_SITE_LABEL[s] || s).join(', ')}.`;
 }
-function radPopup(p) {
-  const names = { U: 'Uranium', Th: 'Thorium', Ra: 'Radium' };
-  const iso = (p.rad_iso && p.rad_iso.length) ? p.rad_iso.map(i => names[i]).join(', ') : 'not specified in dataset';
-  const src = p.rad_class === 'FUSRAP'
-    ? 'Manhattan Project / AEC legacy (FUSRAP). Isotope attribution: DOE Legacy Management / USACE.'
-    : 'TENORM — technologically-enhanced naturally-occurring radioactive material (industrial slag).';
-  return `<div class="popup-inner">
-    <div class="popup-tags"><span class="popup-tag" style="background:#f5e05022;color:#e8d44a;border:1px solid #f5e05055">${p.rad_class}</span></div>
-    <div class="popup-name">${p.site_name}</div>
+function radSitePopup(s) {
+  const names = { U:'Uranium', Th:'Thorium', Ra:'Radium' };
+  const iso = (s.iso && s.iso.length) ? s.iso.map(i => names[i] || i).join(', ') : 'not specified';
+  const CLASS = { FUSRAP:'FUSRAP — residual Manhattan Project / AEC radioactive contamination (DOE Legacy Mgmt / USACE).',
+    TENORM:'TENORM — technologically-enhanced naturally-occurring radioactive material (industrial slag).',
+    'MED-AEC':'Manhattan Engineer District / AEC facility documented to have handled radioactive material (EEOICPA).' };
+  return `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:#f5e05022;color:#e8d44a;border:1px solid #f5e05055">${s.rad_class||'Radioactive'}</span></div>
+    <div class="popup-name">${s.site_name}</div>
     <div class="popup-field"><div class="popup-field-lbl">Radionuclides</div><div class="popup-field-val">${iso}</div></div>
-    <div class="popup-narrative">${src}</div>
-  </div>`;
+    <div class="popup-narrative">${s.basis || CLASS[s.rad_class] || ''}</div></div>`;
 }
-function updateRadCounts() {
-  const c = { U: 0, Th: 0, Ra: 0, TENORM: 0 };
-  allSiteFeatures.forEach(f => { const p = f.properties; if (!p.rad_class) return;
-    if (p.rad_class === 'TENORM') c.TENORM++; (p.rad_iso || []).forEach(i => { if (c[i] !== undefined) c[i]++; }); });
-  ['U','Th','Ra','TENORM'].forEach(k => { const e = document.getElementById('rc-' + k); if (e) e.textContent = c[k]; });
+function renderRadWells() {
+  layers.radWells.clearLayers();
+  const sel = [...document.querySelectorAll('.rad-well-check:checked')].map(c => c.value);
+  document.querySelectorAll('#rad-well-filter .rad-opt').forEach(o => o.classList.toggle('active', o.querySelector('input').checked));
+  const note = document.getElementById('rad-well-note');
+  if (!sel.length) { map.removeLayer(layers.radWells); note.innerHTML = 'Select a radionuclide to map the wells &amp; soil that carry it.'; updateRadTrend(null); return; }
+  const seen = new Set(); let nw = 0, ns = 0;
+  const parents = new Set(sel.map(rn => radData.wells[rn].parent));
+  sel.forEach(rn => radData.wells[rn].points.forEach(p => {
+    const id = 'w|' + rn + '|' + p.well_id + '|' + p.src;
+    if (seen.has(id)) return; seen.add(id); nw++;
+    L.marker([p.lat, p.lon], { icon: radTrefoilIcon(16), pane:'wellsPane' })
+      .bindPopup(radWellPopup(rn, radData.wells[rn], p), { maxWidth:300 }).addTo(layers.radWells);
+  }));
+  (radData.soil || []).forEach(z => {
+    if (!z.materials.some(m => parents.has(m))) return;
+    const id = 's|' + z.zone_id; if (seen.has(id)) return; seen.add(id); ns++;
+    L.marker([z.lat, z.lon], { icon: radTrefoilIcon(20), pane:'wellsPane' })
+      .bindPopup(radSoilPopup(z), { maxWidth:300 }).addTo(layers.radWells);
+  });
+  if (!map.hasLayer(layers.radWells)) layers.radWells.addTo(map);
+  note.innerHTML = `<b>${nw}</b> well${nw===1?'':'s'}${ns ? ` + <b>${ns}</b> soil zone${ns===1?'':'s'}` : ''} carry ${sel.join(', ')}.`;
+  updateRadTrend(sel);
+}
+function radWellPopup(rn, w, p) {
+  const has = Object.keys(p.series).length;
+  const plot = has ? concPlotSVG(p.series, rn, w.unit) : `<div class="conc-plot-note">${rn}: detected, no plottable value.</div>`;
+  return `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:#f5d00022;color:#e0c000;border:1px solid #f5d00055">${p.src} · ${rn}</span></div>
+    <div class="popup-name">${p.well_id}</div><div class="popup-addr">${p.site || ''} · ${p.medium || ''}</div>${plot}</div>`;
+}
+function radSoilPopup(z) {
+  return `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:#f5d00022;color:#e0c000;border:1px solid #f5d00055">Soil / slag</span></div>
+    <div class="popup-name">${z.zone_id}</div><div class="popup-addr">${z.site} · ${z.medium}</div>
+    <div class="conc-plot-note" style="margin-top:6px">Gamma survey: <b>${z.gamma_cpm||''}</b>. Radionuclides: ${z.materials.join(', ')}. ${z.note}</div></div>`;
+}
+// cumulative distinct wells+soil that have DETECTED the selection, by year — mirrors the wells-tab trend
+function updateRadTrend(sel) {
+  const box = document.getElementById('rad-trend');
+  if (!box) return;
+  if (!sel || !sel.length) { box.style.display = 'none'; box.innerHTML = ''; return; }
+  const firstDet = {};   // key -> first detect year
+  sel.forEach(rn => radData.wells[rn].points.forEach(p => {
+    const yrs = Object.entries(p.series).filter(([y, v]) => v[1] === 'detect').map(([y]) => +y);
+    if (!yrs.length) return;
+    const k = p.well_id + '|' + p.src, y = Math.min(...yrs);
+    if (firstDet[k] === undefined || y < firstDet[k]) firstDet[k] = y;
+  }));
+  const years = Object.values(firstDet);
+  if (years.length < 2) { box.style.display = 'none'; return; }
+  const lo = Math.min(...years), hi = Math.max(...years);
+  const cum = []; for (let y = lo; y <= hi; y++) cum.push([y, years.filter(v => v <= y).length]);
+  const W = 250, H = 84, x0 = 26, x1 = W - 8, yT = 8, yB = H - 18, mx = cum[cum.length-1][1];
+  const sx = y => x0 + (hi===lo?0.5:(y-lo)/(hi-lo))*(x1-x0), sy = v => yB - (v/mx)*(yB-yT);
+  const pts = cum.map(([y,v]) => `${sx(y).toFixed(1)},${sy(v).toFixed(1)}`).join(' ');
+  box.style.display = 'block';
+  box.innerHTML = `<div class="conc-plot-title">Wells &amp; soil with a detection, cumulative by year</div>`
+    + `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`
+    + `<polyline points="${sx(lo).toFixed(1)},${yB} ${pts} ${sx(hi).toFixed(1)},${yB}" fill="#f5d00022" stroke="none"/>`
+    + `<polyline points="${pts}" fill="none" stroke="#f5d000" stroke-width="1.8"/>`
+    + `<text x="${x0-3}" y="${sy(mx)+3}" text-anchor="end" font-size="8" fill="#9aa4b2">${mx}</text>`
+    + `<text x="${x0}" y="${H-4}" font-size="8" fill="#9aa4b2">${lo}</text>`
+    + `<text x="${x1}" y="${H-4}" text-anchor="end" font-size="8" fill="#9aa4b2">${hi}</text></svg>`;
 }
 
 // ── MAP INIT ─────────────────────────────────────────────────────────────────
@@ -854,6 +970,7 @@ const layers = {
   lcPumps:     L.layerGroup(),              // Love Canal pump chambers / leachate tanks
   lcPiezo:     L.layerGroup(),              // Love Canal piezometers (water-level series)
   soilRad:     L.layerGroup(),              // radioactive soil/slag zones (non-well soil sites)
+  radWells:    L.layerGroup(),              // Radiation tab: wells & soil selected by radionuclide
   sareaToc:    L.layerGroup(),              // off by default (S-Area TOC-over-time selector); independent
                                              // of the wellsDec toggle/filter so the two features don't collide
 };
@@ -944,13 +1061,14 @@ async function loadAll() {
     gj('data/wells_dec.geojson'),
     gj('data/wells_legacy.geojson'),
   ]);
-  const [lcPumpsData, lcPiezoData, soilRadData, siteRoadsData] = await Promise.all([
+  const [lcPumpsData, lcPiezoData, soilRadData, siteRoadsData, radNuclides] = await Promise.all([
     gj('data/wells_lc_pumps.geojson'), gj('data/wells_lc_piezometers.geojson'),
-    gj('data/soil_radzones.geojson'), gj('data/site_roads.geojson'),
+    gj('data/soil_radzones.geojson'), gj('data/site_roads.geojson'), gj('data/radionuclides.json'),
   ]);
   renderLcPumps(lcPumpsData.features);
   renderLcPiezo(lcPiezoData.features);
   renderSoilRad(soilRadData.features);
+  radData = radNuclides; buildRadSelectors();
   cancerData = cancerGeo;
 
   // Water — polygon bodies get a stark semi-transparent fill; creek lines (added
@@ -1099,10 +1217,9 @@ async function loadAll() {
   populateWellYearDropdown();
   populateSAreaTocYearDropdown();
 
-  // Chemical dropdown + radioactive sub-filter counts
+  // Chemical dropdown + site-type filter
   populateChemDropdown();
   populateSiteTypeFilter();
-  updateRadCounts();
 }
 
 function renderSites(features) {
@@ -1598,10 +1715,7 @@ document.querySelectorAll('input[name="cancer"]').forEach(radio => {
   });
 });
 
-// ── RADIOACTIVE SUB-FILTERS ──────────────────────────────────────────────────
-document.querySelectorAll('.rad-check').forEach(cb => cb.addEventListener('change', () => {
-  if (allSiteFeatures.length) renderRadioactive();
-}));
+// (Radiation-tab selectors are wired in buildRadSelectors after radionuclides.json loads)
 
 // ── SIDEBAR TABS ─────────────────────────────────────────────────────────────
 // Three digestible groups instead of one long scroll: Sites & Acreage / Cancer
