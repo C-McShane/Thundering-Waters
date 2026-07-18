@@ -99,8 +99,12 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   color: var(--red); margin: 3px 0; letter-spacing: 0;
 }
 .sidebar-title .title-kind {
-  display: block; font-family: var(--mono); font-size: 9px; font-weight: 600;
-  letter-spacing: .18em; text-transform: uppercase; color: var(--dim); margin-top: 3px;
+  display: block; font-family: var(--mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: .04em; color: #b8b3c4; margin-top: 5px;
+}
+.sidebar-title .title-kind .author-name {
+  font-weight: 800; color: #ffc94a; letter-spacing: .01em;
+  text-shadow: 0 0 8px rgba(255,201,74,.35);
 }
 .sidebar-sub {
   font-family: var(--mono); font-size: 10px; color: var(--dim); letter-spacing: .04em;
@@ -297,11 +301,18 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .road-tip::before { display: none !important; }
 .road-label {
   background: transparent !important; border: none !important; box-shadow: none !important;
-  color: #ded7c8 !important; font-family: var(--mono) !important; font-size: 9px !important;
+  color: #cdc4e6 !important; font-family: var(--mono) !important; font-size: 9px !important;
   font-weight: 500 !important; letter-spacing: .02em;
   text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 4px #000 !important; padding: 0 !important;
 }
 .road-label::before { display: none !important; }
+.site-road-label {
+  background: transparent !important; border: none !important; box-shadow: none !important;
+  color: #b9abdd !important; font-family: var(--mono) !important; font-size: 8.5px !important;
+  font-weight: 500 !important; letter-spacing: .02em;
+  text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 4px #000 !important; padding: 0 !important;
+}
+.site-road-label::before { display: none !important; }
 
 /* ── CANCER SIR CONTROL ── */
 .cancer-note { font-size: 10px; color: var(--dim); line-height: 1.5; margin-bottom: 8px; }
@@ -359,17 +370,23 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 /* ── accordion sections (Monitoring Wells tab) ── */
 .acc { border-top: 1px solid var(--border2); }
 .acc-head { display: flex; align-items: center; gap: 8px; padding: 11px 2px; cursor: pointer; user-select: none; }
-.acc-head:hover .acc-title { color: var(--text); }
-.acc-title { flex: 1; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: #bcbac6; }
+.acc-head:hover .acc-title { color: #fff; }
+.acc-head:hover .acc-arrow { color: #cbb8ff; }
+.acc-title { flex: 1; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #efe9ff; }
 .acc-info { background: none; border: 1px solid var(--border2); color: #9aa4b2; border-radius: 50%; width: 16px; height: 16px; font-size: 9px; line-height: 13px; text-align: center; cursor: pointer; flex-shrink: 0; padding: 0; }
 .acc-info:hover { color: #fff; border-color: var(--blue); }
-.acc-arrow { font-size: 9px; color: #888; transition: transform .15s ease; }
+.acc-arrow { font-size: 11px; color: #b0a4d0; transition: transform .15s ease, color .15s ease; }
 .acc:not([data-open]) .acc-arrow { transform: rotate(-90deg); }
 .acc:not([data-open]) .acc-body { display: none; }
 .acc-body { padding: 0 0 12px; }
 .acc-help { display: none; font-size: 11px; color: #a8a6b0; line-height: 1.55; padding: 2px 2px 10px; }
 .acc-help.show { display: block; }
 .subsection-label { font-family: var(--mono); font-size: 10px; letter-spacing: .06em; color: #8fa0b5; margin: 6px 0 5px; text-transform: uppercase; }
+/* nested collapsible (a filter inside an accordion) */
+.sub-acc { border-top: none; margin: 6px 0 2px; padding-left: 10px; border-left: 2px solid var(--border2); }
+.sub-acc > .acc-head { padding: 7px 2px; }
+.sub-acc > .acc-head .acc-title { font-size: 10px; font-weight: 600; color: #cfc7e4; text-transform: none; letter-spacing: .04em; }
+.sub-acc > .acc-body { padding-bottom: 6px; }
 .auto-legend { padding: 6px 4px 10px 8px; margin: 2px 0 4px; border-left: 2px solid var(--border2); }
 .auto-legend-title { font-family: var(--mono); font-size: 9.5px; letter-spacing: .05em; color: #9aa4b2; text-transform: uppercase; margin-bottom: 4px; }
 </style>
@@ -392,7 +409,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   <div class="sheet-handle"></div>
   <div id="sidebar-header">
     <div class="eyebrow">Niagara County · Spatial Data</div>
-    <div class="sidebar-title">Thundering Waters<span class="title-sub">The Toxic Legacy of Niagara County</span><span class="title-kind">Interactive Map</span></div>
+    <div class="sidebar-title">Thundering Waters<span class="title-sub">The Toxic Legacy of Niagara County</span><span class="title-kind">Inspired by <b class="author-name">Christen Civiletto</b>'s book</span></div>
   </div>
 
   <div id="search-wrap">
@@ -421,8 +438,13 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <div class="acc-body">
         <div class="acc-help">Every documented contaminated site in Niagara County, each dot coloured by its <b>regulatory programme</b>. Turn the layer on or off, or show/hide individual programme types below — the list doubles as the colour legend.</div>
         <label class="layer-toggle active" id="toggle-sites"><input type="checkbox" class="toggle-check" checked data-layer="sites"><span class="toggle-swatch" style="background:#c0392b; border:2px solid #7a2a22;"></span><span class="toggle-label">Show hazard sites</span><span class="toggle-count">256 pts</span></label>
-        <div class="subsection-label" style="margin-top:12px">Filter by site type</div>
-        <div class="sample-type-filter" id="site-type-filter"></div>
+        <div class="acc sub-acc">
+          <div class="acc-head"><span class="acc-title">Filter by site type</span><span class="acc-arrow">&#9662;</span></div>
+          <div class="acc-body">
+            <div class="acc-help" style="display:block">Show or hide sites by regulatory programme. The colour swatches are also the map's colour key.</div>
+            <div class="sample-type-filter" id="site-type-filter"></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -848,6 +870,7 @@ function geomLen(g) {
   return 0;
 }
 const LABEL_ZOOM = 14;  // persistent road labels appear at/above this zoom
+const SITE_ROAD_ZOOM = 16;  // local streets near regulated sites appear at/above this zoom
 
 // ── POPUP HELPERS ────────────────────────────────────────────────────────────
 function desigTag(d) {
@@ -919,9 +942,9 @@ async function loadAll() {
     gj('data/wells_dec.geojson'),
     gj('data/wells_legacy.geojson'),
   ]);
-  const [lcPumpsData, lcPiezoData, soilRadData] = await Promise.all([
+  const [lcPumpsData, lcPiezoData, soilRadData, siteRoadsData] = await Promise.all([
     gj('data/wells_lc_pumps.geojson'), gj('data/wells_lc_piezometers.geojson'),
-    gj('data/soil_radzones.geojson'),
+    gj('data/soil_radzones.geojson'), gj('data/site_roads.geojson'),
   ]);
   renderLcPumps(lcPumpsData.features);
   renderLcPiezo(lcPiezoData.features);
@@ -996,6 +1019,37 @@ async function loadAll() {
   refreshRoadLabels();
   map.on('zoomend', refreshRoadLabels);
 
+  // Local streets near major regulated sites (Superfund/FUSRAP/RCRA/NPL/CERCLA) — appear
+  // only when the Roads layer is on AND you're zoomed into a site. Purplish-grey + dashed
+  // to read as local wayfinding, distinct from the tan arterials.
+  const siteRoadReps = {};   // name -> longest segment (label anchor)
+  const siteRoadBase = { color: '#9d8fbf', weight: 1.6, opacity: 0.92, lineCap: 'round', dashArray: '4,3' };
+  const siteRoadsGeo = L.geoJSON(siteRoadsData, {
+    style: () => siteRoadBase,
+    onEachFeature: (f, l) => {
+      const nm = f.properties.name; if (!nm) return;
+      const len = geomLen(f.geometry);
+      if (!siteRoadReps[nm] || len > siteRoadReps[nm].len) siteRoadReps[nm] = { len, layer: l };
+      l.on('mouseover', function () { this.setStyle({ weight: 3.4, opacity: 1 }); });
+      l.on('mouseout',  function () { this.setStyle(siteRoadBase); });
+    }
+  });
+  function refreshSiteRoads() {
+    const show = map.getZoom() >= SITE_ROAD_ZOOM;
+    if (show) {
+      if (!layers.roads.hasLayer(siteRoadsGeo)) layers.roads.addLayer(siteRoadsGeo);
+      siteRoadsGeo.eachLayer(l => {
+        const nm = l.feature.properties.name; l.unbindTooltip();
+        const isAnchor = siteRoadReps[nm] && siteRoadReps[nm].layer === l;
+        if (isAnchor) l.bindTooltip(nm, { permanent: true, direction: 'center', className: 'site-road-label' });
+        else l.bindTooltip(nm, { sticky: true, direction: 'top', className: 'road-tip' });
+      });
+    } else if (layers.roads.hasLayer(siteRoadsGeo)) {
+      layers.roads.removeLayer(siteRoadsGeo);
+    }
+  }
+  refreshSiteRoads();
+  map.on('zoomend', refreshSiteRoads);
 
   // Census tracts choropleth
   L.geoJSON(tractsData, {
