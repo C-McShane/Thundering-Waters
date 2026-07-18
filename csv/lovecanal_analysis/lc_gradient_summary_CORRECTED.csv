@@ -1,0 +1,10 @@
+string,medium,depth,n,mean_gradient_ft,min_gradient_ft,n_reversals,n_in_typical
+1140,Glacial Till,deep,20,3.22,2.34,0,1
+1140,Soft Clay,intermediate,20,4.83,3.38,0,1
+1160,Fractured Clay,intermediate,20,4.45,3.49,0,2
+1170,Glacial Till,deep,20,4.83,4.39,0,1
+1170,Soft Clay,intermediate,4,1.02,-3.98,2,1
+1180,Glacial Till,deep,19,2.25,1.53,0,1
+1180,Soft Clay,intermediate,20,4.34,3.2,0,1
+1190,Glacial Till,deep,20,-0.43,-3.39,11,1
+1190,Soft Clay,intermediate,4,4.85,3.6,0,1

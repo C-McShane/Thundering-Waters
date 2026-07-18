@@ -1,0 +1,1025 @@
+well,chem,year,value_ugL,detect
+10105,Benzene,2011,5.0,nondetect
+10105,Chlorobenzene,2011,5.0,nondetect
+10105,Ethylbenzene,2011,5.0,nondetect
+10105,Tetrachloroethene (PCE),2011,5.0,nondetect
+10105,Toluene,2011,5.0,nondetect
+10105,Trichloroethene (TCE),2011,5.0,nondetect
+10105,Vinyl chloride,2011,5.0,nondetect
+10105,Xylene,2011,15.0,nondetect
+10135,Benzene,2010,3400.0,detect
+10135,Benzene,2011,2200.0,detect
+10135,Benzene,2012,5900.0,detect
+10135,Benzene,2014,6100.0,detect
+10135,Chlorobenzene,2010,1300.0,detect
+10135,Chlorobenzene,2011,1100.0,detect
+10135,Chlorobenzene,2012,2500.0,detect
+10135,Chlorobenzene,2014,2300.0,detect
+10135,Ethylbenzene,2010,13.0,detect
+10135,Ethylbenzene,2011,50.0,nondetect
+10135,Ethylbenzene,2012,500.0,nondetect
+10135,Ethylbenzene,2014,630.0,nondetect
+10135,Tetrachloroethene (PCE),2010,19.0,detect
+10135,Tetrachloroethene (PCE),2011,9.5,detect
+10135,Tetrachloroethene (PCE),2012,500.0,nondetect
+10135,Tetrachloroethene (PCE),2014,630.0,nondetect
+10135,Toluene,2010,11000.0,detect
+10135,Toluene,2011,3100.0,detect
+10135,Toluene,2012,14000.0,detect
+10135,Toluene,2014,20000.0,detect
+10135,Trichloroethene (TCE),2010,140.0,detect
+10135,Trichloroethene (TCE),2011,52.0,detect
+10135,Trichloroethene (TCE),2012,500.0,nondetect
+10135,Trichloroethene (TCE),2014,630.0,nondetect
+10135,Vinyl chloride,2010,31.0,detect
+10135,Vinyl chloride,2011,50.0,nondetect
+10135,Vinyl chloride,2012,500.0,nondetect
+10135,Vinyl chloride,2014,630.0,nondetect
+10135,Xylene,2010,51.0,detect
+10135,Xylene,2011,150.0,nondetect
+10135,Xylene,2012,1500.0,nondetect
+10135,Xylene,2014,1300.0,nondetect
+10147,Benzene,2011,5.0,nondetect
+10147,Chlorobenzene,2011,5.0,nondetect
+10147,Ethylbenzene,2011,5.0,nondetect
+10147,Tetrachloroethene (PCE),2011,5.0,nondetect
+10147,Toluene,2011,5.0,nondetect
+10147,Trichloroethene (TCE),2011,5.0,nondetect
+10147,Vinyl chloride,2011,5.0,nondetect
+10147,Xylene,2011,15.0,nondetect
+10174A,Benzene,2011,5.0,nondetect
+10174A,Chlorobenzene,2011,5.0,nondetect
+10174A,Ethylbenzene,2011,5.0,nondetect
+10174A,Tetrachloroethene (PCE),2011,5.0,nondetect
+10174A,Toluene,2011,5.0,nondetect
+10174A,Trichloroethene (TCE),2011,5.0,nondetect
+10174A,Vinyl chloride,2011,5.0,nondetect
+10174A,Xylene,2011,15.0,nondetect
+10178A,Benzene,2014,5.0,nondetect
+10178A,Chlorobenzene,2014,5.0,nondetect
+10178A,Ethylbenzene,2014,5.0,nondetect
+10178A,Tetrachloroethene (PCE),2014,5.0,nondetect
+10178A,Toluene,2014,5.0,nondetect
+10178A,Trichloroethene (TCE),2014,5.0,nondetect
+10178A,Vinyl chloride,2014,5.0,nondetect
+10178A,Xylene,2014,10.0,nondetect
+10205,Benzene,2010,5.0,nondetect
+10205,Benzene,2011,5.0,nondetect
+10205,Benzene,2012,5.0,nondetect
+10205,Chlorobenzene,2010,5.0,nondetect
+10205,Chlorobenzene,2011,5.0,nondetect
+10205,Chlorobenzene,2012,5.0,nondetect
+10205,Ethylbenzene,2010,5.0,nondetect
+10205,Ethylbenzene,2011,5.0,nondetect
+10205,Ethylbenzene,2012,5.0,nondetect
+10205,Tetrachloroethene (PCE),2010,5.0,nondetect
+10205,Tetrachloroethene (PCE),2011,5.0,nondetect
+10205,Tetrachloroethene (PCE),2012,5.0,nondetect
+10205,Toluene,2010,5.0,nondetect
+10205,Toluene,2011,5.0,nondetect
+10205,Toluene,2012,5.0,nondetect
+10205,Trichloroethene (TCE),2010,5.0,nondetect
+10205,Trichloroethene (TCE),2011,5.0,nondetect
+10205,Trichloroethene (TCE),2012,5.0,nondetect
+10205,Vinyl chloride,2010,5.0,nondetect
+10205,Vinyl chloride,2011,5.0,nondetect
+10205,Vinyl chloride,2012,5.0,nondetect
+10205,Xylene,2010,15.0,nondetect
+10205,Xylene,2011,15.0,nondetect
+10205,Xylene,2012,15.0,nondetect
+10210A,Benzene,2010,5.0,nondetect
+10210A,Benzene,2011,5.0,nondetect
+10210A,Benzene,2012,5.0,nondetect
+10210A,Chlorobenzene,2010,5.0,nondetect
+10210A,Chlorobenzene,2011,5.0,nondetect
+10210A,Chlorobenzene,2012,5.0,nondetect
+10210A,Ethylbenzene,2010,5.0,nondetect
+10210A,Ethylbenzene,2011,5.0,nondetect
+10210A,Ethylbenzene,2012,5.0,nondetect
+10210A,Tetrachloroethene (PCE),2010,5.0,nondetect
+10210A,Tetrachloroethene (PCE),2011,5.0,nondetect
+10210A,Tetrachloroethene (PCE),2012,5.0,nondetect
+10210A,Toluene,2010,5.0,nondetect
+10210A,Toluene,2011,5.0,nondetect
+10210A,Toluene,2012,5.0,nondetect
+10210A,Trichloroethene (TCE),2010,6.3,detect
+10210A,Trichloroethene (TCE),2011,5.0,nondetect
+10210A,Trichloroethene (TCE),2012,5.0,nondetect
+10210A,Vinyl chloride,2010,5.0,nondetect
+10210A,Vinyl chloride,2011,5.0,nondetect
+10210A,Vinyl chloride,2012,5.0,nondetect
+10210A,Xylene,2010,15.0,nondetect
+10210A,Xylene,2011,15.0,nondetect
+10210A,Xylene,2012,15.0,nondetect
+10210B,Benzene,2010,5.0,nondetect
+10210B,Benzene,2011,5.0,nondetect
+10210B,Benzene,2012,5.0,nondetect
+10210B,Chlorobenzene,2010,5.0,nondetect
+10210B,Chlorobenzene,2011,5.0,nondetect
+10210B,Chlorobenzene,2012,5.0,nondetect
+10210B,Ethylbenzene,2010,5.0,nondetect
+10210B,Ethylbenzene,2011,5.0,nondetect
+10210B,Ethylbenzene,2012,5.0,nondetect
+10210B,Tetrachloroethene (PCE),2010,5.0,nondetect
+10210B,Tetrachloroethene (PCE),2011,5.0,nondetect
+10210B,Tetrachloroethene (PCE),2012,5.0,nondetect
+10210B,Toluene,2010,5.0,nondetect
+10210B,Toluene,2011,5.0,nondetect
+10210B,Toluene,2012,5.0,nondetect
+10210B,Trichloroethene (TCE),2010,5.0,nondetect
+10210B,Trichloroethene (TCE),2011,5.0,nondetect
+10210B,Trichloroethene (TCE),2012,5.0,nondetect
+10210B,Vinyl chloride,2010,5.0,nondetect
+10210B,Vinyl chloride,2011,5.0,nondetect
+10210B,Vinyl chloride,2012,5.0,nondetect
+10210B,Xylene,2010,15.0,nondetect
+10210B,Xylene,2011,15.0,nondetect
+10210B,Xylene,2012,15.0,nondetect
+10210C,Benzene,2010,5.0,nondetect
+10210C,Benzene,2011,5.0,nondetect
+10210C,Benzene,2012,5.0,nondetect
+10210C,Chlorobenzene,2010,5.0,nondetect
+10210C,Chlorobenzene,2011,5.0,nondetect
+10210C,Chlorobenzene,2012,5.0,nondetect
+10210C,Ethylbenzene,2010,5.0,nondetect
+10210C,Ethylbenzene,2011,5.0,nondetect
+10210C,Ethylbenzene,2012,5.0,nondetect
+10210C,Tetrachloroethene (PCE),2010,5.0,nondetect
+10210C,Tetrachloroethene (PCE),2011,5.0,nondetect
+10210C,Tetrachloroethene (PCE),2012,5.0,nondetect
+10210C,Toluene,2010,5.0,nondetect
+10210C,Toluene,2011,5.0,nondetect
+10210C,Toluene,2012,5.0,nondetect
+10210C,Trichloroethene (TCE),2010,5.0,nondetect
+10210C,Trichloroethene (TCE),2011,5.0,nondetect
+10210C,Trichloroethene (TCE),2012,5.0,nondetect
+10210C,Vinyl chloride,2010,5.0,nondetect
+10210C,Vinyl chloride,2011,5.0,nondetect
+10210C,Vinyl chloride,2012,5.0,nondetect
+10210C,Xylene,2010,15.0,nondetect
+10210C,Xylene,2011,15.0,nondetect
+10210C,Xylene,2012,15.0,nondetect
+10215,Benzene,2010,5.0,nondetect
+10215,Benzene,2011,5.0,nondetect
+10215,Benzene,2012,5.0,nondetect
+10215,Chlorobenzene,2010,5.0,nondetect
+10215,Chlorobenzene,2011,5.0,nondetect
+10215,Chlorobenzene,2012,5.0,nondetect
+10215,Ethylbenzene,2010,5.0,nondetect
+10215,Ethylbenzene,2011,5.0,nondetect
+10215,Ethylbenzene,2012,5.0,nondetect
+10215,Tetrachloroethene (PCE),2010,5.0,nondetect
+10215,Tetrachloroethene (PCE),2011,5.0,nondetect
+10215,Tetrachloroethene (PCE),2012,5.0,nondetect
+10215,Toluene,2010,2.5,detect
+10215,Toluene,2011,5.0,nondetect
+10215,Toluene,2012,5.0,nondetect
+10215,Trichloroethene (TCE),2010,5.0,nondetect
+10215,Trichloroethene (TCE),2011,5.0,nondetect
+10215,Trichloroethene (TCE),2012,5.0,nondetect
+10215,Vinyl chloride,2010,5.0,nondetect
+10215,Vinyl chloride,2011,5.0,nondetect
+10215,Vinyl chloride,2012,5.0,nondetect
+10215,Xylene,2010,15.0,nondetect
+10215,Xylene,2011,15.0,nondetect
+10215,Xylene,2012,15.0,nondetect
+10225A,Benzene,2010,5.0,nondetect
+10225A,Benzene,2011,5.0,nondetect
+10225A,Benzene,2012,5.0,nondetect
+10225A,Chlorobenzene,2010,5.0,nondetect
+10225A,Chlorobenzene,2011,5.0,nondetect
+10225A,Chlorobenzene,2012,5.0,nondetect
+10225A,Ethylbenzene,2010,5.0,nondetect
+10225A,Ethylbenzene,2011,5.0,nondetect
+10225A,Ethylbenzene,2012,0.73,detect
+10225A,Tetrachloroethene (PCE),2010,5.0,nondetect
+10225A,Tetrachloroethene (PCE),2011,5.0,nondetect
+10225A,Tetrachloroethene (PCE),2012,5.0,nondetect
+10225A,Toluene,2010,5.0,nondetect
+10225A,Toluene,2011,5.0,nondetect
+10225A,Toluene,2012,5.0,nondetect
+10225A,Trichloroethene (TCE),2010,5.1,detect
+10225A,Trichloroethene (TCE),2011,5.0,nondetect
+10225A,Trichloroethene (TCE),2012,5.0,nondetect
+10225A,Vinyl chloride,2010,5.0,nondetect
+10225A,Vinyl chloride,2011,5.0,nondetect
+10225A,Vinyl chloride,2012,5.0,nondetect
+10225A,Xylene,2010,15.0,nondetect
+10225A,Xylene,2011,15.0,nondetect
+10225A,Xylene,2012,15.0,nondetect
+10225B,Benzene,2010,5.0,nondetect
+10225B,Benzene,2011,5.0,nondetect
+10225B,Benzene,2012,5.0,nondetect
+10225B,Chlorobenzene,2010,5.0,nondetect
+10225B,Chlorobenzene,2011,5.0,nondetect
+10225B,Chlorobenzene,2012,5.0,nondetect
+10225B,Ethylbenzene,2010,5.0,nondetect
+10225B,Ethylbenzene,2011,5.0,nondetect
+10225B,Ethylbenzene,2012,5.0,nondetect
+10225B,Tetrachloroethene (PCE),2010,5.0,nondetect
+10225B,Tetrachloroethene (PCE),2011,5.0,nondetect
+10225B,Tetrachloroethene (PCE),2012,5.0,nondetect
+10225B,Toluene,2010,1.5,detect
+10225B,Toluene,2011,5.0,nondetect
+10225B,Toluene,2012,3.0,detect
+10225B,Trichloroethene (TCE),2010,5.0,nondetect
+10225B,Trichloroethene (TCE),2011,5.0,nondetect
+10225B,Trichloroethene (TCE),2012,5.0,nondetect
+10225B,Vinyl chloride,2010,5.0,nondetect
+10225B,Vinyl chloride,2011,5.0,nondetect
+10225B,Vinyl chloride,2012,5.0,nondetect
+10225B,Xylene,2010,15.0,nondetect
+10225B,Xylene,2011,15.0,nondetect
+10225B,Xylene,2012,15.0,nondetect
+10225C,Benzene,2010,5.0,nondetect
+10225C,Benzene,2011,5.0,nondetect
+10225C,Benzene,2012,5.0,nondetect
+10225C,Chlorobenzene,2010,1.5,detect
+10225C,Chlorobenzene,2011,0.99,detect
+10225C,Chlorobenzene,2012,1.7,detect
+10225C,Ethylbenzene,2010,5.0,nondetect
+10225C,Ethylbenzene,2011,5.0,nondetect
+10225C,Ethylbenzene,2012,5.0,nondetect
+10225C,Tetrachloroethene (PCE),2010,5.0,nondetect
+10225C,Tetrachloroethene (PCE),2011,5.0,nondetect
+10225C,Tetrachloroethene (PCE),2012,5.0,nondetect
+10225C,Toluene,2010,1.6,detect
+10225C,Toluene,2011,5.0,nondetect
+10225C,Toluene,2012,5.0,nondetect
+10225C,Trichloroethene (TCE),2010,13.0,detect
+10225C,Trichloroethene (TCE),2011,6.4,detect
+10225C,Trichloroethene (TCE),2012,12.0,detect
+10225C,Vinyl chloride,2010,5.0,nondetect
+10225C,Vinyl chloride,2011,5.0,nondetect
+10225C,Vinyl chloride,2012,5.0,nondetect
+10225C,Xylene,2010,15.0,nondetect
+10225C,Xylene,2011,15.0,nondetect
+10225C,Xylene,2012,15.0,nondetect
+10270,Benzene,2010,5.0,nondetect
+10270,Benzene,2011,5.0,nondetect
+10270,Benzene,2012,5.0,nondetect
+10270,Chlorobenzene,2010,5.0,nondetect
+10270,Chlorobenzene,2011,5.0,nondetect
+10270,Chlorobenzene,2012,5.0,nondetect
+10270,Ethylbenzene,2010,5.0,nondetect
+10270,Ethylbenzene,2011,5.0,nondetect
+10270,Ethylbenzene,2012,5.0,nondetect
+10270,Tetrachloroethene (PCE),2010,5.0,nondetect
+10270,Tetrachloroethene (PCE),2011,5.0,nondetect
+10270,Tetrachloroethene (PCE),2012,5.0,nondetect
+10270,Toluene,2010,5.0,nondetect
+10270,Toluene,2011,5.0,nondetect
+10270,Toluene,2012,5.0,nondetect
+10270,Trichloroethene (TCE),2010,5.0,nondetect
+10270,Trichloroethene (TCE),2011,5.0,nondetect
+10270,Trichloroethene (TCE),2012,5.0,nondetect
+10270,Vinyl chloride,2010,5.0,nondetect
+10270,Vinyl chloride,2011,5.0,nondetect
+10270,Vinyl chloride,2012,5.0,nondetect
+10270,Xylene,2010,15.0,nondetect
+10270,Xylene,2011,15.0,nondetect
+10270,Xylene,2012,15.0,nondetect
+10272,Benzene,2010,5.0,nondetect
+10272,Benzene,2011,5.0,nondetect
+10272,Benzene,2012,5.0,nondetect
+10272,Chlorobenzene,2010,5.0,nondetect
+10272,Chlorobenzene,2011,5.0,nondetect
+10272,Chlorobenzene,2012,5.0,nondetect
+10272,Ethylbenzene,2010,5.0,nondetect
+10272,Ethylbenzene,2011,5.0,nondetect
+10272,Ethylbenzene,2012,5.0,nondetect
+10272,Tetrachloroethene (PCE),2010,5.0,nondetect
+10272,Tetrachloroethene (PCE),2011,5.0,nondetect
+10272,Tetrachloroethene (PCE),2012,5.0,nondetect
+10272,Toluene,2010,5.0,nondetect
+10272,Toluene,2011,5.0,nondetect
+10272,Toluene,2012,5.0,nondetect
+10272,Trichloroethene (TCE),2010,5.0,nondetect
+10272,Trichloroethene (TCE),2011,5.0,nondetect
+10272,Trichloroethene (TCE),2012,5.0,nondetect
+10272,Vinyl chloride,2010,5.0,nondetect
+10272,Vinyl chloride,2011,5.0,nondetect
+10272,Vinyl chloride,2012,5.0,nondetect
+10272,Xylene,2010,15.0,nondetect
+10272,Xylene,2011,15.0,nondetect
+10272,Xylene,2012,15.0,nondetect
+10278,Benzene,2010,5.0,nondetect
+10278,Benzene,2011,5.0,nondetect
+10278,Benzene,2012,5.0,nondetect
+10278,Chlorobenzene,2010,5.0,nondetect
+10278,Chlorobenzene,2011,5.0,nondetect
+10278,Chlorobenzene,2012,5.0,nondetect
+10278,Ethylbenzene,2010,5.0,nondetect
+10278,Ethylbenzene,2011,5.0,nondetect
+10278,Ethylbenzene,2012,5.0,nondetect
+10278,Tetrachloroethene (PCE),2010,5.0,nondetect
+10278,Tetrachloroethene (PCE),2011,5.0,nondetect
+10278,Tetrachloroethene (PCE),2012,5.0,nondetect
+10278,Toluene,2010,5.0,nondetect
+10278,Toluene,2011,5.0,nondetect
+10278,Toluene,2012,5.0,nondetect
+10278,Trichloroethene (TCE),2010,5.0,nondetect
+10278,Trichloroethene (TCE),2011,5.0,nondetect
+10278,Trichloroethene (TCE),2012,5.0,nondetect
+10278,Vinyl chloride,2010,5.0,nondetect
+10278,Vinyl chloride,2011,5.0,nondetect
+10278,Vinyl chloride,2012,5.0,nondetect
+10278,Xylene,2010,15.0,nondetect
+10278,Xylene,2011,15.0,nondetect
+10278,Xylene,2012,15.0,nondetect
+1181A,Benzene,2011,5.0,nondetect
+1181A,Chlorobenzene,2011,5.0,nondetect
+1181A,Ethylbenzene,2011,5.0,nondetect
+1181A,Tetrachloroethene (PCE),2011,5.0,nondetect
+1181A,Toluene,2011,5.0,nondetect
+1181A,Trichloroethene (TCE),2011,5.0,nondetect
+1181A,Vinyl chloride,2011,5.0,nondetect
+1181A,Xylene,2011,15.0,nondetect
+3257,Benzene,2010,5.0,nondetect
+3257,Benzene,2011,5.0,nondetect
+3257,Benzene,2012,5.0,nondetect
+3257,Benzene,2013,5.0,nondetect
+3257,Benzene,2014,5.0,nondetect
+3257,Chlorobenzene,2010,5.0,nondetect
+3257,Chlorobenzene,2011,5.0,nondetect
+3257,Chlorobenzene,2012,5.0,nondetect
+3257,Chlorobenzene,2013,5.0,nondetect
+3257,Chlorobenzene,2014,5.0,nondetect
+3257,Ethylbenzene,2010,5.0,nondetect
+3257,Ethylbenzene,2011,5.0,nondetect
+3257,Ethylbenzene,2012,5.0,nondetect
+3257,Ethylbenzene,2013,5.0,nondetect
+3257,Ethylbenzene,2014,5.0,nondetect
+3257,Tetrachloroethene (PCE),2010,5.0,nondetect
+3257,Tetrachloroethene (PCE),2011,5.0,nondetect
+3257,Tetrachloroethene (PCE),2012,5.0,nondetect
+3257,Tetrachloroethene (PCE),2013,5.0,nondetect
+3257,Tetrachloroethene (PCE),2014,5.0,nondetect
+3257,Toluene,2010,5.0,nondetect
+3257,Toluene,2011,5.0,nondetect
+3257,Toluene,2012,5.0,nondetect
+3257,Toluene,2013,5.0,nondetect
+3257,Toluene,2014,5.0,nondetect
+3257,Trichloroethene (TCE),2010,5.0,nondetect
+3257,Trichloroethene (TCE),2011,5.0,nondetect
+3257,Trichloroethene (TCE),2012,5.0,nondetect
+3257,Trichloroethene (TCE),2013,5.0,nondetect
+3257,Trichloroethene (TCE),2014,5.0,nondetect
+3257,Vinyl chloride,2010,5.0,nondetect
+3257,Vinyl chloride,2011,5.0,nondetect
+3257,Vinyl chloride,2012,5.0,nondetect
+3257,Vinyl chloride,2013,5.0,nondetect
+3257,Vinyl chloride,2014,5.0,nondetect
+3257,Xylene,2010,15.0,nondetect
+3257,Xylene,2011,15.0,nondetect
+3257,Xylene,2012,15.0,nondetect
+3257,Xylene,2013,10.0,nondetect
+3257,Xylene,2014,10.0,nondetect
+5221,Benzene,2010,5.0,nondetect
+5221,Benzene,2011,5.0,nondetect
+5221,Benzene,2012,5.0,nondetect
+5221,Benzene,2013,5.0,nondetect
+5221,Benzene,2014,5.0,nondetect
+5221,Chlorobenzene,2010,5.0,nondetect
+5221,Chlorobenzene,2011,5.0,nondetect
+5221,Chlorobenzene,2012,5.0,nondetect
+5221,Chlorobenzene,2013,5.0,nondetect
+5221,Chlorobenzene,2014,5.0,nondetect
+5221,Ethylbenzene,2010,5.0,nondetect
+5221,Ethylbenzene,2011,5.0,nondetect
+5221,Ethylbenzene,2012,5.0,nondetect
+5221,Ethylbenzene,2013,5.0,nondetect
+5221,Ethylbenzene,2014,5.0,nondetect
+5221,Tetrachloroethene (PCE),2010,5.0,nondetect
+5221,Tetrachloroethene (PCE),2011,5.0,nondetect
+5221,Tetrachloroethene (PCE),2012,5.0,nondetect
+5221,Tetrachloroethene (PCE),2013,5.0,nondetect
+5221,Tetrachloroethene (PCE),2014,5.0,nondetect
+5221,Toluene,2010,5.0,nondetect
+5221,Toluene,2011,3.4,detect
+5221,Toluene,2012,5.0,nondetect
+5221,Toluene,2013,5.0,nondetect
+5221,Toluene,2014,5.0,nondetect
+5221,Trichloroethene (TCE),2010,5.0,nondetect
+5221,Trichloroethene (TCE),2011,5.0,nondetect
+5221,Trichloroethene (TCE),2012,5.0,nondetect
+5221,Trichloroethene (TCE),2013,5.0,nondetect
+5221,Trichloroethene (TCE),2014,5.0,nondetect
+5221,Vinyl chloride,2010,5.0,nondetect
+5221,Vinyl chloride,2011,5.0,nondetect
+5221,Vinyl chloride,2012,5.0,nondetect
+5221,Vinyl chloride,2013,5.0,nondetect
+5221,Vinyl chloride,2014,5.0,nondetect
+5221,Xylene,2010,15.0,nondetect
+5221,Xylene,2011,15.0,nondetect
+5221,Xylene,2012,15.0,nondetect
+5221,Xylene,2013,10.0,nondetect
+5221,Xylene,2014,10.0,nondetect
+6209,Benzene,2010,5.0,nondetect
+6209,Benzene,2011,5.0,nondetect
+6209,Benzene,2012,5.0,nondetect
+6209,Benzene,2013,5.0,nondetect
+6209,Benzene,2014,5.0,nondetect
+6209,Chlorobenzene,2010,5.0,nondetect
+6209,Chlorobenzene,2011,5.0,nondetect
+6209,Chlorobenzene,2012,5.0,nondetect
+6209,Chlorobenzene,2013,5.0,nondetect
+6209,Chlorobenzene,2014,5.0,nondetect
+6209,Ethylbenzene,2010,5.0,nondetect
+6209,Ethylbenzene,2011,5.0,nondetect
+6209,Ethylbenzene,2012,5.0,nondetect
+6209,Ethylbenzene,2013,5.0,nondetect
+6209,Ethylbenzene,2014,5.0,nondetect
+6209,Tetrachloroethene (PCE),2010,5.0,nondetect
+6209,Tetrachloroethene (PCE),2011,5.0,nondetect
+6209,Tetrachloroethene (PCE),2012,5.0,nondetect
+6209,Tetrachloroethene (PCE),2013,5.0,nondetect
+6209,Tetrachloroethene (PCE),2014,5.0,nondetect
+6209,Toluene,2010,5.0,nondetect
+6209,Toluene,2011,5.0,nondetect
+6209,Toluene,2012,5.0,nondetect
+6209,Toluene,2013,5.0,nondetect
+6209,Toluene,2014,5.0,nondetect
+6209,Trichloroethene (TCE),2010,5.0,nondetect
+6209,Trichloroethene (TCE),2011,5.0,nondetect
+6209,Trichloroethene (TCE),2012,5.0,nondetect
+6209,Trichloroethene (TCE),2013,5.0,nondetect
+6209,Trichloroethene (TCE),2014,5.0,nondetect
+6209,Vinyl chloride,2010,5.0,nondetect
+6209,Vinyl chloride,2011,5.0,nondetect
+6209,Vinyl chloride,2012,5.0,nondetect
+6209,Vinyl chloride,2013,5.0,nondetect
+6209,Vinyl chloride,2014,5.0,nondetect
+6209,Xylene,2010,15.0,nondetect
+6209,Xylene,2011,15.0,nondetect
+6209,Xylene,2012,15.0,nondetect
+6209,Xylene,2013,10.0,nondetect
+6209,Xylene,2014,10.0,nondetect
+7115,Benzene,2010,5.0,nondetect
+7115,Benzene,2012,5.0,nondetect
+7115,Benzene,2014,5.0,nondetect
+7115,Chlorobenzene,2010,5.0,nondetect
+7115,Chlorobenzene,2012,5.0,nondetect
+7115,Chlorobenzene,2014,5.0,nondetect
+7115,Ethylbenzene,2010,5.0,nondetect
+7115,Ethylbenzene,2012,5.0,nondetect
+7115,Ethylbenzene,2014,5.0,nondetect
+7115,Tetrachloroethene (PCE),2010,5.0,nondetect
+7115,Tetrachloroethene (PCE),2012,5.0,nondetect
+7115,Tetrachloroethene (PCE),2014,5.0,nondetect
+7115,Toluene,2010,5.0,nondetect
+7115,Toluene,2012,5.0,nondetect
+7115,Toluene,2014,5.0,nondetect
+7115,Trichloroethene (TCE),2010,5.0,nondetect
+7115,Trichloroethene (TCE),2012,5.0,nondetect
+7115,Trichloroethene (TCE),2014,5.0,nondetect
+7115,Vinyl chloride,2010,5.0,nondetect
+7115,Vinyl chloride,2012,5.0,nondetect
+7115,Vinyl chloride,2014,5.0,nondetect
+7115,Xylene,2010,15.0,nondetect
+7115,Xylene,2012,15.0,nondetect
+7115,Xylene,2014,10.0,nondetect
+7120,Benzene,2011,5.0,nondetect
+7120,Benzene,2013,5.0,nondetect
+7120,Chlorobenzene,2011,5.0,nondetect
+7120,Chlorobenzene,2013,5.0,nondetect
+7120,Ethylbenzene,2011,5.0,nondetect
+7120,Ethylbenzene,2013,5.0,nondetect
+7120,Tetrachloroethene (PCE),2011,5.0,nondetect
+7120,Tetrachloroethene (PCE),2013,5.0,nondetect
+7120,Toluene,2011,5.0,nondetect
+7120,Toluene,2013,5.0,nondetect
+7120,Trichloroethene (TCE),2011,5.0,nondetect
+7120,Trichloroethene (TCE),2013,5.0,nondetect
+7120,Vinyl chloride,2011,5.0,nondetect
+7120,Vinyl chloride,2013,5.0,nondetect
+7120,Xylene,2011,15.0,nondetect
+7120,Xylene,2013,10.0,nondetect
+7125,Benzene,2010,5.0,nondetect
+7125,Benzene,2012,5.0,nondetect
+7125,Benzene,2014,5.0,nondetect
+7125,Chlorobenzene,2010,5.0,nondetect
+7125,Chlorobenzene,2012,5.0,nondetect
+7125,Chlorobenzene,2014,5.0,nondetect
+7125,Ethylbenzene,2010,5.0,nondetect
+7125,Ethylbenzene,2012,5.0,nondetect
+7125,Ethylbenzene,2014,5.0,nondetect
+7125,Tetrachloroethene (PCE),2010,5.0,nondetect
+7125,Tetrachloroethene (PCE),2012,5.0,nondetect
+7125,Tetrachloroethene (PCE),2014,5.0,nondetect
+7125,Toluene,2010,5.0,nondetect
+7125,Toluene,2012,5.0,nondetect
+7125,Toluene,2014,5.0,nondetect
+7125,Trichloroethene (TCE),2010,5.0,nondetect
+7125,Trichloroethene (TCE),2012,5.0,nondetect
+7125,Trichloroethene (TCE),2014,5.0,nondetect
+7125,Vinyl chloride,2010,5.0,nondetect
+7125,Vinyl chloride,2012,5.0,nondetect
+7125,Vinyl chloride,2014,5.0,nondetect
+7125,Xylene,2010,15.0,nondetect
+7125,Xylene,2012,15.0,nondetect
+7125,Xylene,2014,10.0,nondetect
+7130,Benzene,2010,5.0,nondetect
+7130,Benzene,2011,5.0,nondetect
+7130,Benzene,2012,5.0,nondetect
+7130,Benzene,2013,5.0,nondetect
+7130,Benzene,2014,5.0,nondetect
+7130,Chlorobenzene,2010,5.0,nondetect
+7130,Chlorobenzene,2011,5.0,nondetect
+7130,Chlorobenzene,2012,5.0,nondetect
+7130,Chlorobenzene,2013,5.0,nondetect
+7130,Chlorobenzene,2014,5.0,nondetect
+7130,Ethylbenzene,2010,5.0,nondetect
+7130,Ethylbenzene,2011,5.0,nondetect
+7130,Ethylbenzene,2012,5.0,nondetect
+7130,Ethylbenzene,2013,5.0,nondetect
+7130,Ethylbenzene,2014,5.0,nondetect
+7130,Tetrachloroethene (PCE),2010,5.0,nondetect
+7130,Tetrachloroethene (PCE),2011,5.0,nondetect
+7130,Tetrachloroethene (PCE),2012,5.0,nondetect
+7130,Tetrachloroethene (PCE),2013,5.0,nondetect
+7130,Tetrachloroethene (PCE),2014,5.0,nondetect
+7130,Toluene,2010,5.0,nondetect
+7130,Toluene,2011,1.2,detect
+7130,Toluene,2012,5.0,nondetect
+7130,Toluene,2013,5.0,nondetect
+7130,Toluene,2014,5.0,nondetect
+7130,Trichloroethene (TCE),2010,5.0,nondetect
+7130,Trichloroethene (TCE),2011,5.0,nondetect
+7130,Trichloroethene (TCE),2012,5.0,nondetect
+7130,Trichloroethene (TCE),2013,5.0,nondetect
+7130,Trichloroethene (TCE),2014,5.0,nondetect
+7130,Vinyl chloride,2010,5.0,nondetect
+7130,Vinyl chloride,2011,5.0,nondetect
+7130,Vinyl chloride,2012,5.0,nondetect
+7130,Vinyl chloride,2013,5.0,nondetect
+7130,Vinyl chloride,2014,5.0,nondetect
+7130,Xylene,2010,15.0,nondetect
+7130,Xylene,2011,15.0,nondetect
+7130,Xylene,2012,15.0,nondetect
+7130,Xylene,2013,10.0,nondetect
+7130,Xylene,2014,10.0,nondetect
+7132,Benzene,2010,5.0,nondetect
+7132,Benzene,2011,5.0,nondetect
+7132,Benzene,2012,5.0,nondetect
+7132,Benzene,2013,5.0,nondetect
+7132,Benzene,2014,5.0,nondetect
+7132,Chlorobenzene,2010,5.0,nondetect
+7132,Chlorobenzene,2011,5.0,nondetect
+7132,Chlorobenzene,2012,5.0,nondetect
+7132,Chlorobenzene,2013,5.0,nondetect
+7132,Chlorobenzene,2014,5.0,nondetect
+7132,Ethylbenzene,2010,5.0,nondetect
+7132,Ethylbenzene,2011,5.0,nondetect
+7132,Ethylbenzene,2012,5.0,nondetect
+7132,Ethylbenzene,2013,5.0,nondetect
+7132,Ethylbenzene,2014,5.0,nondetect
+7132,Tetrachloroethene (PCE),2010,5.0,nondetect
+7132,Tetrachloroethene (PCE),2011,5.0,nondetect
+7132,Tetrachloroethene (PCE),2012,5.0,nondetect
+7132,Tetrachloroethene (PCE),2013,5.0,nondetect
+7132,Tetrachloroethene (PCE),2014,5.0,nondetect
+7132,Toluene,2010,5.0,nondetect
+7132,Toluene,2011,5.0,nondetect
+7132,Toluene,2012,5.0,nondetect
+7132,Toluene,2013,5.0,nondetect
+7132,Toluene,2014,5.0,nondetect
+7132,Trichloroethene (TCE),2010,5.0,nondetect
+7132,Trichloroethene (TCE),2011,5.0,nondetect
+7132,Trichloroethene (TCE),2012,5.0,nondetect
+7132,Trichloroethene (TCE),2013,5.0,nondetect
+7132,Trichloroethene (TCE),2014,5.0,nondetect
+7132,Vinyl chloride,2010,5.0,nondetect
+7132,Vinyl chloride,2011,5.0,nondetect
+7132,Vinyl chloride,2012,5.0,nondetect
+7132,Vinyl chloride,2013,5.0,nondetect
+7132,Vinyl chloride,2014,5.0,nondetect
+7132,Xylene,2010,15.0,nondetect
+7132,Xylene,2011,15.0,nondetect
+7132,Xylene,2012,15.0,nondetect
+7132,Xylene,2013,10.0,nondetect
+7132,Xylene,2014,10.0,nondetect
+7155,Benzene,2011,5.0,nondetect
+7155,Benzene,2013,5.0,nondetect
+7155,Chlorobenzene,2011,5.0,nondetect
+7155,Chlorobenzene,2013,5.0,nondetect
+7155,Ethylbenzene,2011,5.0,nondetect
+7155,Ethylbenzene,2013,5.0,nondetect
+7155,Tetrachloroethene (PCE),2011,5.0,nondetect
+7155,Tetrachloroethene (PCE),2013,5.0,nondetect
+7155,Toluene,2011,5.0,nondetect
+7155,Toluene,2013,5.0,nondetect
+7155,Trichloroethene (TCE),2011,5.0,nondetect
+7155,Trichloroethene (TCE),2013,5.0,nondetect
+7155,Vinyl chloride,2011,5.0,nondetect
+7155,Vinyl chloride,2013,5.0,nondetect
+7155,Xylene,2011,15.0,nondetect
+7155,Xylene,2013,10.0,nondetect
+7161,Benzene,2011,5.0,nondetect
+7161,Benzene,2013,5.0,nondetect
+7161,Chlorobenzene,2011,5.0,nondetect
+7161,Chlorobenzene,2013,5.0,nondetect
+7161,Ethylbenzene,2011,5.0,nondetect
+7161,Ethylbenzene,2013,5.0,nondetect
+7161,Tetrachloroethene (PCE),2011,5.0,nondetect
+7161,Tetrachloroethene (PCE),2013,5.0,nondetect
+7161,Toluene,2011,5.0,nondetect
+7161,Toluene,2013,5.0,nondetect
+7161,Trichloroethene (TCE),2011,5.0,nondetect
+7161,Trichloroethene (TCE),2013,5.0,nondetect
+7161,Vinyl chloride,2011,5.0,nondetect
+7161,Vinyl chloride,2013,5.0,nondetect
+7161,Xylene,2011,15.0,nondetect
+7161,Xylene,2013,10.0,nondetect
+7205,Benzene,2010,5.0,nondetect
+7205,Benzene,2011,5.0,nondetect
+7205,Benzene,2012,5.0,nondetect
+7205,Benzene,2013,5.0,nondetect
+7205,Benzene,2014,5.0,nondetect
+7205,Chlorobenzene,2010,5.0,nondetect
+7205,Chlorobenzene,2011,5.0,nondetect
+7205,Chlorobenzene,2012,5.0,nondetect
+7205,Chlorobenzene,2013,5.0,nondetect
+7205,Chlorobenzene,2014,5.0,nondetect
+7205,Ethylbenzene,2010,5.0,nondetect
+7205,Ethylbenzene,2011,5.0,nondetect
+7205,Ethylbenzene,2012,5.0,nondetect
+7205,Ethylbenzene,2013,5.0,nondetect
+7205,Ethylbenzene,2014,5.0,nondetect
+7205,Tetrachloroethene (PCE),2010,5.0,nondetect
+7205,Tetrachloroethene (PCE),2011,5.0,nondetect
+7205,Tetrachloroethene (PCE),2012,5.0,nondetect
+7205,Tetrachloroethene (PCE),2013,5.0,nondetect
+7205,Tetrachloroethene (PCE),2014,5.0,nondetect
+7205,Toluene,2010,5.0,nondetect
+7205,Toluene,2011,5.0,nondetect
+7205,Toluene,2012,5.0,nondetect
+7205,Toluene,2013,5.0,nondetect
+7205,Toluene,2014,5.0,nondetect
+7205,Trichloroethene (TCE),2010,5.0,nondetect
+7205,Trichloroethene (TCE),2011,5.0,nondetect
+7205,Trichloroethene (TCE),2012,5.0,nondetect
+7205,Trichloroethene (TCE),2013,5.0,nondetect
+7205,Trichloroethene (TCE),2014,5.0,nondetect
+7205,Vinyl chloride,2010,5.0,nondetect
+7205,Vinyl chloride,2011,5.0,nondetect
+7205,Vinyl chloride,2012,5.0,nondetect
+7205,Vinyl chloride,2013,5.0,nondetect
+7205,Vinyl chloride,2014,5.0,nondetect
+7205,Xylene,2010,15.0,nondetect
+7205,Xylene,2011,15.0,nondetect
+7205,Xylene,2012,15.0,nondetect
+7205,Xylene,2013,10.0,nondetect
+7205,Xylene,2014,10.0,nondetect
+8106,Benzene,2010,5.0,nondetect
+8106,Benzene,2011,5.0,nondetect
+8106,Benzene,2012,5.0,nondetect
+8106,Benzene,2013,5.0,nondetect
+8106,Benzene,2014,5.0,nondetect
+8106,Chlorobenzene,2010,5.0,nondetect
+8106,Chlorobenzene,2011,5.0,nondetect
+8106,Chlorobenzene,2012,5.0,nondetect
+8106,Chlorobenzene,2013,5.0,nondetect
+8106,Chlorobenzene,2014,5.0,nondetect
+8106,Ethylbenzene,2010,5.0,nondetect
+8106,Ethylbenzene,2011,5.0,nondetect
+8106,Ethylbenzene,2012,5.0,nondetect
+8106,Ethylbenzene,2013,5.0,nondetect
+8106,Ethylbenzene,2014,5.0,nondetect
+8106,Tetrachloroethene (PCE),2010,5.0,nondetect
+8106,Tetrachloroethene (PCE),2011,5.0,nondetect
+8106,Tetrachloroethene (PCE),2012,5.0,nondetect
+8106,Tetrachloroethene (PCE),2013,5.0,nondetect
+8106,Tetrachloroethene (PCE),2014,5.0,nondetect
+8106,Toluene,2010,5.0,nondetect
+8106,Toluene,2011,5.0,nondetect
+8106,Toluene,2012,5.0,nondetect
+8106,Toluene,2013,5.0,nondetect
+8106,Toluene,2014,5.0,nondetect
+8106,Trichloroethene (TCE),2010,5.0,nondetect
+8106,Trichloroethene (TCE),2011,5.0,nondetect
+8106,Trichloroethene (TCE),2012,5.0,nondetect
+8106,Trichloroethene (TCE),2013,5.0,nondetect
+8106,Trichloroethene (TCE),2014,5.0,nondetect
+8106,Vinyl chloride,2010,5.0,nondetect
+8106,Vinyl chloride,2011,5.0,nondetect
+8106,Vinyl chloride,2012,5.0,nondetect
+8106,Vinyl chloride,2013,5.0,nondetect
+8106,Vinyl chloride,2014,5.0,nondetect
+8106,Xylene,2010,15.0,nondetect
+8106,Xylene,2011,15.0,nondetect
+8106,Xylene,2012,15.0,nondetect
+8106,Xylene,2013,10.0,nondetect
+8106,Xylene,2014,10.0,nondetect
+8110,Benzene,2011,5.0,nondetect
+8110,Chlorobenzene,2011,5.0,nondetect
+8110,Ethylbenzene,2011,5.0,nondetect
+8110,Tetrachloroethene (PCE),2011,5.0,nondetect
+8110,Toluene,2011,5.0,nondetect
+8110,Trichloroethene (TCE),2011,5.0,nondetect
+8110,Vinyl chloride,2011,5.0,nondetect
+8110,Xylene,2011,15.0,nondetect
+8115,Benzene,2010,5.0,nondetect
+8115,Benzene,2012,5.0,nondetect
+8115,Benzene,2014,5.0,nondetect
+8115,Chlorobenzene,2010,5.0,nondetect
+8115,Chlorobenzene,2012,5.0,nondetect
+8115,Chlorobenzene,2014,5.0,nondetect
+8115,Ethylbenzene,2010,5.0,nondetect
+8115,Ethylbenzene,2012,5.0,nondetect
+8115,Ethylbenzene,2014,5.0,nondetect
+8115,Tetrachloroethene (PCE),2010,5.0,nondetect
+8115,Tetrachloroethene (PCE),2012,5.0,nondetect
+8115,Tetrachloroethene (PCE),2014,5.0,nondetect
+8115,Toluene,2010,5.0,nondetect
+8115,Toluene,2012,5.0,nondetect
+8115,Toluene,2014,5.0,nondetect
+8115,Trichloroethene (TCE),2010,5.0,nondetect
+8115,Trichloroethene (TCE),2012,5.0,nondetect
+8115,Trichloroethene (TCE),2014,5.0,nondetect
+8115,Vinyl chloride,2010,5.0,nondetect
+8115,Vinyl chloride,2012,5.0,nondetect
+8115,Vinyl chloride,2014,5.0,nondetect
+8115,Xylene,2010,15.0,nondetect
+8115,Xylene,2012,15.0,nondetect
+8115,Xylene,2014,10.0,nondetect
+8120,Benzene,2011,5.0,nondetect
+8120,Chlorobenzene,2011,5.0,nondetect
+8120,Ethylbenzene,2011,5.0,nondetect
+8120,Tetrachloroethene (PCE),2011,5.0,nondetect
+8120,Toluene,2011,5.0,nondetect
+8120,Trichloroethene (TCE),2011,5.0,nondetect
+8120,Vinyl chloride,2011,5.0,nondetect
+8120,Xylene,2011,15.0,nondetect
+8125,Benzene,2010,5.0,nondetect
+8125,Benzene,2012,5.0,nondetect
+8125,Benzene,2014,5.0,nondetect
+8125,Chlorobenzene,2010,5.0,nondetect
+8125,Chlorobenzene,2012,5.0,nondetect
+8125,Chlorobenzene,2014,5.0,nondetect
+8125,Ethylbenzene,2010,5.0,nondetect
+8125,Ethylbenzene,2012,5.0,nondetect
+8125,Ethylbenzene,2014,5.0,nondetect
+8125,Tetrachloroethene (PCE),2010,5.0,nondetect
+8125,Tetrachloroethene (PCE),2012,5.0,nondetect
+8125,Tetrachloroethene (PCE),2014,5.0,nondetect
+8125,Toluene,2010,5.0,nondetect
+8125,Toluene,2012,5.0,nondetect
+8125,Toluene,2014,5.0,nondetect
+8125,Trichloroethene (TCE),2010,5.0,nondetect
+8125,Trichloroethene (TCE),2012,5.0,nondetect
+8125,Trichloroethene (TCE),2014,5.0,nondetect
+8125,Vinyl chloride,2010,5.0,nondetect
+8125,Vinyl chloride,2012,5.0,nondetect
+8125,Vinyl chloride,2014,5.0,nondetect
+8125,Xylene,2010,15.0,nondetect
+8125,Xylene,2012,15.0,nondetect
+8125,Xylene,2014,10.0,nondetect
+8130,Benzene,2011,5.0,nondetect
+8130,Chlorobenzene,2011,5.0,nondetect
+8130,Ethylbenzene,2011,5.0,nondetect
+8130,Tetrachloroethene (PCE),2011,5.0,nondetect
+8130,Toluene,2011,5.0,nondetect
+8130,Trichloroethene (TCE),2011,5.0,nondetect
+8130,Vinyl chloride,2011,5.0,nondetect
+8130,Xylene,2011,15.0,nondetect
+8140,Benzene,2011,5.0,nondetect
+8140,Chlorobenzene,2011,5.0,nondetect
+8140,Ethylbenzene,2011,5.0,nondetect
+8140,Tetrachloroethene (PCE),2011,5.0,nondetect
+8140,Toluene,2011,5.0,nondetect
+8140,Trichloroethene (TCE),2011,5.0,nondetect
+8140,Vinyl chloride,2011,5.0,nondetect
+8140,Xylene,2011,15.0,nondetect
+8210,Benzene,2010,5.0,nondetect
+8210,Benzene,2011,5.0,nondetect
+8210,Benzene,2012,5.0,nondetect
+8210,Benzene,2013,5.0,nondetect
+8210,Benzene,2014,5.0,nondetect
+8210,Chlorobenzene,2010,5.0,nondetect
+8210,Chlorobenzene,2011,5.0,nondetect
+8210,Chlorobenzene,2012,5.0,nondetect
+8210,Chlorobenzene,2013,5.0,nondetect
+8210,Chlorobenzene,2014,5.0,nondetect
+8210,Ethylbenzene,2010,5.0,nondetect
+8210,Ethylbenzene,2011,5.0,nondetect
+8210,Ethylbenzene,2012,5.0,nondetect
+8210,Ethylbenzene,2013,5.0,nondetect
+8210,Ethylbenzene,2014,5.0,nondetect
+8210,Tetrachloroethene (PCE),2010,5.0,nondetect
+8210,Tetrachloroethene (PCE),2011,5.0,nondetect
+8210,Tetrachloroethene (PCE),2012,5.0,nondetect
+8210,Tetrachloroethene (PCE),2013,5.0,nondetect
+8210,Tetrachloroethene (PCE),2014,5.0,nondetect
+8210,Toluene,2010,5.0,nondetect
+8210,Toluene,2011,5.0,nondetect
+8210,Toluene,2012,5.0,nondetect
+8210,Toluene,2013,5.0,nondetect
+8210,Toluene,2014,5.0,nondetect
+8210,Trichloroethene (TCE),2010,5.0,nondetect
+8210,Trichloroethene (TCE),2011,5.0,nondetect
+8210,Trichloroethene (TCE),2012,5.0,nondetect
+8210,Trichloroethene (TCE),2013,5.0,nondetect
+8210,Trichloroethene (TCE),2014,5.0,nondetect
+8210,Vinyl chloride,2010,5.0,nondetect
+8210,Vinyl chloride,2011,5.0,nondetect
+8210,Vinyl chloride,2012,5.0,nondetect
+8210,Vinyl chloride,2013,5.0,nondetect
+8210,Vinyl chloride,2014,5.0,nondetect
+8210,Xylene,2010,15.0,nondetect
+8210,Xylene,2011,15.0,nondetect
+8210,Xylene,2012,15.0,nondetect
+8210,Xylene,2013,10.0,nondetect
+8210,Xylene,2014,10.0,nondetect
+9105,Benzene,2010,5.0,nondetect
+9105,Benzene,2012,5.0,nondetect
+9105,Benzene,2014,5.0,nondetect
+9105,Chlorobenzene,2010,5.0,nondetect
+9105,Chlorobenzene,2012,5.0,nondetect
+9105,Chlorobenzene,2014,5.0,nondetect
+9105,Ethylbenzene,2010,5.0,nondetect
+9105,Ethylbenzene,2012,5.0,nondetect
+9105,Ethylbenzene,2014,5.0,nondetect
+9105,Tetrachloroethene (PCE),2010,5.0,nondetect
+9105,Tetrachloroethene (PCE),2012,5.0,nondetect
+9105,Tetrachloroethene (PCE),2014,5.0,nondetect
+9105,Toluene,2010,5.0,nondetect
+9105,Toluene,2012,5.0,nondetect
+9105,Toluene,2014,5.0,nondetect
+9105,Trichloroethene (TCE),2010,5.0,nondetect
+9105,Trichloroethene (TCE),2012,5.0,nondetect
+9105,Trichloroethene (TCE),2014,5.0,nondetect
+9105,Vinyl chloride,2010,5.0,nondetect
+9105,Vinyl chloride,2012,5.0,nondetect
+9105,Vinyl chloride,2014,5.0,nondetect
+9105,Xylene,2010,15.0,nondetect
+9105,Xylene,2012,15.0,nondetect
+9105,Xylene,2014,10.0,nondetect
+9110,Benzene,2011,5.0,nondetect
+9110,Chlorobenzene,2011,5.0,nondetect
+9110,Ethylbenzene,2011,5.0,nondetect
+9110,Tetrachloroethene (PCE),2011,5.0,nondetect
+9110,Toluene,2011,5.0,nondetect
+9110,Trichloroethene (TCE),2011,5.0,nondetect
+9110,Vinyl chloride,2011,5.0,nondetect
+9110,Xylene,2011,15.0,nondetect
+9113,Benzene,2010,5.0,nondetect
+9113,Benzene,2012,5.0,nondetect
+9113,Benzene,2014,5.0,nondetect
+9113,Chlorobenzene,2010,5.0,nondetect
+9113,Chlorobenzene,2012,5.0,nondetect
+9113,Chlorobenzene,2014,5.0,nondetect
+9113,Ethylbenzene,2010,5.0,nondetect
+9113,Ethylbenzene,2012,5.0,nondetect
+9113,Ethylbenzene,2014,5.0,nondetect
+9113,Tetrachloroethene (PCE),2010,5.0,nondetect
+9113,Tetrachloroethene (PCE),2012,5.0,nondetect
+9113,Tetrachloroethene (PCE),2014,5.0,nondetect
+9113,Toluene,2010,5.0,nondetect
+9113,Toluene,2012,5.0,nondetect
+9113,Toluene,2014,5.0,nondetect
+9113,Trichloroethene (TCE),2010,5.0,nondetect
+9113,Trichloroethene (TCE),2012,5.0,nondetect
+9113,Trichloroethene (TCE),2014,5.0,nondetect
+9113,Vinyl chloride,2010,5.0,nondetect
+9113,Vinyl chloride,2012,5.0,nondetect
+9113,Vinyl chloride,2014,5.0,nondetect
+9113,Xylene,2010,15.0,nondetect
+9113,Xylene,2012,15.0,nondetect
+9113,Xylene,2014,10.0,nondetect
+9115,Benzene,2011,5.0,nondetect
+9115,Chlorobenzene,2011,5.0,nondetect
+9115,Ethylbenzene,2011,5.0,nondetect
+9115,Tetrachloroethene (PCE),2011,5.0,nondetect
+9115,Toluene,2011,5.0,nondetect
+9115,Trichloroethene (TCE),2011,5.0,nondetect
+9115,Vinyl chloride,2011,5.0,nondetect
+9115,Xylene,2011,15.0,nondetect
+9118,Benzene,2010,5.0,nondetect
+9118,Benzene,2012,5.0,nondetect
+9118,Benzene,2014,5.0,nondetect
+9118,Chlorobenzene,2010,5.0,nondetect
+9118,Chlorobenzene,2012,5.0,nondetect
+9118,Chlorobenzene,2014,5.0,nondetect
+9118,Ethylbenzene,2010,5.0,nondetect
+9118,Ethylbenzene,2012,5.0,nondetect
+9118,Ethylbenzene,2014,5.0,nondetect
+9118,Tetrachloroethene (PCE),2010,5.0,nondetect
+9118,Tetrachloroethene (PCE),2012,5.0,nondetect
+9118,Tetrachloroethene (PCE),2014,5.0,nondetect
+9118,Toluene,2010,5.0,nondetect
+9118,Toluene,2012,5.0,nondetect
+9118,Toluene,2014,5.0,nondetect
+9118,Trichloroethene (TCE),2010,5.0,nondetect
+9118,Trichloroethene (TCE),2012,5.0,nondetect
+9118,Trichloroethene (TCE),2014,5.0,nondetect
+9118,Vinyl chloride,2010,5.0,nondetect
+9118,Vinyl chloride,2012,5.0,nondetect
+9118,Vinyl chloride,2014,5.0,nondetect
+9118,Xylene,2010,15.0,nondetect
+9118,Xylene,2012,15.0,nondetect
+9118,Xylene,2014,10.0,nondetect
+9120,Benzene,2011,5.0,nondetect
+9120,Chlorobenzene,2011,5.0,nondetect
+9120,Ethylbenzene,2011,5.0,nondetect
+9120,Tetrachloroethene (PCE),2011,5.0,nondetect
+9120,Toluene,2011,5.0,nondetect
+9120,Trichloroethene (TCE),2011,5.0,nondetect
+9120,Vinyl chloride,2011,5.0,nondetect
+9120,Xylene,2011,15.0,nondetect
+9125,Benzene,2011,5.0,nondetect
+9125,Chlorobenzene,2011,5.0,nondetect
+9125,Ethylbenzene,2011,5.0,nondetect
+9125,Tetrachloroethene (PCE),2011,5.0,nondetect
+9125,Toluene,2011,5.0,nondetect
+9125,Trichloroethene (TCE),2011,5.0,nondetect
+9125,Vinyl chloride,2011,5.0,nondetect
+9125,Xylene,2011,15.0,nondetect
+9130,Benzene,2011,5.0,nondetect
+9130,Chlorobenzene,2011,5.0,nondetect
+9130,Ethylbenzene,2011,5.0,nondetect
+9130,Tetrachloroethene (PCE),2011,5.0,nondetect
+9130,Toluene,2011,5.0,nondetect
+9130,Trichloroethene (TCE),2011,5.0,nondetect
+9130,Vinyl chloride,2011,5.0,nondetect
+9130,Xylene,2011,15.0,nondetect
+9140,Benzene,2011,5.0,nondetect
+9140,Chlorobenzene,2011,5.0,nondetect
+9140,Ethylbenzene,2011,5.0,nondetect
+9140,Tetrachloroethene (PCE),2011,5.0,nondetect
+9140,Toluene,2011,5.0,nondetect
+9140,Trichloroethene (TCE),2011,5.0,nondetect
+9140,Vinyl chloride,2011,5.0,nondetect
+9140,Xylene,2011,15.0,nondetect
+9205,Benzene,2010,5.0,nondetect
+9205,Benzene,2011,5.0,nondetect
+9205,Benzene,2012,5.0,nondetect
+9205,Benzene,2013,5.0,nondetect
+9205,Chlorobenzene,2010,5.0,nondetect
+9205,Chlorobenzene,2011,5.0,nondetect
+9205,Chlorobenzene,2012,5.0,nondetect
+9205,Chlorobenzene,2013,5.0,nondetect
+9205,Ethylbenzene,2010,5.0,nondetect
+9205,Ethylbenzene,2011,5.0,nondetect
+9205,Ethylbenzene,2012,5.0,nondetect
+9205,Ethylbenzene,2013,5.0,nondetect
+9205,Tetrachloroethene (PCE),2010,5.0,nondetect
+9205,Tetrachloroethene (PCE),2011,5.0,nondetect
+9205,Tetrachloroethene (PCE),2012,5.0,nondetect
+9205,Tetrachloroethene (PCE),2013,5.0,nondetect
+9205,Toluene,2010,5.0,nondetect
+9205,Toluene,2011,5.0,nondetect
+9205,Toluene,2012,5.0,nondetect
+9205,Toluene,2013,5.0,nondetect
+9205,Trichloroethene (TCE),2010,5.0,nondetect
+9205,Trichloroethene (TCE),2011,5.0,nondetect
+9205,Trichloroethene (TCE),2012,5.0,nondetect
+9205,Trichloroethene (TCE),2013,5.0,nondetect
+9205,Vinyl chloride,2010,5.0,nondetect
+9205,Vinyl chloride,2011,5.0,nondetect
+9205,Vinyl chloride,2012,5.0,nondetect
+9205,Vinyl chloride,2013,5.0,nondetect
+9205,Xylene,2010,15.0,nondetect
+9205,Xylene,2011,15.0,nondetect
+9205,Xylene,2012,15.0,nondetect
+9205,Xylene,2013,10.0,nondetect
+9210,Benzene,2010,5.0,nondetect
+9210,Benzene,2011,5.0,nondetect
+9210,Benzene,2012,5.0,nondetect
+9210,Chlorobenzene,2010,5.0,nondetect
+9210,Chlorobenzene,2011,5.0,nondetect
+9210,Chlorobenzene,2012,5.0,nondetect
+9210,Ethylbenzene,2010,5.0,nondetect
+9210,Ethylbenzene,2011,5.0,nondetect
+9210,Ethylbenzene,2012,5.0,nondetect
+9210,Tetrachloroethene (PCE),2010,5.0,nondetect
+9210,Tetrachloroethene (PCE),2011,5.0,nondetect
+9210,Tetrachloroethene (PCE),2012,5.0,nondetect
+9210,Toluene,2010,5.0,nondetect
+9210,Toluene,2011,5.0,nondetect
+9210,Toluene,2012,5.0,nondetect
+9210,Trichloroethene (TCE),2010,5.0,nondetect
+9210,Trichloroethene (TCE),2011,5.0,nondetect
+9210,Trichloroethene (TCE),2012,5.0,nondetect
+9210,Vinyl chloride,2010,5.0,nondetect
+9210,Vinyl chloride,2011,5.0,nondetect
+9210,Vinyl chloride,2012,5.0,nondetect
+9210,Xylene,2010,15.0,nondetect
+9210,Xylene,2011,15.0,nondetect
+9210,Xylene,2012,15.0,nondetect
+MW-01,Benzene,2012,5.0,nondetect
+MW-01,Chlorobenzene,2012,5.0,nondetect
+MW-01,Ethylbenzene,2012,5.0,nondetect
+MW-01,Tetrachloroethene (PCE),2012,5.0,nondetect
+MW-01,Toluene,2012,5.0,nondetect
+MW-01,Trichloroethene (TCE),2012,5.0,nondetect
+MW-01,Vinyl chloride,2012,5.0,nondetect
+MW-01,Xylene,2012,15.0,nondetect
+MW-02,Benzene,2012,5.0,nondetect
+MW-02,Chlorobenzene,2012,5.0,nondetect
+MW-02,Ethylbenzene,2012,5.0,nondetect
+MW-02,Tetrachloroethene (PCE),2012,5.0,nondetect
+MW-02,Toluene,2012,5.0,nondetect
+MW-02,Trichloroethene (TCE),2012,5.0,nondetect
+MW-02,Vinyl chloride,2012,5.0,nondetect
+MW-02,Xylene,2012,15.0,nondetect

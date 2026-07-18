@@ -1,0 +1,26 @@
+well,lat,lon,dist_canal_m,peak_ugL,peak_chem,n_chem_detected,chems
+10135,43.07827,-78.94998,348,23000.0,Toluene,10,Benzene;Chlorobenzene;Chloroform / THMs;Ethylbenzene;Lindane / BHC;Tetrachloroethene (PCE);Toluene;Trichloroethene (TCE);Vinyl chloride;Xylene
+10225C,43.07996,-78.95085,181,15.0,Trichloroethene (TCE),3,Chlorobenzene;Lindane / BHC;Trichloroethene (TCE)
+8110,43.08435,-78.94843,346,1.1,Xylene,3,Benzene;Toluene;Xylene
+10225A,43.07989,-78.95084,188,1.0,Naphthalene,5,Ethylbenzene;Lindane / BHC;Naphthalene;Toluene;Xylene
+6209,43.07574,-78.94821,643,0.95,Toluene,2,Lindane / BHC;Toluene
+8140,43.08117,-78.9477,172,0.86,Xylene,4,Benzene;Lindane / BHC;Toluene;Xylene
+10205,43.0754,-78.94934,668,0.62,Lindane / BHC,3,DDT / DDE / DDD;Dieldrin;Lindane / BHC
+10210A,43.07592,-78.95022,611,0.41,Naphthalene,5,DDT / DDE / DDD;Ethylbenzene;Lindane / BHC;Naphthalene;Xylene
+10272,43.07721,-78.9509,475,0.39,Lindane / BHC,1,Lindane / BHC
+10225B,43.07992,-78.95086,186,0.33,Toluene,3,DDT / DDE / DDD;Lindane / BHC;Toluene
+10278,43.0784,-78.95121,353,0.32,Xylene,3,DDT / DDE / DDD;Lindane / BHC;Xylene
+7205,43.08284,-78.95079,179,0.3,Lindane / BHC,1,Lindane / BHC
+10215,43.07628,-78.95135,583,0.25,Lindane / BHC,2,DDT / DDE / DDD;Lindane / BHC
+8210,43.0833,-78.94671,329,0.25,Toluene,3,DDT / DDE / DDD;Lindane / BHC;Toluene
+7155,43.08478,-78.95072,384,0.24,Toluene,1,Toluene
+9210,43.07506,-78.94848,713,0.2,Lindane / BHC,3,DDT / DDE / DDD;Dieldrin;Lindane / BHC
+MW-02,43.08504,-78.95176,435,0.2,Toluene,3,DDT / DDE / DDD;Lindane / BHC;Toluene
+10210B,43.07595,-78.95029,608,0.17,Lindane / BHC,1,Lindane / BHC
+10210C,43.07596,-78.95038,607,0.14,Lindane / BHC,2,DDT / DDE / DDD;Lindane / BHC
+10270,43.07665,-78.95076,534,0.1,Lindane / BHC,1,Lindane / BHC
+5221,43.07832,-78.95239,402,0.1,Lindane / BHC,2,DDT / DDE / DDD;Lindane / BHC
+9205,43.07954,-78.9472,295,0.09,Lindane / BHC,2,Dieldrin;Lindane / BHC
+10147,43.07955,-78.95114,233,0.04,DDT / DDE / DDD,1,DDT / DDE / DDD
+3257,43.08506,-78.95067,413,0.04,Lindane / BHC,2,DDT / DDE / DDD;Lindane / BHC
+MW-01,43.08488,-78.95141,409,0.04,Lindane / BHC,2,DDT / DDE / DDD;Lindane / BHC

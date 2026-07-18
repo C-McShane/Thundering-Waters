@@ -37,9 +37,13 @@ The data supports the book's core findings:
 ```
 /
 ├── Niagara_Site_Narratives_updated.html   — Interactive site narrative browser (89 sites)
-├── Niagara_County_HazWaste.gpkg           — Master GeoPackage (15 spatial layers)
-├── DATA_SOURCES.txt                        — Full data provenance and methods log
-├── Thundering_Waters_Infographic_Cheatsheet.docx  — Statistics reference for the infographic
+├── spatial_layers/
+│   └── Niagara_County_HazWaste.gpkg        — Master GeoPackage (18 spatial layers)
+├── csv/
+│   ├── Niagara_DEC_Wells_ConcSeries.json   — Per-well contaminant concentration time series (µg/L by year)
+│   ├── Niagara_DEC_Wells_ChemYears.json    — Per-well detected-by-year index (drives the map year filter)
+│   ├── Niagara_WQP_Wells_*.json            — Same, for USGS/EPA Water Quality Portal stations
+│   └── lovecanal_analysis/                 — Love Canal deep-dive methods docs + analysis data (see below)
 └── web/
     ├── map.html                            — Interactive Leaflet web map
     └── data/
@@ -48,18 +52,26 @@ The data supports the book's core findings:
         ├── impact_zone.geojson             — 26 Niagara Falls area impact zone tracts
         ├── major_roads.geojson             — Highways + arterials for spatial reference (13 named roads)
         ├── cancer_sir.geojson              — Block-group cancer SIR (6 statistically elevated cancers, NYSDOH 2011–2015)
-        └── water.geojson                   — Niagara River, canals, reservoirs & ponds (hydrography context)
+        ├── water.geojson                   — Niagara River, canals, reservoirs & ponds (hydrography context)
+        ├── wells_wqp.geojson               — 293 USGS/EPA Water Quality Portal sampling stations
+        ├── wells_dec.geojson               — 259 NYSDEC remediation monitoring wells (with 2000–2019 chem time series)
+        ├── wells_legacy.geojson            — 110 legacy-site monitoring wells (10 hand-compiled sites)
+        ├── wells_lc_piezometers.geojson    — 28 Love Canal barrier-drain piezometers (multi-year water-level series)
+        └── wells_lc_pumps.geojson          — 6 Love Canal leachate pump chambers & storage tanks
 ```
 
 ---
 
 ## The GeoPackage
 
-`Niagara_County_HazWaste.gpkg` is a GeoPackage (SQLite-based) file readable in QGIS, ArcGIS, R (`sf`), Python (`geopandas`), and most modern GIS tools. It contains 15 layers:
+`Niagara_County_HazWaste.gpkg` is a GeoPackage (SQLite-based) file readable in QGIS, ArcGIS, R (`sf`), Python (`geopandas`), and most modern GIS tools. It contains 18 layers:
 
 | Layer | Description |
 |---|---|
 | `Niagara_County_Hazard_Sites` | 256 hazardous waste site points (EPSG:4326) with full attributes |
+| `Niagara_Water_Testing_Sites` | 293 USGS/EPA Water Quality Portal sampling stations |
+| `Niagara_DEC_Monitoring_Wells` | 259 NYSDEC remediation monitoring wells |
+| `Niagara_Legacy_Monitoring_Wells` | 110 monitoring wells across 10 hand-compiled legacy sites |
 | `census_tracts_contamination` | 66 census tracts with contamination acreage and coverage % |
 | `NiagaraFalls_Area_ImpactZone` | 26 tracts defining the Niagara Falls impact zone |
 | `block_group_healthPOP_stats` | 176 block groups with cancer SIR data, demographics, and contamination metrics |
@@ -99,10 +111,30 @@ The data supports the book's core findings:
 
 ---
 
+## Monitoring Wells & Groundwater Chemistry
+
+Beyond the site inventory, the map's **Monitoring Wells** tab plots individual groundwater sampling points and their contaminant history:
+
+- **662 monitoring points** across three sources — 293 Water Quality Portal stations (USGS/EPA), 259 NYSDEC remediation wells, and 110 legacy-site wells — droplet-sized by number of contaminants detected, outlined by sampling type (bedrock, overburden, surface water, remediation).
+- **Per-well concentration-vs-year plots**: click a well with a chemical selected to see a log-scale trend line (detected vs non-detect at the reporting limit).
+- **Chemical + year filters**: show wells where a given contaminant had been detected by a given year (cumulative), across a **1969–2024** span.
+- Chemistry is extracted directly from the primary regulatory record (NYSDEC analytical-results tables, WQP water-media results), not modeled.
+
+## Love Canal Deep-Dive
+
+The Love Canal site (NYSDEC #932020) received a dedicated investigation. `csv/lovecanal_analysis/` documents the full methodology, findings, **and limitations** — written for independent audit:
+
+- **Extended chemistry, 2000–2019**: per-well concentrations text-extracted from OCC/GSH annual O&M reports (2000–2009) and Periodic Review Reports (2010–2019). The main hotspot (well 10135) shows a stable 20-year trend — a persistent DNAPL source, not a receding pulse.
+- **Barrier-drain containment analysis**: inward-gradient computation from the nested-piezometer water levels (Tables 3.6A–F), with a documented correction to an earlier geologic-medium mislabeling (`LoveCanal_VULNERABILITIES.md`).
+- **2011 Colvin Blvd sewer investigation**: NAPL found in the sanitary-sewer bedding near the 99th St residential area — the likely off-site pathway (`LoveCanal_Colvin_2011_findings.md`, `LoveCanal_sewer_pathway_assessment.md`).
+- **Rainfall / migration / old-pulse tests**: cross-references of contaminant levels against precipitation and time; all null (`LoveCanal_migration_test.md`, `LoveCanal_oldpulse_test_findings.md`).
+- Every findings document lists its data sources, method, and caveats. The full DecDocs 932020 document set (1977–2024) is archived for verification.
+
 ## Data Sources
 
-- **New York State Department of Environmental Conservation (NYSDEC)** — Remediation database, site boundary shapefiles, program records for HW, BCP, ERP, VCP, and RCRA sites
-- **U.S. Environmental Protection Agency (EPA)** — CERCLA/Superfund site profiles, NPL listings, RCRA Corrective Action records
+- **New York State Department of Environmental Conservation (NYSDEC)** — Remediation database, site boundary shapefiles, program records for HW, BCP, ERP, VCP, and RCRA sites; site document repositories (DecDocs) for monitoring reports and analytical data
+- **U.S. Environmental Protection Agency (EPA)** — CERCLA/Superfund site profiles, NPL listings, RCRA Corrective Action records; five-year review reports
+- **USGS / EPA Water Quality Portal** (waterqualitydata.us) — groundwater and surface-water analytical results for Niagara County (FIPS 36063), water-media only
 - **U.S. Army Corps of Engineers** — FUDS (Formerly Used Defense Sites) inventory; FUSRAP/FUSRAP-LM program records
 - **U.S. Department of Energy, Office of Legacy Management** — NFSS (Niagara Falls Storage Site) vicinity property documentation
 - **NYS Department of Health** — Environmental Facilities Cancer Mapping dataset, 2011–2015 (cancer incidence by block group, Standardized Incidence Ratios)
@@ -118,7 +150,7 @@ Full provenance for every data point is documented in `DATA_SOURCES.txt`.
 The web map at `web/map.html` requires an internet connection (for the basemap and fonts) but all spatial data loads locally from the `web/data/` folder. It works in any modern browser.
 
 **Features:**
-- Organized into three tabs — **Sites & Acreage**, **Cancer Risk**, **Chemicals & Radiation** — so controls stay digestible
+- Organized into four tabs — **Sites & Acreage**, **Cancer Risk**, **Chemicals & Radiation**, and **Monitoring Wells** — so controls stay digestible
 - Toggle layers on/off (hazard sites, contamination choropleth, impact zone, major roads, rivers & water) — hazard sites and water are on at load
 - Filter sites by any of 16 danger-ranked chemicals (with cancer-association notes), or by radionuclide (Uranium / Thorium / Radium / TENORM)
 - Mobile-friendly: the controls collapse into a bottom sheet on phones, reopened via a "Layers & Search" button
