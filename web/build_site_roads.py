@@ -35,7 +35,7 @@ qsites = [f for f in gj['features'] if f['properties'].get('designation') in QUA
 gpts = gpd.GeoDataFrame(geometry=[shape(f['geometry']) for f in qsites],
                         crs='EPSG:4326').to_crs(roads.crs)   # 26917 (metres)
 
-chosen = {}   # TLID -> row index
+chosen = {}   # TLID -> (row index, anchor point in 26917 nearest the calling site)
 for pt in gpts.geometry:
     cand = list(sidx.intersection(pt.buffer(MAXD).bounds))
     if not cand:
@@ -50,14 +50,21 @@ for pt in gpts.geometry:
         if nm in seen:
             continue
         seen.add(nm)
-        chosen[roads.at[idx, 'TLID']] = idx
+        tlid = roads.at[idx, 'TLID']
+        if tlid not in chosen:                      # label anchored to the FIRST site that pulls it in
+            seg = roads.at[idx, 'geometry']
+            chosen[tlid] = (idx, seg.interpolate(seg.project(pt)))   # closest point on road to that site
         if len(seen) >= NPER:
             break
 
-sel = roads.loc[list(chosen.values())].to_crs(4326)
-feats = [{"type": "Feature",
-          "geometry": json.loads(gpd.GeoSeries([r.geometry], crs=4326).to_json())['features'][0]['geometry'],
-          "properties": {"name": r['nm']}} for _, r in sel.iterrows()]
+idxs = [v[0] for v in chosen.values()]
+sel = roads.loc[idxs].to_crs(4326)
+anchors = gpd.GeoSeries([v[1] for v in chosen.values()], crs=roads.crs).to_crs(4326)
+feats = []
+for (name, geom), anc in zip(zip(sel['nm'], sel.geometry), anchors):
+    feats.append({"type": "Feature",
+                  "geometry": json.loads(gpd.GeoSeries([geom], crs=4326).to_json())['features'][0]['geometry'],
+                  "properties": {"name": name, "anchor": [round(anc.x, 6), round(anc.y, 6)]}})
 json.dump({"type": "FeatureCollection", "features": feats},
           open('web/data/site_roads.geojson', 'w', encoding='utf-8'),
           ensure_ascii=False, separators=(',', ':'))

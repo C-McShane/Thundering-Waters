@@ -112,7 +112,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
 /* ── SEARCH ── */
 #search-wrap {
-  padding: 12px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+  padding: 12px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0; position: relative; z-index: 1500;
 }
 #search {
   width: 100%; background: var(--bg); border: 1px solid var(--border2);
@@ -122,9 +122,11 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 #search::placeholder { color: var(--dim); }
 #search:focus { border-color: var(--blue2); }
 #search-results {
-  max-height: 180px; overflow-y: auto;
-  background: var(--bg); border: 1px solid var(--border2);
-  border-top: none; border-radius: 0 0 3px 3px;
+  position: absolute; left: 16px; right: 16px; top: 100%; z-index: 3000;
+  max-height: 300px; overflow-y: auto;
+  background: var(--surface); border: 1px solid var(--border2);
+  border-top: none; border-radius: 0 0 4px 4px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.6);
   display: none;
 }
 .sr-item {
@@ -433,7 +435,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
     <div class="tab-panel active" data-tab-panel="sites">
 
     <!-- Hazard site points -->
-    <div class="acc" data-open>
+    <div class="acc">
       <div class="acc-head"><span class="acc-title">Hazard site points</span><button class="acc-info" title="About the hazard sites">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
         <div class="acc-help">Every documented contaminated site in Niagara County, each dot coloured by its <b>regulatory programme</b>. Turn the layer on or off, or show/hide individual programme types below — the list doubles as the colour legend.</div>
@@ -515,7 +517,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
     <div class="tab-panel" data-tab-panel="wells">
 
     <!-- Well layers -->
-    <div class="acc" data-open>
+    <div class="acc">
       <div class="acc-head"><span class="acc-title">Well layers</span><button class="acc-info" title="How to read the wells">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
         <div class="acc-help">Each <b>water droplet</b> is a well or sampling station — a <b>blood-red core</b> (contamination), <b>sized by the number of chemicals detected</b>, with a <b>ring colour showing what it samples</b> (see “Filter by sampling type”). The three toggles choose the data source; legacy wells' popups carry a <b>⚑ approximate-location note</b>.</div>
@@ -528,7 +530,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
     </div>
 
     <!-- Filter by sampling type -->
-    <div class="acc" data-open>
+    <div class="acc">
       <div class="acc-head"><span class="acc-title">Filter by sampling type</span><button class="acc-info" title="What sampling type means">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
         <div class="acc-help"><b>Ring colour</b> = what the point samples. Show or hide by type — bedrock vs. overburden groundwater, surface water, or remediation/recovery — across all sources at once.</div>
@@ -1022,30 +1024,30 @@ async function loadAll() {
   // Local streets near major regulated sites (Superfund/FUSRAP/RCRA/NPL/CERCLA) — appear
   // only when the Roads layer is on AND you're zoomed into a site. Purplish-grey + dashed
   // to read as local wayfinding, distinct from the tan arterials.
-  const siteRoadReps = {};   // name -> longest segment (label anchor)
   const siteRoadBase = { color: '#9d8fbf', weight: 1.6, opacity: 0.92, lineCap: 'round', dashArray: '4,3' };
   const siteRoadsGeo = L.geoJSON(siteRoadsData, {
     style: () => siteRoadBase,
     onEachFeature: (f, l) => {
-      const nm = f.properties.name; if (!nm) return;
-      const len = geomLen(f.geometry);
-      if (!siteRoadReps[nm] || len > siteRoadReps[nm].len) siteRoadReps[nm] = { len, layer: l };
       l.on('mouseover', function () { this.setStyle({ weight: 3.4, opacity: 1 }); });
       l.on('mouseout',  function () { this.setStyle(siteRoadBase); });
     }
   });
+  // labels anchored at the point on each road nearest the site that pulled it in
+  const siteRoadLabels = L.layerGroup();
+  siteRoadsData.features.forEach(f => {
+    const a = f.properties.anchor; if (!a) return;
+    L.marker([a[1], a[0]], { icon: _emptyIcon, interactive: false, keyboard: false })
+      .bindTooltip(f.properties.name, { permanent: true, direction: 'center', className: 'site-road-label' })
+      .addTo(siteRoadLabels);
+  });
   function refreshSiteRoads() {
     const show = map.getZoom() >= SITE_ROAD_ZOOM;
     if (show) {
-      if (!layers.roads.hasLayer(siteRoadsGeo)) layers.roads.addLayer(siteRoadsGeo);
-      siteRoadsGeo.eachLayer(l => {
-        const nm = l.feature.properties.name; l.unbindTooltip();
-        const isAnchor = siteRoadReps[nm] && siteRoadReps[nm].layer === l;
-        if (isAnchor) l.bindTooltip(nm, { permanent: true, direction: 'center', className: 'site-road-label' });
-        else l.bindTooltip(nm, { sticky: true, direction: 'top', className: 'road-tip' });
-      });
-    } else if (layers.roads.hasLayer(siteRoadsGeo)) {
-      layers.roads.removeLayer(siteRoadsGeo);
+      if (!layers.roads.hasLayer(siteRoadsGeo))   layers.roads.addLayer(siteRoadsGeo);
+      if (!layers.roads.hasLayer(siteRoadLabels)) layers.roads.addLayer(siteRoadLabels);
+    } else {
+      if (layers.roads.hasLayer(siteRoadsGeo))   layers.roads.removeLayer(siteRoadsGeo);
+      if (layers.roads.hasLayer(siteRoadLabels)) layers.roads.removeLayer(siteRoadLabels);
     }
   }
   refreshSiteRoads();
