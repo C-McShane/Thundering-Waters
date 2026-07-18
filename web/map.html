@@ -876,7 +876,7 @@ function renderRadSites() {
   sel.forEach(mat => (radData.sites[mat] || []).forEach(s => {
     const id = s.program_number + '|' + s.site_name;
     if (seen.has(id)) return; seen.add(id); n++;
-    L.circleMarker([s.lat, s.lon], { pane:'radioactivePane', radius:9, fillColor:'#f5e050', color:'#7a1212', weight:2.5, fillOpacity:0.9 })
+    L.circleMarker([s.lat, s.lon], { pane:'radioactivePane', renderer: radCanvas, radius:9, fillColor:'#f5e050', color:'#7a1212', weight:2.5, fillOpacity:0.9 })
       .bindPopup(radSitePopup(s), { maxWidth:290 }).addTo(layers.radioactive);
   }));
   if (!map.hasLayer(layers.radioactive)) layers.radioactive.addTo(map);
@@ -988,10 +988,16 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
 map.createPane('basemapLabels');
 map.getPane('basemapLabels').style.zIndex = 210;          // just above the base tiles, below every overlay
 map.getPane('basemapLabels').style.pointerEvents = 'none';
-map.getPane('basemapLabels').style.filter = 'brightness(1.45)';   // lighten the labels a little
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
   pane: 'basemapLabels', subdomains: 'abcd', maxZoom: 19
 }).addTo(map);
+// A CSS filter on a tile layer forces a full recomposite every frame, so only lighten the
+// labels while the map is still — drop the filter during pan/zoom for smoothness.
+const LABEL_FILTER = 'brightness(1.45)';
+const labelsPaneEl = map.getPane('basemapLabels');
+labelsPaneEl.style.filter = LABEL_FILTER;
+map.on('movestart zoomstart', () => { labelsPaneEl.style.filter = 'none'; });
+map.on('moveend zoomend',     () => { labelsPaneEl.style.filter = LABEL_FILTER; });
 
 // ── LAYER GROUPS ─────────────────────────────────────────────────────────────
 // water sits just above the basemap tiles (200) but below every data overlay
@@ -1011,6 +1017,10 @@ map.createPane('wellsPane');
 map.getPane('wellsPane').style.zIndex = 470;         // droplets ride above hazard sites when both are shown
 map.createPane('sareaTocPane');
 map.getPane('sareaTocPane').style.zIndex = 480;      // TOC-over-time overlay rides above everything else
+// Canvas renderers collapse the many circleMarkers (sites, radioactive) into one canvas per
+// pane — far cheaper than one SVG path each, identical look, and it helps at every zoom.
+const sitesCanvas = L.canvas({ pane: 'sitesPane', padding: 0.5 });
+const radCanvas   = L.canvas({ pane: 'radioactivePane', padding: 0.5 });
 
 const layers = {
   water:       L.layerGroup().addTo(map),   // on by default (base water context)
@@ -1287,7 +1297,7 @@ function renderSites(features) {
     const color = desigColor(p.designation);
     const [lon, lat] = f.geometry.coordinates;
     const marker = L.circleMarker([lat, lon], {
-      pane: 'sitesPane',
+      pane: 'sitesPane', renderer: sitesCanvas,
       radius: 6,
       fillColor: color,
       color: '#0d0d0e',
