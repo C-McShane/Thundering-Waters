@@ -590,32 +590,38 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
     <!-- Filter by sampling type -->
     <div class="acc">
-      <div class="acc-head"><span class="acc-title">Filter by sampling type</span><button class="acc-info" title="What sampling type means">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-head"><span class="acc-title">Highlight by Sampling Type</span><button class="acc-info" title="What sampling type means">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
-        <div class="acc-help"><b>Ring colour</b> = what the point samples. Show or hide by type — bedrock vs. overburden groundwater, surface water, or remediation/recovery — across all sources at once.</div>
+        <div class="acc-help">Every well is a blood-red drop with a grey outline. Tick a type — bedrock vs. overburden groundwater, surface water, remediation/recovery — and the wells of that type <b>light up</b> (their outline turns the type colour). Nothing is hidden; the swatches are the colour key.</div>
         <div class="sample-type-filter" id="sample-type-filter"></div>
       </div>
     </div>
 
-    <!-- S-Area (its own view) -->
+    <!-- Site Specific (parent) → one sub-dropdown per site -->
     <div class="acc">
-      <div class="acc-head"><span class="acc-title">S-Area · Intensity Over Time</span><button class="acc-info" title="S-Area TOC-by-year view">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-head"><span class="acc-title">Site Specific</span><button class="acc-info" title="Per-site views">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
-        <div class="acc-help">S-Area's 184 wells report <b>Total Organic Concentration</b>, not named chemicals. Pick a year to colour the wells by the latest TOC reading known by that year.</div>
-        <select id="sarea-toc-year-select"><option value="">Off</option></select>
-        <div class="well-size-legend" id="sarea-toc-legend"></div>
-      </div>
-    </div>
+        <div class="acc-help">Per-site views for sites that report data outside the standard chemical dropdown. Each site is its own drop-down; more will be added here.</div>
 
-    <!-- Love Canal (all Love Canal data in one place) -->
-    <div class="acc">
-      <div class="acc-head"><span class="acc-title">Love Canal</span><button class="acc-info" title="All Love Canal layers">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
-      <div class="acc-body">
-        <div class="acc-help">Everything for Love Canal in one place — the monitoring wells (contaminant chemistry), the piezometers (water levels), and the leachate-containment infrastructure.</div>
-        <label class="layer-toggle" id="toggle-lcWells"><input type="checkbox" class="toggle-check" data-layer="lcWells"><span class="toggle-swatch" style="background:#b81d24; border:2px solid #cfcfcf; border-radius:50%;"></span><span class="toggle-label">Monitoring wells — chemistry</span><span class="toggle-count">55</span></label>
-        <label class="layer-toggle" id="toggle-lcPiezo"><input type="checkbox" class="toggle-check" data-layer="lcPiezo"><span class="toggle-swatch" style="background:#2f6fd0; border:2px solid #bfe0ff; border-radius:50%;"></span><span class="toggle-label">Piezometers — water levels</span><span class="toggle-count">28</span></label>
-        <label class="layer-toggle" id="toggle-lcPumps"><input type="checkbox" class="toggle-check" data-layer="lcPumps"><span class="toggle-swatch" style="background:#e0b93a; border:2px solid #111; border-radius:2px;"></span><span class="toggle-label">Pump chambers &amp; leachate tanks</span><span class="toggle-count">6</span></label>
-        <div class="chem-note">Wells carry <b>contaminant chemistry</b> (click one for its concentration-vs-year plot). Piezometers measure <b>groundwater levels</b> (2015–2022). Pumps &amp; tanks are the containment collection infrastructure.</div>
+        <div class="acc sub-acc">
+          <div class="acc-head"><span class="acc-title">S-Area · Intensity Over Time</span><span class="acc-arrow">&#9662;</span></div>
+          <div class="acc-body">
+            <div class="acc-help" style="display:block">S-Area's 184 wells report <b>Total Organic Concentration</b>, not named chemicals. Pick a year to colour the wells by the latest TOC reading known by that year.</div>
+            <select id="sarea-toc-year-select"><option value="">Off</option></select>
+            <div class="well-size-legend" id="sarea-toc-legend"></div>
+          </div>
+        </div>
+
+        <div class="acc sub-acc">
+          <div class="acc-head"><span class="acc-title">Love Canal</span><span class="acc-arrow">&#9662;</span></div>
+          <div class="acc-body">
+            <div class="acc-help" style="display:block">Everything for Love Canal in one place — the monitoring wells (contaminant chemistry), the piezometers (water levels), and the leachate-containment infrastructure.</div>
+            <label class="layer-toggle" id="toggle-lcWells"><input type="checkbox" class="toggle-check" data-layer="lcWells"><span class="toggle-swatch" style="background:#b81d24; border:2px solid #cfcfcf; border-radius:50%;"></span><span class="toggle-label">Monitoring wells — chemistry</span><span class="toggle-count">55</span></label>
+            <label class="layer-toggle" id="toggle-lcPiezo"><input type="checkbox" class="toggle-check" data-layer="lcPiezo"><span class="toggle-swatch" style="background:#2f6fd0; border:2px solid #bfe0ff; border-radius:50%;"></span><span class="toggle-label">Piezometers — water levels</span><span class="toggle-count">28</span></label>
+            <label class="layer-toggle" id="toggle-lcPumps"><input type="checkbox" class="toggle-check" data-layer="lcPumps"><span class="toggle-swatch" style="background:#e0b93a; border:2px solid #111; border-radius:2px;"></span><span class="toggle-label">Pump chambers &amp; leachate tanks</span><span class="toggle-count">6</span></label>
+            <div class="chem-note">Wells carry <b>contaminant chemistry</b> (click one for its concentration-vs-year plot). Piezometers measure <b>groundwater levels</b> (2015–2022). Pumps &amp; tanks are the containment collection infrastructure.</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1308,11 +1314,11 @@ const SAMPLE_TYPE_COLORS = {
   'Remediation / recovery':   '#ffd21e',   // yellow
   'Soil / test hole':         '#ff56c4',   // magenta
 };
-let activeSampleTypes = new Set(SAMPLE_TYPE_ORDER);
+// Sampling-type HIGHLIGHT (not a filter): the set of types the user has ticked. Empty by
+// default → every well is a blood-red drop with a light-grey outline. Ticking a type makes
+// only the wells OF THAT TYPE light up (their outline turns the type colour); nothing hides.
+let activeSampleTypes = new Set();
 function typeStroke(t) { return SAMPLE_TYPE_COLORS[t] || '#f2f2f2'; }
-// Default symbology = blood-red drop + light-grey outline. The sampling-TYPE colour outline
-// only appears once the user engages "Filter by sampling type" (narrows it from all-on).
-let sampleTypeEngaged = false;
 const WELL_OUTLINE_DEFAULT = '#cfcfcf';
 function wellHeight(n) { return Math.min(44, 13 + 3.0 * Math.sqrt(n || 0)); }
 function dropletSVG(h, fill, stroke, sw) {
@@ -1323,8 +1329,9 @@ function dropletSVG(h, fill, stroke, sw) {
 }
 function dropletIcon(n, sampleType) {
   const h = wellHeight(n), w = h * 0.72;
-  const stroke = sampleTypeEngaged ? typeStroke(sampleType) : WELL_OUTLINE_DEFAULT;
-  const sw = sampleTypeEngaged ? 2.8 : 1.7;
+  const lit = activeSampleTypes.has(sampleType);   // this type is ticked → light it up
+  const stroke = lit ? typeStroke(sampleType) : WELL_OUTLINE_DEFAULT;
+  const sw = lit ? 2.8 : 1.7;
   return L.divIcon({ className: 'well-droplet', html: dropletSVG(h, WELL_FILL, stroke, sw), iconSize: [w, h], iconAnchor: [w/2, h/2] });
 }
 // concPlotSVG: a small log-scale concentration-vs-year chart for one well+chemical.
@@ -1447,8 +1454,7 @@ function renderWells(features, layer, filterChem, filterYear) {
   layer.clearLayers();
   features.forEach(f => {
     const p = f.properties;
-    if (!activeSampleTypes.has(p.sample_type)) return;
-    if (!wellPassesFilter(p, filterChem, filterYear)) return;
+    if (!wellPassesFilter(p, filterChem, filterYear)) return;   // sampling type highlights, never hides
     const [lon, lat] = f.geometry.coordinates;
     L.marker([lat, lon], { icon: dropletIcon(p.n_found, p.sample_type), pane: 'wellsPane' })
       .bindPopup(wellPopup(p), { maxWidth: 300 }).addTo(layer);
@@ -1594,13 +1600,13 @@ function populateSampleTypeFilter() {
   const present = SAMPLE_TYPE_ORDER.filter(t => counts[t]);
   const box = document.getElementById('sample-type-filter');
   box.innerHTML = present.map(t =>
-    `<label class="stf-opt"><input type="checkbox" class="stf-check" value="${t}" checked>`
+    `<label class="stf-opt"><input type="checkbox" class="stf-check" value="${t}">`
     + `<span class="stf-swatch" style="background:#b81d24;border:2px solid ${SAMPLE_TYPE_COLORS[t]}"></span>`
     + `<span class="stf-name">${t}</span><span class="stf-count">${counts[t]}</span></label>`).join('');
   box.querySelectorAll('.stf-check').forEach(cb => cb.addEventListener('change', () => {
     if (cb.checked) activeSampleTypes.add(cb.value); else activeSampleTypes.delete(cb.value);
-    sampleTypeEngaged = activeSampleTypes.size < present.length;   // colour outlines only once narrowed
-    filterWells(document.getElementById('well-select').value, currentWellYear());
+    cb.closest('.stf-opt').classList.toggle('active', cb.checked);
+    filterWells(document.getElementById('well-select').value, currentWellYear());   // re-render → outlines light up
   }));
 }
 function populateWellYearDropdown() {
@@ -1624,7 +1630,7 @@ function filterWells(cx, year) {
   renderWells(wellsDecF, layers.wellsDec, cx, year);
   renderWells(wellsLegacyF, layers.wellsLegacy, cx, year);
   const note = document.getElementById('well-note');
-  const matched = [...wellsWqpF, ...wellsDecF, ...wellsLegacyF].filter(f => activeSampleTypes.has(f.properties.sample_type) && wellPassesFilter(f.properties, cx, year)).length;
+  const matched = [...wellsWqpF, ...wellsDecF, ...wellsLegacyF].filter(f => wellPassesFilter(f.properties, cx, year)).length;
   const total = wellsWqpF.length + wellsDecF.length + wellsLegacyF.length;
   if (!cx && year == null) {
     note.innerHTML = 'Shows wells where the selected contaminant was <em>detected</em>. Turn a well layer on above to see results.';
@@ -1655,7 +1661,7 @@ function onWellSources() {
   if (map.hasLayer(layers.wellsWqp)) s.push(...wellsWqpF);
   if (map.hasLayer(layers.wellsDec)) s.push(...wellsDecF);
   if (map.hasLayer(layers.wellsLegacy)) s.push(...wellsLegacyF);
-  return s.filter(f => activeSampleTypes.has(f.properties.sample_type));
+  return s;   // sampling type only highlights now, so it no longer narrows the trend
 }
 function chemTrendSVG(chem, years, counts, total) {
   const W = 214, H = 116, x0 = 30, x1 = W - 8, yT = 24, yB = H - 18;
