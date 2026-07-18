@@ -7,13 +7,49 @@ official conclusion that the NAPL was essentially "just sitting there" — "limi
 volume and mobility." Method: full-text search of all 176 archived NYSDEC 932020
 documents + external news/litigation search.
 
-## Bottom line
-Neither the phrase **"central and western portions"** nor any multi-area / active
-description of the 2011 Colvin NAPL appears anywhere in the 176-document public
-archive. Every public document either (a) minimizes the NAPL to "limited/residual/
-sporadic," or (b) DEFERS the detail to a CRA 2011 report that is itself NOT in the
-public archive. The primary observational documents are missing; only the sanitized
-conclusion survives in the record.
+## Bottom line — CONFIRMED (primary report obtained 2026-07-17)
+The primary field report — **"Sanitary Sewer Investigation and Remediation, Colvin
+Boulevard and 96th Street" (GHD/CRA/Glenn Springs, March 2011)** — was located at a
+SEPARATE DEC URL (`extapps.dec.ny.gov/docs/regions_pdf/colvinreport.pdf`), NOT in the
+DecDocs 932020 site repository where every other Love Canal document lives. That is why
+it was invisible to the archive search, and it is why the "central and western portions"
+language never surfaced in the site record. Saved:
+`docs/DecDocs_932020_archive/SSIR.HW.932020.2011-03-04.Sanitary_Sewer_Investigation_Remediation_Colvin.pdf`.
+
+The discrepancy is real and sourced. THE PRIMARY REPORT (SSIR, p14) describes ACTIVE
+seepage; THE DOWNSTREAM OFFICIAL REPORTS describe a stationary residual.
+
+### What the SSIR actually observed (March 2011, p13-15)
+- "A non-aqueous phase liquid (NAPL) was observed to be present in the excavation at
+  varying times throughout the work activities… dark brown to black in color and floated
+  at the surface of the water."
+- "As water seeped into the excavation from the saturated granular bedding material,
+  **discernible amounts of NAPL would sporadically be observed to seep in as well. NAPL
+  was removed from the excavation with a vacuum truck whenever observed.**"
+- "**The greatest visual and olfactory evidence of chemical impact (including NAPL) was
+  found in the central and western portions of the excavation.** Due to the evidence of
+  chemical impact, all bedding materials and the underlying native clay were removed until
+  bedrock was encountered for the entire length of the trench."
+- Excavation ran to bedrock at ~22 ft; the sunken sewer's compromised joints were
+  "allowing discharge into the sewer bedding"; and because the excavation sat open ~3
+  weeks, "there was potential that impacted materials were washed downstream into the
+  sewer sections west of 96th Street."
+
+### What the downstream reports say (2013-2024 FYRs + PRRs)
+- "the NAPL… was likely **limited in volume and mobility**"; "residual"; "observed
+  sporadically." The phrase **"limited in volume and mobility" does NOT appear anywhere in
+  the SSIR** — it was constructed later, from MW-3's 2011-2018 no-recurrence monitoring,
+  and then repeated as the site's standing characterization.
+
+### The discrepancy, precisely
+The SSIR documents NAPL **actively seeping into the trench** (repeatedly, requiring
+vacuum-truck removal), **spatially extensive** (central + western portions; entire trench
+excavated to bedrock), with a **downstream-migration concern**. The propagated official
+conclusion reduces this to a small, stationary, "limited-mobility" residual. The word
+"sporadically" is carried over from the SSIR but repurposed: in the SSIR it means NAPL
+kept seeping in intermittently; in the summaries it connotes a minor, incidental find.
+This is a genuine softening of the primary record — appropriate to flag, with both
+sources quotable side by side.
 
 ## What the OFFICIAL record says (the "just sitting there" version) — consistent across ≥5 reports
 The 2011 Colvin NAPL is characterized identically everywhere it appears in the DEC/EPA
@@ -37,19 +73,16 @@ That is the uniform, propagated conclusion: limited, residual, stationary, old, 
   actively pouring/entering the sewer from two (or any) directions during the 2011 event.
   The only "directional/active" language anywhere is the *historical* (1970s) migration
   narrative ("along utility bedding, eventually seeping into basements" — 2008 FYR p10).
-- **The primary field documents are MISSING from the public repository — TWO of them.**
-  The public reports cite, but do not include:
-  1. **"Sanitary Sewer Investigation and Remediation Report" (SSIR, CRA, March 2011)** —
-     the sewer-repair/remediation report.
-  2. **"Colvin Boulevard Sewer Repair Supplemental Subsurface Investigation Report
-     [CRA, 2011]"** — the follow-up subsurface investigation (bedrock wells + soil borings).
-  DecDocs 932020 holds only the two *work plans* for these (Jan-2011 and Jun-2011), NOT
-  the results reports. The event-year **2011 PRR** itself, describing 111,620 lbs of
-  impacted Colvin soil disposed, explicitly refers the reader to the CRA-2011 subsurface
-  report "for details" — i.e. the record's own pointer leads to a document withheld from
-  the public archive. The raw field observations — including a "central and western
-  portions" description of where NAPL was found in the excavation — would be in these two
-  reports.
+- **The primary field reports are NOT in the DecDocs 932020 site repository** — the SSIR
+  (now obtained) lives at a separate DEC path (`docs/regions_pdf/colvinreport.pdf`), and
+  the **"Colvin Boulevard Sewer Repair Supplemental Subsurface Investigation Report
+  [CRA, 2011]"** (the follow-up bedrock wells + soil borings) is still un-located.
+  DecDocs 932020 holds only the two *work plans* (Jan-2011 and Jun-2011), not the results
+  reports. The event-year **2011 PRR**, describing 111,620 lbs of impacted Colvin soil
+  disposed, explicitly refers the reader to the CRA-2011 subsurface report "for details."
+  Net effect: someone reading the site's own document repository would see only the
+  minimized "limited volume and mobility" line, never the SSIR's active-seepage
+  observations — because the SSIR is filed elsewhere.
 
 ## The litigation frames it very differently
 994+ residents sued Occidental/OxyChem, the City, and contractors over the 2011 sewer
