@@ -955,10 +955,18 @@ const map = L.map('map', {
   zoomControl: true,
 });
 
-// Basemap — CartoDB dark
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+// Basemap — CartoDB dark, split into base + a separate labels layer so the place
+// labels can be lightened independently of the rest of the basemap.
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
   subdomains: 'abcd', maxZoom: 19
+}).addTo(map);
+map.createPane('basemapLabels');
+map.getPane('basemapLabels').style.zIndex = 210;          // just above the base tiles, below every overlay
+map.getPane('basemapLabels').style.pointerEvents = 'none';
+map.getPane('basemapLabels').style.filter = 'brightness(1.45)';   // lighten the labels a little
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
+  pane: 'basemapLabels', subdomains: 'abcd', maxZoom: 19
 }).addTo(map);
 
 // ── LAYER GROUPS ─────────────────────────────────────────────────────────────
