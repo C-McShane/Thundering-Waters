@@ -90,21 +90,21 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   letter-spacing: .22em; text-transform: uppercase; color: var(--red);
   margin-bottom: 6px;
 }
+.title-kind {
+  font-family: var(--mono); font-size: 13px; font-weight: 500;
+  letter-spacing: .03em; color: #c4bfd0; margin-bottom: 9px;
+}
+.title-kind .author-name {
+  font-weight: 800; font-size: 14.5px; color: #ffc94a; letter-spacing: .01em;
+  text-shadow: 0 0 8px rgba(255,201,74,.35);
+}
 .sidebar-title {
-  font-family: var(--serif); font-size: 20px; font-weight: 900;
+  font-family: var(--serif); font-size: 25px; font-weight: 900;
   line-height: 1.12; color: var(--text); margin-bottom: 4px;
 }
 .sidebar-title .title-sub {
-  display: block; font-size: 12.5px; font-weight: 700; font-style: italic;
-  color: var(--red); margin: 3px 0; letter-spacing: 0;
-}
-.sidebar-title .title-kind {
-  display: block; font-family: var(--mono); font-size: 10.5px; font-weight: 500;
-  letter-spacing: .04em; color: #b8b3c4; margin-top: 5px;
-}
-.sidebar-title .title-kind .author-name {
-  font-weight: 800; color: #ffc94a; letter-spacing: .01em;
-  text-shadow: 0 0 8px rgba(255,201,74,.35);
+  display: block; font-size: 15px; font-weight: 700; font-style: italic;
+  color: var(--red); margin: 4px 0; letter-spacing: 0;
 }
 .sidebar-sub {
   font-family: var(--mono); font-size: 10px; color: var(--dim); letter-spacing: .04em;
@@ -178,9 +178,10 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .tab-heading svg { flex-shrink: 0; }
 .tab-bar {
   position: sticky; top: 0; z-index: 5;
-  display: flex; gap: 4px; margin-bottom: 18px; padding: 5px;
+  display: flex; flex-direction: column; gap: 4px; margin-bottom: 18px; padding: 5px;
   background: var(--bg); border: 1px solid var(--border2); border-radius: 8px;
 }
+.tab-row { display: flex; gap: 4px; }
 .tab-btn {
   flex: 1; background: var(--s2); border: 1px solid var(--border2); border-radius: 5px;
   padding: 11px 4px; font-family: var(--sans); font-size: 11.5px; font-weight: 600;
@@ -413,8 +414,8 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 <div id="sidebar">
   <div class="sheet-handle"></div>
   <div id="sidebar-header">
-    <div class="eyebrow">Niagara County · Spatial Data</div>
-    <div class="sidebar-title">Thundering Waters<span class="title-sub">The Toxic Legacy of Niagara County</span><span class="title-kind">Inspired by <b class="author-name">Christen Civiletto</b>'s book</span></div>
+    <div class="title-kind">Inspired by <b class="author-name">Christen Civiletto</b>'s book</div>
+    <div class="sidebar-title">Thundering Waters<span class="title-sub">The Toxic Legacy of Niagara County</span></div>
   </div>
 
   <div id="search-wrap">
@@ -429,11 +430,15 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       Tap a tab below to explore the data
     </div>
     <div class="tab-bar" role="tablist">
-      <button class="tab-btn active" data-tab="sites" role="tab" aria-selected="true">Hazard Sites</button>
-      <button class="tab-btn" data-tab="chemicals" role="tab" aria-selected="false">Chemicals</button>
-      <button class="tab-btn" data-tab="chem" role="tab" aria-selected="false">Radiation</button>
-      <button class="tab-btn" data-tab="cancer" role="tab" aria-selected="false">Cancer Risk</button>
-      <button class="tab-btn" data-tab="wells" role="tab" aria-selected="false">Monitoring Wells</button>
+      <div class="tab-row">
+        <button class="tab-btn active" data-tab="sites" role="tab" aria-selected="true">Hazard Sites</button>
+        <button class="tab-btn" data-tab="wells" role="tab" aria-selected="false">Monitoring Wells</button>
+      </div>
+      <div class="tab-row">
+        <button class="tab-btn" data-tab="chem" role="tab" aria-selected="false">Radiation</button>
+        <button class="tab-btn" data-tab="chemicals" role="tab" aria-selected="false">Chemicals</button>
+        <button class="tab-btn" data-tab="cancer" role="tab" aria-selected="false">Cancer Risk</button>
+      </div>
     </div>
 
     <div class="tab-panel active" data-tab-panel="sites">
