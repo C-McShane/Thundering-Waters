@@ -483,7 +483,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <div class="acc-body">
         <div class="acc-help">Base-map context: the Niagara River, creeks and water bodies near monitoring sites, plus the county's major roads.</div>
         <label class="layer-toggle active" id="toggle-water"><input type="checkbox" class="toggle-check" checked data-layer="water"><span class="toggle-swatch square" style="background:#1fa6e0; border:1px solid #5fd0ff;"></span><span class="toggle-label">Rivers &amp; Water</span><span class="toggle-count">+ creeks</span></label>
-        <label class="layer-toggle active" id="toggle-roads"><input type="checkbox" class="toggle-check" checked data-layer="roads"><span class="toggle-swatch" style="background:#9d8fbf; width:14px; height:3px; border-radius:1px;"></span><span class="toggle-label">Major Roads</span><span class="toggle-count">13 roads</span></label>
+        <label class="layer-toggle" id="toggle-roads"><input type="checkbox" class="toggle-check" data-layer="roads"><span class="toggle-swatch" style="background:#9d8fbf; width:14px; height:3px; border-radius:1px;"></span><span class="toggle-label">Major Roads</span><span class="toggle-count">13 roads</span></label>
       </div>
     </div>
 
@@ -993,7 +993,7 @@ const layers = {
   cancer:      L.layerGroup(),              // off by default (selector)
   tracts:      L.layerGroup(),              // off by default
   iz:          L.layerGroup(),              // off by default
-  roads:       L.layerGroup().addTo(map),   // on by default (purple dashed context)
+  roads:       L.layerGroup(),              // off by default (purple dashed; on-demand context)
   sites:       L.layerGroup().addTo(map),   // only hazard sites on at load
   radioactive: L.layerGroup(),              // off by default (isotope sub-filters)
   wellsWqp:    L.layerGroup(),              // off by default (Monitoring Wells tab)
