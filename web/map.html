@@ -365,6 +365,16 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .rad-name { flex: 1; font-size: 12px; color: var(--text); }
 .rad-count { font-family: var(--mono); font-size: 10px; color: var(--dim); }
 .rad-group-label { font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: #e0c000; margin: 8px 0 3px 2px; }
+/* per-site "Strongest findings" nested dropdown (Radiation tab) */
+.site-findings { margin: 2px 0 8px 22px; border-left: 3px solid; border-image: repeating-linear-gradient(45deg,#f5d000 0 5px,#111 5px 10px) 1; padding-left: 8px; }
+.findings-title { font-family: var(--mono); font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: #f5d000; cursor: pointer; padding: 3px 0; user-select: none; display:flex; align-items:center; gap:5px; }
+.findings-caret { transition: transform .15s; font-size: 9px; }
+.site-findings.collapsed .findings-caret { transform: rotate(-90deg); }
+.site-findings.collapsed .findings-body { display: none; }
+.finding { display: flex; flex-direction: column; gap: 1px; width: 100%; text-align: left; background: rgba(245,208,0,.06); border: 1px solid rgba(245,208,0,.22); border-radius: 5px; padding: 5px 7px; margin: 3px 0; cursor: pointer; transition: background .12s, border-color .12s; }
+.finding:hover { background: rgba(245,208,0,.14); border-color: rgba(245,208,0,.5); }
+.finding-t { font-size: 11.5px; font-weight: 600; color: #f3ecd0; }
+.finding-s { font-size: 10px; color: var(--dim); }
 .rad-group-label:first-child { margin-top: 2px; }
 .rad-yr { font-family: var(--mono); font-size: 8.5px; color: var(--dim); margin-left: 6px; }
 .sample-type-filter { display: flex; flex-direction: column; gap: 1px; }
@@ -1351,6 +1361,17 @@ function dropletIcon(n, sampleType) {
   const sw = lit ? 2.8 : 1.7;
   return L.divIcon({ className: 'well-droplet', html: dropletSVG(h, WELL_FILL, stroke, sw), iconSize: [w, h], iconAnchor: [w/2, h/2] });
 }
+// Radiation-tab droplet: blood-red drop ringed with a black-&-yellow hazard-striped border.
+function dropletSVGHazard(h, fill) {
+  const w = h * 0.72, d = "M12 1 C12 1 3 14 3 21 a9 9 0 0 0 18 0 C21 14 12 1 12 1 Z";
+  return `<svg width="${w}" height="${h}" viewBox="0 0 24 32">`
+    + `<path d="${d}" fill="${fill}" fill-opacity="0.92" stroke="#111" stroke-width="3.6"/>`
+    + `<path d="${d}" fill="none" stroke="#f5d000" stroke-width="3.6" stroke-dasharray="4.5 4.5" stroke-linecap="butt"/></svg>`;
+}
+function dropletIconHazard(n) {
+  const h = wellHeight(n), w = h * 0.72;
+  return L.divIcon({ className: 'well-droplet', html: dropletSVGHazard(h, WELL_FILL), iconSize: [w, h], iconAnchor: [w/2, h/2] });
+}
 // concPlotSVG: a small log-scale concentration-vs-year chart for one well+chemical.
 // series = { "year": [value, "detect"|"nondetect"] }. Detected points join into a red
 // line; non-detects show as hollow markers at their detection limit (tested-but-clean).
@@ -1547,6 +1568,18 @@ const RAD_TREFOIL = '<svg width="20" height="20" viewBox="0 0 18 18">'
 let soilRadFeatures = [];
 const activeSoilSites = new Set();
 function siteShort(s) { return (s || '').replace(/\s*\(.*?\)\s*/g, '').trim(); }   // "Former Mill No. 2 (Greenpac Mill)" -> "Former Mill No. 2"
+// Editorial "strongest findings" per radioactive site — revealed when the site is toggled on.
+const SITE_FINDINGS = {
+  'Covanta Niagara Rail-to-Truck Intermodal Facility': [
+    { t: 'Exposed slag gamma peak — 420,000 CPM', s: 'a football-sized surface slag piece, since removed', lat: 43.090195, lon: -79.002694 },
+    { t: 'Radium-226 in slag — up to 35 pCi/g', s: 'gamma-spec of impacted-slag samples (TENORM)', lat: 43.08475, lon: -79.005138889 },
+    { t: 'Five gamma hot spots >16,000 CPM', s: 'largest 1,507 m²; readings 15,000–60,000 CPM', lat: 43.08475, lon: -79.005138889 },
+  ],
+  'Former Mill No. 2 (Greenpac Mill)': [
+    { t: 'Seven gamma slag zones >10,000 CPM', s: 'against a 6,000–8,000 CPM background — TENORM (U/Th/Ra)', lat: 43.089088, lon: -79.014365 },
+  ],
+};
+function flyToFinding(lat, lon) { map.flyTo([lat, lon], 18, { duration: 1.1 }); }
 function buildSoilSiteToggles() {
   const box = document.getElementById('soil-site-toggles');
   if (!box) return;
@@ -1564,16 +1597,29 @@ function buildSoilSiteToggles() {
     if (nw) parts.push(`${nw} well${nw > 1 ? 's' : ''}`);
     if (ns) parts.push(`${ns} soil`);
     const cnt = parts.join(' · ');
-    return `<label class="layer-toggle" data-soilsite="${s}"><input type="checkbox" class="soil-site-check">`
+    const fnd = SITE_FINDINGS[s] || null;
+    const findHtml = fnd ? `<div class="site-findings" data-for="${s}" hidden>`
+      + `<div class="findings-title" role="button">☢ Strongest findings<span class="findings-caret">▾</span></div>`
+      + `<div class="findings-body">` + fnd.map(f =>
+          `<button class="finding" data-lat="${f.lat}" data-lon="${f.lon}">`
+          + `<span class="finding-t">${f.t}</span><span class="finding-s">${f.s}</span></button>`).join('')
+      + `</div></div>` : '';
+    return `<div class="soil-site-item"><label class="layer-toggle" data-soilsite="${s}"><input type="checkbox" class="soil-site-check">`
       + `<span class="toggle-swatch" style="background:#f5d000; border:2px solid #111; border-radius:50%;"></span>`
-      + `<span class="toggle-label">${siteShort(s)}</span><span class="toggle-count">${cnt}</span></label>`;
+      + `<span class="toggle-label">${siteShort(s)}</span><span class="toggle-count">${cnt}</span></label>${findHtml}</div>`;
   }).join('');
   box.querySelectorAll('.soil-site-check').forEach(cb => cb.addEventListener('change', () => {
     const lbl = cb.closest('.layer-toggle'), site = lbl.dataset.soilsite;
     if (cb.checked) { activeSoilSites.add(site); lbl.classList.add('active'); }
     else { activeSoilSites.delete(site); lbl.classList.remove('active'); }
+    const fb = cb.closest('.soil-site-item').querySelector('.site-findings');
+    if (fb) fb.hidden = !cb.checked;
     renderSoilRad();
   }));
+  box.querySelectorAll('.findings-title').forEach(t => t.addEventListener('click', () =>
+    t.parentElement.classList.toggle('collapsed')));
+  box.querySelectorAll('.finding').forEach(b => b.addEventListener('click', () =>
+    flyToFinding(parseFloat(b.dataset.lat), parseFloat(b.dataset.lon))));
 }
 function renderSoilRad() {
   layers.soilRad.clearLayers();
@@ -1593,7 +1639,7 @@ function renderSoilRad() {
   wellsLegacyF.forEach(f => {
     if (!activeSoilSites.has(f.properties.site)) return;
     const p = f.properties, [lon, lat] = f.geometry.coordinates;
-    L.marker([lat, lon], { icon: dropletIcon(p.n_found, p.sample_type), pane:'wellsPane' })
+    L.marker([lat, lon], { icon: dropletIconHazard(p.n_found), pane:'wellsPane' })
       .bindPopup(wellPopup(p), { maxWidth:300 }).addTo(layers.soilRad);
   });
   if (activeSoilSites.size && !map.hasLayer(layers.soilRad)) layers.soilRad.addTo(map);
