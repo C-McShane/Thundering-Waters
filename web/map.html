@@ -136,6 +136,11 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .sr-item:hover { background: var(--s2); color: var(--text); }
 .sr-name { font-weight: 500; }
 .sr-sub  { font-family: var(--mono); font-size: 9px; color: var(--dim); margin-top: 1px; }
+.sr-badge { font-family: var(--mono); font-size: 8px; letter-spacing: .05em; padding: 1px 4px; border-radius: 3px; margin-left: 5px; vertical-align: middle; }
+.sr-well { background: rgba(214,122,30,.18); color: #e8a35a; border: 1px solid rgba(214,122,30,.4); }
+.sr-site { background: rgba(192,57,43,.18); color: #e07a6e; border: 1px solid rgba(192,57,43,.4); }
+.sr-soil { background: rgba(245,208,0,.15); color: #e0c000; border: 1px solid rgba(245,208,0,.4); }
+.sr-lc   { background: rgba(47,111,208,.18); color: #7fb2ff; border: 1px solid rgba(47,111,208,.4); }
 
 /* ── SCROLL BODY ── */
 #sidebar-body { flex: 1; overflow-y: auto; padding: 16px; }
@@ -437,7 +442,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   </div>
 
   <div id="search-wrap">
-    <input id="search" type="text" placeholder="Search sites by name or address…" autocomplete="off">
+    <input id="search" type="text" placeholder="Search sites, wells, pits… (e.g. C4R-MW-04)" autocomplete="off">
     <div id="search-results"></div>
   </div>
 
@@ -1158,8 +1163,8 @@ async function loadAll() {
     gj('data/wells_lc_pumps.geojson'), gj('data/wells_lc_piezometers.geojson'),
     gj('data/soil_radzones.geojson'), gj('data/site_roads.geojson'), gj('data/radionuclides.json'),
   ]);
-  renderLcPumps(lcPumpsData.features);
-  renderLcPiezo(lcPiezoData.features);
+  renderLcPumps(lcPumpsData.features); lcPumpsF = lcPumpsData.features;
+  renderLcPiezo(lcPiezoData.features); lcPiezoF = lcPiezoData.features;
   soilRadFeatures = soilRadData.features;   // per-site toggles built after the wells load (below)
   radData = radNuclides; buildRadSelectors();
   cancerData = cancerGeo;
@@ -1309,6 +1314,7 @@ async function loadAll() {
   buildSoilSiteToggles();   // Radiation-tab per-site toggles (wells + soil), now that legacy wells are loaded
   populateWellDropdown();
   buildChemFindings();      // Chemicals-tab strongest-findings highlights
+  buildSearchIndex();       // unified search over sites + wells/pits/soil/piezometers
   populateSampleTypeFilter();
   populateWellYearDropdown();
   populateSAreaTocYearDropdown();
@@ -1342,7 +1348,7 @@ function renderSites(features) {
 // Water-droplet symbol, height scaled by the number of chemicals detected at the
 // well (sqrt so a well with 100 detects isn't 100× a well with 1). Two sources
 // coloured distinctly; a shared chemical dropdown filters both.
-let wellsWqpF = [], wellsDecF = [], wellsLegacyF = [];
+let wellsWqpF = [], wellsDecF = [], wellsLegacyF = [], lcPiezoF = [], lcPumpsF = [];
 // Water-drop symbol: blue rim (the water) + blood-red core (the contamination).
 // WQP = bright red, DEC = deep blood-red, so the two sources stay distinguishable.
 const WELL_OUTLINE = '#8b1a2b';                                   // dark rim used by the S-Area TOC view
@@ -1469,7 +1475,7 @@ function wellPopup(p) {
   const yr = p.latest_detect || p.latest_year;
   const chem = p.chemicals_found
     ? `<div class="popup-field"><div class="popup-field-lbl">Chemicals detected (${p.n_found})</div><div class="popup-field-val">${p.chemicals_found.substring(0,160)}${p.chemicals_found.length>160?'…':''}</div></div>`
-    : `<div class="popup-field"><div class="popup-field-lbl">Chemicals detected</div><div class="popup-field-val">${p.n_found} distinct</div></div>`;
+    : `<div class="popup-field"><div class="popup-field-lbl">Chemicals detected</div><div class="popup-field-val">${p.n_found ? p.n_found + ' distinct' : 'none tabulated (location point)'}</div></div>`;
   const toc = (!isW && !isL && p.toc_max != null)
     ? `<div class="popup-field"><div class="popup-field-lbl">Total Organic Conc.</div><div class="popup-field-val">latest ${p.toc_latest ?? '—'} · max ${p.toc_max} µg/L</div></div>` : '';
   const near = (isW && p.nearest_hazard)
@@ -1956,43 +1962,83 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 const searchInput = document.getElementById('search');
 const searchResults = document.getElementById('search-results');
 
+// Unified search index: hazard sites + wells (WQP/DEC/legacy) + soil rad zones + Love Canal
+// piezometers/pumps. Lets anyone look a specific sample point up by its ID (e.g. C4R-MW-04,
+// TP-14, SS-01, MW-88-8A) for independent verification.
+let SEARCH_INDEX = [];
+function buildSearchIndex() {
+  SEARCH_INDEX = [];
+  const push = (o) => { if (o.id) SEARCH_INDEX.push(o); };
+  allSiteFeatures.forEach(f => { const p = f.properties, c = f.geometry.coordinates;
+    push({ kind:'site', id:p.site_name||'', label:p.site_name||'', sub:`${p.designation||''}${p.city?' · '+p.city:''}`, lat:c[1], lon:c[0], feature:f }); });
+  [[wellsWqpF,'wellsWqp'],[wellsDecF,'wellsDec'],[wellsLegacyF,'wellsLegacy']].forEach(([arr,layer]) =>
+    arr.forEach(f => { const p = f.properties, c = f.geometry.coordinates;
+      push({ kind:'well', layer, id:p.well_id||p.name||'', label:p.well_id||p.name||'', sub:`${p.site||p.site_type||'well'}${p.sample_type?' · '+p.sample_type:''}`, lat:c[1], lon:c[0], props:p }); }));
+  soilRadFeatures.forEach(f => { const p = f.properties, c = f.geometry.coordinates;
+    push({ kind:'soil', id:p.zone_id||'', label:p.zone_id||'', sub:`${p.site||''} · radioactive soil zone`, lat:c[1], lon:c[0], props:p }); });
+  lcPiezoF.forEach(f => { const p = f.properties, c = f.geometry.coordinates;
+    push({ kind:'lc', layer:'lcPiezo', id:p.well_id||'', label:p.well_id||'', sub:'Love Canal · piezometer (water levels)', lat:c[1], lon:c[0], props:p, popupKind:'piezo' }); });
+  lcPumpsF.forEach(f => { const p = f.properties, c = f.geometry.coordinates;
+    push({ kind:'lc', layer:'lcPumps', id:p.well_id||'', label:p.well_id||'', sub:'Love Canal · pump chamber', lat:c[1], lon:c[0], props:p, popupKind:'pump' }); });
+}
+const BADGE = { well:'WELL', site:'SITE', soil:'SOIL', lc:'LC' };
 searchInput.addEventListener('input', () => {
   const q = searchInput.value.trim().toLowerCase();
   searchResults.innerHTML = '';
   if (!q || q.length < 2) { searchResults.style.display = 'none'; return; }
-
-  const hits = allSiteFeatures.filter(f => {
-    const p = f.properties;
-    return (p.site_name || '').toLowerCase().includes(q)
-        || (p.address  || '').toLowerCase().includes(q)
-        || (p.city     || '').toLowerCase().includes(q)
-        || (p.designation || '').toLowerCase().includes(q);
-  }).slice(0, 12);
-
+  const scored = [];
+  for (const r of SEARCH_INDEX) {
+    const id = r.label.toLowerCase(), sub = (r.sub || '').toLowerCase();
+    let s = -1;
+    if (id === q) s = 0; else if (id.startsWith(q)) s = 1; else if (id.includes(q)) s = 2; else if (sub.includes(q)) s = 3;
+    if (s >= 0) scored.push([s, r]);
+  }
+  scored.sort((a, b) => a[0] - b[0]);
+  const hits = scored.slice(0, 16).map(x => x[1]);
   if (!hits.length) { searchResults.style.display = 'none'; return; }
-
-  hits.forEach(f => {
-    const p = f.properties;
+  hits.forEach(r => {
     const div = document.createElement('div');
     div.className = 'sr-item';
-    div.innerHTML = `<div class="sr-name">${p.site_name}</div>
-      <div class="sr-sub">${p.designation || ''} · ${p.city || ''}</div>`;
-    div.addEventListener('click', () => {
-      const [lon, lat] = f.geometry.coordinates;
-      map.setView([lat, lon], 15);
-      // Find and open the marker popup
-      layers.sites.eachLayer(m => {
-        if (m._siteProps && m._siteProps.site_name === p.site_name) {
-          m.openPopup();
-        }
-      });
-      searchResults.style.display = 'none';
-      searchInput.value = p.site_name;
-    });
+    div.innerHTML = `<div class="sr-name">${r.label}<span class="sr-badge sr-${r.kind}">${BADGE[r.kind]}</span></div>
+      <div class="sr-sub">${r.sub || ''}</div>`;
+    div.addEventListener('click', () => selectSearchResult(r));
     searchResults.appendChild(div);
   });
   searchResults.style.display = 'block';
 });
+function selectSearchResult(r) {
+  searchResults.style.display = 'none';
+  searchInput.value = r.label;
+  // turn the point's layer on so the marker is visible after the popup closes
+  if (r.layer) {
+    const cb = document.querySelector(`.toggle-check[data-layer="${r.layer}"]`);
+    if (cb && !cb.checked) { cb.checked = true; cb.dispatchEvent(new Event('change')); }
+  }
+  map.flyTo([r.lat, r.lon], r.kind === 'site' ? 15 : 17, { duration: 1.0 });
+  if (r.kind === 'site') {
+    let opened = false;
+    layers.sites.eachLayer(m => { if (m._siteProps && m._siteProps.site_name === r.id) { m.openPopup(); opened = true; } });
+    if (!opened && r.feature) L.popup({ maxWidth: 300 }).setLatLng([r.lat, r.lon]).setContent(sitePopup(r.feature.properties)).openOn(map);
+    return;
+  }
+  const html = r.kind === 'well' ? wellPopup(r.props)
+             : r.kind === 'soil' ? searchSoilPopup(r.props)
+             : searchLcPopup(r);
+  L.popup({ maxWidth: 300 }).setLatLng([r.lat, r.lon]).setContent(html).openOn(map);
+}
+function searchSoilPopup(p) {
+  return `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:#f5d00022;color:#e0c000;border:1px solid #f5d00055">Radioactive soil zone</span></div>`
+    + `<div class="popup-name">${p.zone_id}</div><div class="popup-addr">${p.site||''} · ${p.medium||''}</div>`
+    + (p.gamma_cpm ? `<div class="popup-addr" style="margin-top:6px">Gamma: <b>${p.gamma_cpm}</b></div>` : '')
+    + (p.source ? `<div class="popup-addr" style="margin-top:4px;opacity:.75">Source: ${p.source}</div>` : '') + `</div>`;
+}
+function searchLcPopup(r) {
+  const p = r.props, isPiezo = r.popupKind === 'piezo';
+  const col = isPiezo ? '#2f6fd0' : '#e0b93a';
+  return `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:${col}22;color:${isPiezo?'#7fb2ff':'#e0c000'};border:1px solid ${col}55">${isPiezo?'Love Canal piezometer':'Love Canal pump chamber'}</span></div>`
+    + `<div class="popup-name">${p.well_id}</div>`
+    + `<div class="popup-addr" style="margin-top:4px">${isPiezo ? (p.n_readings ? p.n_readings+' water-level readings' : 'Water-level piezometer') : 'Leachate-containment infrastructure'}</div></div>`;
+}
 
 document.addEventListener('click', e => {
   if (!e.target.closest('#search-wrap')) searchResults.style.display = 'none';
