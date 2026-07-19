@@ -919,7 +919,7 @@ function renderRadWells() {
 }
 function radWellPopup(rn, w, p) {
   const has = Object.keys(p.series).length;
-  const plot = has ? concPlotSVG(p.series, rn, w.unit) : `<div class="conc-plot-note">${rn}: detected, no plottable value.</div>`;
+  const plot = has ? concPlotSVG(p.series, rn, p.unit || w.unit) : `<div class="conc-plot-note">${rn}: detected, no plottable value.</div>`;
   return `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:#f5d00022;color:#e0c000;border:1px solid #f5d00055">${p.src} · ${rn}</span></div>
     <div class="popup-name">${p.well_id}</div><div class="popup-addr">${p.site || ''} · ${p.medium || ''}</div>${plot}</div>`;
 }

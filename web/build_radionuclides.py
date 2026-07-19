@@ -24,6 +24,14 @@ RN = {
     'Radium-226':      ('Radium',  'pCi/L'),
     'Radium-228':      ('Radium',  'pCi/L'),
     'Radon-222':       ('Radon',   'pCi/L'),
+    'Thorium-234':     ('Thorium', 'pCi/g'),   # Covanta slag (soil)
+    'Uranium-235':     ('Uranium', 'pCi/g'),
+    'Actinium-228':    ('Other',   'pCi/g'),   # Th-232 chain marker
+    'Bismuth-214':     ('Other',   'pCi/g'),
+    'Bismuth-212':     ('Other',   'pCi/g'),
+    'Lead-214':        ('Other',   'pCi/g'),
+    'Lead-212':        ('Other',   'pCi/g'),
+    'Thallium-208':    ('Other',   'pCi/g'),
     'Tritium':         ('Other',   'pCi/L'),
     'Gross Alpha':     ('Other',   'pCi/L'),
     'Gross Beta':      ('Other',   'pCi/L'),
@@ -31,7 +39,7 @@ RN = {
 }
 wells = {k: {'parent': v[0], 'unit': v[1], 'points': []} for k, v in RN.items()}
 
-def add_point(rn, well_id, src, lat, lon, site, medium, year, val, detect):
+def add_point(rn, well_id, src, lat, lon, site, medium, year, val, detect, unit=None):
     if lat is None or lon is None:
         return
     pts = wells[rn]['points']
@@ -39,6 +47,8 @@ def add_point(rn, well_id, src, lat, lon, site, medium, year, val, detect):
     if p is None:
         p = {'well_id': well_id, 'src': src, 'lat': round(lat, 6), 'lon': round(lon, 6),
              'site': site, 'medium': medium, 'series': {}}
+        if unit and unit != wells[rn]['unit']:
+            p['unit'] = unit          # per-point unit override (e.g. soil pCi/g vs water pCi/L)
         pts.append(p)
     y = str(int(year)); cur = p['series'].get(y)
     st = 'detect' if detect else 'nondetect'
@@ -102,6 +112,25 @@ for wid, analytes in esp.items():
             continue
         for y, (val, det) in years.items():
             add_point(rn, wid, 'LEGACY', lat, lon, site, 'groundwater', y, val, bool(det))
+
+# ---- 3b) Covanta slag gamma-spec samples (soil, pCi/g, single event 2012) ----
+import math
+covanta_slag = json.load(open('spatial/covanta_slag_radionuclides.json', encoding='utf-8'))
+# anchor at the Covanta impacted-slag zone; scatter the grab-samples so they're distinguishable
+cz = next((f for f in json.load(open('web/data/soil_radzones.geojson', encoding='utf-8'))['features']
+           if f['properties'].get('program_number') == 'C932160'), None)
+if cz:
+    czlon, czlat = cz['geometry']['coordinates']
+    for i, (lab, s) in enumerate(covanta_slag.items()):
+        ang = i * 2.399963; rr = 0.00035 * (1 + i * 0.15)
+        plat = czlat + rr * math.cos(ang); plon = czlon + rr * math.sin(ang) / math.cos(math.radians(czlat))
+        wid = f'Covanta slag sample {i + 1}'
+        for rn, (val, mdc, det) in s['vals'].items():
+            if rn not in wells:
+                continue
+            add_point(rn, wid, 'COVANTA', plat, plon,
+                      'Covanta Niagara Rail-to-Truck Intermodal Facility', 'soil / radioactive slag',
+                      2012, val, bool(det), unit='pCi/g')
 
 # ---- 4) Mill No. 2 soil rad zones (gamma slag, no isotope values) ----
 soil = []
