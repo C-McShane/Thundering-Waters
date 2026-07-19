@@ -589,7 +589,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
         <div class="acc-help">Each <b>water droplet</b> is a well or sampling station — a <b>blood-red core</b> (contamination), <b>sized by the number of chemicals detected</b>, with a <b>ring colour showing what it samples</b> (see “Filter by sampling type”). The three toggles choose the data source; legacy wells' popups carry a <b>⚑ approximate-location note</b>.</div>
         <label class="layer-toggle" id="toggle-wellsWqp"><input type="checkbox" class="toggle-check" data-layer="wellsWqp"><span class="toggle-label">Water Quality Portal wells</span><span class="toggle-count">293</span></label>
         <label class="layer-toggle" id="toggle-wellsDec"><input type="checkbox" class="toggle-check" data-layer="wellsDec"><span class="toggle-label">NYSDEC cleanup-site wells</span><span class="toggle-count">259</span></label>
-        <label class="layer-toggle" id="toggle-wellsLegacy"><input type="checkbox" class="toggle-check" data-layer="wellsLegacy"><span class="toggle-label">Legacy-site wells</span><span class="toggle-count">185</span></label>
+        <label class="layer-toggle" id="toggle-wellsLegacy"><input type="checkbox" class="toggle-check" data-layer="wellsLegacy"><span class="toggle-label">Legacy-site wells</span><span class="toggle-count">212</span></label>
         <div class="well-size-legend" id="well-size-legend"></div>
       </div>
     </div>
@@ -1552,11 +1552,18 @@ function buildSoilSiteToggles() {
   if (!box) return;
   const bySite = {};
   soilRadFeatures.forEach(f => { const s = f.properties.site; (bySite[s] = bySite[s] || []).push(f); });
-  const wellsBySite = {};
-  wellsLegacyF.forEach(f => { const s = f.properties.site; if (bySite[s]) (wellsBySite[s] = wellsBySite[s] || []).push(f); });
+  const wellsBySite = {}, soilBySite = {};
+  wellsLegacyF.forEach(f => {
+    const s = f.properties.site; if (!bySite[s]) return;
+    if (f.properties.sample_type === 'Soil / test hole') (soilBySite[s] = soilBySite[s] || []).push(f);
+    else (wellsBySite[s] = wellsBySite[s] || []).push(f);
+  });
   box.innerHTML = Object.keys(bySite).sort().map(s => {
-    const nz = bySite[s].length, nw = (wellsBySite[s] || []).length;
-    const cnt = nw ? `${nz} zone${nz > 1 ? 's' : ''} · ${nw} well${nw > 1 ? 's' : ''}` : `${nz} zone${nz > 1 ? 's' : ''}`;
+    const nz = bySite[s].length, nw = (wellsBySite[s] || []).length, ns = (soilBySite[s] || []).length;
+    const parts = [`${nz} zone${nz > 1 ? 's' : ''}`];
+    if (nw) parts.push(`${nw} well${nw > 1 ? 's' : ''}`);
+    if (ns) parts.push(`${ns} soil`);
+    const cnt = parts.join(' · ');
     return `<label class="layer-toggle" data-soilsite="${s}"><input type="checkbox" class="soil-site-check">`
       + `<span class="toggle-swatch" style="background:#f5d000; border:2px solid #111; border-radius:50%;"></span>`
       + `<span class="toggle-label">${siteShort(s)}</span><span class="toggle-count">${cnt}</span></label>`;
