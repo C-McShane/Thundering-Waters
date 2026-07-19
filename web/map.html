@@ -375,6 +375,13 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .finding:hover { background: rgba(245,208,0,.14); border-color: rgba(245,208,0,.5); }
 .finding-t { font-size: 11.5px; font-weight: 600; color: #f3ecd0; }
 .finding-s { font-size: 10px; color: var(--dim); }
+/* Chemicals-tab strongest findings (blood-red theme, grouped by site) */
+.chem-find-site { font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; color: #e88; margin: 9px 2px 3px; }
+.chem-find-site:first-child { margin-top: 2px; }
+.finding.chem { background: rgba(184,29,36,.08); border-color: rgba(184,29,36,.28); }
+.finding.chem:hover { background: rgba(184,29,36,.18); border-color: rgba(184,29,36,.6); }
+.finding.chem .finding-t { display:flex; justify-content:space-between; gap:8px; }
+.finding.chem .finding-v { color:#ff6b66; font-family: var(--mono); font-weight:700; white-space:nowrap; }
 .rad-group-label:first-child { margin-top: 2px; }
 .rad-yr { font-family: var(--mono); font-size: 8.5px; color: var(--dim); margin-left: 6px; }
 .sample-type-filter { display: flex; flex-direction: column; gap: 1px; }
@@ -566,6 +573,15 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
     <!-- ── CHEMICALS TAB ── -->
     <div class="tab-panel" data-tab-panel="chemicals">
       <div class="acc-help" style="display:block;padding:2px 2px 12px">Filter by contaminant across the hazard sites and the monitoring-well network. Wells carry sampling dates — their menu adds a year filter, per-well time-series plots, and a running total by year.</div>
+
+      <!-- Strongest findings (editorial highlights) -->
+      <div class="acc" data-open>
+        <div class="acc-head"><span class="acc-title">Strongest findings</span><button class="acc-info" title="The highest measured contamination in the well & soil network">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+        <div class="acc-body">
+          <div class="acc-help">The most severe <b>measured</b> detections in the network. Tap one to filter the map to that contaminant and fly to the sample.</div>
+          <div id="chem-findings"></div>
+        </div>
+      </div>
 
       <!-- Hazard Sites (chemical presence) -->
       <div class="acc">
@@ -1292,6 +1308,7 @@ async function loadAll() {
   renderWells(wellsDecF.filter(f => f.properties.site === 'Love Canal (Occidental)'), layers.lcWells);   // dedicated Love Canal wells toggle
   buildSoilSiteToggles();   // Radiation-tab per-site toggles (wells + soil), now that legacy wells are loaded
   populateWellDropdown();
+  buildChemFindings();      // Chemicals-tab strongest-findings highlights
   populateSampleTypeFilter();
   populateWellYearDropdown();
   populateSAreaTocYearDropdown();
@@ -1674,6 +1691,40 @@ function populateWellDropdown() {
     const h = wellHeight(n), w = h*0.72;
     return `<div class="wsl">${dropletSVG(h, WELL_FILL, '#cfcfcf')}<span>${n}</span></div>`;
   }).join('') + `<div class="wsl" style="align-self:center"><span>chemicals<br>detected</span></div>`;
+}
+// Editorial "strongest findings" for the Chemicals tab — the highest measured detections, by site.
+const CHEM_FINDINGS = [
+  { site: 'Frontier Chemical – Royal Ave', items: [
+    { chem: 'Trichloroethene (TCE)', v: '180,000 µg/L', s: 'MW-88-8A, 2020 · carcinogen, ~36,000× the 5 µg/L water limit', lat: 43.090156, lon: -79.009366 },
+    { chem: 'Tetrachloroethene (PCE)', v: '120,000 µg/L', s: 'MW-88-8A, 2020 · carcinogen', lat: 43.090156, lon: -79.009366 },
+    { chem: 'Vinyl chloride', v: '25,000 µg/L', s: 'MW-88-12A, 2020 · potent carcinogen (limit 2 µg/L)', lat: 43.089272, lon: -79.008845 },
+    { chem: 'PFAS (PFOA/PFOS)', v: '1,700 µg/L', s: 'MW-01-9A, 2019 · "forever chemicals"', lat: 43.08974, lon: -79.009193 },
+  ]},
+  { site: 'Covanta 15-Acre Site', items: [
+    { chem: 'Chromium', v: '2,230 mg/Kg', s: 'TP-14, 2012 soil', lat: 43.088452, lon: -79.003649 },
+    { chem: 'Benzo(a)pyrene', v: '21.6 mg/Kg', s: 'SS-01, 2012 soil · carcinogen', lat: 43.09015, lon: -79.003031 },
+    { chem: 'Arsenic', v: '74.6 mg/Kg', s: 'TP-18, 2012 soil', lat: 43.086937, lon: -79.003967 },
+  ]},
+  { site: 'Niagara Sanitation Co.', items: [
+    { chem: 'Xylene', v: '1,700 µg/L', s: 'OW-36, 2014', lat: 43.069417, lon: -78.860322 },
+    { chem: 'Lead', v: '600 µg/L', s: 'OW-16, 1988', lat: 43.068813, lon: -78.860478 },
+  ]},
+];
+function buildChemFindings() {
+  const box = document.getElementById('chem-findings');
+  if (!box) return;
+  box.innerHTML = CHEM_FINDINGS.map(g =>
+    `<div class="chem-find-site">${g.site}</div>` + g.items.map(f =>
+      `<button class="finding chem" data-chem="${f.chem}" data-lat="${f.lat}" data-lon="${f.lon}">`
+      + `<span class="finding-t"><span>${f.chem}</span><span class="finding-v">${f.v}</span></span>`
+      + `<span class="finding-s">${f.s}</span></button>`).join('')).join('');
+  box.querySelectorAll('.finding.chem').forEach(b => b.addEventListener('click', () => {
+    const sel = document.getElementById('well-select');
+    if (sel && [...sel.options].some(o => o.value === b.dataset.chem)) {
+      sel.value = b.dataset.chem; sel.dispatchEvent(new Event('change'));
+    }
+    map.flyTo([parseFloat(b.dataset.lat), parseFloat(b.dataset.lon)], 17, { duration: 1.1 });
+  }));
 }
 // Sampling-type filter: colour-coded checkboxes (double as the colour legend) that show/hide
 // wells by what they sample, across all three source layers at once.
