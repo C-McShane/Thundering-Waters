@@ -1917,6 +1917,40 @@ document.querySelectorAll('.toggle-check').forEach(cb => {
   });
 });
 
+// The hazard-site markers render on a canvas pane (z450) that sits above the tract/impact-zone
+// polygons (SVG, z400), so the canvas swallows clicks before they reach those polygons. Restore
+// polygon clicks with a map-level hit test: point markers still fire their own popups (guarded by
+// popupopen so we don't double-fire), and clicks on open ground fall through to here.
+function pointInRing(pt, ring) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1];
+    if (((yi > pt[1]) !== (yj > pt[1])) && (pt[0] < (xj - xi) * (pt[1] - yi) / (yj - yi) + xi)) inside = !inside;
+  }
+  return inside;
+}
+function pointInFeature(latlng, feature) {
+  const pt = [latlng.lng, latlng.lat], g = feature.geometry;
+  const polys = g.type === 'Polygon' ? [g.coordinates] : g.type === 'MultiPolygon' ? g.coordinates : [];
+  return polys.some(poly => pointInRing(pt, poly[0]));
+}
+let lastPopupOpen = 0;
+map.on('popupopen', () => { lastPopupOpen = Date.now(); });
+map.on('click', e => {
+  if (!map.hasLayer(layers.tracts) && !map.hasLayer(layers.iz)) return;
+  setTimeout(() => {
+    if (Date.now() - lastPopupOpen < 80) return;   // a marker popup already answered this click
+    for (const key of ['tracts', 'iz']) {
+      if (!map.hasLayer(layers[key])) continue;
+      const gj = layers[key].getLayers()[0];
+      if (!gj) continue;
+      let hit = null;
+      gj.eachLayer(l => { if (!hit && l.feature && pointInFeature(e.latlng, l.feature)) hit = l; });
+      if (hit) { hit.openPopup(e.latlng); return; }
+    }
+  }, 20);
+});
+
 // ── accordion sections (Monitoring Wells tab): header toggles the body; ⓘ toggles help ──
 document.querySelectorAll('.acc-head').forEach(h => {
   h.addEventListener('click', e => {
