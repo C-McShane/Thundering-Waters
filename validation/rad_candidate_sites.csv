@@ -1,0 +1,11 @@
+﻿tier,program_number,site_name,city,lat,lon,evidence,collect_url
+Tier 1,932016,Great Lakes Carbon,NIAGARA FALLS,43.09194,-78.9997,DOCUMENTED: handled radioactive uranium & thorium under AEC contract (1952 AEC graphite study; 1958 Argonne TREAT reactor-fuel work).,https://cumulis.epa.gov/supercpad/CurSites/csitinfo.cfm?id=0201403
+Tier 1,932002,Airco Speer Carbon-Graphite,Niagara Falls,43.0952,-79.00395,Speer Carbon supplied Manhattan-Project graphite (Szilard 1940); graphitizing plant since 1920. MED-connected.,https://lmpublicsearch.lm.doe.gov/ConsideredSites/
+Tier 2,932035,GrafTech Intl. Hlds. Inc. (formerly Union Carbide),Niagara,43.12146,-79.02556,GrafTech / former Union Carbide; Union Carbide Electro-Metallurgical Div. made uranium metal in Niagara Falls.,http://www.lipsitzponterio.com/jobsites-Carbide_Graphite_Niagara_Falls_History.html
+Tier 2,B00079,Union Carbide Site,Niagara Falls (c),43.12022,-79.04436,Union Carbide parcel; electrometallurgy lineage — check shared radioactive legacy.,https://lmpublicsearch.lm.doe.gov/ConsideredSites/
+Tier 3,932001C,SKW Newco Inc.,Niagara,43.12485,-79.02896,"Ferroalloy slag adjacent to Vanadium Corp parcel; possible TENORM (verify, do not assume).",https://lmpublicsearch.lm.doe.gov/ConsideredSites/
+Tier 3,932027,Witmer Road Site,Niagara,43.12639,-79.03396,Alloy/slag fill; possible TENORM — gamma check recommended.,
+Tier 3,C932145,3807 Highland Avenue Site,Niagara Falls,43.12219,-79.04114,Slag fill (3807 Highland Ave); check for TENORM slag like Mill No.2 / Covanta.,
+Tier 3,C932175,Former Military Road School,Niagara,43.12458,-79.00084,Slag fill (Former Military Road School); gamma check recommended.,
+Tier 1,(NFSS VPs),~22 more NFSS Vicinity Properties beyond the 4 we map,Lewiston,,,"DOE lists 26 vicinity properties, 23 contaminated (U/Th/Ra); we map only VP H-Prime, VP X, Anomaly CC, Central Ditch.",https://www.energy.gov/sites/default/files/2023-11/NiagaraFallsSSVP_FUSRAP_Site_Certification_Summary.pdf
+RULED OUT,932001,Vanadium Corporation of America,Niagara,43.12426,-79.02139,"Ferroalloy metallurgy, NOT radioactive. VCA uranium mills are all out West (Durango/Shiprock/Monticello/Red Valley).",do not tag

@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+title: "Thundering Waters: The Toxic Legacy of Niagara County"
+message: "If you use this dataset or map, please cite it as below."
+type: dataset
+authors:
+  - family-names: McShane
+    given-names: Caitlin
+repository-code: "https://github.com/C-McShane/Thundering-Waters"
+url: "https://c-mcshane.github.io/Thundering-Waters/web/map.html"
+abstract: >-
+  An interactive documentary map of hazardous and radioactive contamination in
+  Niagara County, New York. Compiles NYSDEC site records, monitoring-well and
+  soil chemistry digitised from remedial investigation reports, radiological
+  survey results, and NYSDOH block-group cancer incidence (2011-2015). Sample
+  points are individually searchable by identifier so any cited figure can be
+  independently verified against its source report. Inspired by Christen
+  Civiletto's book.
+keywords:
+  - environmental contamination
+  - Niagara County
+  - Superfund
+  - FUSRAP
+  - radiological survey
+  - groundwater monitoring
+  - cancer incidence
+  - open data
+license: CC-BY-4.0
+license-url: "https://creativecommons.org/licenses/by/4.0/"
+date-released: 2026-07-20
