@@ -774,6 +774,31 @@ GEOPACKAGE LAYER INVENTORY (as of Session 8):
 
 ================================================================================
 SESSION 9 — CANCER DATA ANALYSIS (2026-06-08)
+
+        >>> CORRECTION NOTICE (added 2026-07-20) — READ BEFORE USING THIS SECTION <<<
+        The Session 9 analysis below repeatedly describes block groups as "statistically
+        elevated" / "statistically significantly ELEVATED". That interpretation of the
+        NYSDOH highlight_ field is WRONG and has been corrected everywhere in the published
+        map, README and documentation. The text is left unedited as a record of what was
+        believed at the time.
+
+        What highlight_ actually means (NYSDOH, "About the Data"):
+          - Highlighted areas are identified with a SPATIAL SCAN STATISTIC among locations
+            with at least 50% more observed than expected cases, where the ratio was
+            "unlikely to be a chance occurrence" (Boscoe et al., Health & Place 2003).
+          - Membership is per block group, but the determination is made for the AREA
+            (a cluster), not for that block group's own rate.
+          - So the defensible phrasing is "falls within a NYSDOH-designated highlighted
+            area", NOT "this block group is statistically elevated".
+          - Correct unit of aggregation is the DOH reporting region (161 in Niagara County),
+            not the block group — merged regions share one set of counts.
+
+        The tell that forced the re-check: esophagus flags 142 of 161 regions. That is
+        impossible as per-block-group significance on ~101 county cases; it is one large
+        contiguous cluster. See docs/URGENT_TODO_PROGRESS.md and docs/DATA_DICTIONARY.md.
+        >>> END CORRECTION NOTICE <<<
+
+
 ================================================================================
 
 SOURCE FILE:

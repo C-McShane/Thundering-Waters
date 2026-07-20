@@ -26,8 +26,8 @@ The data supports the book's core findings:
 - **~5% of the county's total land area** is contaminated by recorded waste site footprints
 - In the Niagara Falls impact zone, **1 in every 5 acres** is contaminated
 - **158 sites** fall within the Niagara Falls area impact zone, affecting approximately 47,000 residents
-- **70% of Niagara County block groups** have statistically significantly elevated lung cancer rates (NYS Dept. of Health, 2011–2015)
-- **64%** have statistically significantly elevated bladder cancer rates
+- **112 of 161 NYSDOH reporting regions (70%)** fall within a *highlighted area* for lung cancer — areas NYSDOH identified using a spatial scan statistic as having at least 50% more cases than expected, at a level unlikely to be chance (NYSDOH, 2011–2015). This is a **cluster-level** determination, not a significance test of any single block group.
+- **103 of 161 regions (64%)** fall within a highlighted area for bladder cancer
 - County-wide mesothelioma rates are **more than double the New York State average**
 
 ---
@@ -51,7 +51,7 @@ The data supports the book's core findings:
         ├── census_tracts.geojson           — 66 Niagara County census tracts with contamination metrics
         ├── impact_zone.geojson             — 26 Niagara Falls area impact zone tracts
         ├── major_roads.geojson             — Highways + arterials for spatial reference (13 named roads)
-        ├── cancer_sir.geojson              — Block-group cancer SIR (6 statistically elevated cancers, NYSDOH 2011–2015)
+        ├── cancer_sir.geojson              — Block-group cancer SIR + NYSDOH highlighted-area flags, 6 cancers, 2011–2015
         ├── water.geojson                   — Niagara River, canals, reservoirs & ponds (hydrography context)
         ├── wells_wqp.geojson               — 293 USGS/EPA Water Quality Portal sampling stations
         ├── wells_dec.geojson               — 259 NYSDEC remediation monitoring wells (with 2000–2019 chem time series)
@@ -175,8 +175,10 @@ The web map at `web/map.html` requires an internet connection (for the basemap a
 - Toggle layers on/off (hazard sites, contamination choropleth, impact zone, major roads, rivers & water) — hazard sites and water are on at load
 - Filter sites by any of 16 danger-ranked chemicals (with cancer-association notes), or by radionuclide (Uranium / Thorium / Radium / TENORM)
 - Mobile-friendly: the controls collapse into a bottom sheet on phones, reopened via a "Layers & Search" button
-- Select a per-cancer block-group **Cancer Incidence (SIR)** choropleth — the six cancers statistically elevated countywide (95% CI > 1) per NYSDOH 2011–2015: mesothelioma, esophagus, bladder, lung, oral, brain. SIR = observed ÷ expected (NYS-benchmarked); block groups with no cases or suppressed counts are shown distinctly
-- **Filter sites by chemical** (dropdown of 16 danger-ranked contaminants; each labeled with its associated cancer, elevated county cancers flagged). Reflects *recorded* contaminants
+- **Cancer Incidence** tab, split into two clearly-separated readings of NYSDOH 2011–2015 data for mesothelioma, esophagus, bladder, lung, oral and brain:
+  - **Highlighted Areas** — NYSDOH’s own determination via spatial scan statistic (≥50% more cases than expected, unlikely to be chance). Cluster-level, not a per-block-group test.
+  - **Standardized Incidence Ratio** — observed ÷ expected, age/sex-adjusted and benchmarked to **New York State** (not national). A ratio, not a significance test; small-area values are unstable and suppressed counts are not zero.
+- **Filter sites by chemical** (dropdown of 16 danger-ranked contaminants; each labeled with its associated cancer, cancers with highlighted areas in the county flagged). Reflects *recorded* contaminants
 - **Radioactive · Nuclear Legacy** sub-filters — Uranium / Thorium / Radium / TENORM. FUSRAP isotope attributions are DOE Legacy Management / USACE-sourced; TENORM = industrial radioactive slag
 - Click any site for a popup with name, designation, acreage, contaminants, and narrative excerpt
 - Click any census tract for contamination statistics

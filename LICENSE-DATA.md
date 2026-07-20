@@ -42,8 +42,9 @@ those materials is subject to the originator's conditions, not ours.
    georeferencing scanned figures or anchored to a site address. Each discloses this in its popup.
    See `validation/` for placement checks.
 3. **Sampling dates vary enormously.** Each monitoring point reflects conditions as of its own
-   last sampling date. Those span **1969–2024**; roughly a third of sampled points were last
-   visited in 2020 or later. This is **not** a synchronised present-day snapshot, and an old
+   last sampling date, carried in the `last_sampled` field. Those span **1948–2025**: 141 of 785
+   points were last sampled in 2020 or later, while **182 were last sampled before 2000** and 21
+   have no recorded date at all. This is **not** a synchronised present-day snapshot, and an old
    record is not evidence that conditions are unchanged.
 4. **Cancer data are ecological.** Population-level patterns do not establish individual exposure,
    disease causation, or a causal link to mapped sites. Expected counts are benchmarked to
