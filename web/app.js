@@ -195,6 +195,32 @@ function buildCancerSelectors() {
   }));
 }
 
+
+// ── CITATIONS (URGENT_TODO item 5) ───────────────────────────────────────────
+// Every "Selected high detection" must carry: report title, table, page, sample medium,
+// sampling date, named comparison standard, source link and selection criterion.
+// Until a field is sourced it reads "Information to be added" in findings.json, and the
+// entry renders a visible PENDING marker — so an uncited number can never look finished.
+function citePending(v) { return !v || v === 'Information to be added'; }
+function citeHTML(c) {
+  if (!c) return '';
+  const filled = Object.keys(c).filter(k => !citePending(c[k]));
+  if (!filled.length) return '<div class="finding-cite pending">\u2691 Source citation \u2014 information to be added</div>';
+  const bits = [];
+  if (!citePending(c.report_title)) bits.push(c.report_title);
+  if (!citePending(c.table)) bits.push('Table ' + c.table);
+  if (!citePending(c.page)) bits.push('p.' + c.page);
+  if (!citePending(c.sample_medium)) bits.push(c.sample_medium);
+  if (!citePending(c.sampling_date)) bits.push(c.sampling_date);
+  let out = '<div class="finding-cite">' + bits.join(' \u00b7 ');
+  if (!citePending(c.comparison_standard)) out += ' \u00b7 vs ' + c.comparison_standard;
+  if (!citePending(c.source_link)) out += ' \u00b7 <a href="' + c.source_link + '" target="_blank" rel="noopener">source</a>';
+  const missing = 8 - filled.length;
+  if (missing > 0) out += ' <span class="pending">(' + missing + ' field' + (missing === 1 ? '' : 's') + ' pending)</span>';
+  out += '</div>';
+  return out;
+}
+
 // ── CHEMICAL FILTER + RADIOACTIVE ────────────────────────────────────────────
 const CHEM_TOP10 = ['Dioxins / TCDD','Asbestos','Benzene','Vinyl chloride','Arsenic','PCBs','Hexavalent chromium','TCE','Cadmium','Lead'];
 const CHEM_ALSO  = ['Benzo(a)pyrene','Lindane / BHC','Beryllium','Mercury','Hexachlorobenzene','Cyanide'];
@@ -1057,10 +1083,11 @@ function buildSoilSiteToggles() {
     const cnt = parts.join(' · ');
     const fnd = SITE_FINDINGS[s] || null;
     const findHtml = fnd ? `<div class="site-findings" data-for="${s}" hidden>`
-      + `<div class="findings-title" role="button">☢ Strongest findings<span class="findings-caret">▾</span></div>`
+      + `<div class="findings-title" role="button">☢ Selected high detections<span class="findings-caret">▾</span></div>`
       + `<div class="findings-body">` + fnd.map(f =>
-          `<button class="finding" data-lat="${f.lat}" data-lon="${f.lon}">`
-          + `<span class="finding-t">${f.t}</span><span class="finding-s">${f.s}</span></button>`).join('')
+          `<div class="finding-wrap"><button class="finding" data-lat="${f.lat}" data-lon="${f.lon}">`
+          + `<span class="finding-t">${f.t}</span><span class="finding-s">${f.s}</span></button>`
+          + citeHTML(f.citation) + `</div>`).join('')
       + `</div></div>` : '';
     return `<div class="soil-site-item"><label class="layer-toggle" data-soilsite="${s}"><input type="checkbox" class="soil-site-check">`
       + `<span class="toggle-swatch" style="background:#f5d000; border:2px solid #111; border-radius:50%;"></span>`
@@ -1140,9 +1167,9 @@ function buildChemFindings() {
   if (!box) return;
   box.innerHTML = CHEM_FINDINGS.map(g =>
     `<div class="chem-find-site">${g.site}</div>` + g.items.map(f =>
-      `<button class="finding chem" data-chem="${f.chem}" data-lat="${f.lat}" data-lon="${f.lon}">`
+      `<div class="finding-wrap"><button class="finding chem" data-chem="${f.chem}" data-lat="${f.lat}" data-lon="${f.lon}">`
       + `<span class="finding-t"><span>${f.chem}</span><span class="finding-v">${f.v}</span></span>`
-      + `<span class="finding-s">${f.s}</span></button>`).join('')).join('');
+      + `<span class="finding-s">${f.s}</span></button>` + citeHTML(f.citation) + `</div>`).join('')).join('');
   box.querySelectorAll('.finding.chem').forEach(b => b.addEventListener('click', () => {
     const sel = document.getElementById('well-select');
     if (sel && [...sel.options].some(o => o.value === b.dataset.chem)) {

@@ -9,7 +9,8 @@ Working order: **6 → 1 → 3,4,5 → 2,7,10,12 → 8 → 11**
 | 1 | Count drift → all counts generated from data or one shared config | not started (depends on 6) |
 | 3 | Cancer tab: "risk" → "incidence" + permanent limitations statement | ✅ **done 2026-07-20** (see below) |
 | 4 | Cumulative well-plot wording ("not contemporaneous plume extent") | ✅ **done 2026-07-20** — caveat rendered under both cumulative plots (radionuclide + chemical) |
-| 5 | "Strongest findings" → **"Selected high detections"** + full citations (radiation too) | not started — placeholders now, `CITATIONS_TODO.md` to be generated |
+| 5 | "Strongest findings" → **"Selected high detections"** + full citations (radiation too) | ✅ **structure done 2026-07-20** — renamed, citation blocks render with visible PENDING markers, `docs/CITATIONS_TODO.md` generated (14 entries, **112 fields outstanding**). Filling the citations is Caitlin's systematic pass. |
+| A1 | 420,000 CPM location wording | ✅ **RESOLVED 2026-07-20** — now presented as a *site-wide* figure from the northern rail-line area (exact position not stated in the RI), with the 120,000–170,000 CPM TP-03 reading split out as its own correctly-located entry. |
 | 2 | DATA_SOURCES.txt → verify accuracy, then move to repo root | not started |
 | 7 | License (code + data), CITATION.cff, changelog | not started |
 | 10 | Expose complete provenance | not started |

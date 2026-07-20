@@ -431,3 +431,9 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 }
 /* Cumulative-count plots: permanent interpretation caveat (URGENT_TODO item 4). */
 .ctp-caveat { font-size: 9px; line-height: 1.45; color: var(--dim); margin-top: 5px; max-width: 250px; }
+
+/* Selected high detections — source citation line (URGENT_TODO item 5). */
+.finding-wrap { margin-bottom: 6px; }
+.finding-cite { font-size: 9px; line-height: 1.45; color: var(--dim); padding: 2px 4px 0 7px; }
+.finding-cite a { color: #9db4e0; }
+.finding-cite.pending, .finding-cite .pending { color: #c9a227; font-style: italic; }
