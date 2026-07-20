@@ -32,7 +32,17 @@ with_rawtext = [f for f in hazard if str(f['properties'].get('chemicals') or '')
 distinct_chems = sorted({c for f in hazard for c in (f['properties'].get('chems') or [])})
 
 lc_wells = [f for f in dec if str(f['properties'].get('program_number')) == '932020']
+
+# Cancer geography has three distinct counts and they are NOT interchangeable:
+#   cancer_block_groups         — every 2010-vintage Niagara BG polygon we draw (incl. water/no-data)
+#   cancer_block_groups_with_data — those carrying NYSDOH values
+#   cancer_doh_regions          — DISTINCT NYSDOH reporting regions. NYSDOH merges small-population
+#                                 BGs (<6 male or <6 female cases) into `DOH####` regions for privacy,
+#                                 so several BGs can share one region's counts. ALWAYS aggregate by
+#                                 doh_region, never by block group, or merged areas get double-counted.
 cancer_with_data = [f for f in cancer if (f['properties'].get('exp_Lung') or 0) > 0]
+cancer_merged = [f for f in cancer if f['properties'].get('merged_area')]
+cancer_regions = {f['properties'].get('doh_region') for f in cancer if f['properties'].get('doh_region')}
 
 counts = {
     'hazard_sites':                len(hazard),
@@ -42,6 +52,8 @@ counts = {
     'census_tracts':               len(tracts),
     'cancer_block_groups':         len(cancer),
     'cancer_block_groups_with_data': len(cancer_with_data),
+    'cancer_doh_regions':          len(cancer_regions),
+    'cancer_block_groups_merged':  len(cancer_merged),
     'major_road_names':            len({f['properties'].get('name') for f in roads if f['properties'].get('name')}),
     'wells_wqp':                   len(wqp),
     'wells_dec':                   len(dec),

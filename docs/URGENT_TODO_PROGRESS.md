@@ -27,7 +27,7 @@ Working order: **6 → 1 → 3,4,5 → 2,7,10,12 → 8 → 11**
 | A7 | **Reconcile block-group count: 176 vs 161.** | ✅ **RESOLVED 2026-07-20** (see below) |
 | A8 | **Carry the NYSDOH highlight flag into the data.** | ✅ **RESOLVED 2026-07-20** — added as `hlarea_{Cancer}`, but semantics corrected (see below) |
 | A9 | **Recover the 27 merged block groups via the crosswalk.** NYSDOH merges small-population BGs into custom `DOH####` codes; `NYSDOH_CancerMapping_Crosswalk_2011_2015.xlsx` (already on disk) maps them back. Those 27 currently render blank on the map even though their data exists in merged form. | not started |
-| A10 | **⚠ Resolve the study-period discrepancy.** Filename/notes say **2011–2015**, but the NYSDOH DataDictionary field definitions say cases diagnosed **"between 2005 and 2009."** Almost certainly a stale dictionary carried over from the prior release — but we must confirm before printing a period anywhere public. | not started |
+| A10 | **Study-period discrepancy.** | ✅ **RESOLVED 2026-07-20** — period is **2011–2015**. The DataDictionary's "between 2005 and 2009" wording is stale text carried over from the prior NYSDOH release. Publish 2011–2015. |
 | A3 | **Approximate-location inventory** — aggregate every `coord_precision` flag (site-centroid, map-relative) into one public list. Part of item 10. | not started |
 | A4 | **License nuance** — code and data need *different* licenses; third-party data (NYSDEC, USACE, USGS, EPA; Microsoft / NYS Office of Cyber Security basemaps) requires **attribution, not relicensing**. Part of item 7. | not started |
 | A5 | **Data dictionary** — field-level definitions (`n_found`, `coord_precision`, `sir_*`, `rad_class`, `sample_type`). Complements item 2. | not started |
@@ -52,7 +52,33 @@ Working order: **6 → 1 → 3,4,5 → 2,7,10,12 → 8 → 11**
 - Vintage is correct and confirmed by the primary source: the DataDictionary states `Dohregion` is *"based on the 2010 census."* Matching 2010 boundaries to the 2011–2015 data was the right call.
 - Cross-validation against the documented findings is good: our 149-BG subset gives **lung SIR 1.380** (doc: 1.375), **bladder 1.395** (doc: 1.401), **mesothelioma 2.425 with exactly 13 flagged BGs** (doc: 13). ✅
 
-### A8 resolved — but the flag does NOT mean what the name suggests
+### NYSDOH "highlighted area" methodology — authoritative (retrieved 2026-07-20)
+Source: https://www.health.ny.gov/statistics/cancer/environmental_facilities/mapping/about/
+
+- **Method:** the **spatial scan statistic**, applied among locations with a **≥50% difference between observed and expected cases**, where *"the ratio of observed to expected cases had to be such that it was unlikely to be a chance occurrence."* Method reference: Boscoe FP, McLaughlin CC, Schymura MJ, Kielb CL, "Visualization of the Spatial Scan Statistic Using Nested Circles," *Health and Place* 2003, 9(3):273–277.
+- 50% threshold chosen to balance statistical vs. epidemiological relevance; maximum highlighted-area size capped at **2% of statewide population (~400,000)**.
+- **Membership is per block group:** *"each block group either belongs to a highlighted area or does not belong… The true shape of a highlighted area is irregular, though roughly circular."* The circles on NYSDOH's own map are a drawing simplification.
+- ⇒ **"Statistically elevated" IS defensible**, provided we convey it is a *cluster-level* determination: a block group belongs to an area with ≥50% more cases than expected, at a level unlikely to be chance. It is **not** a per-block-group significance test of that BG's own rate.
+- **Expected cases** are age- and sex-adjusted to statewide rates.
+- **Populations:** 2010 census reference; 2011–2015 block-group populations estimated by iterative proportional fitting from county estimates (assumes BG growth matches its county).
+- **Timeframe confirmed 2011–2015.** (The DataDictionary's "between 2005 and 2009" on `Observed_Bladder` is stale text from the prior release — NYSDOH's own page states 2011–2015 for all cancer data. **A10 closed.**)
+- **Data are provisional as of December 2017.**
+- **Privacy merging:** BGs with <6 male or <6 female cases were merged, statewide 15,194 → 13,823 → 13,513; merged regions carry `DOH####` identifiers.
+
+### A9 resolved — merged block groups recovered
+Used `NYSDOH_CancerMapping_Crosswalk_2011_2015.xlsx` (`geoid10 → dohregion`) to recover **25** of the 27 previously-blank block groups, drawn from **12 merged DOH regions**. Coverage went **149 → 174 of 176**.
+
+**Full reconciliation — all three numbers now explained:**
+| Count | Meaning |
+|---|---|
+| **176** | every 2010-vintage Niagara County BG polygon we draw |
+| **174** | BGs carrying NYSDOH values |
+| **161** | **distinct NYSDOH reporting regions** (149 unmerged + 12 merged) — matches the documented "161" exactly ✅ |
+| **2** | genuinely no data: tract **9900** (census water) and tract **9401**, both null population |
+
+⚠️ **Merged BGs share one region's counts.** Each carries `merged_area: true`, `doh_region`, `merged_bg_count`. **Always aggregate by `doh_region`, never by block group**, or merged areas are double-counted. `build_statistics.py` reports `cancer_doh_regions` for this reason.
+
+### A8 resolved — the flag and its correct phrasing
 Added to `cancer_sir.geojson` as **`hlarea_{Cancer}`** for all 6 cancers across the 149 matched BGs.
 
 > ⚠️ **The NYSDOH DataDictionary defines this field as "membership in highlighted areas" — NOT per-block-group statistical significance.** A highlighted *area* is a contiguous region NYSDOH designates; every block group inside it is flagged `1`.
