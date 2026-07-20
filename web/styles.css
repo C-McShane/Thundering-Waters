@@ -504,3 +504,13 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 /* Footprint-containment card — informational, deliberately not alarm-coloured. */
 .ad-card.ad-inside { border-color: rgba(127,178,255,.42); background: rgba(47,111,208,.08); }
 .ad-inside-row { font-size: 10.5px; line-height: 1.5; color: var(--muted); padding: 4px 0; border-top: 1px solid var(--border); }
+
+/* ── "LAST SAMPLED" recency filter (temporal transparency) ─────────────────── */
+.rc-opt { display: flex; align-items: center; gap: 7px; padding: 4px 5px; border-radius: 3px; cursor: pointer; border: 1px solid transparent; }
+.rc-opt:hover { background: var(--s2); }
+.rc-opt.active { background: var(--s3); border-color: var(--border2); }
+.rc-check { width: 13px; height: 13px; accent-color: var(--red); cursor: pointer; flex-shrink: 0; }
+.rc-swatch { width: 11px; height: 14px; border-radius: 0 0 50% 50% / 0 0 35% 35%; flex-shrink: 0; border: 1px solid #cfcfcf; }
+.rc-name { flex: 1; font-size: 11px; color: var(--text); }
+.rc-count { font-family: var(--mono); font-size: 9.5px; color: var(--dim); }
+.popup-lastsampled { font-family: var(--mono); font-size: 9.5px; color: var(--dim); margin: 3px 0 5px; }

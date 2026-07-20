@@ -3,6 +3,31 @@
 All notable changes to this project are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.2.0] — 2026-07-20
+
+### Added
+- **"Last sampled" temporal transparency.** Sampling in this dataset spans **1948–2025**, and until
+  now a point's date was only visible by opening its popup — letting a 1970s reading and a 2024
+  reading look like equivalent statements about today.
+  - `web/build_recency.py` stamps a normalised **`last_sampled`** year onto all 785 monitoring
+    points (764 dated, 21 with no recorded date), so the field is available to anyone downloading
+    the geojson, not just the map.
+  - **Droplets now fade with age.** Opacity was chosen deliberately: fill already means
+    "contamination", size means "number of chemicals detected", and ring colour means "sample
+    type" — recency needed a channel of its own.
+  - **"Filter by When Last Sampled"** in the Monitoring Wells tab: 2020 or later (141) · 2010–2019
+    (412) · 2000–2009 (29) · before 2000 (182) · date not recorded (21).
+  - Every well popup now opens with **Last sampled: <year>**, or "date not recorded".
+  - Points with no date are a **distinct category**, never silently grouped with old or new.
+  - The legend and filter both state that fading shows **age, not severity** — an older point is an
+    older observation, not a cleaner one.
+
+### Fixed
+- **Corrected the recency figures in the START HERE panel.** They previously read "1969–2024" and
+  "about a third were sampled in 2020 or later", both derived from a partial subset. The canonical
+  `last_sampled` field gives **1948–2025** and **141 of 785** (18%). Now generated from
+  `statistics.json` rather than written by hand.
+
 ## [1.1.0] — 2026-07-20
 
 ### Added

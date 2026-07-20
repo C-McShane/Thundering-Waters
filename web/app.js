@@ -785,6 +785,7 @@ async function loadAll() {
   populateWellDropdown();
   buildChemFindings();      // Chemicals-tab strongest-findings highlights
   buildSearchIndex();       // unified search over sites + wells/pits/soil/piezometers
+  buildRecencyFilter();     // "last sampled" encoding + filter
   populateSampleTypeFilter();
   populateWellYearDropdown();
   populateSAreaTocYearDropdown();
@@ -841,18 +842,22 @@ let activeSampleTypes = new Set();
 function typeStroke(t) { return SAMPLE_TYPE_COLORS[t] || '#f2f2f2'; }
 const WELL_OUTLINE_DEFAULT = '#cfcfcf';
 function wellHeight(n) { return Math.min(44, 13 + 3.0 * Math.sqrt(n || 0)); }
-function dropletSVG(h, fill, stroke, sw) {
-  const w = h * 0.72;
-  return `<svg width="${w}" height="${h}" viewBox="0 0 24 32">`
+function dropletSVG(h, fill, stroke, sw, ageOpacity) {
+  const w = h * 0.72, o = ageOpacity == null ? 1 : ageOpacity;
+  // whole-glyph opacity carries RECENCY (older = fainter); fill/size/ring stay free for
+  // contamination, chemical count and sample type respectively
+  return `<svg width="${w}" height="${h}" viewBox="0 0 24 32" opacity="${o}">`
     + `<path d="M12 1 C12 1 3 14 3 21 a9 9 0 0 0 18 0 C21 14 12 1 12 1 Z" `
     + `fill="${fill}" fill-opacity="0.9" stroke="${stroke}" stroke-width="${sw || 1.7}"/></svg>`;
 }
-function dropletIcon(n, sampleType) {
+function dropletIcon(n, sampleType, lastSampled) {
   const h = wellHeight(n), w = h * 0.72;
   const lit = activeSampleTypes.has(sampleType);   // this type is ticked → light it up
   const stroke = lit ? typeStroke(sampleType) : WELL_OUTLINE_DEFAULT;
   const sw = lit ? 2.8 : 1.7;
-  return L.divIcon({ className: 'well-droplet', html: dropletSVG(h, WELL_FILL, stroke, sw), iconSize: [w, h], iconAnchor: [w/2, h/2] });
+  return L.divIcon({ className: 'well-droplet',
+    html: dropletSVG(h, WELL_FILL, stroke, sw, recencyOpacity(lastSampled)),
+    iconSize: [w, h], iconAnchor: [w/2, h/2] });
 }
 // Radiation-tab droplet: blood-red drop ringed with a black-&-yellow hazard-striped border.
 function dropletSVGHazard(h, fill) {
@@ -861,9 +866,12 @@ function dropletSVGHazard(h, fill) {
     + `<path d="${d}" fill="${fill}" fill-opacity="0.92" stroke="#111" stroke-width="3.6"/>`
     + `<path d="${d}" fill="none" stroke="#f5d000" stroke-width="3.6" stroke-dasharray="4.5 4.5" stroke-linecap="butt"/></svg>`;
 }
-function dropletIconHazard(n) {
+function dropletIconHazard(n, lastSampled) {
   const h = wellHeight(n), w = h * 0.72;
-  return L.divIcon({ className: 'well-droplet', html: dropletSVGHazard(h, WELL_FILL), iconSize: [w, h], iconAnchor: [w/2, h/2] });
+  const o = recencyOpacity(lastSampled);
+  return L.divIcon({ className: 'well-droplet',
+    html: '<span style="display:block;opacity:' + o + '">' + dropletSVGHazard(h, WELL_FILL) + '</span>',
+    iconSize: [w, h], iconAnchor: [w/2, h/2] });
 }
 // concPlotSVG: a small log-scale concentration-vs-year chart for one well+chemical.
 // series = { "year": [value, "detect"|"nondetect"] }. Detected points join into a red
@@ -943,6 +951,8 @@ function wellPopup(p) {
                   : isL ? (p.well_desc || p.well_role || 'Monitoring well')
                         : (p.well_role || 'Monitoring well');
   const yr = p.latest_detect || p.latest_year;
+  const lastSampledLine = '<div class="popup-lastsampled">Last sampled: <b>'
+    + recencyLabel(p.last_sampled) + '</b></div>';
   const chem = p.chemicals_found
     ? `<div class="popup-field"><div class="popup-field-lbl">Chemicals detected (${p.n_found})</div><div class="popup-field-val">${p.chemicals_found.substring(0,160)}${p.chemicals_found.length>160?'…':''}</div></div>`
     : `<div class="popup-field"><div class="popup-field-lbl">Chemicals detected</div><div class="popup-field-val">${p.n_found ? p.n_found + ' distinct' : 'none tabulated (location point)'}</div></div>`;
@@ -962,6 +972,7 @@ function wellPopup(p) {
     <div class="popup-tags"><span class="popup-tag" style="background:${tagc}22;color:${tagc};border:1px solid ${tagc}44">${title}</span></div>
     <div class="popup-name">${p.well_id || 'Well'}</div>
     <div class="popup-addr">${sub}${yr?` · latest ${yr}`:''}</div>
+    ${lastSampledLine}
     ${chem}${toc}${near}
     ${wellPlotBlock(p)}
     ${loc}
@@ -986,9 +997,10 @@ function renderWells(features, layer, filterChem, filterYear) {
   features.forEach(f => {
     const p = f.properties;
     if (activeSampleTypes.size && !activeSampleTypes.has(p.sample_type)) return;   // types selected → show only those
+    if (!recencyPasses(p.last_sampled)) return;                                    // "last sampled" filter
     if (!wellPassesFilter(p, filterChem, filterYear)) return;
     const [lon, lat] = f.geometry.coordinates;
-    L.marker([lat, lon], { icon: dropletIcon(p.n_found, p.sample_type), pane: 'wellsPane' })
+    L.marker([lat, lon], { icon: dropletIcon(p.n_found, p.sample_type, p.last_sampled), pane: 'wellsPane' })
       .bindPopup(wellPopup(p), { maxWidth: 300 }).addTo(layer);
   });
 }
@@ -1124,7 +1136,7 @@ function renderSoilRad() {
   wellsLegacyF.forEach(f => {
     if (!activeSoilSites.has(f.properties.site)) return;
     const p = f.properties, [lon, lat] = f.geometry.coordinates;
-    L.marker([lat, lon], { icon: dropletIconHazard(p.n_found), pane:'wellsPane' })
+    L.marker([lat, lon], { icon: dropletIconHazard(p.n_found, p.last_sampled), pane:'wellsPane' })
       .bindPopup(wellPopup(p), { maxWidth:300 }).addTo(layers.soilRad);
   });
   if (activeSoilSites.size && !map.hasLayer(layers.soilRad)) layers.soilRad.addTo(map);
@@ -1645,6 +1657,72 @@ document.addEventListener('DOMContentLoaded', () => {
   if (go) go.addEventListener('click', adRun);
   if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') adRun(); });
 });
+
+// ── RECENCY / "LAST SAMPLED" ─────────────────────────────────────────────────
+// Temporal transparency. Sampling here spans 1948–2025, so a reader who cannot see WHEN a point
+// was last visited may read a 1970s reading and a 2024 reading as equivalent statements about
+// today. Recency is encoded as OPACITY (older = more faded) and is filterable.
+//
+// Opacity was chosen deliberately: fill colour already means "contamination", size means "number
+// of chemicals detected", and ring colour means "sample type". Age needed a channel of its own.
+// The legend states outright that fading indicates AGE, not severity — a faded point is not a
+// cleaner point, it is an older observation.
+const RECENCY_BANDS = [
+  { key: '2020s',   label: '2020 or later', test: y => y >= 2020,          opacity: 1.00, swatch: '#b81d24' },
+  { key: '2010s',   label: '2010–2019',     test: y => y >= 2010 && y <= 2019, opacity: 0.78, swatch: '#a3272d' },
+  { key: '2000s',   label: '2000–2009',     test: y => y >= 2000 && y <= 2009, opacity: 0.58, swatch: '#8a3036' },
+  { key: 'pre2000', label: 'Before 2000',   test: y => y < 2000,           opacity: 0.40, swatch: '#6d383c' },
+  { key: 'unknown', label: 'Date not recorded', test: y => !y,             opacity: 0.40, swatch: '#4a4a52' },
+];
+let activeRecency = new Set();          // empty = show all (same convention as the sample-type filter)
+
+function recencyBand(y) {
+  return RECENCY_BANDS.find(b => b.test(y)) || RECENCY_BANDS[RECENCY_BANDS.length - 1];
+}
+function recencyOpacity(y) { return recencyBand(y).opacity; }
+function recencyPasses(y) {
+  if (!activeRecency.size) return true;
+  return activeRecency.has(recencyBand(y).key);
+}
+function recencyLabel(y) {
+  return y ? String(y) : 'date not recorded';
+}
+
+function buildRecencyFilter() {
+  const box = document.getElementById('recency-filter');
+  if (!box || !STATS || !STATS.recency) return;
+  const r = STATS.recency;
+  const counts = {
+    '2020s': r.band_2020_plus, '2010s': r.band_2010_2019,
+    '2000s': r.band_2000_2009, 'pre2000': r.band_pre_2000, 'unknown': r.points_undated,
+  };
+  box.innerHTML = RECENCY_BANDS.map(b =>
+    '<label class="rc-opt"><input type="checkbox" class="rc-check" value="' + b.key + '">'
+    + '<span class="rc-swatch" style="background:' + b.swatch + ';opacity:' + b.opacity + '"></span>'
+    + '<span class="rc-name">' + b.label + '</span>'
+    + '<span class="rc-count">' + (counts[b.key] || 0) + '</span></label>').join('');
+  box.querySelectorAll('.rc-check').forEach(cb => cb.addEventListener('change', () => {
+    if (cb.checked) activeRecency.add(cb.value); else activeRecency.delete(cb.value);
+    box.querySelectorAll('.rc-opt').forEach(o => o.classList.toggle('active', o.querySelector('input').checked));
+    refreshWellLayers();
+  }));
+  const note = document.getElementById('recency-note');
+  if (note) {
+    note.innerHTML = 'Monitoring points span <b>' + r.earliest + '&ndash;' + r.latest + '</b>. '
+      + '<b>' + r.since_2020 + '</b> of ' + r.points_total + ' were last sampled in 2020 or later; '
+      + '<b>' + r.band_pre_2000 + '</b> were last sampled before 2000. Fading shows <b>age, not severity</b> '
+      + '&mdash; an older point is an older observation, not a cleaner one.';
+  }
+}
+// Re-render whichever well layers are currently on, so the filter/opacity apply everywhere.
+function refreshWellLayers() {
+  const cx = (document.getElementById('well-select') || {}).value || '';
+  const yr = currentWellYear();
+  renderWells(wellsWqpF, layers.wellsWqp, cx, yr);
+  renderWells(wellsDecF, layers.wellsDec, cx, yr);
+  renderWells(wellsLegacyF, layers.wellsLegacy, cx, yr);
+  if (typeof renderSoilRad === 'function' && activeSoilSites && activeSoilSites.size) renderSoilRad();
+}
 
 // ── SEARCH ───────────────────────────────────────────────────────────────────
 const searchInput = document.getElementById('search');

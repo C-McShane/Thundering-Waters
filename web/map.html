@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=2">
+<link rel="stylesheet" href="styles.css?v=3">
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
 </head>
@@ -108,7 +108,7 @@
           <ul>
             <li>Any <b>individual&rsquo;s</b> exposure or personal risk</li>
             <li>That a mapped site <b>caused</b> any disease</li>
-            <li>A <b>single synchronised snapshot</b> &mdash; each point reflects its own last sampling date. Those span <b>1969&ndash;2024</b>, and about a third were sampled in 2020 or later, so recency varies enormously between sites</li>
+            <li>A <b>single synchronised snapshot</b> &mdash; each point reflects its own last sampling date. Those span <b>1948&ndash;2025</b>: 141 of 785 points were last sampled in 2020 or later, while 182 were last sampled before 2000. Droplets fade with age so you can see this on the map</li>
             <li>Completeness &mdash; <b>absence of a record is not absence of contamination</b></li>
           </ul>
         </div>
@@ -301,6 +301,16 @@
       </div>
     </div>
 
+    <!-- Filter by when last sampled (temporal transparency) -->
+    <div class="acc">
+      <div class="acc-head"><span class="acc-title">Filter by When Last Sampled</span><button class="acc-info" title="How recency is shown">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help">Droplets <b>fade with age</b> &mdash; the fainter a droplet, the longer ago that point was last sampled. Fading shows <b>age, not severity</b>: an older point is an older observation, not a cleaner one. Tick a period to show <b>only</b> those points.</div>
+        <div id="recency-filter"></div>
+        <div class="chem-note" id="recency-note"></div>
+      </div>
+    </div>
+
     <!-- Filter by sampling type -->
     <div class="acc">
       <div class="acc-head"><span class="acc-title">Filter by Sampling Type</span><button class="acc-info" title="What sampling type means">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
@@ -361,6 +371,6 @@
 <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="app.js?v=2"></script>
+<script src="app.js?v=3"></script>
 </body>
 </html>
