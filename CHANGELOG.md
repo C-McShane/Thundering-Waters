@@ -3,6 +3,16 @@
 All notable changes to this project are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Removed
+- **Scope clarification.** Removed exploratory Love Canal analyses and the preliminary ecological
+  cancer regression from the active repository. These analyses were incomplete, had not undergone
+  independent methodological review, and do not support the interactive map's published findings.
+  Their removal does not alter the underlying public-source datasets or current map layers. Previous
+  versions remain documented in Git history. The Love Canal piezometer geologic-medium correction,
+  on which a published map feature depends, is retained as a note in `DATA_SOURCES.txt`.
+
 ## [1.2.0] — 2026-07-20
 
 ### Added
@@ -105,9 +115,9 @@ First frozen, validated release.
 
 ### Notes
 - An ecological regression of cancer SIR against hazard-site density was run and deliberately
-  **not published**: the only signal (lung) was confounded by smoking/SES the data cannot
-  control, and bladder — the a-priori industrial cancer — was null. Inputs and outputs are
-  retained in `validation/` for transparency.
+  **not published** (lung confounded by smoking/SES; bladder null). It was **removed** from the
+  repository on 2026-07-20 as unvalidated and out of scope, together with an exploratory set of
+  Love Canal analyses; both remain in Git history. See `CORRECTIONS.md`.
 - **Vanadium Corporation of America (932001) is not radioactive** and is not tagged as such. It
   is a ferroalloy site; VCA's uranium mills are all in the western United States.
 

@@ -43,7 +43,6 @@ The data supports the book's core findings:
 │   ├── Niagara_DEC_Wells_ConcSeries.json   — Per-well contaminant concentration time series (µg/L by year)
 │   ├── Niagara_DEC_Wells_ChemYears.json    — Per-well detected-by-year index (drives the map year filter)
 │   ├── Niagara_WQP_Wells_*.json            — Same, for USGS/EPA Water Quality Portal stations
-│   └── lovecanal_analysis/                 — Love Canal deep-dive methods docs + analysis data (see below)
 └── web/
     ├── map.html                            — Interactive Leaflet web map
     └── data/
@@ -123,15 +122,22 @@ Beyond the site inventory, the map's **Monitoring Wells** tab plots individual g
 - **Chemical + year filters**: show wells where a given contaminant had been detected by a given year (cumulative), across a **1969–2024** span.
 - Chemistry is extracted directly from the primary regulatory record (NYSDEC analytical-results tables, WQP water-media results), not modeled.
 
-## Love Canal Deep-Dive
+## Love Canal
 
-The Love Canal site (NYSDEC #932020) received a dedicated investigation. `csv/lovecanal_analysis/` documents the full methodology, findings, **and limitations** — written for independent audit:
+The Love Canal site (NYSDEC #932020) is represented by its **monitoring layers**: 55 monitoring
+wells with chemistry, 28 barrier-drain piezometers with multi-year water-level series, and 6
+leachate pump chambers and storage tanks. These are drawn from the NYSDEC DecDocs 932020 record
+(1977–2024), which is archived for verification.
 
-- **Extended chemistry, 2000–2019**: per-well concentrations text-extracted from OCC/GSH annual O&M reports (2000–2009) and Periodic Review Reports (2010–2019). The main hotspot (well 10135) shows a stable 20-year trend — a persistent DNAPL source, not a receding pulse.
-- **Barrier-drain containment analysis**: inward-gradient computation from the nested-piezometer water levels (Tables 3.6A–F), with a documented correction to an earlier geologic-medium mislabeling (`LoveCanal_VULNERABILITIES.md`).
-- **2011 Colvin Blvd sewer investigation**: NAPL found in the sanitary-sewer bedding near the 99th St residential area — the likely off-site pathway (`LoveCanal_Colvin_2011_findings.md`, `LoveCanal_sewer_pathway_assessment.md`).
-- **Rainfall / migration / old-pulse tests**: cross-references of contaminant levels against precipitation and time; all null (`LoveCanal_migration_test.md`, `LoveCanal_oldpulse_test_findings.md`).
-- Every findings document lists its data sources, method, and caveats. The full DecDocs 932020 document set (1977–2024) is archived for verification.
+The piezometers report the geologic unit each is screened in. Those medium labels come from a
+per-well lookup built from the authoritative 2016–2022 Periodic Review Report headers, correcting an
+earlier assumption that the letter block in the 2015 tables encoded the medium — see
+[`DATA_SOURCES.txt`](DATA_SOURCES.txt).
+
+> **Scope note.** An earlier set of exploratory Love Canal analyses (containment-gradient
+> interpretation, a 2011 sewer-pathway hypothesis, and rainfall/migration tests) was removed from
+> this repository on 2026-07-20. They were incomplete, had not undergone independent methodological
+> review, and did not support any published map feature. See [`CORRECTIONS.md`](CORRECTIONS.md).
 
 
 > **Counts in this README are generated.** Every figure above is taken from

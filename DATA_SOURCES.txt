@@ -1430,8 +1430,6 @@ DERIVED / REPRODUCIBILITY ARTEFACTS
     spatial/covanta_geoprobe_latlon_chem.json  geoprobe coordinates + VOC/SVOC/PCB
     spatial/nfss_radionuclide_timeseries.json  NFSS ESP multi-year series
     csv/covantra/sample_sites_lat_lon.csv      hand-surveyed Covanta boundary (C. McShane)
-    csv/cancer_regression_per_tract.csv        ecological regression inputs (NOT published)
-    csv/cancer_regression_results.csv          ecological regression outputs (NOT published)
 
     Georeferencing note: Covanta RI figures were scanned. Monitoring wells, surface soils
     and test pits were placed by boundary tip-matching against the hand-surveyed site
@@ -1452,12 +1450,39 @@ KNOWN LIMITATIONS
       and must not be conflated.
     - Cancer data are ecological (population-level). They do not establish individual
       exposure, disease causation, or a causal relationship with mapped sites.
-    - An ecological regression of cancer SIR against hazard-site density was run on
-      2026-07-19 and deliberately NOT published: the only signal (lung) was confounded by
-      smoking/SES which the data cannot control, and bladder — the a-priori industrial
-      cancer — was null. Inputs and outputs retained in csv/ for transparency.
+    - An exploratory ecological regression of cancer SIR against hazard-site density was
+      run on 2026-07-19 and deliberately NOT published: the only signal (lung) was confounded
+      by smoking/SES which the data cannot control, and bladder — the a-priori industrial
+      cancer — was null. The regression, together with an exploratory set of Love Canal
+      analyses, was removed from the repository on 2026-07-20 as unvalidated and out of scope;
+      both remain in Git history. See CORRECTIONS.md.
     - Selected high detections are pending full source citations; see docs/CITATIONS_TODO.md.
 
 ================================================================================
 END OF WEB APPLICATION PROVENANCE SECTION
 ================================================================================
+
+--------------------------------------------------------------------------------
+LOVE CANAL PIEZOMETER GEOLOGIC-MEDIUM CORRECTION (retained note, added 2026-07-20)
+--------------------------------------------------------------------------------
+    The Love Canal piezometer layer (wells_lc_piezometers.geojson) reports the geologic
+    unit each well is screened in (Silty Sand/Fill, Fractured Clay, Soft Clay, Glacial
+    Till). These labels reflect a CORRECTION to an earlier error and are recorded here
+    because a published map feature depends on them.
+
+    Error: the 2015 Periodic Review Report tabulates water levels in letter blocks
+    ("A Wells" ... "D Wells"). An early assumption read the suffix letter as a medium
+    code (A=Silty Sand/Fill, B=Fractured Clay, C=Soft Clay, D=Glacial Till). That is
+    false - the letter varies by well cluster. Authoritative 2016-2022 PRR headers show,
+    for example, that "A" means Glacial Till at wells 1180/1190 but Soft Clay at 1140 and
+    Silty Sand/Fill at 1144.
+
+    Correction: geologic medium is assigned per well by ID, built from the 2016-2022
+    "... Medium" table headers, not from the letter block.
+
+    Hand-check: open any 2016+ PRR, Tables 3.6A-F, and confirm the well IDs printed under
+    each "... Medium" header match the medium shown in the piezometer popups.
+
+    (The broader exploratory Love Canal analysis this correction was found in has been
+    removed from the repository; see CORRECTIONS.md. This note preserves the correction
+    itself because the piezometer layer depends on it.)
