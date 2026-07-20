@@ -24,8 +24,10 @@ Working order: **6 → 1 → 3,4,5 → 2,7,10,12 → 8 → 11**
 |---|---|---|
 | A1 | **Fix 420,000 CPM location wording.** Map says "RI text locates the peak gamma here" at the TP-03 cluster. RI actually ties **120–170k CPM** to TP-03 and the **420k** to the northern rail-line area (football-sized surface slag piece). Overstates precision — fold into item 5. | not started |
 | A2 | **Verify cancer data provenance.** | ✅ **RESOLVED 2026-07-20** (see below) |
-| A7 | **Reconcile block-group count: 176 vs 161.** `cancer_sir.geojson` has **176** features; NYSDOH source documents **161** Niagara County BGs (14 suppressed for low population). Determine whether we pulled in neighbouring-county BGs or unsuppressed rows. Must resolve before item 3 ships. | not started |
-| A8 | **Carry the NYSDOH `highlight_` significance flag into the data.** Our geojson has only `obs_ / exp_ / sir_`. NYSDOH publishes its own significance determination (+1 elevated / 0 not significant / −1 low, 95% CI). Without it we display raw ratios and cannot legitimately say "statistically elevated." Required for item 3's language. | not started |
+| A7 | **Reconcile block-group count: 176 vs 161.** | ✅ **RESOLVED 2026-07-20** (see below) |
+| A8 | **Carry the NYSDOH highlight flag into the data.** | ✅ **RESOLVED 2026-07-20** — added as `hlarea_{Cancer}`, but semantics corrected (see below) |
+| A9 | **Recover the 27 merged block groups via the crosswalk.** NYSDOH merges small-population BGs into custom `DOH####` codes; `NYSDOH_CancerMapping_Crosswalk_2011_2015.xlsx` (already on disk) maps them back. Those 27 currently render blank on the map even though their data exists in merged form. | not started |
+| A10 | **⚠ Resolve the study-period discrepancy.** Filename/notes say **2011–2015**, but the NYSDOH DataDictionary field definitions say cases diagnosed **"between 2005 and 2009."** Almost certainly a stale dictionary carried over from the prior release — but we must confirm before printing a period anywhere public. | not started |
 | A3 | **Approximate-location inventory** — aggregate every `coord_precision` flag (site-centroid, map-relative) into one public list. Part of item 10. | not started |
 | A4 | **License nuance** — code and data need *different* licenses; third-party data (NYSDEC, USACE, USGS, EPA; Microsoft / NYS Office of Cyber Security basemaps) requires **attribution, not relicensing**. Part of item 7. | not started |
 | A5 | **Data dictionary** — field-level definitions (`n_found`, `coord_precision`, `sir_*`, `rad_class`, `sample_type`). Complements item 2. | not started |
@@ -42,6 +44,24 @@ Working order: **6 → 1 → 3,4,5 → 2,7,10,12 → 8 → 11**
 - **⚠ Benchmark is NEW YORK STATE, not US national.** NYS is itself elevated vs. the national rate for industrial cancers, so any "X× the national average" claim compounds two elevations and **must** state both benchmarks. NYS-benchmarked SIR is the conservative, publishable figure.
 - Suppressed values are **not zero** (already reflected in item 3's required statement).
 - Analysis scripts: `Niagra\scripts\lung_cancer_analysis.py`, `meso_sites.py`
+
+### A7 resolved — the 176 / 161 / 149 reconciliation
+- **176** = every 2010-vintage Niagara County block group (`niagara_county_bg_2010.shp`, built by `scripts/rebuild_bg_cancer_join.py`).
+- **149** = those that match a NYSDOH record directly by 12-digit GEOID — these carry the cancer data.
+- **27** = block groups NYSDOH **merged** for small population, re-coded as custom `DOH####` identifiers. Not missing data — recoverable via the crosswalk (**A9**).
+- Vintage is correct and confirmed by the primary source: the DataDictionary states `Dohregion` is *"based on the 2010 census."* Matching 2010 boundaries to the 2011–2015 data was the right call.
+- Cross-validation against the documented findings is good: our 149-BG subset gives **lung SIR 1.380** (doc: 1.375), **bladder 1.395** (doc: 1.401), **mesothelioma 2.425 with exactly 13 flagged BGs** (doc: 13). ✅
+
+### A8 resolved — but the flag does NOT mean what the name suggests
+Added to `cancer_sir.geojson` as **`hlarea_{Cancer}`** for all 6 cancers across the 149 matched BGs.
+
+> ⚠️ **The NYSDOH DataDictionary defines this field as "membership in highlighted areas" — NOT per-block-group statistical significance.** A highlighted *area* is a contiguous region NYSDOH designates; every block group inside it is flagged `1`.
+
+**Therefore we must never write "N block groups are statistically elevated."** The only defensible phrasing is *"falls within a NYSDOH-designated highlighted area for [cancer]."* This is why the field is named `hlarea_`, not `hl_` — the shorter name invites exactly the misreading item 3 exists to prevent.
+
+The giveaway that forced this check: **esophagus flagged 130 of 149 BGs (87%)** while only 4.8% of block groups statewide are flagged — statistically impossible as per-BG significance when the county records just 95 esophageal cases total. Area membership explains it.
+
+Flag counts across our 149 BGs (area membership): Lung 102 · Bladder 96 · Esophagus 130 · Mesothelioma 13 · Oral 0 · Brain 0.
 
 **Candidate headline for item 8 (START HERE):** the **mesothelioma cluster in North Tonawanda** (tracts 228–233, 246; county SIR 2.34) is the most causally defensible finding in the project — mesothelioma has few causes besides asbestos, and the cluster coincides with documented asbestos users carrying litigation/remediation records: Buffalo Pumps/Buffalo Forge (932044), Roblin Steel (932059 / B00025), Durez–Occidental (932018). Notably it is a **different** geography from the Niagara Falls chemical corridor. Stronger than any chemical-corridor correlation (cf. the 2026-07-19 ecological regression, which was confounded and not published).
 
