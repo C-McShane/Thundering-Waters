@@ -3,7 +3,9 @@
 All notable changes to this project are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [1.0.0] — 2026-07-20
+
+First frozen, validated release.
 
 ### Added
 - **Searchable sample points.** The search box resolves any well, test pit, geoprobe, soil
@@ -51,3 +53,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   retained in `validation/` for transparency.
 - **Vanadium Corporation of America (932001) is not radioactive** and is not tagged as such. It
   is a ferroalloy site; VCA's uranium mills are all in the western United States.
+
+### Known pending at v1.0.0
+This release is frozen deliberately, with incomplete work labelled rather than hidden:
+
+- **112 source-citation fields** across 14 "Selected high detections" remain to be filled
+  (`docs/CITATIONS_TODO.md`). Affected entries render a visible *pending* marker in the interface.
+  A pending marker means the figure is **not yet fully sourced** — not that it is disputed.
+- **Comparison standards not yet named.** Whether groundwater figures are compared against the
+  federal MCL or NYSDEC AWQS, and which Part 375 SCO tier applies to soil, is still to be settled.
+- **Covanta peak-gamma marker is not georeferenced.** RI Figure 15 is raster-only; the marker is
+  anchored to the TP-03 test-pit cluster and says so in its popup.
+- **480 points carry approximate positions** (`docs/APPROXIMATE_LOCATIONS.md`).
+- Radiological candidates identified but not yet added: Great Lakes Carbon (932016), Airco Speer
+  Carbon-Graphite (932002), and ~22 further NFSS vicinity properties
+  (`validation/rad_candidate_sites.csv`).
+
+These will be closed iteratively. The frozen tag exists so that anything cited from this map has a
+stable, reproducible reference point.
+

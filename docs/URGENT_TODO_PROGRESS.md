@@ -11,13 +11,17 @@ Working order: **6 → 1 → 3,4,5 → 2,7,10,12 → 8 → 11**
 | 4 | Cumulative well-plot wording ("not contemporaneous plume extent") | ✅ **done 2026-07-20** — caveat rendered under both cumulative plots (radionuclide + chemical) |
 | 5 | "Strongest findings" → **"Selected high detections"** + full citations (radiation too) | ✅ **structure done 2026-07-20** — renamed, citation blocks render with visible PENDING markers, `docs/CITATIONS_TODO.md` generated (14 entries, **112 fields outstanding**). Filling the citations is Caitlin's systematic pass. |
 | A1 | 420,000 CPM location wording | ✅ **RESOLVED 2026-07-20** — now presented as a *site-wide* figure from the northern rail-line area (exact position not stated in the RI), with the 120,000–170,000 CPM TP-03 reading split out as its own correctly-located entry. |
-| 2 | DATA_SOURCES.txt → verify accuracy, then move to repo root | not started |
-| 7 | License (code + data), CITATION.cff, changelog | not started |
-| 10 | Expose complete provenance | not started |
-| 12 | Hand-validation folder + upload working validation efforts | not started |
-| 8 | "START HERE" panel (3 sourced headlines, can/cannot establish, 3 buttons) | not started |
-| 9 | README titles → "Thundering Waters: The Toxic Legacy of Niagara County" | not started |
-| 11 | Frozen validated v1 release | not started (last) |
+| 2 | DATA_SOURCES.txt → verify accuracy, then move to repo root | ✅ **done** — at root; 192-line current-provenance section appended to the preserved session log |
+| 7 | License (code + data), CITATION.cff, changelog | ✅ **done** — `LICENSE` (MIT, code only), `LICENSE-DATA.md` (CC BY 4.0 + third-party attribution table), `CITATION.cff`, `CHANGELOG.md` |
+| 10 | Expose complete provenance | ✅ **done** — `docs/APPROXIMATE_LOCATIONS.md` (480 flagged points + georeferencing accuracy), `docs/DATA_DICTIONARY.md` |
+| 12 | Hand-validation folder + upload working validation efforts | ✅ **done** — `validation/` incl. the unpublished cancer regression |
+| 8 | "START HERE" panel (3 sourced headlines, can/cannot establish, 3 buttons) | ✅ **done** — landing tab, counts from `statistics.json` |
+| 9 | README titles → "Thundering Waters: The Toxic Legacy of Niagara County" | ✅ **done** — also completed item 1's README counts |
+| 11 | Frozen validated v1 release | ✅ **v1.0.0 tagged 2026-07-20** — frozen with pending work labelled, not hidden |
+| A3 | Approximate-location inventory | ✅ done (`docs/APPROXIMATE_LOCATIONS.md`) |
+| A4 | License nuance — third-party data not relicensed | ✅ done (`LICENSE-DATA.md`) |
+| A5 | Data dictionary | ✅ done (`docs/DATA_DICTIONARY.md`) |
+| A6 | "Report an error" link | ✅ done (sidebar footer → GitHub issues) |
 
 ## Added this round (approved 2026-07-20)
 
