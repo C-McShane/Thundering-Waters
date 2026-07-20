@@ -467,3 +467,40 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .sh-can ul, .sh-cant ul { margin: 0; padding-left: 14px; }
 .sh-can li, .sh-cant li { font-size: 10px; line-height: 1.5; color: var(--muted); margin-bottom: 4px; }
 .sh-note { font-size: 10px; line-height: 1.55; color: var(--dim); margin: 14px 2px 4px; padding-top: 9px; border-top: 1px solid var(--border); }
+
+/* ── ADDRESS LOCATOR (deliberately neutral — a result must never read as a verdict) ── */
+.ad-frame { background: var(--s2); border: 1px solid var(--border2); border-left: 3px solid #7fb2ff;
+  border-radius: 4px; padding: 9px 11px; margin: 2px 0 13px; font-size: 11px; line-height: 1.55; color: var(--muted); }
+.ad-frame-h { font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; color: #7fb2ff; margin-bottom: 3px; }
+.ad-label { display: block; font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--dim); margin: 0 2px 5px; }
+.ad-input { width: 100%; background: var(--bg); border: 1px solid var(--border2); border-radius: 3px;
+  padding: 9px 10px; font-family: var(--mono); font-size: 11px; color: var(--text); outline: none; }
+.ad-input:focus { border-color: #7fb2ff; }
+.ad-go { width: 100%; margin-top: 7px; background: var(--s3); border: 1px solid var(--border2);
+  border-radius: 4px; color: var(--text); font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em;
+  padding: 9px; cursor: pointer; transition: background .12s, border-color .12s; }
+.ad-go:hover { background: #2a3550; border-color: #7fb2ff; color: #fff; }
+.ad-privacy { font-size: 9.5px; line-height: 1.5; color: var(--dim); margin: 7px 2px 0; }
+.ad-status { font-size: 10.5px; line-height: 1.55; color: var(--muted); margin: 11px 0 0;
+  padding: 8px 10px; background: var(--s2); border: 1px solid var(--border2); border-radius: 4px; }
+.ad-status.warn { border-color: rgba(212,168,67,.45); background: rgba(212,168,67,.08); color: #e8dfc6; }
+.ad-quality { display: block; margin-top: 5px; font-size: 9.5px; color: var(--dim); }
+.ad-card { background: var(--s2); border: 1px solid var(--border2); border-radius: 5px; padding: 10px 11px; margin-top: 9px; }
+.ad-card-h { font-family: var(--mono); font-size: 9px; letter-spacing: .07em; text-transform: uppercase; color: var(--dim); margin-bottom: 5px; }
+.ad-val { font-size: 15px; font-weight: 600; color: #f3ecd0; line-height: 1.3; }
+.ad-name { font-size: 11.5px; color: var(--text); margin-top: 3px; line-height: 1.4; }
+.ad-meta { font-family: var(--mono); font-size: 9.5px; color: var(--dim); margin-top: 3px; line-height: 1.45; }
+.ad-note { font-size: 10px; line-height: 1.5; color: var(--muted); margin-top: 7px; padding-top: 6px; border-top: 1px solid var(--border); }
+.ad-limits { margin-top: 11px; padding: 9px 11px; background: rgba(212,168,67,.08);
+  border: 1px solid rgba(212,168,67,.38); border-left: 3px solid #d4a843; border-radius: 4px; }
+.ad-limits-h { font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; color: #d4a843; margin-bottom: 5px; }
+.ad-limits ul { margin: 0; padding-left: 15px; }
+.ad-limits li { font-size: 10px; line-height: 1.55; color: #e8dfc6; margin-bottom: 5px; }
+.ad-limits a { color: #9db4e0; }
+.ad-show { width: 100%; margin-top: 9px; background: var(--s2); border: 1px solid var(--border2);
+  border-radius: 4px; color: var(--muted); font-family: var(--mono); font-size: 10px; padding: 8px; cursor: pointer; }
+.ad-show:hover { background: var(--s3); color: #fff; border-color: #7fb2ff; }
+/* Footprint-containment card — informational, deliberately not alarm-coloured. */
+.ad-card.ad-inside { border-color: rgba(127,178,255,.42); background: rgba(47,111,208,.08); }
+.ad-inside-row { font-size: 10.5px; line-height: 1.5; color: var(--muted); padding: 4px 0; border-top: 1px solid var(--border); }

@@ -44,6 +44,9 @@
     <div class="tab-bar" role="tablist">
       <div class="tab-row">
         <button class="tab-btn tab-start active" data-tab="start" role="tab" aria-selected="true">Start Here</button>
+        <button class="tab-btn tab-start" data-tab="addr" role="tab" aria-selected="false">Address Lookup</button>
+      </div>
+      <div class="tab-row">
         <button class="tab-btn" data-tab="sites" role="tab" aria-selected="false">Hazard Sites</button>
         <button class="tab-btn" data-tab="wells" role="tab" aria-selected="false">Monitoring Wells</button>
       </div>
@@ -114,6 +117,25 @@
       <div class="sh-note">This is an active compilation. Source citations for Selected high detections are being filled in systematically and are marked <i>pending</i> where incomplete &mdash; a pending marker means the figure is not yet fully sourced, not that it is disputed. Corrections are welcome: use <b>Report an error</b> below.</div>
 
     </div><!-- /tab-panel: start -->
+
+    <div class="tab-panel" data-tab-panel="addr">
+
+      <div class="ad-frame">
+        <div class="ad-frame-h">What this does</div>
+        Enter an address and this reports the <b>straight-line distance to the nearest documented hazard site</b> and to the <b>nearest sampling point where a contaminant was detected</b>. It is a <b>locator</b>, for general orientation.
+        <div class="ad-frame-h" style="margin-top:9px">What it does not do</div>
+        It does <b>not</b> assess risk, exposure, or safety, and it cannot tell you anything about your water, soil, air or health. Distance alone does not determine exposure &mdash; see the notes with any result.
+      </div>
+
+      <label class="ad-label" for="ad-input">Address (Niagara County, NY)</label>
+      <input id="ad-input" class="ad-input" type="text" placeholder="e.g. 2001 Main St, Niagara Falls, NY 14305" autocomplete="off">
+      <button id="ad-go" class="ad-go">Find nearest documented sites</button>
+      <div class="ad-privacy">Your address is sent to the <b>US Census Bureau geocoder</b> to convert it to coordinates. It is not stored by this map and is not sent anywhere else.</div>
+
+      <div id="ad-status" class="ad-status" style="display:none"></div>
+      <div id="ad-results" style="display:none"></div>
+
+    </div><!-- /tab-panel: addr -->
 
     <div class="tab-panel" data-tab-panel="sites">
 

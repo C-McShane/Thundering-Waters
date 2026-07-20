@@ -1458,6 +1458,194 @@ document.querySelectorAll('.sh-btn').forEach(btn => btn.addEventListener('click'
   }
 }));
 
+// ── ADDRESS LOCATOR ──────────────────────────────────────────────────────────
+// Reports straight-line distance from a geocoded address to (a) the nearest documented
+// hazard site and (b) the nearest sampling point where a contaminant was DETECTED.
+//
+// Design constraint that governs everything here: THE OUTPUT MUST NOT BE READABLE AS A
+// SAFETY VERDICT. Hence — distances are rounded hard (never "1,247 m"), there is no
+// red/green styling, and the three limits below are rendered WITH every result rather
+// than tucked into a collapsed methodology note:
+//   1. distance is not exposure (groundwater moves directionally, not radially)
+//   2. a LARGE distance may mean nobody sampled nearby, not that nothing is there
+//   3. site points are centroids; large sites extend far beyond them
+const AD_BBOX = { latMin: 42.95, latMax: 43.45, lonMin: -79.20, lonMax: -78.45 };  // Niagara Co. + margin
+
+function adHaversine(lat1, lon1, lat2, lon2) {
+  const R = 6371000, t = Math.PI / 180;
+  const dLat = (lat2 - lat1) * t, dLon = (lon2 - lon1) * t;
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * t) * Math.cos(lat2 * t) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(a));
+}
+// Round hard. Precision here would imply an accuracy the inputs cannot support.
+function adDist(m) {
+  const mi = m / 1609.34;
+  if (m < 400) return 'under a quarter mile';
+  if (mi < 1) return 'about ' + (Math.round(mi * 10) / 10).toFixed(1) + ' miles (' + (Math.round(m / 100) * 100) + ' m)';
+  return 'about ' + (Math.round(mi * 10) / 10).toFixed(1) + ' miles (' + (Math.round(m / 100) / 10).toFixed(1) + ' km)';
+}
+// Acreage -> radius of a circle of equal area. Used ONLY to decide whether the address may
+// fall inside a site's footprint. We hold a centroid and an acreage, not a polygon, so we
+// never publish "distance to boundary" as though it were measured.
+function adEquivRadius(acres) {
+  if (!acres || acres <= 0) return null;
+  return Math.sqrt(acres * 4046.86 / Math.PI);
+}
+function adGeocode(addr) {
+  return new Promise(resolve => {
+    const cb = '__adg' + Math.random().toString(36).slice(2);
+    let done = false;
+    const finish = v => { if (!done) { done = true; resolve(v); cleanup(); } };
+    window[cb] = d => finish(d);
+    const s = document.createElement('script');
+    s.src = 'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address='
+      + encodeURIComponent(addr) + '&benchmark=Public_AR_Current&format=jsonp&callback=' + cb;
+    s.onerror = () => finish(null);
+    function cleanup() { try { document.head.removeChild(s); delete window[cb]; } catch (e) {} }
+    document.head.appendChild(s);
+    setTimeout(() => finish(null), 10000);
+  });
+}
+function adStatus(html, cls) {
+  const el = document.getElementById('ad-status');
+  el.className = 'ad-status' + (cls ? ' ' + cls : '');
+  el.innerHTML = html;
+  el.style.display = 'block';
+}
+async function adRun() {
+  const q = document.getElementById('ad-input').value.trim();
+  const res = document.getElementById('ad-results');
+  res.style.display = 'none'; res.innerHTML = '';
+  if (!q) { adStatus('Enter an address to look up.', 'warn'); return; }
+  adStatus('Looking up address…');
+
+  const d = await adGeocode(q);
+  const matches = (d && d.result && d.result.addressMatches) || [];
+  if (!matches.length) {
+    adStatus('<b>No match.</b> The US Census geocoder could not find that address. Try including the street number, city and ZIP — e.g. <i>2001 Main St, Niagara Falls, NY 14305</i>. Some rural and newly-built addresses are not in the Census address file at all; that is a limitation of the geocoder, not a statement about the location.', 'warn');
+    return;
+  }
+  const m = matches[0];
+  const lat = m.coordinates.y, lon = m.coordinates.x;
+
+  if (lat < AD_BBOX.latMin || lat > AD_BBOX.latMax || lon < AD_BBOX.lonMin || lon > AD_BBOX.lonMax) {
+    adStatus('<b>Outside the mapped area.</b> That address geocoded to ' + lat.toFixed(3) + ', ' + lon.toFixed(3)
+      + ', which is outside Niagara County. This map only documents Niagara County, so a distance from here would be meaningless.', 'warn');
+    return;
+  }
+
+  // nearest documented hazard site (by centroid)
+  let bestSite = null;
+  // ...and, separately, EVERY site whose footprint may contain this address. These are not the
+  // same question: LOOW is 7,500 acres (~3.1 km equivalent radius), so an address can sit inside
+  // its footprint while some small site 500 m away is "nearest by centroid". Checking only the
+  // nearest site would silently hide the one that actually matters.
+  const containing = [];
+  allSiteFeatures.forEach(f => {
+    const c = f.geometry.coordinates;
+    const dist = adHaversine(lat, lon, c[1], c[0]);
+    if (!bestSite || dist < bestSite.dist) bestSite = { dist, p: f.properties };
+    const r = adEquivRadius(f.properties.acres);
+    if (r && dist < r) containing.push({ dist, r, p: f.properties });
+  });
+  containing.sort((a, b) => b.p.acres - a.p.acres);
+  // nearest sampling point WITH a detection
+  let bestPt = null;
+  [...wellsWqpF, ...wellsDecF, ...wellsLegacyF].forEach(f => {
+    const p = f.properties;
+    if (!(p.n_found > 0)) return;
+    const c = f.geometry.coordinates;
+    const dist = adHaversine(lat, lon, c[1], c[0]);
+    if (!bestPt || dist < bestPt.dist) bestPt = { dist, p };
+  });
+
+  adStatus('Matched to <b>' + m.matchedAddress + '</b><br>'
+    + '<span class="ad-quality">The Census geocoder matches to a <b>street segment</b>, not a rooftop — the located point is typically within about 100 m of the actual parcel, and can be further on long or rural blocks. Everything below inherits that.</span>');
+
+  let html = '';
+
+  // ---- footprint containment first: more consequential than nearest-centroid ----
+  if (containing.length) {
+    html += '<div class="ad-card ad-inside"><div class="ad-card-h">Your address may fall within a mapped site footprint</div>'
+      + '<div class="ad-note" style="border:0;padding:0;margin:0 0 7px">These sites are large enough that their boundaries may extend past your location, even though the distance figures below are measured to their centre points. We hold each site’s <b>acreage and centre point, not its surveyed boundary</b>, so this is an indication to check the site record — not a determination that you are inside it.</div>';
+    containing.forEach(s => {
+      html += '<div class="ad-inside-row"><b>' + (s.p.site_name || '—') + '</b> — about '
+        + Math.round(s.p.acres).toLocaleString() + ' acres; its centre point is ' + adDist(s.dist)
+        + ' away' + (s.p.designation ? ' · ' + s.p.designation : '') + '</div>';
+    });
+    html += '</div>';
+  }
+
+  // ---- hazard site ----
+  if (bestSite) {
+    const p = bestSite.p, r = adEquivRadius(p.acres);
+    const inside = r && bestSite.dist < r;
+    html += '<div class="ad-card"><div class="ad-card-h">Nearest documented hazard site</div>'
+      + '<div class="ad-val">' + adDist(bestSite.dist) + '</div>'
+      + '<div class="ad-name">' + (p.site_name || '—') + '</div>'
+      + '<div class="ad-meta">' + (p.designation || '') + (p.city ? ' · ' + p.city : '') + '</div>';
+    if (p.acres > 0) {
+      html += '<div class="ad-note">This site covers about <b>' + Math.round(p.acres).toLocaleString() + ' acres</b>. '
+        + 'The distance above is measured to the site’s <b>mapped point</b>, not its boundary — the site itself extends beyond that point in every direction.';
+      if (inside) {
+        html += ' <b>Given its size, your address may fall within this site’s mapped footprint.</b>';
+      }
+      html += '</div>';
+    } else {
+      html += '<div class="ad-note">No acreage is recorded for this site, so we cannot say how far its boundary extends from the mapped point.</div>';
+    }
+    html += '</div>';
+  }
+
+  // ---- sampled point with a detection ----
+  if (bestPt) {
+    const p = bestPt.p;
+    const chems = (p.chems || []).slice(0, 4).join(', ');
+    html += '<div class="ad-card"><div class="ad-card-h">Nearest sampling point with a detection</div>'
+      + '<div class="ad-val">' + adDist(bestPt.dist) + '</div>'
+      + '<div class="ad-name">' + (p.well_id || '—') + (p.site ? ' — ' + p.site : '') + '</div>'
+      + '<div class="ad-meta">' + (p.n_found || 0) + ' contaminant' + (p.n_found === 1 ? '' : 's') + ' detected'
+      + (chems ? ' · ' + chems + ((p.chems || []).length > 4 ? '…' : '') : '')
+      + (p.latest_detect || p.latest_year ? ' · last detection ' + (p.latest_detect || p.latest_year) : '') + '</div>';
+    if (p.coord_precision) {
+      html += '<div class="ad-note">⚑ This point’s own position is approximate: <i>' + p.coord_precision + '</i></div>';
+    }
+    html += '</div>';
+  }
+
+  // ---- limits, rendered WITH the result, never collapsed ----
+  html += '<div class="ad-limits"><div class="ad-limits-h">How to read these numbers</div><ul>'
+    + '<li><b>Distance is not exposure.</b> Contamination travels through groundwater in a <b>direction</b>, following the water table — not outward in a circle. A site further away but upgradient of you can matter more than a closer one that drains elsewhere. Nothing here models that.</li>'
+    + '<li><b>A large distance is not reassurance.</b> It may simply mean nobody has sampled near you. Absence of a record is not absence of contamination.</li>'
+    + '<li><b>These are straight-line distances</b> between points on a map, ignoring roads, barriers, depth and geology.</li>'
+    + '<li><b>This is orientation, not a risk assessment.</b> For questions about your own water, soil or health, contact the <a href="https://www.health.ny.gov/environmental/" target="_blank" rel="noopener">NYS Department of Health</a> or <a href="https://dec.ny.gov/environmental-protection/site-cleanup" target="_blank" rel="noopener">NYSDEC</a>.</li>'
+    + '</ul></div>';
+
+  html += '<button class="ad-show" id="ad-show">Show this location on the map</button>';
+
+  res.innerHTML = html;
+  res.style.display = 'block';
+  const btn = document.getElementById('ad-show');
+  if (btn) btn.addEventListener('click', () => {
+    if (window.__adMarker) map.removeLayer(window.__adMarker);
+    window.__adMarker = L.circleMarker([lat, lon], {
+      pane: 'wellsPane', radius: 9, color: '#ffffff', weight: 2.5, fillColor: '#2f6fd0', fillOpacity: 0.85
+    }).bindPopup('<div class="popup-inner"><div class="popup-name">Looked-up address</div>'
+      + '<div class="popup-addr">' + m.matchedAddress + '</div>'
+      + '<div class="popup-loc">⚑ Geocoded to a street segment — approximate.</div></div>').addTo(map);
+    map.flyTo([lat, lon], 14, { duration: 1.1 });
+    window.__adMarker.openPopup();
+  });
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const go = document.getElementById('ad-go');
+  const inp = document.getElementById('ad-input');
+  if (go) go.addEventListener('click', adRun);
+  if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') adRun(); });
+});
+
 // ── SEARCH ───────────────────────────────────────────────────────────────────
 const searchInput = document.getElementById('search');
 const searchResults = document.getElementById('search-results');

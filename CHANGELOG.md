@@ -3,6 +3,29 @@
 All notable changes to this project are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.1.0] — 2026-07-20
+
+### Added
+- **Address Lookup tool.** Enter an address and it reports the straight-line distance to the
+  nearest documented hazard site and to the nearest sampling point where a contaminant was
+  detected. Geocoding uses the US Census Bureau geocoder, called client-side; the address is not
+  stored and is not sent anywhere else.
+
+  Built to a single constraint: **the output must not be readable as a safety verdict.**
+  - Distances are rounded hard (never "1,247 m") and there is no red/green result styling.
+  - Three limits render *with every result*, not in a collapsed note: distance is not exposure
+    (groundwater moves directionally, not radially); a **large** distance may only mean nobody
+    sampled nearby; site points are centroids, and large sites extend far beyond them.
+  - Geocode quality is surfaced — Census matches to a street segment, not a rooftop (~100 m).
+  - Out-of-county addresses and geocoder misses fail gracefully rather than returning a
+    confident distance from a bad origin.
+  - **Footprint containment is evaluated across every site, not just the nearest.** LOOW is
+    7,500 acres (~3.1 km equivalent radius), so an address can sit inside its footprint while a
+    small site 500 m away is "nearest by centroid" — checking only the nearest would have
+    silently hidden the site that actually matters. Because we hold acreage and a centre point
+    rather than a surveyed boundary, this is reported as *may fall within*, never as a
+    determination.
+
 ## [1.0.1] — 2026-07-20
 
 ### Fixed
