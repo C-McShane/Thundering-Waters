@@ -149,6 +149,9 @@ earlier assumption that the letter block in the 2015 tables encoded the medium â
 ### Documentation
 | File | What it covers |
 |---|---|
+| [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md) | AI assistance and human responsibility |
+| [`VALIDATION_STATUS.md`](VALIDATION_STATUS.md) | What has and has not been source-verified |
+| [`CORRECTIONS.md`](CORRECTIONS.md) | Corrections log and open issues under review |
 | [`DATA_SOURCES.txt`](DATA_SOURCES.txt) | Full provenance log, per layer and per source document |
 | [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md) | Field-level definitions |
 | [`docs/APPROXIMATE_LOCATIONS.md`](docs/APPROXIMATE_LOCATIONS.md) | Every point whose position is not surveyed |
