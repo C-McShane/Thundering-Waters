@@ -41,11 +41,15 @@ those materials is subject to the originator's conditions, not ours.
 2. **Some coordinates are approximate.** Points carrying a `coord_precision` flag were placed by
    georeferencing scanned figures or anchored to a site address. Each discloses this in its popup.
    See `validation/` for placement checks.
-3. **Cancer data are ecological.** Population-level patterns do not establish individual exposure,
+3. **Sampling dates vary enormously.** Each monitoring point reflects conditions as of its own
+   last sampling date. Those span **1969–2024**; roughly a third of sampled points were last
+   visited in 2020 or later. This is **not** a synchronised present-day snapshot, and an old
+   record is not evidence that conditions are unchanged.
+4. **Cancer data are ecological.** Population-level patterns do not establish individual exposure,
    disease causation, or a causal link to mapped sites. Expected counts are benchmarked to
    **New York State**, not the national rate. Suppressed values are not zero.
-4. **Selected high detections are pending full citations** (`docs/CITATIONS_TODO.md`). Verify
+5. **Selected high detections are pending full citations** (`docs/CITATIONS_TODO.md`). Verify
    against the cited report before reusing any individual figure.
-5. **Chemical flags on hazard sites are *recorded* chemicals**, not measurements.
+6. **Chemical flags on hazard sites are *recorded* chemicals**, not measurements.
 
 If you find an error, please open an issue — corrections are welcome and wanted.

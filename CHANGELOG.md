@@ -3,6 +3,15 @@
 All notable changes to this project are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.1] — 2026-07-20
+
+### Fixed
+- **Corrected an over-cautious limitation.** The START HERE panel said the map cannot show
+  "present-day conditions — many records are historical". That undersold the data: sampling spans
+  **1969–2024** and about a third of sampled points were last visited in 2020 or later. The real
+  limitation is that the map is not a *synchronised* snapshot — each point reflects its own last
+  sampling date. Reworded in the interface and added as a caveat in `LICENSE-DATA.md`.
+
 ## [1.0.0] — 2026-07-20
 
 First frozen, validated release.
