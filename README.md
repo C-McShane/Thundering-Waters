@@ -119,7 +119,7 @@ Beyond the site inventory, the map's **Monitoring Wells** tab plots individual g
 
 - **785 monitoring points** across three sources — 293 Water Quality Portal stations (USGS/EPA), 259 NYSDEC remediation wells, and 233 legacy-site points — droplet-sized by number of contaminants detected, outlined by sampling type (bedrock, overburden, surface water, remediation).
 - **Per-well concentration-vs-year plots**: click a well with a chemical selected to see a log-scale trend line (detected vs non-detect at the reporting limit).
-- **Chemical + year filters**: show wells where a given contaminant had been detected by a given year (cumulative), across a **1969–2024** span.
+- **Chemical + year filters**: show wells where a given contaminant had been detected by a given year (cumulative), across a **1948–2025** span.
 - Chemistry is extracted directly from the primary regulatory record (NYSDEC analytical-results tables, WQP water-media results), not modeled.
 
 ## Love Canal
@@ -180,7 +180,7 @@ Full provenance for every data point is documented in `DATA_SOURCES.txt`.
 The web map at `web/map.html` requires an internet connection (for the basemap and fonts) but all spatial data loads locally from the `web/data/` folder. It works in any modern browser.
 
 **Features:**
-- Organized into five tabs — **Hazard Sites**, **Monitoring Wells**, **Radiation**, **Chemicals**, and **Cancer Incidence** — so controls stay digestible
+- Two entry points — **Start Here** (what the project documents and three sourced findings) and **Address Lookup** (nearest documented site/sample, explicitly not a risk assessment) — plus five data tabs: **Hazard Sites**, **Monitoring Wells**, **Radiation**, **Chemicals**, and **Cancer Incidence**
 - Toggle layers on/off (hazard sites, contamination choropleth, impact zone, major roads, rivers & water) — hazard sites and water are on at load
 - Filter sites by any of 16 danger-ranked chemicals (with cancer-association notes), or by radionuclide (Uranium / Thorium / Radium / TENORM)
 - Mobile-friendly: the controls collapse into a bottom sheet on phones, reopened via a "Layers & Search" button
@@ -195,6 +195,33 @@ The web map at `web/map.html` requires an internet connection (for the basemap a
 - Download the GeoJSON files directly from the footer
 
 ---
+
+## Building and reproducing
+
+**The interactive map is static.** `web/map.html` loads the published GeoJSON in `web/data/` directly. To run it locally, serve the `web/` directory with any static file server — for example, from inside `web/`:
+
+```
+python -m http.server 8000
+# then open http://localhost:8000/map.html
+```
+
+Opening the file over `file://` will not work, because the browser blocks the local data fetches.
+
+**Python environment.** The data-processing scripts under `web/` were developed with Python 3.11 and the packages pinned in [`requirements.txt`](requirements.txt) — `pip install -r requirements.txt`.
+
+**What regenerates from this repository.** The *derived* products regenerate from the published source layers, and re-running them reproduces the numbers shown in the interface exactly (the only per-run difference is a `generated_utc` timestamp recording when the file was written):
+
+```
+python web/build_statistics.py     # -> web/data/statistics.json (every count shown in the UI)
+python web/build_recency.py        # -> the last_sampled field on the well layers
+python web/build_radionuclides.py  # -> web/data/radionuclides.json
+```
+
+**What does *not* regenerate from this repository — and why.** The upstream compilation — scraping the NYSDEC and EPA records, OCR of scanned documents, the tiered chemical extraction, and the block-group cancer join — was carried out with an evolving set of working scripts run against a local data store, a local cache of source documents, and downloaded imagery. Those scripts were edited in place over the life of the project rather than maintained as a released, path-independent pipeline; they contain absolute local paths and depend on inputs that are not all redistributable here. **This repository is therefore not a turnkey reproduction of the raw-source-to-dataset pipeline.**
+
+What the repository *does* provide is the compiled output — `spatial_layers/Niagara_County_HazWaste.gpkg` and the `web/data/*.geojson` layers — with its provenance documented per layer in [`DATA_SOURCES.txt`](DATA_SOURCES.txt), and the underlying public records are all obtainable from the agencies named there. This gap is tracked as an open issue in [`CORRECTIONS.md`](CORRECTIONS.md).
+
+Script filenames that appear in the documentation but are not present under `web/` are part of that local compilation code and are not redistributed.
 
 ## Citation
 

@@ -795,7 +795,7 @@ SESSION 9 — CANCER DATA ANALYSIS (2026-06-08)
 
         The tell that forced the re-check: esophagus flags 142 of 161 regions. That is
         impossible as per-block-group significance on ~101 county cases; it is one large
-        contiguous cluster. See docs/URGENT_TODO_PROGRESS.md and docs/DATA_DICTIONARY.md.
+        contiguous cluster. See CORRECTIONS.md and docs/DATA_DICTIONARY.md.
         >>> END CORRECTION NOTICE <<<
 
 
