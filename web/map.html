@@ -65,7 +65,7 @@
       <div class="acc-head"><span class="acc-title">Hazard site points</span><button class="acc-info" title="About the hazard sites">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
         <div class="acc-help">Every documented contaminated site in Niagara County, each dot coloured by its <b>regulatory programme</b>. Turn the layer on or off, or show/hide individual programme types below — the list doubles as the colour legend.</div>
-        <label class="layer-toggle active" id="toggle-sites"><input type="checkbox" class="toggle-check" checked data-layer="sites"><span class="toggle-swatch" style="background:#c0392b; border:2px solid #7a2a22;"></span><span class="toggle-label">Show hazard sites</span><span class="toggle-count">256 pts</span></label>
+        <label class="layer-toggle active" id="toggle-sites"><input type="checkbox" class="toggle-check" checked data-layer="sites"><span class="toggle-swatch" style="background:#c0392b; border:2px solid #7a2a22;"></span><span class="toggle-label">Show hazard sites</span><span class="toggle-count" data-stat="hazard_sites" data-suffix=" pts">…</span></label>
         <div class="acc sub-acc">
           <div class="acc-head"><span class="acc-title">Filter by site type</span><span class="acc-arrow">&#9662;</span></div>
           <div class="acc-body">
@@ -81,7 +81,7 @@
       <div class="acc-head"><span class="acc-title">Area layers</span><button class="acc-info" title="Polygon overlays">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
         <div class="acc-help">Shaded areas rather than points. <b>Contamination by tract</b> shades each census tract by the share of its land that is contaminated; the <b>impact zone</b> outlines the Niagara Falls area where most sites cluster. Each legend appears automatically when you switch its layer on.</div>
-        <label class="layer-toggle" id="toggle-tracts"><input type="checkbox" class="toggle-check" data-layer="tracts"><span class="toggle-swatch square" style="background:rgba(192,57,43,.4); border:1px solid #c0392b;"></span><span class="toggle-label">Contamination by Tract</span><span class="toggle-count">66 tracts</span></label>
+        <label class="layer-toggle" id="toggle-tracts"><input type="checkbox" class="toggle-check" data-layer="tracts"><span class="toggle-swatch square" style="background:rgba(192,57,43,.4); border:1px solid #c0392b;"></span><span class="toggle-label">Contamination by Tract</span><span class="toggle-count" data-stat="census_tracts" data-suffix=" tracts">…</span></label>
         <div class="auto-legend" id="legend-tracts" style="display:none">
           <div class="auto-legend-title">Share of tract land contaminated</div>
           <div class="choro-bar"></div>
@@ -100,7 +100,7 @@
       <div class="acc-body">
         <div class="acc-help">Base-map context: the Niagara River, creeks and water bodies near monitoring sites, plus the county's major roads.</div>
         <label class="layer-toggle active" id="toggle-water"><input type="checkbox" class="toggle-check" checked data-layer="water"><span class="toggle-swatch square" style="background:#1fa6e0; border:1px solid #5fd0ff;"></span><span class="toggle-label">Rivers &amp; Water</span><span class="toggle-count">+ creeks</span></label>
-        <label class="layer-toggle" id="toggle-roads"><input type="checkbox" class="toggle-check" data-layer="roads"><span class="toggle-swatch" style="background:#9d8fbf; width:14px; height:3px; border-radius:1px;"></span><span class="toggle-label">Major Roads</span><span class="toggle-count">13 roads</span></label>
+        <label class="layer-toggle" id="toggle-roads"><input type="checkbox" class="toggle-check" data-layer="roads"><span class="toggle-swatch" style="background:#9d8fbf; width:14px; height:3px; border-radius:1px;"></span><span class="toggle-label">Major Roads</span><span class="toggle-count" data-stat="major_road_names" data-suffix=" roads">…</span></label>
       </div>
     </div>
 
@@ -183,7 +183,7 @@
         <div class="acc-body">
           <div class="acc-help">Sites that list a contaminant in their NYSDEC record. These are chemical <b>presence</b> flags — sites don't carry sampling dates, so there's no year filter or trend on this side.</div>
           <select id="chem-select"><option value="">All sites</option></select>
-          <div class="chem-note" id="chem-note">Shows sites that list the selected contaminant. Reflects <em>recorded</em> chemicals (107 of 256 sites list any).</div>
+          <div class="chem-note" id="chem-note">Shows sites that list the selected contaminant. Reflects <em>recorded</em> chemicals.</div>
         </div>
       </div>
 
@@ -207,9 +207,9 @@
       <div class="acc-head"><span class="acc-title">Well layers</span><button class="acc-info" title="How to read the wells">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
         <div class="acc-help">Each <b>water droplet</b> is a well or sampling station — a <b>blood-red core</b> (contamination), <b>sized by the number of chemicals detected</b>, with a <b>ring colour showing what it samples</b> (see “Filter by sampling type”). The three toggles choose the data source; legacy wells' popups carry a <b>⚑ approximate-location note</b>.</div>
-        <label class="layer-toggle" id="toggle-wellsWqp"><input type="checkbox" class="toggle-check" data-layer="wellsWqp"><span class="toggle-label">Water Quality Portal wells</span><span class="toggle-count">293</span></label>
-        <label class="layer-toggle" id="toggle-wellsDec"><input type="checkbox" class="toggle-check" data-layer="wellsDec"><span class="toggle-label">NYSDEC cleanup-site wells</span><span class="toggle-count">259</span></label>
-        <label class="layer-toggle" id="toggle-wellsLegacy"><input type="checkbox" class="toggle-check" data-layer="wellsLegacy"><span class="toggle-label">Legacy-site wells</span><span class="toggle-count">233</span></label>
+        <label class="layer-toggle" id="toggle-wellsWqp"><input type="checkbox" class="toggle-check" data-layer="wellsWqp"><span class="toggle-label">Water Quality Portal wells</span><span class="toggle-count" data-stat="wells_wqp" data-suffix="">…</span></label>
+        <label class="layer-toggle" id="toggle-wellsDec"><input type="checkbox" class="toggle-check" data-layer="wellsDec"><span class="toggle-label">NYSDEC cleanup-site wells</span><span class="toggle-count" data-stat="wells_dec" data-suffix="">…</span></label>
+        <label class="layer-toggle" id="toggle-wellsLegacy"><input type="checkbox" class="toggle-check" data-layer="wellsLegacy"><span class="toggle-label">Legacy-site wells</span><span class="toggle-count" data-stat="wells_legacy" data-suffix="">…</span></label>
         <div class="well-size-legend" id="well-size-legend"></div>
       </div>
     </div>
@@ -242,9 +242,9 @@
           <div class="acc-head"><span class="acc-title">Love Canal</span><span class="acc-arrow">&#9662;</span></div>
           <div class="acc-body">
             <div class="acc-help" style="display:block">Everything for Love Canal in one place — the monitoring wells (contaminant chemistry), the piezometers (water levels), and the leachate-containment infrastructure.</div>
-            <label class="layer-toggle" id="toggle-lcWells"><input type="checkbox" class="toggle-check" data-layer="lcWells"><span class="toggle-swatch" style="background:#b81d24; border:2px solid #cfcfcf; border-radius:50%;"></span><span class="toggle-label">Monitoring wells — chemistry</span><span class="toggle-count">55</span></label>
-            <label class="layer-toggle" id="toggle-lcPiezo"><input type="checkbox" class="toggle-check" data-layer="lcPiezo"><span class="toggle-swatch" style="background:#2f6fd0; border:2px solid #bfe0ff; border-radius:50%;"></span><span class="toggle-label">Piezometers — water levels</span><span class="toggle-count">28</span></label>
-            <label class="layer-toggle" id="toggle-lcPumps"><input type="checkbox" class="toggle-check" data-layer="lcPumps"><span class="toggle-swatch" style="background:#e0b93a; border:2px solid #111; border-radius:2px;"></span><span class="toggle-label">Pump chambers &amp; leachate tanks</span><span class="toggle-count">6</span></label>
+            <label class="layer-toggle" id="toggle-lcWells"><input type="checkbox" class="toggle-check" data-layer="lcWells"><span class="toggle-swatch" style="background:#b81d24; border:2px solid #cfcfcf; border-radius:50%;"></span><span class="toggle-label">Monitoring wells — chemistry</span><span class="toggle-count" data-stat="lc_wells" data-suffix="">…</span></label>
+            <label class="layer-toggle" id="toggle-lcPiezo"><input type="checkbox" class="toggle-check" data-layer="lcPiezo"><span class="toggle-swatch" style="background:#2f6fd0; border:2px solid #bfe0ff; border-radius:50%;"></span><span class="toggle-label">Piezometers — water levels</span><span class="toggle-count" data-stat="lc_piezometers" data-suffix="">…</span></label>
+            <label class="layer-toggle" id="toggle-lcPumps"><input type="checkbox" class="toggle-check" data-layer="lcPumps"><span class="toggle-swatch" style="background:#e0b93a; border:2px solid #111; border-radius:2px;"></span><span class="toggle-label">Pump chambers &amp; leachate tanks</span><span class="toggle-count" data-stat="lc_pumps" data-suffix="">…</span></label>
             <div class="chem-note">Wells carry <b>contaminant chemistry</b> (click one for its concentration-vs-year plot). Piezometers measure <b>groundwater levels</b> (2015–2022). Pumps &amp; tanks are the containment collection infrastructure.</div>
           </div>
         </div>

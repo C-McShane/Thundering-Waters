@@ -68,6 +68,22 @@ Flag counts across our 149 BGs (area membership): Lung 102 · Bladder 96 · Esop
 ## Refactor staging (item 6)
 1. **CSS → `styles.css`** ✅ *done 2026-07-20* — 410 lines out; map.html 2147 → 1736 lines. Verified: external stylesheet loads, computed styles identical, 5 tabs / 255 markers / 1,083 search index, map renders unchanged.
 2. **JS → `app.js`** ✅ *done 2026-07-20* — 1,457 lines out; map.html 1736 → **278 lines** (clean HTML skeleton). Kept as **one file** to preserve top-level hoisting + shared globals (`layers`, `wellsLegacyF`, `SEARCH_INDEX`); loaded after Leaflet via `app.js?v=1`. Verified: **zero console errors**, 5 tabs, 255 markers, 1,083 search index, wells 293/259/233, 9 rad zones, 40 tiles, ID search returns C4R-MW-04, 9 chem findings, layer toggles work.
-3. **Data → `config.json` / `findings.json` / `statistics.json`** — highest risk: introduces async load ordering. `statistics.json` must be emitted by a generator script run on every data change, or the drift just moves.
+3. **Data → `statistics.json` / `findings.json`** ✅ *done 2026-07-20*
+   - **`web/build_statistics.py` → `data/statistics.json`** (generated; never hand-edit). All 9 layer labels now carry `data-stat="<key>"` and are populated at load. **Zero hardcoded counts remain in map.html.**
+   - **`data/findings.json`** — radiation + chemical highlight entries moved out of `app.js`, each carrying an empty `citation` block (8 fields, all "Information to be added") ready for item 5.
+   - Verified: zero console errors, labels resolve (255 pts / 66 tracts / 293 / 259 / 233 / 55 / 28 / 6), 9 chem findings + 4 radiation findings render from JSON, search index still 1,083.
+   - **`config.json` deliberately deferred** — see note below.
+
+### Why `config.json` is deferred (not forgotten)
+Map defaults (center/zoom/tiles) must run *before* any fetch resolves, so moving them into an async JSON would add real risk for no benefit. The genuinely useful thing to put in `config.json` is the **public wording** that items 3 and 4 introduce (cancer incidence statement, cumulative-plot note) — which would turn those into data edits rather than code edits. Creating an empty shell now would be cargo-cult; it gets created in item 3/4 when we know what belongs in it.
+
+### Item 1 — count drift: what was actually wrong
+| Label | Was shown | Truth (generated) |
+|---|---|---|
+| Hazard sites | `256 pts` | **255** |
+| Chem note (static HTML) | `107 of 256` | **106 of 255** |
+| Chem note (after clearing filter) | `122 of 256` | **106 of 255** |
+
+The static and dynamic notes disagreed because they were typed at different times *and* counted different populations: **106** sites carry the curated `chems` array (what the filter actually searches) while **121** have raw NYSDEC free-text in `chemicals`. `statistics.json` now reports both separately (`hazard_sites_with_chemicals` vs `hazard_sites_raw_chem_text`) so they can never be conflated again. Remaining for item 1: the **README** counts (110 legacy sites / 662 monitoring points / 4 tabs) still need regenerating against `statistics.json`.
 
 **Cache-busting:** every split file needs a `?v=` query or returning visitors get a stale JS/CSS mix.

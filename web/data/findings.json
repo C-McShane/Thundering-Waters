@@ -1,0 +1,46 @@
+{
+ "_note": "Editorial highlight entries. Citation fields are placeholders pending systematic sourcing — see docs/CITATIONS_TODO.md. Nothing here should be published as a 'Selected high detection' until its citation block is complete.",
+ "_citation_template": ["report_title", "table", "page", "sample_medium", "sampling_date", "comparison_standard", "source_link", "selection_criterion"],
+
+ "radiation_by_site": {
+  "Covanta Niagara Rail-to-Truck Intermodal Facility": [
+   { "t": "Exposed slag gamma peak — 420,000 CPM", "s": "a football-sized surface slag piece, since removed", "lat": 43.090195, "lon": -79.002694,
+     "citation": { "report_title": "Information to be added", "table": "Information to be added", "page": "Information to be added", "sample_medium": "Information to be added", "sampling_date": "Information to be added", "comparison_standard": "Information to be added", "source_link": "Information to be added", "selection_criterion": "Information to be added" } },
+   { "t": "Radium-226 in slag — up to 35 pCi/g", "s": "gamma-spec of impacted-slag samples (TENORM)", "lat": 43.08475, "lon": -79.005138889,
+     "citation": { "report_title": "Information to be added", "table": "Information to be added", "page": "Information to be added", "sample_medium": "Information to be added", "sampling_date": "Information to be added", "comparison_standard": "Information to be added", "source_link": "Information to be added", "selection_criterion": "Information to be added" } },
+   { "t": "Five gamma hot spots >16,000 CPM", "s": "largest 1,507 m²; readings 15,000–60,000 CPM", "lat": 43.08475, "lon": -79.005138889,
+     "citation": { "report_title": "Information to be added", "table": "Information to be added", "page": "Information to be added", "sample_medium": "Information to be added", "sampling_date": "Information to be added", "comparison_standard": "Information to be added", "source_link": "Information to be added", "selection_criterion": "Information to be added" } }
+  ],
+  "Former Mill No. 2 (Greenpac Mill)": [
+   { "t": "Seven gamma slag zones >10,000 CPM", "s": "against a 6,000–8,000 CPM background — TENORM (U/Th/Ra)", "lat": 43.089088, "lon": -79.014365,
+     "citation": { "report_title": "Information to be added", "table": "Information to be added", "page": "Information to be added", "sample_medium": "Information to be added", "sampling_date": "Information to be added", "comparison_standard": "Information to be added", "source_link": "Information to be added", "selection_criterion": "Information to be added" } }
+  ]
+ },
+
+ "chemicals_by_site": [
+  { "site": "Frontier Chemical – Royal Ave", "items": [
+    { "chem": "Trichloroethene (TCE)", "v": "180,000 µg/L", "s": "MW-88-8A, 2020 · carcinogen, ~36,000× the 5 µg/L water limit", "lat": 43.090156, "lon": -79.009366,
+      "citation": { "report_title": "Information to be added", "table": "Information to be added", "page": "Information to be added", "sample_medium": "Information to be added", "sampling_date": "Information to be added", "comparison_standard": "Information to be added", "source_link": "Information to be added", "selection_criterion": "Information to be added" } },
+    { "chem": "Tetrachloroethene (PCE)", "v": "120,000 µg/L", "s": "MW-88-8A, 2020 · carcinogen", "lat": 43.090156, "lon": -79.009366,
+      "citation": { "report_title": "Information to be added", "table": "Information to be added", "page": "Information to be added", "sample_medium": "Information to be added", "sampling_date": "Information to be added", "comparison_standard": "Information to be added", "source_link": "Information to be added", "selection_criterion": "Information to be added" } },
+    { "chem": "Vinyl chloride", "v": "25,000 µg/L", "s": "MW-88-12A, 2020 · potent carcinogen (limit 2 µg/L)", "lat": 43.089272, "lon": -79.008845,
+      "citation": { "report_title": "Information to be added", "table": "Information to be added", "page": "Information to be added", "sample_medium": "Information to be added", "sampling_date": "Information to be added", "comparison_standard": "Information to be added", "source_link": "Information to be added", "selection_criterion": "Information to be added" } },
+    { "chem": "PFAS (PFOA/PFOS)", "v": "1,700 µg/L", "s": "MW-01-9A, 2019 · \"forever chemicals\"", "lat": 43.08974, "lon": -79.009193,
+      "citation": { "report_title": "Information to be added", "table": "Information to be added", "page": "Information to be added", "sample_medium": "Information to be added", "sampling_date": "Information to be added", "comparison_standard": "Information to be added", "source_link": "Information to be added", "selection_criterion": "Information to be added" } }
+  ]},
+  { "site": "Covanta 15-Acre Site", "items": [
+    { "chem": "Chromium", "v": "2,230 mg/Kg", "s": "TP-14, 2012 soil", "lat": 43.088452, "lon": -79.003649,
+      "citation": { "report_title": "Information to be added", "table": "Information to be added", "page": "Information to be added", "sample_medium": "Information to be added", "sampling_date": "Information to be added", "comparison_standard": "Information to be added", "source_link": "Information to be added", "selection_criterion": "Information to be added" } },
+    { "chem": "Benzo(a)pyrene", "v": "21.6 mg/Kg", "s": "SS-01, 2012 soil · carcinogen", "lat": 43.09015, "lon": -79.003031,
+      "citation": { "report_title": "Information to be added", "table": "Information to be added", "page": "Information to be added", "sample_medium": "Information to be added", "sampling_date": "Information to be added", "comparison_standard": "Information to be added", "source_link": "Information to be added", "selection_criterion": "Information to be added" } },
+    { "chem": "Arsenic", "v": "74.6 mg/Kg", "s": "TP-18, 2012 soil", "lat": 43.086937, "lon": -79.003967,
+      "citation": { "report_title": "Information to be added", "table": "Information to be added", "page": "Information to be added", "sample_medium": "Information to be added", "sampling_date": "Information to be added", "comparison_standard": "Information to be added", "source_link": "Information to be added", "selection_criterion": "Information to be added" } }
+  ]},
+  { "site": "Niagara Sanitation Co.", "items": [
+    { "chem": "Xylene", "v": "1,700 µg/L", "s": "OW-36, 2014", "lat": 43.069417, "lon": -78.860322,
+      "citation": { "report_title": "Information to be added", "table": "Information to be added", "page": "Information to be added", "sample_medium": "Information to be added", "sampling_date": "Information to be added", "comparison_standard": "Information to be added", "source_link": "Information to be added", "selection_criterion": "Information to be added" } },
+    { "chem": "Lead", "v": "600 µg/L", "s": "OW-16, 1988", "lat": 43.068813, "lon": -78.860478,
+      "citation": { "report_title": "Information to be added", "table": "Information to be added", "page": "Information to be added", "sample_medium": "Information to be added", "sampling_date": "Information to be added", "comparison_standard": "Information to be added", "source_link": "Information to be added", "selection_criterion": "Information to be added" } }
+  ]}
+ ]
+}
