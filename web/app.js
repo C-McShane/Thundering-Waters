@@ -1438,6 +1438,26 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
+
+// START HERE panel: the three front-door actions (URGENT_TODO item 8).
+document.querySelectorAll('.sh-btn').forEach(btn => btn.addEventListener('click', () => {
+  const go = btn.dataset.go;
+  if (go === 'search') {
+    const si = document.getElementById('search');
+    if (si) { si.focus(); si.select(); }
+    return;
+  }
+  const tab = document.querySelector('.tab-btn[data-tab="' + go + '"]');
+  if (tab) tab.click();
+  if (go === 'chemicals') {
+    // open Selected high detections so the citations are the first thing seen
+    const panel = document.querySelector('.tab-panel[data-tab-panel="chemicals"]');
+    const acc = panel && panel.querySelector('.acc');
+    if (acc) acc.setAttribute('data-open', '');
+    if (acc) acc.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}));
+
 // ── SEARCH ───────────────────────────────────────────────────────────────────
 const searchInput = document.getElementById('search');
 const searchResults = document.getElementById('search-results');

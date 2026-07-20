@@ -1,7 +1,7 @@
-# Thundering Waters: The Toxic Legacy of Niagara Falls
+# Thundering Waters: The Toxic Legacy of Niagara County
 ### Spatial Data & Interactive Map Repository
 
-**Companion data repository for *Thundering Waters: The Toxic Legacy of Niagara Falls* by Christen Civiletto**
+**Companion data repository for *Thundering Waters: The Toxic Legacy of Niagara County* by Christen Civiletto**
 
 > *"1 in every 5 acres of the Niagara Falls area is contaminated by hazardous waste."*
 
@@ -18,11 +18,11 @@
 
 ## About This Repository
 
-This repository contains the spatial dataset, interactive web map, and site narrative documentation underlying the environmental analysis in *Thundering Waters*. It documents **256 hazardous waste sites** across Niagara County, New York — one of the most contaminated regions in the United States — compiled from federal and state regulatory databases and cross-referenced with geographic boundary data and cancer incidence records.
+This repository contains the spatial dataset, interactive web map, and site narrative documentation underlying the environmental analysis in *Thundering Waters*. It documents **255 hazardous waste sites** across Niagara County, New York — one of the most contaminated regions in the United States — compiled from federal and state regulatory databases and cross-referenced with geographic boundary data and cancer incidence records.
 
 The data supports the book's core findings:
 
-- **256 documented hazardous waste sites** across Niagara County
+- **255 documented hazardous waste sites** across Niagara County
 - **~5% of the county's total land area** is contaminated by recorded waste site footprints
 - In the Niagara Falls impact zone, **1 in every 5 acres** is contaminated
 - **158 sites** fall within the Niagara Falls area impact zone, affecting approximately 47,000 residents
@@ -47,7 +47,7 @@ The data supports the book's core findings:
 └── web/
     ├── map.html                            — Interactive Leaflet web map
     └── data/
-        ├── hazard_sites.geojson            — 256 hazardous waste site points
+        ├── hazard_sites.geojson            — 255 hazardous waste site points
         ├── census_tracts.geojson           — 66 Niagara County census tracts with contamination metrics
         ├── impact_zone.geojson             — 26 Niagara Falls area impact zone tracts
         ├── major_roads.geojson             — Highways + arterials for spatial reference (13 named roads)
@@ -55,7 +55,7 @@ The data supports the book's core findings:
         ├── water.geojson                   — Niagara River, canals, reservoirs & ponds (hydrography context)
         ├── wells_wqp.geojson               — 293 USGS/EPA Water Quality Portal sampling stations
         ├── wells_dec.geojson               — 259 NYSDEC remediation monitoring wells (with 2000–2019 chem time series)
-        ├── wells_legacy.geojson            — 110 legacy-site monitoring wells (10 hand-compiled sites)
+        ├── wells_legacy.geojson            — 233 legacy-site monitoring wells, soil borings and test pits
         ├── wells_lc_piezometers.geojson    — 28 Love Canal barrier-drain piezometers (multi-year water-level series)
         └── wells_lc_pumps.geojson          — 6 Love Canal leachate pump chambers & storage tanks
 ```
@@ -68,10 +68,10 @@ The data supports the book's core findings:
 
 | Layer | Description |
 |---|---|
-| `Niagara_County_Hazard_Sites` | 256 hazardous waste site points (EPSG:4326) with full attributes |
+| `Niagara_County_Hazard_Sites` | 255 hazardous waste site points (EPSG:4326) with full attributes |
 | `Niagara_Water_Testing_Sites` | 293 USGS/EPA Water Quality Portal sampling stations |
 | `Niagara_DEC_Monitoring_Wells` | 259 NYSDEC remediation monitoring wells |
-| `Niagara_Legacy_Monitoring_Wells` | 110 monitoring wells across 10 hand-compiled legacy sites |
+| `Niagara_Legacy_Monitoring_Wells` | 233 monitoring wells, soil borings and test pits across the hand-compiled legacy sites |
 | `Niagara_LoveCanal_Piezometers` | 28 barrier-drain piezometers (multi-year water-level series in `water_series`) |
 | `Niagara_LoveCanal_Pumps` | 6 Love Canal leachate pump chambers & storage tanks |
 | `Niagara_LoveCanal_Colvin_Sewer_2011` | 2011 Colvin Blvd sewer NAPL remediation corridor + investigation wells |
@@ -118,7 +118,7 @@ The data supports the book's core findings:
 
 Beyond the site inventory, the map's **Monitoring Wells** tab plots individual groundwater sampling points and their contaminant history:
 
-- **662 monitoring points** across three sources — 293 Water Quality Portal stations (USGS/EPA), 259 NYSDEC remediation wells, and 110 legacy-site wells — droplet-sized by number of contaminants detected, outlined by sampling type (bedrock, overburden, surface water, remediation).
+- **785 monitoring points** across three sources — 293 Water Quality Portal stations (USGS/EPA), 259 NYSDEC remediation wells, and 233 legacy-site points — droplet-sized by number of contaminants detected, outlined by sampling type (bedrock, overburden, surface water, remediation).
 - **Per-well concentration-vs-year plots**: click a well with a chemical selected to see a log-scale trend line (detected vs non-detect at the reporting limit).
 - **Chemical + year filters**: show wells where a given contaminant had been detected by a given year (cumulative), across a **1969–2024** span.
 - Chemistry is extracted directly from the primary regulatory record (NYSDEC analytical-results tables, WQP water-media results), not modeled.
@@ -132,6 +132,24 @@ The Love Canal site (NYSDEC #932020) received a dedicated investigation. `csv/lo
 - **2011 Colvin Blvd sewer investigation**: NAPL found in the sanitary-sewer bedding near the 99th St residential area — the likely off-site pathway (`LoveCanal_Colvin_2011_findings.md`, `LoveCanal_sewer_pathway_assessment.md`).
 - **Rainfall / migration / old-pulse tests**: cross-references of contaminant levels against precipitation and time; all null (`LoveCanal_migration_test.md`, `LoveCanal_oldpulse_test_findings.md`).
 - Every findings document lists its data sources, method, and caveats. The full DecDocs 932020 document set (1977–2024) is archived for verification.
+
+
+> **Counts in this README are generated.** Every figure above is taken from
+> [`web/data/statistics.json`](web/data/statistics.json), which is emitted by
+> [`web/build_statistics.py`](web/build_statistics.py) directly from the data files. If a count
+> here ever disagrees with the interface, the generator has not been re-run — the data is the
+> source of truth, never the prose.
+
+### Documentation
+| File | What it covers |
+|---|---|
+| [`DATA_SOURCES.txt`](DATA_SOURCES.txt) | Full provenance log, per layer and per source document |
+| [`docs/DATA_DICTIONARY.md`](docs/DATA_DICTIONARY.md) | Field-level definitions |
+| [`docs/APPROXIMATE_LOCATIONS.md`](docs/APPROXIMATE_LOCATIONS.md) | Every point whose position is not surveyed |
+| [`docs/CITATIONS_TODO.md`](docs/CITATIONS_TODO.md) | Outstanding source citations for Selected high detections |
+| [`validation/`](validation/) | Hand-validation packet, sample points, placement checks |
+| [`LICENSE-DATA.md`](LICENSE-DATA.md) | Data licence and third-party attribution |
+| [`CHANGELOG.md`](CHANGELOG.md) | Release history |
 
 ## Data Sources
 
@@ -153,7 +171,7 @@ Full provenance for every data point is documented in `DATA_SOURCES.txt`.
 The web map at `web/map.html` requires an internet connection (for the basemap and fonts) but all spatial data loads locally from the `web/data/` folder. It works in any modern browser.
 
 **Features:**
-- Organized into four tabs — **Sites & Acreage**, **Cancer Risk**, **Chemicals & Radiation**, and **Monitoring Wells** — so controls stay digestible
+- Organized into five tabs — **Hazard Sites**, **Monitoring Wells**, **Radiation**, **Chemicals**, and **Cancer Incidence** — so controls stay digestible
 - Toggle layers on/off (hazard sites, contamination choropleth, impact zone, major roads, rivers & water) — hazard sites and water are on at load
 - Filter sites by any of 16 danger-ranked chemicals (with cancer-association notes), or by radionuclide (Uranium / Thorium / Radium / TENORM)
 - Mobile-friendly: the controls collapse into a bottom sheet on phones, reopened via a "Layers & Search" button
@@ -175,7 +193,7 @@ If you use this data, please cite:
 
 And the companion book:
 
-> Civiletto, C. *Thundering Waters: The Toxic Legacy of Niagara Falls.*
+> Civiletto, C. *Thundering Waters: The Toxic Legacy of Niagara County.*
 
 ---
 

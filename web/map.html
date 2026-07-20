@@ -43,7 +43,8 @@
     </div>
     <div class="tab-bar" role="tablist">
       <div class="tab-row">
-        <button class="tab-btn active" data-tab="sites" role="tab" aria-selected="true">Hazard Sites</button>
+        <button class="tab-btn tab-start active" data-tab="start" role="tab" aria-selected="true">Start Here</button>
+        <button class="tab-btn" data-tab="sites" role="tab" aria-selected="false">Hazard Sites</button>
         <button class="tab-btn" data-tab="wells" role="tab" aria-selected="false">Monitoring Wells</button>
       </div>
       <div class="tab-row">
@@ -58,7 +59,63 @@
       Expand the drop-down menus for data layers
     </div>
 
-    <div class="tab-panel active" data-tab-panel="sites">
+    <div class="tab-panel active" data-tab-panel="start">
+
+      <div class="sh-intro">This map documents <b><span data-stat="hazard_sites">…</span> hazardous-waste sites</b> across Niagara County, New York, together with <b><span data-stat="wells_total">…</span> monitoring points</b>, radiological survey results, and block-group cancer incidence. Everything is traced to a named source document, and every sample point can be looked up by its own identifier so any figure here can be checked against the report it came from.</div>
+
+      <div class="sh-actions">
+        <button class="sh-btn" data-go="sites">Explore Sites</button>
+        <button class="sh-btn" data-go="search">Search a Sample</button>
+        <button class="sh-btn" data-go="chemicals">View Selected Investigations</button>
+      </div>
+
+      <div class="sh-h">Three findings</div>
+
+      <div class="sh-find">
+        <div class="sh-find-t">A mesothelioma cluster in North Tonawanda &mdash; not the chemical corridor</div>
+        <div class="sh-find-b">Niagara County&rsquo;s mesothelioma incidence is <b>2.34&times;</b> the New York State rate. NYSDOH places <b>13</b> reporting regions in a highlighted area, and they cluster over North Tonawanda &mdash; a different geography from the Niagara Falls chemical corridor, coinciding with documented asbestos users (Buffalo Pumps, Roblin Steel, Durez).</div>
+        <div class="sh-find-s">NYSDOH Environmental Facilities &amp; Cancer Mapping, 2011&ndash;2015 &middot; benchmark New York State. Mesothelioma has few causes other than asbestos, which makes this the most causally defensible pattern in the project &mdash; but it remains a population-level association, not proof of any individual&rsquo;s exposure.</div>
+      </div>
+
+      <div class="sh-find">
+        <div class="sh-find-t">Trichloroethene at 180,000 &micro;g/L in groundwater</div>
+        <div class="sh-find-b">The highest measured concentration in the network, at <b>Frontier Chemical &ndash; Royal Avenue</b> (well MW-88-8A, 2020). Tetrachloroethene reached 120,000 &micro;g/L and vinyl chloride 25,000 &micro;g/L at the same site.</div>
+        <div class="sh-find-s">2022 Periodic Review Report, Frontier Chemical Royal Avenue Site. Page-level citation pending (see docs/CITATIONS_TODO.md). These are monitoring-well measurements within a regulated site &mdash; not drinking-water supply readings.</div>
+      </div>
+
+      <div class="sh-find">
+        <div class="sh-find-t">Manhattan-Project-era radioactive slag still in surface soil</div>
+        <div class="sh-find-b">At the <b>Covanta 15-Acre Site</b>, gamma survey recorded a site-wide peak of <b>420,000 CPM</b> against a natural background of 5,526&ndash;7,522 CPM. The source was a single football-sized piece of slag partly exposed at the ground surface; it was removed for laboratory analysis. Radium-226 in slag samples reached 35 pCi/g.</div>
+        <div class="sh-find-s">LaBella Associates, Remedial Investigation Report, Covanta 15-Acre Site (2013), &sect;7.2 (p.44) and Appendix S. The exact position of the 420,000 CPM reading is not stated in the report; it is reported here as a site-wide figure.</div>
+      </div>
+
+      <div class="sh-h">What this data can &mdash; and cannot &mdash; establish</div>
+      <div class="sh-two">
+        <div class="sh-can">
+          <div class="sh-can-h">It can show</div>
+          <ul>
+            <li>Where contamination is <b>documented</b> in regulatory records</li>
+            <li>What was <b>measured</b>, where, when, and by whom</li>
+            <li>Which sites carry radiological designations, and on what basis</li>
+            <li>Where cancer incidence is elevated <b>relative to New York State</b></li>
+          </ul>
+        </div>
+        <div class="sh-cant">
+          <div class="sh-cant-h">It cannot show</div>
+          <ul>
+            <li>Any <b>individual&rsquo;s</b> exposure or personal risk</li>
+            <li>That a mapped site <b>caused</b> any disease</li>
+            <li>Present-day conditions &mdash; many records are historical</li>
+            <li>Completeness &mdash; <b>absence of a record is not absence of contamination</b></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sh-note">This is an active compilation. Source citations for Selected high detections are being filled in systematically and are marked <i>pending</i> where incomplete &mdash; a pending marker means the figure is not yet fully sourced, not that it is disputed. Corrections are welcome: use <b>Report an error</b> below.</div>
+
+    </div><!-- /tab-panel: start -->
+
+    <div class="tab-panel" data-tab-panel="sites">
 
     <!-- Hazard site points -->
     <div class="acc">

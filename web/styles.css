@@ -437,3 +437,33 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .finding-cite { font-size: 9px; line-height: 1.45; color: var(--dim); padding: 2px 4px 0 7px; }
 .finding-cite a { color: #9db4e0; }
 .finding-cite.pending, .finding-cite .pending { color: #c9a227; font-style: italic; }
+
+/* ── START HERE panel (URGENT_TODO item 8) ────────────────────────────────── */
+.tab-btn.tab-start { background: rgba(212,168,67,.14); border-color: rgba(212,168,67,.45); color: #e8dfc6; }
+.tab-btn.tab-start.active { background: #d4a843; border-color: #d4a843; color: #1a1408; }
+.sh-intro { font-size: 12px; line-height: 1.6; color: var(--text); margin: 2px 2px 12px; }
+.sh-actions { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; }
+.sh-btn {
+  flex: 1 1 auto; background: var(--s2); border: 1px solid var(--border2); border-radius: 4px;
+  color: var(--text); font-family: var(--mono); font-size: 10px; letter-spacing: .04em;
+  padding: 8px 9px; cursor: pointer; transition: background .12s, border-color .12s;
+}
+.sh-btn:hover { background: var(--s3); border-color: #d4a843; color: #fff; }
+.sh-h {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+  color: #d4a843; margin: 16px 2px 7px; padding-bottom: 4px; border-bottom: 1px solid var(--border);
+}
+.sh-find { background: var(--s2); border: 1px solid var(--border2); border-radius: 5px; padding: 9px 11px; margin-bottom: 8px; }
+.sh-find-t { font-size: 12px; font-weight: 700; color: #f3ecd0; line-height: 1.4; margin-bottom: 5px; }
+.sh-find-b { font-size: 11px; line-height: 1.55; color: var(--muted); }
+.sh-find-s { font-size: 9.5px; line-height: 1.5; color: var(--dim); margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border); }
+.sh-two { display: flex; gap: 7px; }
+.sh-can, .sh-cant { flex: 1; border-radius: 5px; padding: 8px 10px; border: 1px solid; }
+.sh-can { background: rgba(80,160,120,.08); border-color: rgba(80,160,120,.32); }
+.sh-cant { background: rgba(184,29,36,.08); border-color: rgba(184,29,36,.32); }
+.sh-can-h, .sh-cant-h { font-family: var(--mono); font-size: 9px; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 5px; }
+.sh-can-h { color: #6fce9f; }
+.sh-cant-h { color: #ff8b85; }
+.sh-can ul, .sh-cant ul { margin: 0; padding-left: 14px; }
+.sh-can li, .sh-cant li { font-size: 10px; line-height: 1.5; color: var(--muted); margin-bottom: 4px; }
+.sh-note { font-size: 10px; line-height: 1.55; color: var(--dim); margin: 14px 2px 4px; padding-top: 9px; border-top: 1px solid var(--border); }
