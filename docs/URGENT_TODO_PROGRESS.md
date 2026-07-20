@@ -7,8 +7,8 @@ Working order: **6 → 1 → 3,4,5 → 2,7,10,12 → 8 → 11**
 |---|---|---|
 | 6 | Split monolith → `map.html` / `styles.css` / `app.js` / `config.json` / `findings.json` / generated `statistics.json` | **in progress** — Stage 1 (CSS) ✅ · Stage 2 (JS) ✅ · Stage 3 (JSON) next |
 | 1 | Count drift → all counts generated from data or one shared config | not started (depends on 6) |
-| 3 | Cancer tab: "risk" → "incidence" + permanent limitations statement | not started — **unblocked**, A2 resolved 2026-07-20 |
-| 4 | Cumulative well-plot wording ("not contemporaneous plume extent") | not started |
+| 3 | Cancer tab: "risk" → "incidence" + permanent limitations statement | ✅ **done 2026-07-20** (see below) |
+| 4 | Cumulative well-plot wording ("not contemporaneous plume extent") | ✅ **done 2026-07-20** — caveat rendered under both cumulative plots (radionuclide + chemical) |
 | 5 | "Strongest findings" → **"Selected high detections"** + full citations (radiation too) | not started — placeholders now, `CITATIONS_TODO.md` to be generated |
 | 2 | DATA_SOURCES.txt → verify accuracy, then move to repo root | not started |
 | 7 | License (code + data), CITATION.cff, changelog | not started |
@@ -90,6 +90,22 @@ The giveaway that forced this check: **esophagus flagged 130 of 149 BGs (87%)** 
 Flag counts across our 149 BGs (area membership): Lung 102 · Bladder 96 · Esophagus 130 · Mesothelioma 13 · Oral 0 · Brain 0.
 
 **Candidate headline for item 8 (START HERE):** the **mesothelioma cluster in North Tonawanda** (tracts 228–233, 246; county SIR 2.34) is the most causally defensible finding in the project — mesothelioma has few causes besides asbestos, and the cluster coincides with documented asbestos users carrying litigation/remediation records: Buffalo Pumps/Buffalo Forge (932044), Roblin Steel (932059 / B00025), Durez–Occidental (932018). Notably it is a **different** geography from the Niagara Falls chemical corridor. Stronger than any chemical-corridor correlation (cf. the 2026-07-19 ecological regression, which was confounded and not published).
+
+## Item 3 — Cancer Incidence tab (built 2026-07-20)
+Tab renamed **"Cancer Risk" → "Cancer Incidence."** Permanent, always-visible limitations statement at the top of the panel (never collapsed), plus a source line: NYSDOH · **2011–2015** · block groups · age/sex-adjusted to **New York State** (explicitly "not a national benchmark") · provisional Dec 2017 · link to the method page.
+
+Split into two clearly-described sections, per Caitlin's call that the infographic used highlights and the two must not be conflated:
+
+**① Highlighted Areas** — NYSDOH's own determination via the spatial scan statistic (≥50% more cases than expected, unlikely to be chance). Binary shading, deliberately not a gradient. Copy states plainly it is a **cluster-level** finding, not a test of the block group's own rate. Counts shown as *N of 161 reporting regions*: Esophagus 142 · Lung 112 · Bladder 103 · Mesothelioma 13 · Oral 0 · Brain 0.
+
+**② Standardized Incidence Ratio** — observed ÷ expected per block group; copy states plainly it is *"a ratio, not a significance test"* and that a high SIR on a small population can rest on very few cases. County SIRs: Mesothelioma 2.34 · Esophagus 1.49 · Bladder 1.40 · Lung 1.38 · Oral 1.37 · Brain 1.27.
+
+Both selectors are **generated from `statistics.json`** — no county figure is hand-typed. Only one choropleth renders at a time (choosing in one section resets the other). Popups now disclose highlighted-area status **and** carry a merged-area warning naming the DOH region and how many block groups were combined.
+
+**Esophagus handled explicitly:** 142 of 161 regions would read as an error without context, so the note says so inline — *"That is most of the county — NYSDOH's scan statistic found one large contiguous cluster here, not many separate hotspots."*
+
+### ⚠ One deliberate non-change (needs Caitlin's sign-off)
+Item 3 says replace "risk" with "incidence" **in all locations**. I did so everywhere in the cancer tab and the tab label, but **left the toxicology phrasing in the Chemicals tab**: *"Associated with increased **risk** of bladder cancer in toxicological or epidemiological research."* That is the scientifically correct term — toxicology establishes *risk*, not *incidence*, and "associated with increased incidence in toxicological research" would be wrong. Flagging rather than silently deviating.
 
 ## Refactor staging (item 6)
 1. **CSS → `styles.css`** ✅ *done 2026-07-20* — 410 lines out; map.html 2147 → 1736 lines. Verified: external stylesheet loads, computed styles identical, 5 tabs / 255 markers / 1,083 search index, map renders unchanged.

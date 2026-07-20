@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=1">
+<link rel="stylesheet" href="styles.css?v=2">
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
 </head>
@@ -49,7 +49,7 @@
       <div class="tab-row">
         <button class="tab-btn" data-tab="chem" role="tab" aria-selected="false">Radiation</button>
         <button class="tab-btn" data-tab="chemicals" role="tab" aria-selected="false">Chemicals</button>
-        <button class="tab-btn" data-tab="cancer" role="tab" aria-selected="false">Cancer Risk</button>
+        <button class="tab-btn" data-tab="cancer" role="tab" aria-selected="false">Cancer Incidence</button>
       </div>
     </div>
 
@@ -108,18 +108,26 @@
 
     <div class="tab-panel" data-tab-panel="cancer">
 
-    <div class="section-label">Cancer Incidence · SIR</div>
-    <div class="cancer-note">Block-group Standardized Incidence Ratio (observed ÷ expected), NYSDOH 2011–2015. These six are statistically elevated countywide (95% CI &gt; 1). Select one:</div>
-    <div id="cancer-select">
-      <label class="cancer-opt active"><input type="radio" name="cancer" value="" checked><span class="cancer-name">Off</span></label>
-      <label class="cancer-opt"><input type="radio" name="cancer" value="Mesothelioma"><span class="cancer-name">Mesothelioma</span><span class="cancer-sir">2.43</span></label>
-      <label class="cancer-opt"><input type="radio" name="cancer" value="Esophagus"><span class="cancer-name">Esophagus</span><span class="cancer-sir">1.50</span></label>
-      <label class="cancer-opt"><input type="radio" name="cancer" value="Bladder"><span class="cancer-name">Bladder</span><span class="cancer-sir">1.40</span></label>
-      <label class="cancer-opt"><input type="radio" name="cancer" value="Lung"><span class="cancer-name">Lung</span><span class="cancer-sir">1.38</span></label>
-      <label class="cancer-opt"><input type="radio" name="cancer" value="Oral"><span class="cancer-name">Oral</span><span class="cancer-sir">1.36</span></label>
-      <label class="cancer-opt"><input type="radio" name="cancer" value="Brain"><span class="cancer-name">Brain</span><span class="cancer-sir">1.31</span></label>
+    <div class="cancer-caution">The population level incidence data show geographic patterns and do not establish individual exposure, disease causation, or a causal relationship with mapped sites. Small area estimates may be unstable and suppressed values are not zero.</div>
+    <div class="cancer-source">NYSDOH Environmental Facilities &amp; Cancer Mapping · cases diagnosed <b>2011&ndash;2015</b> · census block groups · expected counts age- and sex-adjusted to <b>New York State</b> rates (not a national benchmark) · provisional as of Dec 2017. <a href="https://www.health.ny.gov/statistics/cancer/environmental_facilities/mapping/about/" target="_blank" rel="noopener">Method</a></div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="acc-title">Highlighted Areas</span><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help">NYSDOH&rsquo;s own determination. Using the <b>spatial scan statistic</b>, NYSDOH identified areas with at least <b>50% more cases than expected</b>, where the ratio was <b>unlikely to be a chance occurrence</b>. Each block group either belongs to a highlighted area or it does not.<br><br><b>Read this as a cluster-level finding</b> &mdash; it says a block group sits inside an elevated area, not that this block group&rsquo;s own rate was individually tested.</div>
+        <div id="cancer-hl-select"></div>
+        <div class="cancer-note" id="cancer-hl-note">Select a cancer to map the block groups belonging to a highlighted area.</div>
+      </div>
     </div>
-    <div id="cancer-legend" class="cancer-legend" style="display:none"></div>
+
+    <div class="acc">
+      <div class="acc-head"><span class="acc-title">Standardized Incidence Ratio</span><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-body">
+        <div class="acc-help">Observed &divide; expected cases for each block group. Expected counts are age- and sex-adjusted to New York State rates, so <b>1.0 = exactly what the state&rsquo;s demographics predict</b>.<br><br><b>A ratio, not a significance test.</b> A high SIR in a small population can rest on very few cases; treat single block groups with caution.</div>
+        <div id="cancer-sir-select"></div>
+        <div id="cancer-legend" class="cancer-legend" style="display:none"></div>
+      </div>
+    </div>
 
     </div><!-- /tab-panel: cancer -->
 
@@ -273,6 +281,6 @@
 <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="app.js?v=1"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>

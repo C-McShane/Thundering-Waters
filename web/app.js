@@ -74,16 +74,26 @@ function renderCancer(cx) {
 function cancerPopup(cx, p) {
   const sir = p['sir_' + cx];
   const sirTxt = (sir === null || sir === undefined) ? 'No data' : (sir === 0 ? 'No cases' : sir.toFixed(2));
-  const obs = (p['obs_' + cx] != null) ? p['obs_' + cx] : '—';
-  const exp = (p['exp_' + cx] != null) ? p['exp_' + cx].toFixed(1) : '—';
-  return `<div class="popup-tract">
-    <div class="popup-tract-name">${p.name || p.geoid} — ${cx}</div>
-    <div class="popup-tract-grid">
-      <div><div class="popup-tract-stat-val">${sirTxt}</div><div class="popup-tract-stat-lbl">SIR (obs/exp)</div></div>
-      <div><div class="popup-tract-stat-val">${obs}</div><div class="popup-tract-stat-lbl">Observed</div></div>
-      <div><div class="popup-tract-stat-val">${exp}</div><div class="popup-tract-stat-lbl">Expected</div></div>
-      <div><div class="popup-tract-stat-val">${p.pop ? Math.round(p.pop).toLocaleString() : '—'}</div><div class="popup-tract-stat-lbl">Population</div></div>
-    </div></div>`;
+  const obs = (p['obs_' + cx] != null) ? p['obs_' + cx] : '\u2014';
+  const exp = (p['exp_' + cx] != null) ? p['exp_' + cx].toFixed(1) : '\u2014';
+  const hl = p['hlarea_' + cx];
+  const hlTxt = hl === 1
+    ? '<div class="cancer-pop-hl">Belongs to a NYSDOH <b>highlighted area</b> for ' + cx + ' \u2014 an area with at least 50% more cases than expected, unlikely to be chance.</div>'
+    : hl === 0 ? '<div class="cancer-pop-nohl">Not in a NYSDOH highlighted area for ' + cx + '.</div>' : '';
+  const nOther = (p.merged_bg_count || 1) - 1;
+  const merged = p.merged_area
+    ? '<div class="cancer-pop-merged">\u2691 NYSDOH merged this block group with ' + nOther + ' other'
+      + (nOther === 1 ? '' : 's') + ' to protect privacy (fewer than 6 male or 6 female cases). '
+      + 'The figures above are for the <b>combined area</b> (' + p.doh_region + '), not this block group alone.</div>'
+    : '';
+  return '<div class="popup-tract">'
+    + '<div class="popup-tract-name">' + (p.name || p.geoid) + ' \u2014 ' + cx + '</div>'
+    + '<div class="popup-tract-grid">'
+    + '<div><div class="popup-tract-stat-val">' + sirTxt + '</div><div class="popup-tract-stat-lbl">SIR (obs/exp)</div></div>'
+    + '<div><div class="popup-tract-stat-val">' + obs + '</div><div class="popup-tract-stat-lbl">Observed</div></div>'
+    + '<div><div class="popup-tract-stat-val">' + exp + '</div><div class="popup-tract-stat-lbl">Expected</div></div>'
+    + '<div><div class="popup-tract-stat-val">' + (p.pop ? Math.round(p.pop).toLocaleString() : '\u2014') + '</div><div class="popup-tract-stat-lbl">Population</div></div>'
+    + '</div>' + hlTxt + merged + '</div>';
 }
 function cancerLegendHTML(cx) {
   let s = `<div class="cancer-legend-title">${cx} — SIR vs NYS</div>`;
@@ -91,6 +101,98 @@ function cancerLegendHTML(cx) {
   s += `<div class="legend-item"><div class="legend-dot" style="border-radius:2px;background:#5a5a63"></div><div class="legend-txt">No cases recorded</div></div>`;
   s += `<div class="legend-item"><div class="legend-dot" style="border-radius:2px;background:#20202a;border:1px solid #33333a"></div><div class="legend-txt">No data / suppressed</div></div>`;
   return s;
+}
+
+// ── HIGHLIGHTED AREAS (NYSDOH spatial scan statistic) ────────────────────────
+// Binary membership, deliberately NOT a gradient: NYSDOH states each block group either
+// belongs to a highlighted area or it does not. This is a CLUSTER-level determination,
+// not a significance test of an individual block group's own rate.
+function clearTractChoropleth() {
+  if (!map.hasLayer(layers.tracts)) return;
+  map.removeLayer(layers.tracts);
+  const t = document.getElementById('toggle-tracts');
+  if (t) { t.classList.remove('active'); const cb = t.querySelector('input'); if (cb) cb.checked = false; }
+  const lg = document.getElementById('legend-tracts'); if (lg) lg.style.display = 'none';
+}
+function hlStyle(h) {
+  if (h === 1) return { fillColor: '#d1332e', fillOpacity: 0.62, color: '#141416', weight: 0.5, opacity: 0.85 };
+  if (h === 0) return { fillColor: '#2a2a34', fillOpacity: 0.30, color: '#33333a', weight: 0.4, opacity: 0.6 };
+  return { fillColor: '#20202a', fillOpacity: 0.15, color: '#33333a', weight: 0.4, opacity: 0.4 };
+}
+function renderCancerHighlight(cx) {
+  layers.cancer.clearLayers();
+  const legend = document.getElementById('cancer-legend');
+  const note = document.getElementById('cancer-hl-note');
+  if (!cx) {
+    map.removeLayer(layers.cancer);
+    if (legend) legend.style.display = 'none';
+    if (note) note.textContent = 'Select a cancer to map the block groups belonging to a highlighted area.';
+    return;
+  }
+  clearTractChoropleth();
+  L.geoJSON(cancerData, {
+    pane: 'cancerPane',
+    style: f => hlStyle(f.properties['hlarea_' + cx]),
+    onEachFeature: (f, layer) => {
+      layer.bindPopup(cancerPopup(cx, f.properties), { maxWidth: 280 });
+      layer.on('mouseover', function () { this.setStyle({ weight: 1.6, color: '#d4a843' }); });
+      layer.on('mouseout',  function () { this.setStyle(hlStyle(f.properties['hlarea_' + cx])); });
+    }
+  }).addTo(layers.cancer);
+  if (!map.hasLayer(layers.cancer)) layers.cancer.addTo(map);
+  const st = STATS && STATS.cancer && STATS.cancer[cx];
+  if (note && st) {
+    const tot = STATS.counts.cancer_doh_regions;
+    const big = st.highlighted_regions > tot * 0.6
+      ? ' That is most of the county &mdash; NYSDOH&rsquo;s scan statistic found <b>one large contiguous cluster</b> here, not many separate hotspots.' : '';
+    note.innerHTML = st.highlighted_regions === 0
+      ? '<b>No</b> reporting region in Niagara County belongs to a highlighted area for <b>' + cx + '</b>.'
+      : '<b>' + st.highlighted_regions + '</b> of <b>' + tot + '</b> NYSDOH reporting regions in Niagara County belong to a highlighted area for <b>' + cx + '</b>.' + big;
+  }
+  if (legend) {
+    legend.innerHTML = '<div class="cancer-legend-title">' + cx + ' &mdash; NYSDOH highlighted areas</div>'
+      + '<div class="legend-item"><div class="legend-dot" style="border-radius:2px;background:#d1332e"></div><div class="legend-txt">In a highlighted area (&ge;50% more cases than expected, unlikely to be chance)</div></div>'
+      + '<div class="legend-item"><div class="legend-dot" style="border-radius:2px;background:#2a2a34"></div><div class="legend-txt">Not in a highlighted area</div></div>'
+      + '<div class="legend-item"><div class="legend-dot" style="border-radius:2px;background:#20202a;border:1px solid #33333a"></div><div class="legend-txt">No data / suppressed (not zero)</div></div>';
+    legend.style.display = 'block';
+  }
+}
+// Both selectors are built from statistics.json — no county figure is ever hand-typed.
+function buildCancerSelectors() {
+  if (!STATS || !STATS.cancer) return;
+  const cancers = Object.keys(STATS.cancer);
+  const hlBox = document.getElementById('cancer-hl-select');
+  const sirBox = document.getElementById('cancer-sir-select');
+  const optOff = n => '<label class="cancer-opt active"><input type="radio" name="' + n + '" value="" checked><span class="cancer-name">Off</span></label>';
+  if (hlBox) {
+    hlBox.innerHTML = optOff('cancer-hl')
+      + cancers.slice().sort((a, b) => STATS.cancer[b].highlighted_regions - STATS.cancer[a].highlighted_regions)
+        .map(c => '<label class="cancer-opt"><input type="radio" name="cancer-hl" value="' + c + '"><span class="cancer-name">' + c
+          + '</span><span class="cancer-sir">' + STATS.cancer[c].highlighted_regions + '</span></label>').join('');
+  }
+  if (sirBox) {
+    sirBox.innerHTML = optOff('cancer')
+      + cancers.slice().sort((a, b) => STATS.cancer[b].sir - STATS.cancer[a].sir)
+        .map(c => '<label class="cancer-opt"><input type="radio" name="cancer" value="' + c + '"><span class="cancer-name">' + c
+          + '</span><span class="cancer-sir">' + STATS.cancer[c].sir.toFixed(2) + '</span></label>').join('');
+  }
+  // one choropleth at a time: choosing in one section resets the other
+  const mark = (box, el) => box.querySelectorAll('.cancer-opt').forEach(o => o.classList.toggle('active', o.contains(el)));
+  if (hlBox) hlBox.querySelectorAll('input').forEach(r => r.addEventListener('change', () => {
+    mark(hlBox, r);
+    const off = sirBox && sirBox.querySelector('input[value=""]');
+    if (off) { off.checked = true; mark(sirBox, off); }
+    const lg = document.getElementById('cancer-legend'); if (lg) lg.style.display = 'none';
+    renderCancerHighlight(r.value);
+  }));
+  if (sirBox) sirBox.querySelectorAll('input').forEach(r => r.addEventListener('change', () => {
+    mark(sirBox, r);
+    const off = hlBox && hlBox.querySelector('input[value=""]');
+    if (off) { off.checked = true; mark(hlBox, off); }
+    const note = document.getElementById('cancer-hl-note');
+    if (note) note.textContent = 'Select a cancer to map the block groups belonging to a highlighted area.';
+    if (cancerData) renderCancer(r.value);
+  }));
 }
 
 // ── CHEMICAL FILTER + RADIOACTIVE ────────────────────────────────────────────
@@ -313,7 +415,7 @@ function radTrendSVG(sel, years, counts, total, nsoil) {
     + `<text x="${x0 - 3}" y="${(sy(cmax) + 3).toFixed(1)}" text-anchor="end" font-size="8" fill="#9aa4b2">${cmax}</text>`
     + `<text x="${x0}" y="${H - 5}" font-size="8" fill="#9aa4b2">${y0}</text>`
     + `<text x="${x1}" y="${H - 5}" text-anchor="end" font-size="8" fill="#9aa4b2">${y1}</text>`
-    + `</svg><div class="ctp-sub">cumulative · ${total} site${total === 1 ? '' : 's'}${nsoil ? ` (incl. ${nsoil} soil)` : ''}</div>`;
+    + `</svg><div class="ctp-sub">cumulative · ${total} site${total === 1 ? '' : 's'}${nsoil ? ` (incl. ${nsoil} soil)` : ''}</div><div class="ctp-caveat">Cumulative monitoring history &mdash; not contemporaneous plume extent. Additional points over time may reflect new sampling locations or newly available records as well as environmental change.</div>`;
 }
 
 // ── MAP INIT ─────────────────────────────────────────────────────────────────
@@ -502,7 +604,7 @@ async function loadAll() {
     gj('data/soil_radzones.geojson'), gj('data/site_roads.geojson'), gj('data/radionuclides.json'),
     gj('data/statistics.json'), gj('data/findings.json'),
   ]);
-  STATS = statsData; applyStatistics();
+  STATS = statsData; applyStatistics(); buildCancerSelectors();
   SITE_FINDINGS = findingsData.radiation_by_site || {};
   CHEM_FINDINGS = findingsData.chemicals_by_site || [];   // every displayed count comes from statistics.json
   renderLcPumps(lcPumpsData.features); lcPumpsF = lcPumpsData.features;
@@ -1138,7 +1240,7 @@ function chemTrendSVG(chem, years, counts, total) {
     + `<text x="${x0 - 3}" y="${(sy(cmax) + 3).toFixed(1)}" text-anchor="end" font-size="8" fill="#9aa4b2">${cmax}</text>`
     + `<text x="${x0}" y="${H - 5}" font-size="8" fill="#9aa4b2">${y0}</text>`
     + `<text x="${x1}" y="${H - 5}" text-anchor="end" font-size="8" fill="#9aa4b2">${y1}</text>`
-    + `</svg><div class="ctp-sub">cumulative · ${total} well${total === 1 ? '' : 's'} total</div>`;
+    + `</svg><div class="ctp-sub">cumulative · ${total} well${total === 1 ? '' : 's'} total</div><div class="ctp-caveat">Cumulative monitoring history &mdash; not contemporaneous plume extent. Additional points over time may reflect new sampling locations or newly available records as well as environmental change.</div>`;
 }
 function updateChemTrend() {
   if (!chemTrendEl) return;
@@ -1295,8 +1397,8 @@ document.querySelectorAll('input[name="cancer"]').forEach(radio => {
 // (Radiation-tab selectors are wired in buildRadSelectors after radionuclides.json loads)
 
 // ── SIDEBAR TABS ─────────────────────────────────────────────────────────────
-// Three digestible groups instead of one long scroll: Sites & Acreage / Cancer
-// Risk / Chemicals & Radiation. Purely a display switch — every control keeps
+// Digestible groups instead of one long scroll: Hazard Sites / Monitoring Wells /
+// Radiation / Chemicals / Cancer Incidence. Purely a display switch — every control keeps
 // working identically regardless of which tab is currently shown.
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {

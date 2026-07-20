@@ -408,3 +408,26 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .sub-acc > .acc-body { padding-bottom: 6px; }
 .auto-legend { padding: 6px 4px 10px 8px; margin: 2px 0 4px; border-left: 2px solid var(--border2); }
 .auto-legend-title { font-family: var(--mono); font-size: 9.5px; letter-spacing: .05em; color: #9aa4b2; text-transform: uppercase; margin-bottom: 4px; }
+
+/* ── CANCER INCIDENCE TAB ─────────────────────────────────────────────────── */
+/* Permanent, always-visible limitations statement — never collapsed into an accordion. */
+.cancer-caution {
+  background: rgba(212,168,67,.10); border: 1px solid rgba(212,168,67,.38);
+  border-left: 3px solid #d4a843; border-radius: 4px;
+  padding: 9px 11px; margin: 2px 0 9px; font-size: 11px; line-height: 1.5; color: #e8dfc6;
+}
+.cancer-source { font-size: 10px; line-height: 1.5; color: var(--dim); margin: 0 2px 12px; }
+.cancer-source a { color: #9db4e0; }
+.cancer-pop-hl {
+  margin-top: 8px; padding: 6px 8px; font-size: 10.5px; line-height: 1.45;
+  background: rgba(209,51,46,.14); border: 1px solid rgba(209,51,46,.42);
+  border-radius: 3px; color: #f0c8c5;
+}
+.cancer-pop-nohl { margin-top: 8px; font-size: 10.5px; color: var(--dim); }
+.cancer-pop-merged {
+  margin-top: 6px; padding: 6px 8px; font-size: 10px; line-height: 1.45;
+  background: rgba(255,255,255,.04); border: 1px solid var(--border2);
+  border-radius: 3px; color: var(--muted);
+}
+/* Cumulative-count plots: permanent interpretation caveat (URGENT_TODO item 4). */
+.ctp-caveat { font-size: 9px; line-height: 1.45; color: var(--dim); margin-top: 5px; max-width: 250px; }
