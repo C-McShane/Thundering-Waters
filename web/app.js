@@ -391,14 +391,14 @@ function renderRadWells() {
 }
 function radWellPopup(rn, w, p) {
   const has = Object.keys(p.series).length;
-  const plot = has ? concPlotSVG(p.series, rn, p.unit || w.unit) : `<div class="conc-plot-note">${rn}: detected, no plottable value.</div>`;
+  const plot = `<div class="conc-plot-note plot-withdrawn">⚠ withdrawn pending unit validation</div>`;
   return `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:#f5d00022;color:#e0c000;border:1px solid #f5d00055">${p.src} · ${rn}</span></div>
     <div class="popup-name">${p.well_id}</div><div class="popup-addr">${p.site || ''} · ${p.medium || ''}</div>${plot}</div>`;
 }
 function radSoilPopup(z) {
   return `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:#f5d00022;color:#e0c000;border:1px solid #f5d00055">Soil / slag</span></div>
     <div class="popup-name">${z.zone_id}</div><div class="popup-addr">${z.site} · ${z.medium}</div>
-    <div class="conc-plot-note" style="margin-top:6px">Gamma survey: <b>${z.gamma_cpm||''}</b>. Radionuclides: ${z.materials.join(', ')}. ${z.note}</div></div>`;
+    <div class="conc-plot-note" style="margin-top:6px">Radionuclides present: ${z.materials.join(', ')}. Gamma-survey readings ⚠ withdrawn pending unit validation.</div></div>`;
 }
 // Floating trend panel (same bottom-left control as the wells tab): x = year,
 // y = cumulative number of wells & soil zones registering the selected radionuclide(s).
@@ -931,21 +931,31 @@ function headlineChem(series) {
 function wellPlotBlock(p) {
   return '<div class="conc-plot-note plot-withdrawn">⚠ Concentration time-series plots are temporarily withdrawn pending source-unit validation (see CORRECTIONS.md).</div>';
 }
+// Remove any embedded concentration value+unit from narrative strings shown in popups,
+// while sample-level values are withdrawn (e.g. well_desc "uranium exceeds 30 µg/L").
+function stripValues(str) {
+  if (!str) return str;
+  const rx = /\d[\d.,]*\s*(µg\/L|ug\/L|mg\/kg|ng\/L|pci[\/a-z]*|cpm)/i;
+  str = str.split('|').filter(seg => !rx.test(seg)).join(' · ');
+  str = str.replace(/\d[\d.,]*\s*(µg\/L|ug\/L|mg\/kg|ng\/L|pci[\/a-z]*|cpm)/ig, '[value withdrawn]');
+  return str.replace(/\s+/g, ' ').replace(/[·\s]+$/, '').trim();
+}
 function wellPopup(p) {
   const isW = p.src === 'WQP', isL = p.src === 'LEGACY';
   const title = isW ? 'Water Quality Portal' : isL ? (p.site || 'Legacy hazardous site') : (p.site || 'NYSDEC cleanup site');
   const tagc = isW ? '#e0554e' : isL ? '#d67a1e' : '#c65a68';
-  const sub = isW ? (p.site_type || 'Sampling station')
+  const sub = stripValues(isW ? (p.site_type || 'Sampling station')
                   : isL ? (p.well_desc || p.well_role || 'Monitoring well')
-                        : (p.well_role || 'Monitoring well');
+                        : (p.well_role || 'Monitoring well'));
   const yr = p.latest_detect || p.latest_year;
   const lastSampledLine = '<div class="popup-lastsampled">Last sampled: <b>'
     + recencyLabel(p.last_sampled) + '</b></div>';
-  const chem = p.chemicals_found
-    ? `<div class="popup-field"><div class="popup-field-lbl">Chemicals detected (${p.n_found})</div><div class="popup-field-val">${p.chemicals_found.substring(0,160)}${p.chemicals_found.length>160?'…':''}</div></div>`
+  // Names only — never chemicals_found, which embeds concentration values for soil sites.
+  const chemNames = (p.chems && p.chems.length) ? p.chems.join('; ') : '';
+  const chem = chemNames
+    ? `<div class="popup-field"><div class="popup-field-lbl">Chemicals detected (${p.n_found || p.chems.length})</div><div class="popup-field-val">${chemNames.substring(0,180)}${chemNames.length>180?'…':''}</div><div class="popup-field-lbl" style="margin-top:3px;opacity:.7">Concentration values ⚠ withdrawn pending unit validation</div></div>`
     : `<div class="popup-field"><div class="popup-field-lbl">Chemicals detected</div><div class="popup-field-val">${p.n_found ? p.n_found + ' distinct' : 'none tabulated (location point)'}</div></div>`;
-  const toc = (!isW && !isL && p.toc_max != null)
-    ? `<div class="popup-field"><div class="popup-field-lbl">Total Organic Conc.</div><div class="popup-field-val">latest ${p.toc_latest ?? '—'} · max ${p.toc_max} µg/L</div></div>` : '';
+  const toc = '';   // Total Organic Concentration values ⚠ withdrawn pending unit validation
   const near = (isW && p.nearest_hazard)
     ? `<div class="popup-field"><div class="popup-field-lbl">Nearest hazard site</div><div class="popup-field-val">${p.nearest_hazard}${p.nearest_m!=null?` (${Math.round(p.nearest_m)} m)`:''}</div></div>` : '';
   const cp = p.coord_precision || '';
@@ -1032,7 +1042,7 @@ function renderLcPiezo(features){
     const p = f.properties, [lon,lat] = f.geometry.coordinates;
     const icon = L.divIcon({ className:'well-droplet', iconSize:[14,14], iconAnchor:[7,7],
       html:`<svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5" fill="#2f6fd0" fill-opacity="0.85" stroke="#bfe0ff" stroke-width="1.6"/></svg>` });
-    const plot = p.n_readings ? waterPlotSVG(p.water_series) : `<div class="conc-plot-note">No water-level data tabulated for this piezometer.</div>`;
+    const plot = `<div class="conc-plot-note plot-withdrawn">Water-level time-series plots ⚠ withdrawn pending unit validation.</div>`;
     const html = `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:#2f6fd022;color:#7fb2ff;border:1px solid #2f6fd044">Love Canal piezometer</span></div>`
       + `<div class="popup-name">${p.well_id}</div><div class="popup-addr">Groundwater level · ${p.media.length} geologic layer${p.media.length===1?'':'s'}</div>${plot}</div>`;
     L.marker([lat,lon], { icon, pane:'wellsPane' }).bindPopup(html, { maxWidth:300 }).addTo(layers.lcPiezo);
@@ -1115,9 +1125,8 @@ function renderSoilRad() {
     const icon = L.divIcon({ className:'well-droplet', iconSize:[20,20], iconAnchor:[10,10], html: RAD_TREFOIL });
     const html = `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:#f5d00022;color:#e0c000;border:1px solid #f5d00055">Radioactive soil zone</span></div>`
       + `<div class="popup-name">${p.zone_id}</div><div class="popup-addr">${p.site} · ${p.medium}</div>`
-      + `<div class="conc-plot-note" style="margin-top:6px">${p.desc}</div>`
-      + `<div class="popup-addr" style="margin-top:6px">Gamma: <b>${p.gamma_cpm}</b><br>${p.hazard}</div>`
-      + `<div class="popup-addr" style="margin-top:4px;opacity:0.75">⚑ ${p.coord_precision}. Source: ${p.source}</div></div>`;
+      + `<div class="conc-plot-note" style="margin-top:6px">${stripValues(p.hazard || '')} Gamma-survey readings and figures ⚠ withdrawn pending unit validation.</div>`
+      + `<div class="popup-addr" style="margin-top:4px;opacity:0.75">⚑ ${stripValues(p.coord_precision)}. Source: ${p.source}</div></div>`;
     L.marker([lat, lon], { icon, pane:'wellsPane' }).bindPopup(html, { maxWidth:300 }).addTo(layers.soilRad);
   });
   // the monitoring wells that sit on those radioactive sites
@@ -1772,7 +1781,7 @@ function selectSearchResult(r) {
 function searchSoilPopup(p) {
   return `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:#f5d00022;color:#e0c000;border:1px solid #f5d00055">Radioactive soil zone</span></div>`
     + `<div class="popup-name">${p.zone_id}</div><div class="popup-addr">${p.site||''} · ${p.medium||''}</div>`
-    + (p.gamma_cpm ? `<div class="popup-addr" style="margin-top:6px">Gamma: <b>${p.gamma_cpm}</b></div>` : '')
+    + `<div class="popup-addr" style="margin-top:6px">Gamma-survey readings ⚠ withdrawn pending unit validation.</div>`
     + (p.source ? `<div class="popup-addr" style="margin-top:4px;opacity:.75">Source: ${p.source}</div>` : '') + `</div>`;
 }
 function searchLcPopup(r) {

@@ -19,6 +19,15 @@ derived tract statistics, preservation of monitoring-result units, and reproduci
 complete data pipeline. The affected site-count, acreage, and monitoring-concentration claims should
 be treated as provisional while this review is completed.
 
+
+## Monitoring-well concentration plots withdrawn pending unit validation
+
+A unit-handling error was identified in the translation of monitoring-well sample results into the web time-series format. Frontier Chemical is confirmed to be affected, with some plotted values materially misstated because source units were not consistently preserved or normalized. The full scope across other sites has not yet been established.
+
+All monitoring-well concentration trend plots, and any displayed summaries derived from those values, have been temporarily withdrawn pending a site-by-site review. They will be restored only after the original value, unit, sample medium, conversion rule, and source record have been verified.
+
+This issue affects the web presentation of concentration values. It does not, by itself, change the locations of monitoring points, sample identifiers, or the underlying regulatory documents. A separate technical incident record will document the affected datasets and versions, root cause, corrections, and validation results.
+
 ---
 
 ## Corrections to published output
@@ -35,6 +44,7 @@ Each of the following was, at some point, live on the public site.
 | Location-only wells (mapped for position, without attached chemistry) displayed "undefined distinct" under chemicals detected. | Cosmetic but misleading popup text. Changed to "none tabulated (location point)". | 2026-07-19 | Live on the site before the v1.0.0 freeze; not in a tagged release. |
 
 ---
+
 
 ## Errors caught before publication
 
