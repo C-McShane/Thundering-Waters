@@ -404,6 +404,7 @@ function radSoilPopup(z) {
 // y = cumulative number of wells & soil zones registering the selected radionuclide(s).
 const SOIL_SURVEY_YEAR = 2012;   // Mill No. 2 gamma survey (RI year) — soil zones have no time series
 function updateRadTrend(sel) {
+  const _b = document.getElementById('rad-trend'); if (_b) { _b.style.display = 'none'; _b.innerHTML = ''; } return;  // WITHDRAWN pending validation
   if (!chemTrendEl) return;
   if (!sel || !sel.length) { chemTrendEl.style.display = 'none'; return; }
   const firstYear = {};   // well/soil key -> first year it registers the selection
@@ -631,8 +632,8 @@ async function loadAll() {
     gj('data/statistics.json'), gj('data/findings.json'),
   ]);
   STATS = statsData; applyStatistics(); buildCancerSelectors();
-  SITE_FINDINGS = findingsData.radiation_by_site || {};
-  CHEM_FINDINGS = findingsData.chemicals_by_site || [];   // every displayed count comes from statistics.json
+  SITE_FINDINGS = {};   // WITHDRAWN pending validation (was findingsData.radiation_by_site)
+  CHEM_FINDINGS = [];   // WITHDRAWN pending validation (was findingsData.chemicals_by_site)
   renderLcPumps(lcPumpsData.features); lcPumpsF = lcPumpsData.features;
   renderLcPiezo(lcPiezoData.features); lcPiezoF = lcPiezoData.features;
   soilRadFeatures = soilRadData.features;   // per-site toggles built after the wells load (below)
@@ -928,20 +929,7 @@ function headlineChem(series) {
   return bestPeak > 0 ? best : null;
 }
 function wellPlotBlock(p) {
-  const sel = document.getElementById('well-select');
-  const cx = sel ? sel.value : '';
-  if (cx && p.conc_series && p.conc_series[cx]) return concPlotSVG(p.conc_series[cx], cx, (p.conc_units || {})[cx]);
-  if (p.toc_series) {                                            // S-Area: aggregate TOC, no per-chemical
-    const s = {}; Object.keys(p.toc_series).forEach(y => s[y] = [p.toc_series[y], 'detect']);
-    return concPlotSVG(s, 'Total Organic Concentration');
-  }
-  if (!cx && p.conc_series) {                                    // nothing picked → show the headline contaminant
-    const hc = headlineChem(p.conc_series);
-    if (hc) return concPlotSVG(p.conc_series[hc], hc, (p.conc_units || {})[hc])
-      + `<div class="conc-plot-hint">Highest-concentration contaminant. Pick another from the “Filter Wells by Chemical” menu.</div>`;
-  }
-  if (cx && p.chems && p.chems.includes(cx)) return `<div class="conc-plot-note">${cx} detected here, but no numeric time series is available for this well.</div>`;
-  return '';
+  return '<div class="conc-plot-note plot-withdrawn">⚠ Concentration time-series plots are temporarily withdrawn pending source-unit validation (see CORRECTIONS.md).</div>';
 }
 function wellPopup(p) {
   const isW = p.src === 'WQP', isL = p.src === 'LEGACY';
@@ -1176,19 +1164,7 @@ function populateWellDropdown() {
 let CHEM_FINDINGS = [];   // loaded from data/findings.json
 function buildChemFindings() {
   const box = document.getElementById('chem-findings');
-  if (!box) return;
-  box.innerHTML = CHEM_FINDINGS.map(g =>
-    `<div class="chem-find-site">${g.site}</div>` + g.items.map(f =>
-      `<div class="finding-wrap"><button class="finding chem" data-chem="${f.chem}" data-lat="${f.lat}" data-lon="${f.lon}">`
-      + `<span class="finding-t"><span>${f.chem}</span><span class="finding-v">${f.v}</span></span>`
-      + `<span class="finding-s">${f.s}</span></button>` + citeHTML(f.citation) + `</div>`).join('')).join('');
-  box.querySelectorAll('.finding.chem').forEach(b => b.addEventListener('click', () => {
-    const sel = document.getElementById('well-select');
-    if (sel && [...sel.options].some(o => o.value === b.dataset.chem)) {
-      sel.value = b.dataset.chem; sel.dispatchEvent(new Event('change'));
-    }
-    map.flyTo([parseFloat(b.dataset.lat), parseFloat(b.dataset.lon)], 17, { duration: 1.1 });
-  }));
+  if (box) box.innerHTML = '<div class="chem-note plot-withdrawn">⚠ Well/soil sample concentration values, time-series plots and selected-high-detection highlights are temporarily withdrawn pending source-unit and analyte validation. The chemical <em>lists</em> and everything else remain. See CORRECTIONS.md.</div>';
 }
 // Sampling-type filter: colour-coded checkboxes (double as the colour legend) that show/hide
 // wells by what they sample, across all three source layers at once.
@@ -1282,6 +1258,7 @@ function chemTrendSVG(chem, years, counts, total) {
     + `</svg><div class="ctp-sub">cumulative · ${total} well${total === 1 ? '' : 's'} total</div><div class="ctp-caveat">Cumulative monitoring history &mdash; not contemporaneous plume extent. Additional points over time may reflect new sampling locations or newly available records as well as environmental change.</div>`;
 }
 function updateChemTrend() {
+  const _b = document.getElementById('chem-trend'); if (_b) { _b.style.display = 'none'; _b.innerHTML = ''; } return;  // WITHDRAWN pending validation
   if (!chemTrendEl) return;
   const cx = (document.getElementById('well-select') || {}).value || '';
   const feats = cx ? onWellSources().filter(f => f.properties.chems_years && f.properties.chems_years[cx]) : [];
