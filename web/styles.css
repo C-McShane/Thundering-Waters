@@ -619,7 +619,23 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 /* ── follow-up tweaks ── */
 /* Cancer caution: use the cancer-tab orange, softened so it doesn't grab attention,
    and pushed down so it stops crowding the drop-downs above it. */
-.cancer-caution { margin-top:22px; background:rgba(240,136,63,.10);
+.cancer-caution { margin-top:32px; background:rgba(240,136,63,.10);
   border:1px solid rgba(240,136,63,.38); color:var(--dim); }
 /* Address input hint in the same light blue as the title search box */
 .ad-input::placeholder { color:#7fbce8; opacity:1; }
+
+/* ── follow-up batch 2 ── */
+/* "Filter by site type" is now a clear static sub-heading (no longer a drop-down),
+   spaced off the "Show hazard sites" toggle above it */
+.stf-subhead { margin:16px 0 9px; font-family:var(--sans); font-size:12.5px; font-weight:700;
+  letter-spacing:.03em; color:#c4a5ee; }
+/* contaminant badge in search results */
+.sr-badge.sr-chem { background:rgba(184,132,232,.18); color:#c9a5f0; border:1px solid rgba(184,132,232,.42); }
+/* more breathing room between the gold prompt and the first drop-down */
+.panel-prompt { margin-bottom:20px; }
+
+@media (max-width:780px) {
+  /* let the bottom-sheet body actually scroll when a panel is tall (was clipped) */
+  #panel.open { max-height:64vh; }
+  #panel #sidebar-body { height:auto; max-height:64vh; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+}

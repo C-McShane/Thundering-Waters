@@ -1,17 +1,18 @@
 // ── DESIGNATION COLORS ──────────────────────────────────────────────────────
+// Neon palette — vivid solid cores over soft same-colour halos (heatmap × points).
 const DESIG_COLOR = {
-  'NY State Superfund':              '#c0392b',
-  'Brownfield':                      '#d4a843',
-  'Federal Facility':                '#4a7fa5',
-  'FUSRAP-LM':                       '#9b59b6',
-  'RCRA Corrective Action':          '#c0622b',
-  'Federal NPL - Active':            '#8b0000',
-  'Federal NPL - Deleted':           '#7f8c8d',
-  'Federal CERCLA (Non-NPL)':        '#3d8a7a',
-  'Federal CERCLA / Brownfield':     '#a0522d',
-  'Environmental Restoration Program':'#27ae60',
-  'Voluntary Cleanup Program':       '#16a085',
-  'Information Not Available':        '#555555',
+  'NY State Superfund':              '#ff2a2a',   // neon red
+  'Brownfield':                      '#ffd400',   // neon yellow
+  'Federal Facility':                '#22b0ff',   // neon blue
+  'FUSRAP-LM':                       '#c24dff',   // neon violet
+  'RCRA Corrective Action':          '#ff7a1a',   // neon orange
+  'Federal NPL - Active':            '#ff0066',   // neon crimson
+  'Federal NPL - Deleted':           '#9fb0bd',   // muted (deleted)
+  'Federal CERCLA (Non-NPL)':        '#1cf0c8',   // neon teal
+  'Federal CERCLA / Brownfield':     '#e0803a',   // burnt amber
+  'Environmental Restoration Program':'#2bff7a',   // neon green
+  'Voluntary Cleanup Program':       '#00e6a0',   // neon spring green
+  'Information Not Available':        '#8a97a3',   // muted grey
 };
 function desigColor(d) { return DESIG_COLOR[d] || '#888'; }
 
@@ -802,13 +803,16 @@ function renderSites(features) {
     const p = f.properties;
     const color = desigColor(p.designation);
     const [lon, lat] = f.geometry.coordinates;
+    // large soft halo of the same colour — where sites cluster the halos stack and
+    // read like a heatmap, while each retains a precise point
+    L.circleMarker([lat, lon], {
+      pane: 'sitesPane', renderer: sitesCanvas, interactive: false,
+      radius: 15, fillColor: color, fillOpacity: 0.14, color: color, weight: 0, opacity: 0,
+    }).addTo(layers.sites);
+    // small, intense, neon solid core
     const marker = L.circleMarker([lat, lon], {
       pane: 'sitesPane', renderer: sitesCanvas,
-      radius: 6,
-      fillColor: color,
-      color: '#0d0d0e',
-      weight: 1.2,
-      fillOpacity: 0.9,
+      radius: 3.4, fillColor: color, color: '#0a0a0c', weight: 0.7, fillOpacity: 1,
     });
     marker.bindPopup(sitePopup(p), { maxWidth: 340 });
     marker.addTo(layers.sites);
@@ -1774,8 +1778,13 @@ function buildSearchIndex() {
     push({ kind:'lc', layer:'lcPiezo', id:p.well_id||'', label:p.well_id||'', sub:'Love Canal · piezometer (water levels)', lat:c[1], lon:c[0], props:p, popupKind:'piezo' }); });
   lcPumpsF.forEach(f => { const p = f.properties, c = f.geometry.coordinates;
     push({ kind:'lc', layer:'lcPumps', id:p.well_id||'', label:p.well_id||'', sub:'Love Canal · pump chamber', lat:c[1], lon:c[0], props:p, popupKind:'pump' }); });
+  // contaminants: searching one jumps to the Chemicals tab filtered to it
+  const chemCounts = {};
+  allSiteFeatures.forEach(f => (f.properties.chems || []).forEach(c => { chemCounts[c] = (chemCounts[c] || 0) + 1; }));
+  Object.keys(chemCounts).forEach(c =>
+    push({ kind:'chem', id:c, label:c, sub:`contaminant · listed at ${chemCounts[c]} site${chemCounts[c] === 1 ? '' : 's'}` }));
 }
-const BADGE = { well:'WELL', site:'SITE', soil:'SOIL', lc:'LC' };
+const BADGE = { well:'WELL', site:'SITE', soil:'SOIL', lc:'LC', chem:'CHEM' };
 searchInput.addEventListener('input', () => {
   const q = searchInput.value.trim().toLowerCase();
   searchResults.innerHTML = '';
@@ -1803,6 +1812,15 @@ searchInput.addEventListener('input', () => {
 function selectSearchResult(r) {
   searchResults.style.display = 'none';
   searchInput.value = r.label;
+  // a contaminant isn't a point — open the Chemicals tab and filter the map to it
+  if (r.kind === 'chem') {
+    if (window.__twOpenTab) window.__twOpenTab('chemicals');
+    const cs = document.getElementById('chem-select');
+    if (cs && [...cs.options].some(o => o.value === r.id)) { cs.value = r.id; cs.dispatchEvent(new Event('change')); }
+    const ws = document.getElementById('well-select');
+    if (ws && [...ws.options].some(o => o.value === r.id)) { ws.value = r.id; ws.dispatchEvent(new Event('change')); }
+    return;
+  }
   // turn the point's layer on so the marker is visible after the popup closes
   if (r.layer) {
     const cb = document.querySelector(`.toggle-check[data-layer="${r.layer}"]`);

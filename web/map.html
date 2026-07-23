@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=8">
+<link rel="stylesheet" href="styles.css?v=9">
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
 </head>
@@ -32,7 +32,7 @@
     <div class="sidebar-title">Thundering Waters<span class="title-sub">The Toxic Legacy of Niagara County</span></div>
   </div>
   <div id="search-wrap">
-    <input id="search" type="text" placeholder="Search sites, wells, pits… (e.g. C4R-MW-04)" autocomplete="off">
+    <input id="search" type="text" placeholder="Search sites, wells, chemicals… (e.g. Benzene, C4R-MW-04)" autocomplete="off">
     <div id="search-results"></div>
   </div>
 </div>
@@ -44,12 +44,12 @@
     <button class="rail-tab" data-tab="start" role="tab" aria-selected="false" style="--tab-c:#cfcdd8">
       <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 5 21.4l1.4-6.8L1.3 9.9l6.9-.8z"></path></svg>
       <span class="rt-lb">Start<small>Here</small></span></button>
-    <button class="rail-tab" data-tab="addr" role="tab" aria-selected="false" style="--tab-c:#46d3bf">
-      <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.4 7-12A7 7 0 0 0 5 10c0 5.6 7 12 7 12z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
-      <span class="rt-lb">Address<small>Lookup</small></span></button>
     <button class="rail-tab" data-tab="sites" role="tab" aria-selected="false" style="--tab-c:#f05545">
       <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"></path><path d="M12 9v5"></path><circle cx="12" cy="17" r=".5"></circle></svg>
       <span class="rt-lb">Hazard<small>Sites</small></span></button>
+    <button class="rail-tab" data-tab="addr" role="tab" aria-selected="false" style="--tab-c:#46d3bf">
+      <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.4 7-12A7 7 0 0 0 5 10c0 5.6 7 12 7 12z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+      <span class="rt-lb">Address<small>Lookup</small></span></button>
     <button class="rail-tab" data-tab="wells" role="tab" aria-selected="false" style="--tab-c:#5cb2ee">
       <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"></path></svg>
       <span class="rt-lb">Monitor<small>Wells</small></span></button>
@@ -85,7 +85,7 @@
       <div id="ad-status" class="ad-status" style="display:none"></div>
       <div id="ad-results" style="display:none"></div>
 
-      <div class="ad-frame" style="margin-top:20px">
+      <div class="ad-frame" style="margin-top:32px">
         <div class="ad-frame-h">What this does</div>
         Enter an address and this reports the <b>straight-line distance to the nearest documented hazard site</b> and to the <b>nearest sampling point where a contaminant was detected</b>. It is a <b>locator</b>, for general orientation.
         <div class="ad-frame-h" style="margin-top:9px">What it does not do</div>
@@ -104,13 +104,8 @@
       <div class="acc-body">
         <div class="acc-help">Every documented contaminated site in Niagara County, each dot coloured by its <b>regulatory programme</b>. Turn the layer on or off, or show/hide individual programme types below — the list doubles as the colour legend.</div>
         <label class="layer-toggle active" id="toggle-sites"><input type="checkbox" class="toggle-check" checked data-layer="sites"><span class="toggle-swatch" style="background:#c0392b; border:2px solid #7a2a22;"></span><span class="toggle-label">Show hazard sites</span><span class="toggle-count" data-stat="hazard_sites" data-suffix=" pts">…</span></label>
-        <div class="acc sub-acc">
-          <div class="acc-head"><span class="acc-title">Filter by site type</span><span class="acc-arrow">&#9662;</span></div>
-          <div class="acc-body">
-            <div class="acc-help" style="display:block">Show or hide sites by regulatory programme. The colour swatches are also the map's colour key.</div>
-            <div class="sample-type-filter" id="site-type-filter"></div>
-          </div>
-        </div>
+        <div class="stf-subhead">Filter by site type</div>
+        <div class="sample-type-filter" id="site-type-filter"></div>
       </div>
     </div>
 
@@ -340,6 +335,6 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="app.js?v=8"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>
