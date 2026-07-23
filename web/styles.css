@@ -573,12 +573,25 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .panel-prompt svg { flex:0 0 auto; margin-top:1px; }
 
 /* bold, bright, clearly-clickable drop-down titles */
-.acc > .acc-head .acc-title { font-weight:700; color:var(--text); font-size:13px; }
-.acc > .acc-head .acc-arrow { color:var(--amber); }
+/* main drop-down titles: rich teal so they clearly read as clickable (not the gold accent) */
+.acc:not(.sub-acc) > .acc-head .acc-title { font-weight:700; color:#3dd1c4; font-size:13px; }
+.acc:not(.sub-acc) > .acc-head:hover .acc-title { color:#6ff0e2; }
+/* bigger, obvious expand arrows */
+.acc:not(.sub-acc) > .acc-head .acc-arrow { color:#3dd1c4; font-size:19px; line-height:1; }
+
+/* Start Here: emphasised words in light green so they pop */
+.sh-p b { color:#8fe0a0; }
+
+/* search placeholder in a light blue so the hint stands out (not gold/red/white) */
+#search::placeholder { color:#7fbce8; opacity:1; }
+
+/* Address Lookup: gold call-to-action above the input */
+.ad-label { color:#f0c14b !important; font-weight:700; font-size:12.5px; letter-spacing:.01em;
+  text-transform:none; }
 
 /* Start Here explanatory copy */
 .sh-p { font-size:13px; line-height:1.55; color:var(--muted); margin:0 0 13px; }
-.sh-p b { color:var(--text); }
+.sh-p b { color:#8fe0a0; }
 
 /* footer sits at the bottom of the open panel */
 #panel #sidebar-footer { margin-top:16px; border-top:1px solid var(--border); padding-top:12px; }
