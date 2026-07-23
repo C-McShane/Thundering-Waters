@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=8">
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
 </head>
@@ -41,7 +41,7 @@
 <div id="dock">
 
   <div id="rail" role="tablist" aria-label="Map data layers">
-    <button class="rail-tab active" data-tab="start" role="tab" aria-selected="true" style="--tab-c:#cfcdd8">
+    <button class="rail-tab" data-tab="start" role="tab" aria-selected="false" style="--tab-c:#cfcdd8">
       <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 5 21.4l1.4-6.8L1.3 9.9l6.9-.8z"></path></svg>
       <span class="rt-lb">Start<small>Here</small></span></button>
     <button class="rail-tab" data-tab="addr" role="tab" aria-selected="false" style="--tab-c:#46d3bf">
@@ -68,7 +68,7 @@
     <button id="panel-close" title="Close panel" aria-label="Close panel">✕</button>
     <div id="sidebar-body">
 
-    <div class="tab-panel active" data-tab-panel="start">
+    <div class="tab-panel" data-tab-panel="start">
       <p class="sh-p"><b>What this map shows.</b> Every documented hazardous-waste and radioactive site in Niagara County, New York — together with the monitoring wells and soil samples that record what was measured, where, and when. Every figure traces back to a named source document, and any sample can be looked up by its own identifier.</p>
       <p class="sh-p"><b>How to use it.</b> Click any <b>folder tab</b> on the left to open its panel, then open the drop-down menus inside it to switch layers on over the map — hazard sites, monitoring wells, radiation, chemicals, and cancer incidence. Use the <b>search box</b> above to jump straight to a site, well, or sample by its ID.</p>
       <p class="sh-p"><b>Continually updated.</b> This is a living compilation. Roughly <b>75&nbsp;GB</b> of source documents are still being processed and vetted; layers and detections are added as each one is verified, so the map grows over time. A figure marked <i>pending</i> is not yet fully sourced — not disputed.</p>
@@ -77,13 +77,6 @@
 
     <div class="tab-panel" data-tab-panel="addr">
 
-      <div class="ad-frame">
-        <div class="ad-frame-h">What this does</div>
-        Enter an address and this reports the <b>straight-line distance to the nearest documented hazard site</b> and to the <b>nearest sampling point where a contaminant was detected</b>. It is a <b>locator</b>, for general orientation.
-        <div class="ad-frame-h" style="margin-top:9px">What it does not do</div>
-        It does <b>not</b> assess risk, exposure, or safety, and it cannot tell you anything about your water, soil, air or health. Distance alone does not determine exposure &mdash; see the notes with any result.
-      </div>
-
       <label class="ad-label" for="ad-input">Enter an Address to Estimate Distance to Nearest Hazardous Site</label>
       <input id="ad-input" class="ad-input" type="text" placeholder="e.g. 2001 Main St, Niagara Falls, NY 14305" autocomplete="off">
       <button id="ad-go" class="ad-go">Find nearest documented sites</button>
@@ -91,6 +84,13 @@
 
       <div id="ad-status" class="ad-status" style="display:none"></div>
       <div id="ad-results" style="display:none"></div>
+
+      <div class="ad-frame" style="margin-top:20px">
+        <div class="ad-frame-h">What this does</div>
+        Enter an address and this reports the <b>straight-line distance to the nearest documented hazard site</b> and to the <b>nearest sampling point where a contaminant was detected</b>. It is a <b>locator</b>, for general orientation.
+        <div class="ad-frame-h" style="margin-top:9px">What it does not do</div>
+        It does <b>not</b> assess risk, exposure, or safety, and it cannot tell you anything about your water, soil, air or health. Distance alone does not determine exposure &mdash; see the notes with any result.
+      </div>
 
     </div><!-- /tab-panel: addr -->
 
@@ -340,6 +340,6 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="app.js?v=7"></script>
+<script src="app.js?v=8"></script>
 </body>
 </html>

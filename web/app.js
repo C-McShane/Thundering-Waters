@@ -1471,7 +1471,7 @@ document.querySelectorAll('input[name="cancer"]').forEach(radio => {
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && activeTab) closePanel(); });
 
   positionDock();
-  if (!mqMobile.matches) openTab('start');   // desktop lands on how-to-use; mobile starts on a clear map
+  // start with no panel open — a clean map; the rail invites the first click
   // Leaflet sized itself before the layout fully settled — nudge it to repaint tiles full-bleed
   setTimeout(() => window.dispatchEvent(new Event('resize')), 250);
   window.__twOpenTab = openTab;

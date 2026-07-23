@@ -519,7 +519,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
    POP-OUT PANEL LAYOUT (v6) — folder-tab rail + sliding panel over a full map.
    Overrides the old fixed-sidebar flex layout; panel-content classes are reused.
    ═══════════════════════════════════════════════════════════════════════════ */
-#app { display:block; position:relative; height:100vh; width:100vw; overflow:hidden; }
+#app { display:block; position:relative; height:100vh; height:100dvh; width:100vw; overflow:hidden; }
 #map { position:absolute; inset:0; width:100%; height:100%; flex:none; }
 
 /* permanent title + search, floating top-left */
@@ -535,9 +535,9 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 /* dock = rail + panel */
 #dock { position:absolute; left:16px; bottom:16px; z-index:1150;
   display:flex; align-items:stretch; pointer-events:none; }
-#rail { width:54px; display:flex; flex-direction:column; gap:7px; pointer-events:auto; z-index:2; }
-.rail-tab { position:relative; width:54px; min-height:60px; flex:0 0 auto;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+#rail { width:60px; display:flex; flex-direction:column; gap:7px; pointer-events:auto; z-index:2; }
+.rail-tab { position:relative; width:60px; min-height:68px; flex:0 0 auto;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
   background:linear-gradient(180deg,var(--s2),var(--surface)); color:var(--muted);
   border:1px solid var(--border2); border-left:3px solid var(--border2);
   border-radius:9px 4px 4px 9px; cursor:pointer; padding:8px 3px;
@@ -545,8 +545,8 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   box-shadow:0 4px 14px rgba(0,0,0,.35); }
 .rail-tab:hover { transform:translateX(3px); color:var(--text); }
 .rail-tab:focus-visible { outline:2px solid var(--tab-c); outline-offset:2px; }
-.rail-tab .rt-ic { width:19px; height:19px; color:var(--tab-c); flex:0 0 auto; }
-.rail-tab .rt-lb { font-family:var(--mono); font-size:8px; line-height:1.12; letter-spacing:.04em;
+.rail-tab .rt-ic { width:22px; height:22px; color:var(--tab-c); flex:0 0 auto; }
+.rail-tab .rt-lb { font-family:var(--mono); font-size:8.5px; line-height:1.12; letter-spacing:.04em;
   text-transform:uppercase; text-align:center; font-weight:500; }
 .rail-tab .rt-lb small { display:block; font-size:8px; }
 .rail-tab.active { background:linear-gradient(180deg,var(--surface),#111113); color:var(--text);
@@ -607,9 +607,19 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   #panel.open { display:block; width:auto; max-height:58vh; border-radius:14px 14px 0 0;
     border-bottom:0; pointer-events:auto; box-shadow:0 -12px 40px rgba(0,0,0,.6); }
   #panel #sidebar-body { width:100%; }
-  #rail { order:1; flex-direction:row; width:auto; gap:6px; padding:8px; overflow-x:auto;
+  #rail { order:1; flex-direction:row; width:auto; gap:6px; overflow-x:auto;
+    padding:8px 8px calc(env(safe-area-inset-bottom, 0px) + 18px);   /* clear the browser toolbar */
     background:linear-gradient(180deg,rgba(13,13,14,.55),var(--bg));
     border-top:1px solid var(--border); pointer-events:auto; }
+  #panel.open { max-height:52vh; }                                   /* leave room above the lifted rail */
   .rail-tab { border-radius:8px; border-left-width:1px; border-bottom:3px solid var(--border2); }
   .rail-tab.active { transform:none; border-bottom-color:var(--tab-c); }
 }
+
+/* ── follow-up tweaks ── */
+/* Cancer caution: use the cancer-tab orange, softened so it doesn't grab attention,
+   and pushed down so it stops crowding the drop-downs above it. */
+.cancer-caution { margin-top:22px; background:rgba(240,136,63,.10);
+  border:1px solid rgba(240,136,63,.38); color:var(--dim); }
+/* Address input hint in the same light blue as the title search box */
+.ad-input::placeholder { color:#7fbce8; opacity:1; }
