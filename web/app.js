@@ -1421,20 +1421,62 @@ document.querySelectorAll('input[name="cancer"]').forEach(radio => {
 
 // (Radiation-tab selectors are wired in buildRadSelectors after radionuclides.json loads)
 
-// ── SIDEBAR TABS ─────────────────────────────────────────────────────────────
-// Digestible groups instead of one long scroll: Hazard Sites / Monitoring Wells /
-// Radiation / Chemicals / Cancer Incidence. Purely a display switch — every control keeps
-// working identically regardless of which tab is currently shown.
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    btn.setAttribute('aria-selected', 'true');
-    document.querySelector(`.tab-panel[data-tab-panel="${btn.dataset.tab}"]`).classList.add('active');
-    document.getElementById('sidebar-body').scrollTop = 0;
-  });
-});
+// ── FOLDER-TAB RAIL ──────────────────────────────────────────────────────────
+// Each tab on the left rail slides out its own panel over the map; one open at a time.
+// Clicking the active tab (or ✕ / Esc) closes it back to the full map. Purely a display
+// switch — every control keeps working identically regardless of which tab is shown.
+(function () {
+  const panel = document.getElementById('panel');
+  const dock = document.getElementById('dock');
+  const titlecard = document.getElementById('titlecard');
+  const railTabs = document.querySelectorAll('.rail-tab');
+  const mqMobile = window.matchMedia('(max-width: 780px)');
+  let activeTab = null;
+
+  // keep the rail/panel clear of the (variable-height) title card on desktop
+  function positionDock() {
+    if (!dock) return;
+    if (titlecard && !mqMobile.matches)
+      dock.style.top = (titlecard.offsetTop + titlecard.offsetHeight + 12) + 'px';
+    else dock.style.top = '';
+  }
+  window.addEventListener('resize', positionDock);
+
+  const backdrop = document.getElementById('sheet-backdrop');
+  function openTab(id) {
+    activeTab = id;
+    railTabs.forEach(b => {
+      const on = b.dataset.tab === id;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    document.querySelectorAll('.tab-panel').forEach(p =>
+      p.classList.toggle('active', p.dataset.tabPanel === id));
+    panel.classList.add('open');
+    if (backdrop && mqMobile.matches) backdrop.classList.add('visible');   // dim map behind bottom sheet
+    const body = document.getElementById('sidebar-body');
+    if (body) body.scrollTop = 0;
+  }
+  function closePanel() {
+    activeTab = null;
+    panel.classList.remove('open');
+    if (backdrop) backdrop.classList.remove('visible');
+    railTabs.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+  }
+  railTabs.forEach(btn => btn.addEventListener('click', () => {
+    if (activeTab === btn.dataset.tab) closePanel(); else openTab(btn.dataset.tab);
+  }));
+  const closeBtn = document.getElementById('panel-close');
+  if (closeBtn) closeBtn.addEventListener('click', closePanel);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && activeTab) closePanel(); });
+
+  positionDock();
+  if (!mqMobile.matches) openTab('start');   // desktop lands on how-to-use; mobile starts on a clear map
+  // Leaflet sized itself before the layout fully settled — nudge it to repaint tiles full-bleed
+  setTimeout(() => window.dispatchEvent(new Event('resize')), 250);
+  window.__twOpenTab = openTab;
+  window.__twClosePanel = closePanel;
+})();
 
 
 // START HERE panel: the three front-door actions (URGENT_TODO item 8).
@@ -1838,25 +1880,13 @@ document.addEventListener('click', e => {
 // picking a search result. Desktop layout is completely unaffected (CSS-gated).
 (function () {
   const mq = window.matchMedia('(max-width: 780px)');
-  const sidebarEl = document.getElementById('sidebar');
-  const toggleBtn = document.getElementById('mobile-toggle');
-  const toggleLabel = document.getElementById('mobile-toggle-label');
   const backdrop = document.getElementById('sheet-backdrop');
-
-  function setSheet(open) {
-    const onMobile = mq.matches;
-    sidebarEl.classList.toggle('sheet-open', open || !onMobile);
-    backdrop.classList.toggle('visible', open && onMobile);
-    toggleBtn.setAttribute('aria-expanded', String(open));
-    toggleLabel.textContent = open ? 'Close' : 'Layers & Search';
-  }
-  toggleBtn.addEventListener('click', () => setSheet(!sidebarEl.classList.contains('sheet-open')));
-  backdrop.addEventListener('click', () => setSheet(false));
-  // closed by default on mobile load; always open on desktop regardless of screen resize history
-  setSheet(!mq.matches);
-  mq.addEventListener('change', e => setSheet(!e.matches));
-  // picking a search result on mobile should close the sheet so the map is visible
-  document.getElementById('search-results').addEventListener('click', e => {
-    if (e.target.closest('.sr-item') && mq.matches) setSheet(false);
+  // On phones the rail is an always-visible bottom nav; tapping a tab raises its panel as a
+  // bottom sheet (handled by the rail controller). Here we just let the backdrop dismiss it,
+  // and close the sheet when a search result is chosen so the map is visible.
+  if (backdrop) backdrop.addEventListener('click', () => { if (window.__twClosePanel) window.__twClosePanel(); });
+  const sr = document.getElementById('search-results');
+  if (sr) sr.addEventListener('click', e => {
+    if (e.target.closest('.sr-item') && mq.matches && window.__twClosePanel) window.__twClosePanel();
   });
 })();

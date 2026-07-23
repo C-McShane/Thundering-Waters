@@ -7,14 +7,14 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=5">
+<link rel="stylesheet" href="styles.css?v=6">
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
 </head>
 <body>
 
-<!-- Mobile-only: reopens the sidebar as a bottom sheet -->
-<button id="mobile-toggle" aria-expanded="false" aria-controls="sidebar">
+<!-- Mobile-only: reopens the panel dock as a bottom sheet -->
+<button id="mobile-toggle" aria-expanded="false" aria-controls="dock">
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
   <span id="mobile-toggle-label">Layers &amp; Search</span>
 </button>
@@ -22,91 +22,57 @@
 
 <div id="app">
 
-<!-- ── SIDEBAR ── -->
-<div id="sidebar">
-  <div class="sheet-handle"></div>
+<!-- ── MAP (full-bleed, behind the floating controls) ── -->
+<div id="map"></div>
+
+<!-- ── PERMANENT TITLE + SEARCH ── -->
+<div id="titlecard">
   <div id="sidebar-header">
     <div class="title-kind">Inspired by <b class="author-name">Christen Civiletto</b>'s book</div>
     <div class="sidebar-title">Thundering Waters<span class="title-sub">The Toxic Legacy of Niagara County</span></div>
   </div>
-
   <div id="search-wrap">
     <input id="search" type="text" placeholder="Search sites, wells, pits… (e.g. C4R-MW-04)" autocomplete="off">
     <div id="search-results"></div>
   </div>
+</div>
 
-  <div id="sidebar-body">
+<!-- ── DOCK: folder-tab rail + sliding panel ── -->
+<div id="dock">
 
-    <div class="tab-heading">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5v14l11-7z"></path></svg>
-      Tap a tab below to explore the data
-    </div>
-    <div class="tab-bar" role="tablist">
-      <div class="tab-row">
-        <button class="tab-btn tab-start active" data-tab="start" role="tab" aria-selected="true">Start Here</button>
-        <button class="tab-btn tab-start" data-tab="addr" role="tab" aria-selected="false">Address Lookup</button>
-      </div>
-      <div class="tab-row">
-        <button class="tab-btn" data-tab="sites" role="tab" aria-selected="false">Hazard Sites</button>
-        <button class="tab-btn" data-tab="wells" role="tab" aria-selected="false">Monitoring Wells</button>
-      </div>
-      <div class="tab-row">
-        <button class="tab-btn" data-tab="chem" role="tab" aria-selected="false">Radiation</button>
-        <button class="tab-btn" data-tab="chemicals" role="tab" aria-selected="false">Chemicals</button>
-        <button class="tab-btn" data-tab="cancer" role="tab" aria-selected="false">Cancer Incidence</button>
-      </div>
-    </div>
+  <div id="rail" role="tablist" aria-label="Map data layers">
+    <button class="rail-tab active" data-tab="start" role="tab" aria-selected="true" style="--tab-c:var(--dim)">
+      <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 5 21.4l1.4-6.8L1.3 9.9l6.9-.8z"></path></svg>
+      <span class="rt-lb">Start<small>Here</small></span></button>
+    <button class="rail-tab" data-tab="addr" role="tab" aria-selected="false" style="--tab-c:var(--teal)">
+      <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.4 7-12A7 7 0 0 0 5 10c0 5.6 7 12 7 12z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+      <span class="rt-lb">Address<small>Lookup</small></span></button>
+    <button class="rail-tab" data-tab="sites" role="tab" aria-selected="false" style="--tab-c:var(--red)">
+      <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"></path><path d="M12 9v5"></path><circle cx="12" cy="17" r=".5"></circle></svg>
+      <span class="rt-lb">Hazard<small>Sites</small></span></button>
+    <button class="rail-tab" data-tab="wells" role="tab" aria-selected="false" style="--tab-c:var(--blue)">
+      <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"></path></svg>
+      <span class="rt-lb">Monitor<small>Wells</small></span></button>
+    <button class="rail-tab" data-tab="chem" role="tab" aria-selected="false" style="--tab-c:var(--amber)">
+      <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.3"></circle><path d="M12 3a9 9 0 0 1 7.8 4.5l-4.3 2.5M12 21a9 9 0 0 1-7.8-4.5l4.3-2.5M20 16.5A9 9 0 0 1 12 21M4.2 7.5 8.5 10"></path></svg>
+      <span class="rt-lb">Radia<small>tion</small></span></button>
+    <button class="rail-tab" data-tab="chemicals" role="tab" aria-selected="false" style="--tab-c:var(--purple)">
+      <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"></path></svg>
+      <span class="rt-lb">Chem<small>icals</small></span></button>
+    <button class="rail-tab" data-tab="cancer" role="tab" aria-selected="false" style="--tab-c:var(--orange)">
+      <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"></rect><rect x="13" y="3" width="8" height="8" rx="1"></rect><rect x="3" y="13" width="8" height="8" rx="1"></rect><rect x="13" y="13" width="8" height="8" rx="1"></rect></svg>
+      <span class="rt-lb">Cancer<small>Rates</small></span></button>
+  </div>
 
-    <div class="tab-heading tab-heading-sub">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-      Expand the drop-down menus for data layers
-    </div>
+  <div id="panel" aria-live="polite">
+    <button id="panel-close" title="Close panel" aria-label="Close panel">✕</button>
+    <div id="sidebar-body">
 
     <div class="tab-panel active" data-tab-panel="start">
-
-      <div class="sh-intro">This map documents <b><span data-stat="hazard_sites">…</span> hazardous-waste sites</b> across Niagara County, New York, together with <b><span data-stat="wells_total">…</span> monitoring points</b>, radiological survey results, and block-group cancer incidence. Everything is traced to a named source document, and every sample point can be looked up by its own identifier so any figure here can be checked against the report it came from.</div>
-
-      <div class="sh-actions">
-        <button class="sh-btn" data-go="sites">Explore Sites</button>
-        <button class="sh-btn" data-go="search">Search a Sample</button>
-        <button class="sh-btn" data-go="chemicals">View Selected Investigations</button>
-      </div>
-
-      <div class="sh-h">Findings</div>
-
-      <div class="sh-find">
-        <div class="sh-find-t">A mesothelioma cluster in North Tonawanda &mdash; not the chemical corridor</div>
-        <div class="sh-find-b">Niagara County&rsquo;s mesothelioma incidence is <b>2.34&times;</b> the New York State rate. NYSDOH places <b>13</b> reporting regions in a highlighted area, and they cluster over North Tonawanda &mdash; a different geography from the Niagara Falls chemical corridor, coinciding with documented asbestos users (Buffalo Pumps, Roblin Steel, Durez).</div>
-        <div class="sh-find-s">NYSDOH Environmental Facilities &amp; Cancer Mapping, 2011&ndash;2015 &middot; benchmark New York State. Mesothelioma has few causes other than asbestos, which makes this the most causally defensible pattern in the project &mdash; but it remains a population-level association, not proof of any individual&rsquo;s exposure.</div>
-      </div>
-
-
-      <div class="sh-find"><div class="sh-find-t">Two sample-based findings temporarily withdrawn</div><div class="sh-find-b">The trichloroethene and Covanta radiological highlights are temporarily removed pending validation of source units and analyte labels. The mapped sites, chemical lists and cancer data remain.</div><div class="sh-find-s">See CORRECTIONS.md.</div></div>
-
-      <div class="sh-h">What this data can &mdash; and cannot &mdash; establish</div>
-      <div class="sh-two">
-        <div class="sh-can">
-          <div class="sh-can-h">It can show</div>
-          <ul>
-            <li>Where contamination is <b>documented</b> in regulatory records</li>
-            <li>What was <b>measured</b>, where, when, and by whom</li>
-            <li>Which sites carry radiological designations, and on what basis</li>
-            <li>Where cancer incidence is elevated <b>relative to New York State</b></li>
-          </ul>
-        </div>
-        <div class="sh-cant">
-          <div class="sh-cant-h">It cannot show</div>
-          <ul>
-            <li>Any <b>individual&rsquo;s</b> exposure or personal risk</li>
-            <li>That a mapped site <b>caused</b> any disease</li>
-            <li>A <b>single synchronised snapshot</b> &mdash; each point reflects its own last sampling date. Those span <b>1948&ndash;2025</b>: 141 of 785 points were last sampled in 2020 or later, while 182 were last sampled before 2000. Droplets fade with age so you can see this on the map</li>
-            <li>Completeness &mdash; <b>absence of a record is not absence of contamination</b></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="sh-note">This project was developed with substantial AI assistance under human direction; how AI was used, and who is responsible for what, is set out in the <a href="https://github.com/C-McShane/Thundering-Waters/blob/main/AI_DISCLOSURE.md" target="_blank" rel="noopener">AI disclosure</a>.<br><br>This is an active compilation. Source citations for Selected high detections are being filled in systematically and are marked <i>pending</i> where incomplete &mdash; a pending marker means the figure is not yet fully sourced, not that it is disputed. Corrections are welcome: use <b>Report an error</b> below.</div>
-
+      <p class="sh-p"><b>What this map shows.</b> Every documented hazardous-waste and radioactive site in Niagara County, New York — together with the monitoring wells and soil samples that record what was measured, where, and when. Every figure traces back to a named source document, and any sample can be looked up by its own identifier.</p>
+      <p class="sh-p"><b>How to use it.</b> Click any <b>folder tab</b> on the left to open its panel, then open the drop-down menus inside it to switch layers on over the map — hazard sites, monitoring wells, radiation, chemicals, and cancer incidence. Use the <b>search box</b> above to jump straight to a site, well, or sample by its ID.</p>
+      <p class="sh-p"><b>Continually updated.</b> This is a living compilation. Roughly <b>75&nbsp;GB</b> of source documents are still being processed and vetted; layers and detections are added as each one is verified, so the map grows over time. A figure marked <i>pending</i> is not yet fully sourced — not disputed.</p>
+      <div class="sh-note">This project was developed with substantial AI assistance under human direction; how AI was used, and who is responsible for what, is set out in the <a href="https://github.com/C-McShane/Thundering-Waters/blob/main/AI_DISCLOSURE.md" target="_blank" rel="noopener">AI disclosure</a>. Corrections are welcome — use <b>Report an error</b> below.</div>
     </div><!-- /tab-panel: start -->
 
     <div class="tab-panel" data-tab-panel="addr">
@@ -129,6 +95,8 @@
     </div><!-- /tab-panel: addr -->
 
     <div class="tab-panel" data-tab-panel="sites">
+
+    <div class="panel-prompt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>Click on the drop-down menus below to explore data</div>
 
     <!-- Hazard site points -->
     <div class="acc">
@@ -181,6 +149,8 @@
     <div class="cancer-caution">The population level incidence data show geographic patterns and do not establish individual exposure, disease causation, or a causal relationship with mapped sites. Small area estimates may be unstable and suppressed values are not zero.</div>
     <div class="cancer-source">NYSDOH Environmental Facilities &amp; Cancer Mapping · cases diagnosed <b>2011&ndash;2015</b> · census block groups · expected counts age- and sex-adjusted to <b>New York State</b> rates (not a national benchmark) · provisional as of Dec 2017. <a href="https://www.health.ny.gov/statistics/cancer/environmental_facilities/mapping/about/" target="_blank" rel="noopener">Method</a></div>
 
+    <div class="panel-prompt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>Click on the drop-down menus below to explore data</div>
+
     <div class="acc">
       <div class="acc-head"><span class="acc-title">Highlighted Areas</span><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
@@ -204,6 +174,8 @@
     <div class="tab-panel" data-tab-panel="chem">
 
     <div class="acc-help" style="display:block;padding:2px 2px 12px">Everything with radioactive material or radionuclides — sites, wells and soil. Pick a material or radionuclide in a section below to map it; well &amp; soil points show a time-series plot when clicked, with a running total by year.</div>
+
+    <div class="panel-prompt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>Click on the drop-down menus below to explore data</div>
 
     <!-- Radioactive hazard sites -->
     <div class="acc">
@@ -246,14 +218,7 @@
     <div class="tab-panel" data-tab-panel="chemicals">
       <div class="acc-help" style="display:block;padding:2px 2px 12px">Filter by contaminant across the hazard sites and the monitoring-well network. Wells carry sampling dates — their menu adds a year filter, per-well time-series plots, and a running total by year.</div>
 
-      <!-- Strongest findings (editorial highlights) -->
-      <div class="acc" data-open>
-        <div class="acc-head"><span class="acc-title">Selected high detections</span><button class="acc-info" title="The highest measured contamination in the well & soil network">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
-        <div class="acc-body">
-          <div class="acc-help">The highest <b>measured</b> detections in the network, selected against a named comparison standard. Tap one to filter the map to that contaminant and fly to the sample. Each entry carries its source citation.</div>
-          <div id="chem-findings"></div>
-        </div>
-      </div>
+      <div class="panel-prompt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>Click on the drop-down menus below to explore data</div>
 
       <!-- Hazard Sites (chemical presence) -->
       <div class="acc">
@@ -276,9 +241,20 @@
           <div class="chem-note" id="well-year-note" style="display:none">Pick a year to see which wells had a chemical detected <b>by that year or earlier</b>.</div>
         </div>
       </div>
+
+      <!-- Strongest findings (editorial highlights) — kept last so it closes out the panel -->
+      <div class="acc">
+        <div class="acc-head"><span class="acc-title">Selected high detections</span><button class="acc-info" title="The highest measured contamination in the well & soil network">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+        <div class="acc-body">
+          <div class="acc-help">The highest <b>measured</b> detections in the network, selected against a named comparison standard. Tap one to filter the map to that contaminant and fly to the sample. Each entry carries its source citation.</div>
+          <div id="chem-findings"></div>
+        </div>
+      </div>
     </div><!-- /tab-panel: chemicals -->
 
     <div class="tab-panel" data-tab-panel="wells">
+
+    <div class="panel-prompt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>Click on the drop-down menus below to explore data</div>
 
     <!-- Well layers -->
     <div class="acc">
@@ -341,28 +317,28 @@
 
     </div><!-- /tab-panel: wells -->
 
-  </div>
-
-  <div id="sidebar-footer">
-    <a class="footer-link" href="../Niagara_Site_Narratives_updated.html" target="_blank">Site Narratives ↗</a>
-    <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters" target="_blank">GitHub & Methods ↗</a>
-    <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters/issues/new" target="_blank" rel="noopener" title="Found something wrong? Corrections are welcome.">Report an error ↗</a>
-    <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters/blob/main/AI_DISCLOSURE.md" target="_blank" rel="noopener" title="How AI was used, and human responsibility">AI disclosure ↗</a>
-    <a class="footer-link" href="data/hazard_sites.geojson" download>Download GeoJSON ↗</a>
-    <div class="share-row">
-      <span class="share-lbl">Share</span>
-      <button class="share-btn" data-share="copy" title="Copy link to this map">Copy</button>
-      <button class="share-btn" data-share="x" title="Share on X">X</button>
-      <button class="share-btn" data-share="facebook" title="Share on Facebook">f</button>
-      <button class="share-btn" data-share="email" title="Share by email">✉</button>
+    <div id="sidebar-footer">
+      <a class="footer-link" href="../Niagara_Site_Narratives_updated.html" target="_blank">Site Narratives ↗</a>
+      <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters" target="_blank">GitHub & Methods ↗</a>
+      <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters/issues/new" target="_blank" rel="noopener" title="Found something wrong? Corrections are welcome.">Report an error ↗</a>
+      <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters/blob/main/AI_DISCLOSURE.md" target="_blank" rel="noopener" title="How AI was used, and human responsibility">AI disclosure ↗</a>
+      <a class="footer-link" href="data/hazard_sites.geojson" download>Download GeoJSON ↗</a>
+      <div class="share-row">
+        <span class="share-lbl">Share</span>
+        <button class="share-btn" data-share="copy" title="Copy link to this map">Copy</button>
+        <button class="share-btn" data-share="x" title="Share on X">X</button>
+        <button class="share-btn" data-share="facebook" title="Share on Facebook">f</button>
+        <button class="share-btn" data-share="email" title="Share by email">✉</button>
+      </div>
     </div>
-  </div>
+
+    </div><!-- /#sidebar-body -->
+  </div><!-- /#panel -->
+</div><!-- /#dock -->
+
 </div>
 
-<!-- ── MAP ── -->
-<div id="map"></div>
-
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="app.js?v=5"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>
