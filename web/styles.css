@@ -601,7 +601,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 @media (max-width:780px) {
   #mobile-toggle { display:none !important; }          /* the bottom rail is the nav now */
   #titlecard { left:8px; right:8px; top:8px; width:auto; padding:11px 13px; z-index:1100; }
-  #dock { left:0; right:0; bottom:0; top:auto !important; z-index:1300;
+  #dock { position:fixed; left:0; right:0; bottom:0; top:auto !important; z-index:1300;
     flex-direction:column; align-items:stretch; pointer-events:none; }
   #panel { order:0; margin:0; display:none; }        /* closed sheet takes no space */
   #panel.open { display:block; width:auto; max-height:58vh; border-radius:14px 14px 0 0;

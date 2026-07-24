@@ -1909,26 +1909,3 @@ document.addEventListener('click', e => {
   });
 })();
 
-// ── keep the mobile dock (rail + sheet) pinned to the VISIBLE viewport bottom ──
-// Positions it above the browser toolbar AND above the on-screen keyboard, and — because
-// it re-runs on every visual-viewport change — always returns cleanly when the keyboard
-// dismisses. Fixes the rail vanishing after using the search box (which opens the keyboard).
-(function () {
-  const vv = window.visualViewport;
-  const dock = document.getElementById('dock');
-  if (!vv || !dock) return;
-  const mq = window.matchMedia('(max-width: 780px)');
-  function place() {
-    if (mq.matches) {
-      const gap = Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop));
-      dock.style.bottom = gap + 'px';
-    } else {
-      dock.style.bottom = '';
-    }
-  }
-  vv.addEventListener('resize', place);
-  vv.addEventListener('scroll', place);
-  window.addEventListener('orientationchange', () => setTimeout(place, 200));
-  mq.addEventListener('change', place);
-  place();
-})();
