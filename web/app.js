@@ -798,17 +798,18 @@ async function loadAll() {
   populateSiteTypeFilter();
 }
 
+const HALO_COLOR = '#9d5cff';   // uniform violet glow behind every hazard-site point
 function renderSites(features) {
   layers.sites.clearLayers();
   features.forEach(f => {
     const p = f.properties;
     const color = desigColor(p.designation);
     const [lon, lat] = f.geometry.coordinates;
-    // large soft halo of the same colour — where sites cluster the halos stack and
-    // read like a heatmap, while each retains a precise point
+    // uniform violet halo (NOT the point's colour) so a dense cluster reads as "many sites
+    // here", never as contamination intensity; the colour-coded core still marks each point
     L.circleMarker([lat, lon], {
       pane: 'sitesPane', renderer: sitesCanvas, interactive: false,
-      radius: 15, fillColor: color, fillOpacity: 0.14, color: color, weight: 0, opacity: 0,
+      radius: 12, fillColor: HALO_COLOR, fillOpacity: 0.14, color: HALO_COLOR, weight: 0, opacity: 0,
     }).addTo(layers.sites);
     // small, intense, neon solid core
     const marker = L.circleMarker([lat, lon], {
