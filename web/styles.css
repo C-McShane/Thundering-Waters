@@ -598,7 +598,9 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
 /* ── mobile: compact title at top; the rail is an always-visible bottom nav;
       tapping a tab raises its panel as a bottom sheet above the rail ── */
-@media (max-width:780px) {
+/* Phone layout: narrow (portrait) OR short (landscape). A short-and-wide landscape screen
+   can't fit the tall vertical desktop rail, so it uses the horizontal top rail too. */
+@media (max-width:780px), (max-height:500px) {
   #mobile-toggle { display:none !important; }
   #titlecard { left:8px; right:8px; top:8px; width:auto; padding:11px 13px; z-index:1100; }
   /* Dock sits UNDER the title at the TOP of the screen — the keyboard and the browser
@@ -653,7 +655,18 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .al-dot { width:8px; height:8px; border-radius:50%; flex:0 0 auto; box-shadow:0 0 5px 0 currentColor; }
 .al-x { color:var(--dim); font-size:11px; line-height:1; margin-left:1px; }
 .al-chip:hover .al-x { color:var(--red); }
-@media (max-width:780px) { #active-layers { display:none !important; } }
+@media (max-width:780px), (max-height:500px) { #active-layers { display:none !important; } }
+
+/* Landscape / short viewports: compact the title so it doesn't eat the screen, and keep the
+   panel bounded and scrollable in the reduced height. */
+@media (max-height:500px) {
+  #titlecard { padding:8px 12px; }
+  .title-kind { font-size:8.5px; margin-bottom:1px; }
+  .sidebar-title { font-size:17px; line-height:1.05; }
+  .sidebar-title .title-sub { font-size:8px; margin-top:2px; letter-spacing:.14em; }
+  #search-wrap { margin-top:6px !important; }
+  #search { padding:6px 10px; }
+}
 
 /* filter chips in the Active Layers widget (a mode on a layer, not a layer) */
 .al-chip.al-filter:hover { border-color:var(--amber); }

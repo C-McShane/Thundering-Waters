@@ -1436,7 +1436,7 @@ document.querySelectorAll('input[name="cancer"]').forEach(radio => {
   const dock = document.getElementById('dock');
   const titlecard = document.getElementById('titlecard');
   const railTabs = document.querySelectorAll('.rail-tab');
-  const mqMobile = window.matchMedia('(max-width: 780px)');
+  const mqMobile = window.matchMedia('(max-width: 780px), (max-height: 500px)');
   let activeTab = null;
 
   // keep the rail/panel clear of the (variable-height) title card on desktop
@@ -1446,7 +1446,16 @@ document.querySelectorAll('input[name="cancer"]').forEach(radio => {
     // the top). Top-anchored, so the mobile keyboard/toolbar (both bottom) never affect it.
     dock.style.top = (titlecard.offsetTop + titlecard.offsetHeight + 10) + 'px';
   }
-  window.addEventListener('resize', positionDock);
+  // keep an open panel within the viewport — critical on short/landscape screens where a
+  // fixed max-height can't know the panel's top offset. Scrolls inside if the content is taller.
+  function fitPanel() {
+    const body = document.getElementById('sidebar-body');
+    if (!body || !panel.classList.contains('open')) return;
+    const avail = Math.max(140, window.innerHeight - panel.getBoundingClientRect().top - 12);
+    panel.style.maxHeight = avail + 'px';
+    body.style.maxHeight = avail + 'px';
+  }
+  window.addEventListener('resize', () => { positionDock(); fitPanel(); });
 
   const backdrop = document.getElementById('sheet-backdrop');
   function openTab(id) {
@@ -1459,7 +1468,8 @@ document.querySelectorAll('input[name="cancer"]').forEach(radio => {
     document.querySelectorAll('.tab-panel').forEach(p =>
       p.classList.toggle('active', p.dataset.tabPanel === id));
     panel.classList.add('open');
-    if (backdrop && mqMobile.matches) backdrop.classList.add('visible');   // dim map behind bottom sheet
+    if (backdrop && mqMobile.matches) backdrop.classList.add('visible');   // dim map behind the sheet
+    fitPanel();
     const body = document.getElementById('sidebar-body');
     if (body) body.scrollTop = 0;
   }
@@ -1910,7 +1920,7 @@ document.addEventListener('click', e => {
 // via the "Layers & Search" button, dismissed via that button, the backdrop, or
 // picking a search result. Desktop layout is completely unaffected (CSS-gated).
 (function () {
-  const mq = window.matchMedia('(max-width: 780px)');
+  const mq = window.matchMedia('(max-width: 780px), (max-height: 500px)');
   const backdrop = document.getElementById('sheet-backdrop');
   // On phones the rail is an always-visible bottom nav; tapping a tab raises its panel as a
   // bottom sheet (handled by the rail controller). Here we just let the backdrop dismiss it,
