@@ -1466,6 +1466,7 @@ document.querySelectorAll('input[name="cancer"]').forEach(radio => {
     panel.classList.remove('open');
     if (backdrop) backdrop.classList.remove('visible');
     railTabs.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+    if (window.__twSnapToTop) window.__twSnapToTop();   // ensure the fixed rail is on-screen
   }
   railTabs.forEach(btn => btn.addEventListener('click', () => {
     if (activeTab === btn.dataset.tab) closePanel(); else openTab(btn.dataset.tab);
@@ -1759,6 +1760,16 @@ function refreshWellLayers() {
 // ── SEARCH ───────────────────────────────────────────────────────────────────
 const searchInput = document.getElementById('search');
 const searchResults = document.getElementById('search-results');
+// iOS/Android can leave the page scrolled after the on-screen keyboard closes, which
+// pushes the fixed bottom rail off-screen (the tabs "disappear"). Snap the scroll back to
+// the top whenever the search box loses focus or is cleared, so the tabs always come back.
+function twSnapToTop() {
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  if (document.body) document.body.scrollTop = 0;
+}
+window.__twSnapToTop = twSnapToTop;
+searchInput.addEventListener('blur', () => setTimeout(twSnapToTop, 60));
 
 // Unified search index: hazard sites + wells (WQP/DEC/legacy) + soil rad zones + Love Canal
 // piezometers/pumps. Lets anyone look a specific sample point up by its ID (e.g. C4R-MW-04,
@@ -1788,7 +1799,7 @@ const BADGE = { well:'WELL', site:'SITE', soil:'SOIL', lc:'LC', chem:'CHEM' };
 searchInput.addEventListener('input', () => {
   const q = searchInput.value.trim().toLowerCase();
   searchResults.innerHTML = '';
-  if (!q || q.length < 2) { searchResults.style.display = 'none'; return; }
+  if (!q || q.length < 2) { searchResults.style.display = 'none'; if (!q) twSnapToTop(); return; }
   const scored = [];
   for (const r of SEARCH_INDEX) {
     const id = r.label.toLowerCase(), sub = (r.sub || '').toLowerCase();
@@ -1909,3 +1920,39 @@ document.addEventListener('click', e => {
   });
 })();
 
+
+// ── ACTIVE LAYERS widget ─────────────────────────────────────────────────────
+// A compact, removable chip for each layer currently switched on, so you can turn
+// layers off from one spot without hunting through the tabs. Desktop only (CSS-gated).
+(function () {
+  const box = document.getElementById('active-layers');
+  if (!box) return;
+  const HEAD = '<div class="al-head"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" '
+    + 'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+    + '<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17">'
+    + '</polyline></svg>Active layers</div>';
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+  function update() {
+    const on = [...document.querySelectorAll('.toggle-check[data-layer]')].filter(cb => cb.checked);
+    if (!on.length) { box.style.display = 'none'; box.innerHTML = ''; return; }
+    box.innerHTML = HEAD + on.map(cb => {
+      const tog = cb.closest('.layer-toggle');
+      let label = (tog && tog.querySelector('.toggle-label')) ? tog.querySelector('.toggle-label').textContent : cb.dataset.layer;
+      label = label.replace(/^Show\s+/i, '');
+      const sw = tog && tog.querySelector('.toggle-swatch');
+      const col = sw ? getComputedStyle(sw).backgroundColor : '';
+      const dot = (col && col !== 'rgba(0, 0, 0, 0)') ? `<span class="al-dot" style="background:${col};color:${col}"></span>` : '';
+      return `<button class="al-chip" data-layer="${esc(cb.dataset.layer)}" title="Turn this layer off">${dot}${esc(label)}<span class="al-x">✕</span></button>`;
+    }).join('');
+    box.style.display = 'block';
+    box.querySelectorAll('.al-chip').forEach(chip => chip.addEventListener('click', () => {
+      const t = document.querySelector(`.toggle-check[data-layer="${chip.dataset.layer}"]`);
+      if (t) { t.checked = false; t.dispatchEvent(new Event('change', { bubbles: true })); }
+      update();   // refresh the widget immediately (synthetic events may not reach the delegate)
+    }));
+  }
+  document.addEventListener('change', e => { if (e.target && e.target.matches && e.target.matches('.toggle-check[data-layer]')) update(); });
+  window.__twUpdateActiveLayers = update;
+  update();
+  setTimeout(update, 800);   // catch layers switched on during the initial data load
+})();
