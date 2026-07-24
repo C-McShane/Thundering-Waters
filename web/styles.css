@@ -670,6 +670,10 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   .rail-tab .rt-ic { width:16px; height:16px; }
   .rail-tab .rt-lb { font-size:8px; text-align:left; line-height:1.15; white-space:nowrap; }
   .rail-tab .rt-lb small { display:inline; margin-left:3px; }
+  /* an open panel becomes a narrow side panel so the map stays visible alongside it */
+  #panel { align-self:flex-start; }
+  #panel.open { width:min(64vw, 400px); }
+  #sheet-backdrop { display:none !important; }   /* keep the visible map bright + interactive */
 }
 
 /* filter chips in the Active Layers widget (a mode on a layer, not a layer) */
