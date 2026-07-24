@@ -1441,10 +1441,10 @@ document.querySelectorAll('input[name="cancer"]').forEach(radio => {
 
   // keep the rail/panel clear of the (variable-height) title card on desktop
   function positionDock() {
-    if (!dock) return;
-    if (titlecard && !mqMobile.matches)
-      dock.style.top = (titlecard.offsetTop + titlecard.offsetHeight + 12) + 'px';
-    else dock.style.top = '';
+    if (!dock || !titlecard) return;
+    // sit just below the title, on both desktop (rail down the left) and mobile (rail across
+    // the top). Top-anchored, so the mobile keyboard/toolbar (both bottom) never affect it.
+    dock.style.top = (titlecard.offsetTop + titlecard.offsetHeight + 10) + 'px';
   }
   window.addEventListener('resize', positionDock);
 

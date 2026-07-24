@@ -599,19 +599,21 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 /* ── mobile: compact title at top; the rail is an always-visible bottom nav;
       tapping a tab raises its panel as a bottom sheet above the rail ── */
 @media (max-width:780px) {
-  #mobile-toggle { display:none !important; }          /* the bottom rail is the nav now */
+  #mobile-toggle { display:none !important; }
   #titlecard { left:8px; right:8px; top:8px; width:auto; padding:11px 13px; z-index:1100; }
-  #dock { position:fixed; left:0; right:0; bottom:0; top:auto !important; z-index:1300;
+  /* Dock sits UNDER the title at the TOP of the screen — the keyboard and the browser
+     toolbar are both at the BOTTOM, so a top-anchored rail can never be covered or pushed
+     by them. JS positions its `top` just below the title. */
+  #dock { left:8px; right:8px; bottom:auto; z-index:1300;
     flex-direction:column; align-items:stretch; pointer-events:none; }
-  #panel { order:0; margin:0; display:none; }        /* closed sheet takes no space */
-  #panel.open { display:block; width:auto; max-height:58vh; border-radius:14px 14px 0 0;
-    border-bottom:0; pointer-events:auto; box-shadow:0 -12px 40px rgba(0,0,0,.6); }
-  #panel #sidebar-body { width:100%; }
-  #rail { order:1; flex-direction:row; width:auto; gap:6px; overflow-x:auto;
-    padding:8px 8px calc(env(safe-area-inset-bottom, 0px) + 18px);   /* clear the browser toolbar */
-    background:linear-gradient(180deg,rgba(13,13,14,.55),var(--bg));
-    border-top:1px solid var(--border); pointer-events:auto; }
-  #panel.open { max-height:52vh; }                                   /* leave room above the lifted rail */
+  #rail { order:0; flex-direction:row; width:auto; gap:6px; overflow-x:auto; padding:7px 8px;
+    border-radius:12px; background:linear-gradient(180deg,var(--surface),#111113);
+    border:1px solid var(--border2); box-shadow:0 8px 22px rgba(0,0,0,.45); pointer-events:auto; }
+  #panel { order:1; margin:6px 0 0; display:none; }        /* closed sheet takes no space */
+  #panel.open { display:block; width:auto; max-height:62vh; border-radius:12px;
+    pointer-events:auto; box-shadow:0 14px 40px rgba(0,0,0,.6); }
+  #panel #sidebar-body { width:100%; height:auto; max-height:62vh; overflow-y:auto;
+    -webkit-overflow-scrolling:touch; }
   .rail-tab { border-radius:8px; border-left-width:1px; border-bottom:3px solid var(--border2); }
   .rail-tab.active { transform:none; border-bottom-color:var(--tab-c); }
 }
@@ -634,11 +636,6 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 /* more breathing room between the gold prompt and the first drop-down */
 .panel-prompt { margin-bottom:20px; }
 
-@media (max-width:780px) {
-  /* let the bottom-sheet body actually scroll when a panel is tall (was clipped) */
-  #panel.open { max-height:64vh; }
-  #panel #sidebar-body { height:auto; max-height:64vh; overflow-y:auto; -webkit-overflow-scrolling:touch; }
-}
 
 /* ── Active layers: compact removable summary of what's on the map (desktop only) ── */
 #active-layers { position:absolute; top:82px; right:14px; z-index:1100; max-width:236px;
