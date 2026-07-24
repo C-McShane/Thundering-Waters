@@ -452,6 +452,7 @@ const map = L.map('map', {
   zoom: 11,
   zoomControl: true,
 });
+map.zoomControl.setPosition('topright');   // out from behind the title, by the Active Layers card
 
 // Basemap — CartoDB dark, split into base + a separate labels layer so the place
 // labels can be lightened independently of the rest of the basemap.
@@ -646,13 +647,13 @@ async function loadAll() {
   L.geoJSON(waterData, {
     pane: 'waterPane',
     style: f => f.properties.kind === 'line'
-      ? { color: '#5fd0ff', weight: 1.7, opacity: 0.85, lineCap: 'round' }
-      : { fillColor: '#1fa6e0', fillOpacity: 0.42, color: '#5fd0ff', weight: 0.8, opacity: 0.75 },
+      ? { color: '#5fd0ff', weight: 1.1, opacity: 0.6, lineCap: 'round' }
+      : { fillColor: '#1fa6e0', fillOpacity: 0.28, color: '#5fd0ff', weight: 0.5, opacity: 0.5 },
     onEachFeature: (f, layer) => {
       if (f.properties.name) layer.bindTooltip(f.properties.name, { sticky: true, direction: 'top', className: 'road-tip' });
       if (f.properties.kind === 'line') {
-        layer.on('mouseover', function () { this.setStyle({ weight: 3.2, opacity: 1 }); });
-        layer.on('mouseout',  function () { this.setStyle({ weight: 1.7, opacity: 0.85 }); });
+        layer.on('mouseover', function () { this.setStyle({ weight: 2.4, opacity: 0.95 }); });
+        layer.on('mouseout',  function () { this.setStyle({ weight: 1.1, opacity: 0.6 }); });
       }
     }
   }).addTo(layers.water);
@@ -1932,26 +1933,56 @@ document.addEventListener('click', e => {
     + '<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17">'
     + '</polyline></svg>Active layers</div>';
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+
+  // Filters are modes applied to a layer (a chemical, a radionuclide set, a cancer) rather
+  // than layers themselves — surfaced here so they can be cleared from the same place.
+  const val = id => { const e = document.getElementById(id); return (e && e.value) ? e.value : ''; };
+  const clearSelect = id => { const e = document.getElementById(id); if (e) { e.value = ''; e.dispatchEvent(new Event('change', { bubbles: true })); } };
+  const checkedVals = sel => [...document.querySelectorAll(sel + ':checked')].map(c => c.value);
+  const clearChecks = sel => { const on = [...document.querySelectorAll(sel + ':checked')]; on.forEach(c => c.checked = false); if (on.length) on[0].dispatchEvent(new Event('change', { bubbles: true })); };
+  const cancerRadio = () => document.querySelector('input[name="cancer"]:checked, input[name="cancer-hl"]:checked');
+  function clearCancer() {
+    const r = cancerRadio(); if (!r || !r.value) return;
+    const off = document.querySelector('input[name="' + r.name + '"][value=""]');
+    if (off) { off.checked = true; off.dispatchEvent(new Event('change', { bubbles: true })); }
+  }
+  const FILTERS = [
+    { label: 'Sites', get: () => val('chem-select'), clear: () => clearSelect('chem-select') },
+    { label: 'Wells', get: () => val('well-select'), clear: () => { clearSelect('well-select'); clearSelect('well-year-select'); } },
+    { label: 'Rad sites', get: () => checkedVals('.rad-site-check').join(', '), clear: () => clearChecks('.rad-site-check') },
+    { label: 'Rad wells', get: () => checkedVals('.rad-well-check').join(', '), clear: () => clearChecks('.rad-well-check') },
+    { label: 'Cancer', get: () => { const r = cancerRadio(); return (r && r.value) ? r.value : ''; }, clear: clearCancer },
+  ];
+
   function update() {
     const on = [...document.querySelectorAll('.toggle-check[data-layer]')].filter(cb => cb.checked);
-    if (!on.length) { box.style.display = 'none'; box.innerHTML = ''; return; }
-    box.innerHTML = HEAD + on.map(cb => {
+    const layerChips = on.map(cb => {
       const tog = cb.closest('.layer-toggle');
       let label = (tog && tog.querySelector('.toggle-label')) ? tog.querySelector('.toggle-label').textContent : cb.dataset.layer;
       label = label.replace(/^Show\s+/i, '');
       const sw = tog && tog.querySelector('.toggle-swatch');
       const col = sw ? getComputedStyle(sw).backgroundColor : '';
       const dot = (col && col !== 'rgba(0, 0, 0, 0)') ? `<span class="al-dot" style="background:${col};color:${col}"></span>` : '';
-      return `<button class="al-chip" data-layer="${esc(cb.dataset.layer)}" title="Turn this layer off">${dot}${esc(label)}<span class="al-x">✕</span></button>`;
-    }).join('');
+      return `<button class="al-chip" data-kind="layer" data-key="${esc(cb.dataset.layer)}" title="Turn this layer off">${dot}${esc(label)}<span class="al-x">✕</span></button>`;
+    });
+    const filterChips = FILTERS.map((fl, i) => {
+      const v = fl.get(); if (!v) return '';
+      return `<button class="al-chip al-filter" data-kind="filter" data-key="${i}" title="Clear this filter"><span class="al-dot al-fdot"></span>${esc(fl.label)}: ${esc(v)}<span class="al-x">✕</span></button>`;
+    }).filter(Boolean);
+    const all = layerChips.concat(filterChips);
+    if (!all.length) { box.style.display = 'none'; box.innerHTML = ''; return; }
+    box.innerHTML = HEAD + all.join('');
     box.style.display = 'block';
     box.querySelectorAll('.al-chip').forEach(chip => chip.addEventListener('click', () => {
-      const t = document.querySelector(`.toggle-check[data-layer="${chip.dataset.layer}"]`);
-      if (t) { t.checked = false; t.dispatchEvent(new Event('change', { bubbles: true })); }
-      update();   // refresh the widget immediately (synthetic events may not reach the delegate)
+      if (chip.dataset.kind === 'filter') { const fl = FILTERS[+chip.dataset.key]; if (fl) fl.clear(); }
+      else { const t = document.querySelector(`.toggle-check[data-layer="${chip.dataset.key}"]`); if (t) { t.checked = false; t.dispatchEvent(new Event('change', { bubbles: true })); } }
+      update();
     }));
   }
-  document.addEventListener('change', e => { if (e.target && e.target.matches && e.target.matches('.toggle-check[data-layer]')) update(); });
+  document.addEventListener('change', e => {
+    const t = e.target;
+    if (t && t.matches && t.matches('.toggle-check[data-layer], #chem-select, #well-select, #well-year-select, .rad-site-check, .rad-well-check, input[name="cancer"], input[name="cancer-hl"]')) update();
+  });
   window.__twUpdateActiveLayers = update;
   update();
   setTimeout(update, 800);   // catch layers switched on during the initial data load

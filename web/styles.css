@@ -641,7 +641,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 }
 
 /* ── Active layers: compact removable summary of what's on the map (desktop only) ── */
-#active-layers { position:absolute; top:14px; right:14px; z-index:1100; max-width:236px;
+#active-layers { position:absolute; top:82px; right:14px; z-index:1100; max-width:236px;
   display:none; background:linear-gradient(180deg,var(--surface),#111113);
   border:1px solid var(--border2); border-radius:9px; padding:9px 10px 5px;
   box-shadow:0 8px 26px rgba(0,0,0,.5); }
@@ -657,3 +657,12 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .al-x { color:var(--dim); font-size:11px; line-height:1; margin-left:1px; }
 .al-chip:hover .al-x { color:var(--red); }
 @media (max-width:780px) { #active-layers { display:none !important; } }
+
+/* filter chips in the Active Layers widget (a mode on a layer, not a layer) */
+.al-chip.al-filter:hover { border-color:var(--amber); }
+.al-fdot { background:var(--amber) !important; color:var(--amber) !important; }
+
+/* zoom control, moved to the top-right by the Active Layers card — dark-themed to match */
+.leaflet-top.leaflet-right .leaflet-control-zoom { margin-top:12px; margin-right:14px; border:1px solid var(--border2); }
+.leaflet-control-zoom a { background:var(--surface); color:var(--text); border-bottom-color:var(--border2); }
+.leaflet-control-zoom a:hover { background:var(--s3); color:#fff; }
