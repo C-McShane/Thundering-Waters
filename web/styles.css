@@ -664,6 +664,12 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   #titlecard { padding:7px 10px; }
   #search-wrap { margin-top:0 !important; }
   #search { padding:6px 10px; }
+  /* landscape tabs: wide + thin — icon beside label, tabs share the full width evenly */
+  #rail { gap:5px; }
+  .rail-tab { flex:1 1 0; min-height:0; flex-direction:row; gap:6px; padding:7px 5px; }
+  .rail-tab .rt-ic { width:16px; height:16px; }
+  .rail-tab .rt-lb { font-size:8px; text-align:left; line-height:1.15; white-space:nowrap; }
+  .rail-tab .rt-lb small { display:inline; margin-left:3px; }
 }
 
 /* filter chips in the Active Layers widget (a mode on a layer, not a layer) */
