@@ -12,6 +12,12 @@ gpkg  = r'C:\Users\mcsha\Niagra\spatial\Niagara_County_HazWaste.gpkg'
 outdir = r'C:\Users\mcsha\Niagra\web\data'
 os.makedirs(outdir, exist_ok=True)
 
+# Curated primary-source reports per site (verified 200), keyed by program_number.
+# See csv/site_source_reports.json. Surfaced in each site popup so readers can verify
+# the monitoring-well / contamination data against the original documents.
+_srp = r'C:\Users\mcsha\Niagra\csv\site_source_reports.json'
+SITE_REPORTS = {k: v for k, v in json.load(open(_srp, encoding='utf-8')).items() if not k.startswith('_')}
+
 def strip_header(blob):
     flags = blob[3]
     env_code = (flags >> 1) & 0x07
@@ -78,6 +84,33 @@ RADIO_BY_NAME = {
 }
 def _namekey(s): return _re.sub(r'[^a-z0-9]+', ' ', (s or '').lower()).strip()
 
+# Sites deliberately withheld from the published map.
+#
+# The record stays in the GeoPackage and in csv/Niagara_Hazard_Sites_MASTER.csv so the lead is
+# not lost — it is excluded at export, which is why this list lives here rather than being
+# deleted at source. Removing an entry from this set republishes the site, so add one only with
+# a documented reason.
+#
+#   UNKNOWN-VITULLO-NF  3640 Packard Road, Niagara Falls. Rendered on the map as "Unnamed Site"
+#       with designation "Information Not Available". Verified 2026-07-21 against the full
+#       NYSDEC remediation registry (6,736 Niagara County rows), EPA FRS/Superfund and the USACE
+#       FUDS inventory: NO agency record of this site exists in any of them. Its only source is
+#       our own internal candidate list docs/New_sites_to_investigate.txt, and it was already
+#       flagged FLAG_NOT_FOUND in the master CSV when it was added on 2026-06-07. It carries no
+#       chemical or radiological data, so nothing downstream depends on it.
+#       See validation/VITULLO_SITE_FINDING.md.
+# REVISIT (Caitlin, 2026-07-30): withheld from the MAP only — the record is deliberately KEPT in
+# csv/Niagara_Hazard_Sites_MASTER.csv and in the GeoPackage so the lead is not lost. Absence from
+# the agency registries is not proof the property does not exist, and no non-agency avenue has
+# been worked yet (county parcel/assessment records, deed index, Sanborn maps, city directories,
+# historical aerials, newspaper archives). If any evidence of existence turns up, remove the entry
+# below and the site republishes. Withheld now because it renders as "Unnamed Site /
+# Information Not Available" with no supporting data, not because it is disproven.
+EXCLUDED_FROM_MAP = {
+    'UNKNOWN-VITULLO-NF',
+}
+n_excluded = 0
+
 cur.execute('''SELECT geom, site_name, designation, program_type, program_category,
                area_acres_best, chemicals, narrative, website, address, city, zip,
                latitude, longitude, npl_status, non_npl_status, program_number
@@ -86,10 +119,15 @@ rows = cur.fetchall()
 features = []
 for r in rows:
     g = geom_to_geojson(r[0], 4326)
+    prog = safe(r[16])
+    if (prog or '').strip() in EXCLUDED_FROM_MAP:
+        n_excluded += 1
+        continue
     narr = r[7] or ''
     chem_txt = r[6] or ''
     chems = [n for n, rx in CHEM_RX if rx.search(chem_txt)]
     rad = RADIO_BY_CODE.get((r[16] or '').strip()) or RADIO_BY_NAME.get(_namekey(r[1]))
+    srp = SITE_REPORTS.get((prog or '').strip(), {})
     features.append({
         'type': 'Feature',
         'geometry': g,
@@ -110,6 +148,9 @@ for r in rows:
             'chems':           chems,
             'rad_class':       rad[0] if rad else None,
             'rad_iso':         rad[1] if rad else [],
+            'program_number':  prog,
+            'reports':         srp.get('reports', []),
+            'docs_url':        srp.get('docs_url'),
         }
     })
 
@@ -118,6 +159,9 @@ with open(os.path.join(outdir, 'hazard_sites.geojson'), 'w') as f:
 n_chem = sum(1 for ft in features if ft['properties']['chems'])
 n_rad  = sum(1 for ft in features if ft['properties']['rad_class'])
 print(f'  {len(features)} sites written ({n_chem} chemical-tagged, {n_rad} radioactive)')
+if n_excluded:
+    print(f'  {n_excluded} site(s) withheld from the map by EXCLUDED_FROM_MAP '
+          f'(unverifiable — see validation/VITULLO_SITE_FINDING.md)')
 
 # ── 2. CENSUS TRACTS ───────────────────────────────────────────────────────────
 print('Exporting census tracts...')
