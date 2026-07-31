@@ -62,8 +62,33 @@ def read_workbook(path):
     return out
 
 
+# 64th Street North was hand-validated in the notes column of csv/rad_candidates_REVIEW.csv
+# rather than in a workbook. Transcribed here with the obvious slips corrected — each one is
+# listed so the change from what was written is auditable rather than silent:
+#   "Flouranthene"           -> Fluoranthene
+#   "Napthalene"             -> Naphthalene
+#   "arsnic"                 -> Arsenic          (also ran together as "cobalt arsnic")
+#   "H-Nitrosodiphenylamine" -> N-Nitrosodiphenylamine
+#   "methylene, chloride"    -> Methylene chloride  (one analyte split by the comma)
+#   "1,1,1 Trichloroethane"  -> 1,1,1-Trichloroethane
+#   "lead" listed twice; lower-case metals title-cased.
+# DDT and DDE are kept exactly as written — the isomer prefix (4,4'-) was not stated and is
+# not ours to add.
+SIXTY_FOURTH_NORTH = [
+    ('Iron', 'Metal'), ('Mercury', 'Metal'), ('Cadmium', 'Metal'), ('Lead', 'Metal'),
+    ('Thallium', 'Metal'), ('Vanadium', 'Metal'), ('Copper', 'Metal'), ('Cobalt', 'Metal'),
+    ('Arsenic', 'Metal'), ('Barium', 'Metal'),
+    ('Benzo(a)pyrene', 'SVOC'), ('Benzo(b)fluoranthene', 'SVOC'), ('Fluoranthene', 'SVOC'),
+    ('Phenanthrene', 'SVOC'), ('Chrysene', 'SVOC'), ('Indeno(1,2,3-cd)pyrene', 'SVOC'),
+    ('Naphthalene', 'SVOC'), ('N-Nitrosodiphenylamine', 'SVOC'),
+    ('Methylene chloride', 'VOC'), ('Toluene', 'VOC'), ('1,1,1-Trichloroethane', 'VOC'),
+    ('Benzene', 'VOC'),
+    ('DDT', 'Pesticide/herbicide'), ('DDE', 'Pesticide/herbicide'),
+]
+
 SOURCES = [
     {
+        'build_dir': 'Fashion-Outlets-of-Niagara-Falls-Expansion__C932162',
         'program_number': 'C932162',
         'site_name': 'Fashion Outlets of Niagara Falls Expansion',
         'workbook': 'Fashion_Outlet_Chemicals.xlsx',
@@ -73,11 +98,21 @@ SOURCES = [
                           'Bismuth-214', 'Lead-212', 'Lead-214', 'Potassium-40', 'Thallium-208'],
     },
     {
+        'build_dir': 'Kozdranski-Property__932117',
         'program_number': '932117',
         'site_name': 'Kozdranski Property',
         'workbook': 'Kozdranksi_Property.xlsx',   # filename misspelling is Caitlin's; kept as-is
         'document': 'Work_Plan.HW.932117.2005-01-01.Site_Characterization_Workplan',
         # Reviewed and NOT verified — this site stays off the radiation cross-list.
+        'radionuclides': [],
+    },
+    {
+        'build_dir': '64th-Street-North__932085A',
+        'program_number': '932085A',
+        'site_name': '64th Street North Site',
+        'inline': SIXTY_FOURTH_NORTH,
+        'document': 'Report.HW.932085A.1992-01-01.RemedialActionSiteInvestigation',
+        # Reviewed and NOT verified — stays off the radiation cross-list.
         'radionuclides': [],
     },
 ]
@@ -86,8 +121,10 @@ SOURCES = [
 def main():
     sites = {}
     for spec in SOURCES:
-        path = os.path.join(CSV_DIR, spec['workbook'])
-        pairs = read_workbook(path)
+        if spec.get('inline'):
+            pairs = list(spec['inline'])
+        else:
+            pairs = read_workbook(os.path.join(CSV_DIR, spec['workbook']))
         seen, chems = set(), []
         for name, cat in pairs:
             key = re.sub(r'[^a-z0-9]', '', name.lower())
@@ -95,17 +132,21 @@ def main():
                 continue
             seen.add(key)
             chems.append({'chemical': name, 'category': cat})
-        sites[spec['program_number']] = {
+        # Keyed by BUILD DIRECTORY, not program number. "64th Street North Site" carries a
+        # program_number of `nan` while its twin feature "64th Street - North" carries 932085A;
+        # keying on the number would reach only one of the two markers for the same place.
+        sites[spec['build_dir']] = {
             'site_name': spec['site_name'],
-            'source_workbook': spec['workbook'],
+            'program_number': spec['program_number'],
+            'source_workbook': spec.get('workbook', '(inline — rad_candidates_REVIEW.csv notes)'),
             'source_document': spec['document'],
             'verified_by': 'hand validation',
             'verified_date': '2026-07-31',
             'chemicals': chems,
             'radionuclides': spec['radionuclides'],
         }
-        print(f"{spec['program_number']:<9} {spec['site_name'][:42]:<42} "
-              f"{len(chems):>3} chemicals, {len(spec['radionuclides'])} radionuclides")
+        print(f"{spec['build_dir'][:42]:<42} {len(chems):>3} chemicals, "
+              f"{len(spec['radionuclides'])} radionuclides")
 
     payload = {
         '_meta': {

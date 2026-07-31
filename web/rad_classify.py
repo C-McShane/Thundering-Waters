@@ -152,7 +152,7 @@ def classify(features, matches=None, build_sites=None):
                 cache[bdir] = verified_radionuclides(bdir)
             found = cache[bdir]
 
-        hv = hand.get(pn) if pn else None
+        hv = hand.get(bdir) if bdir else None
         hv_rn = list((hv or {}).get('radionuclides') or [])
 
         if not agency and not found and not hv_rn:

@@ -150,7 +150,7 @@ def main():
 
         # Hand-validated claims outrank the extractor and publish on their own. These sites are
         # precisely the ones the pipeline could not read, so waiting for it would bury them.
-        hv = hand.get(M.clean_pn(p.get('program_number')))
+        hv = hand.get(bdir) if bdir else None
         if hv:
             roll = roll or {'verified': [], 'waste': [], 'withheld': {}, 'n_rows': 0}
             hand_names = [e['chemical'] for e in hv['chemicals']]

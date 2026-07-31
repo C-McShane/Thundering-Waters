@@ -4,8 +4,9 @@
   "generated_from": "web/build_hand_verified.py"
  },
  "sites": {
-  "C932162": {
+  "Fashion-Outlets-of-Niagara-Falls-Expansion__C932162": {
    "site_name": "Fashion Outlets of Niagara Falls Expansion",
+   "program_number": "C932162",
    "source_workbook": "Fashion_Outlet_Chemicals.xlsx",
    "source_document": "Report.BCP.C932162.2014-11-15.FinalFER-AppendicesA-F",
    "verified_by": "hand validation",
@@ -349,8 +350,9 @@
     "Thallium-208"
    ]
   },
-  "932117": {
+  "Kozdranski-Property__932117": {
    "site_name": "Kozdranski Property",
+   "program_number": "932117",
    "source_workbook": "Kozdranksi_Property.xlsx",
    "source_document": "Work_Plan.HW.932117.2005-01-01.Site_Characterization_Workplan",
    "verified_by": "hand validation",
@@ -607,6 +609,113 @@
     {
      "chemical": "gamma-BHC (Lindane)",
      "category": "Pesticide/herbicide/PCB"
+    }
+   ],
+   "radionuclides": []
+  },
+  "64th-Street-North__932085A": {
+   "site_name": "64th Street North Site",
+   "program_number": "932085A",
+   "source_workbook": "(inline — rad_candidates_REVIEW.csv notes)",
+   "source_document": "Report.HW.932085A.1992-01-01.RemedialActionSiteInvestigation",
+   "verified_by": "hand validation",
+   "verified_date": "2026-07-31",
+   "chemicals": [
+    {
+     "chemical": "Iron",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Mercury",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Cadmium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Lead",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Thallium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Vanadium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Copper",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Cobalt",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Arsenic",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Barium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Benzo(a)pyrene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzo(b)fluoranthene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Fluoranthene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Phenanthrene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Chrysene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Indeno(1,2,3-cd)pyrene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Naphthalene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "N-Nitrosodiphenylamine",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Methylene chloride",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Toluene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "1,1,1-Trichloroethane",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Benzene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "DDT",
+     "category": "Pesticide/herbicide"
+    },
+    {
+     "chemical": "DDE",
+     "category": "Pesticide/herbicide"
     }
    ],
    "radionuclides": []
