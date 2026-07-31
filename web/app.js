@@ -308,9 +308,10 @@ function radMatch(p, filters) {
 }
 // ── RADIATION TAB (sites + wells/soil, isotope-level) ────────────────────────
 let radData = null;   // data/radionuclides.json
-const RAD_SITE_ORDER  = ['Uranium','Thorium','Radium','TENORM','FUSRAP','MED-AEC'];
+const RAD_SITE_ORDER  = ['Uranium','Thorium','Radium','TENORM','FUSRAP','MED-AEC','OTHER'];
 const RAD_SITE_LABEL  = { Uranium:'Uranium', Thorium:'Thorium', Radium:'Radium',
-  TENORM:'TENORM (industrial slag)', FUSRAP:'FUSRAP (Manhattan Project legacy)', 'MED-AEC':'MED-AEC (weapons-era facility)' };
+  TENORM:'TENORM (industrial slag)', FUSRAP:'FUSRAP (Manhattan Project legacy)', 'MED-AEC':'MED-AEC (weapons-era facility)',
+  OTHER:'Other (radionuclides detected, unclassified)' };
 const RAD_PARENT_ORDER = ['Uranium','Thorium','Radium','Radon','Other'];
 function radTrefoilIcon(sz) {
   return L.divIcon({ className:'well-droplet', iconSize:[sz,sz], iconAnchor:[sz/2,sz/2],
@@ -360,7 +361,8 @@ function radSitePopup(s) {
   const iso = (s.iso && s.iso.length) ? s.iso.map(i => names[i] || i).join(', ') : 'not specified';
   const CLASS = { FUSRAP:'FUSRAP — residual Manhattan Project / AEC radioactive contamination (DOE Legacy Mgmt / USACE).',
     TENORM:'TENORM — technologically-enhanced naturally-occurring radioactive material (industrial slag).',
-    'MED-AEC':'Manhattan Engineer District / AEC facility documented to have handled radioactive material (EEOICPA).' };
+    'MED-AEC':'Manhattan Engineer District / AEC facility documented to have handled radioactive material (EEOICPA).',
+    OTHER:'Radionuclides were verified as detected in this site’s own documents, but no agency has classified it under a radiological programme.' };
   return `<div class="popup-inner"><div class="popup-tags"><span class="popup-tag" style="background:#f5e05022;color:#e8d44a;border:1px solid #f5e05055">${s.rad_class||'Radioactive'}</span></div>
     <div class="popup-name">${s.site_name}</div>
     <div class="popup-field"><div class="popup-field-lbl">Radionuclides</div><div class="popup-field-val">${iso}</div></div>

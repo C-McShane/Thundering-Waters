@@ -66,23 +66,13 @@ CHEM_RX = [(n, _re.compile(p, _re.I)) for n, p in [
     ('Hexachlorobenzene',   r'hexachlorobenzene'),
     ('Cyanide',             r'cyanide'),
 ]]
-# Curated radioactive classification. FUSRAP isotope tags are DOE/USACE-sourced (our
-# narratives don't list them); TENORM sites get a TENORM tag (isotopes only where recorded).
-RADIO_BY_CODE = {
-    '932023': ('FUSRAP', ['U', 'Th', 'Ra']),   'FUSRAP-LOOW': ('FUSRAP', ['U', 'Th', 'Ra']),
-    'NFSS-VP-H-PRIME': ('FUSRAP', ['U', 'Th', 'Ra']), 'NFSS-VP-X': ('FUSRAP', ['U', 'Th', 'Ra']),
-    'NFSS-ANOMALY-CC': ('FUSRAP', ['U', 'Th', 'Ra']), 'NFSS-CENTRAL-DITCH': ('FUSRAP', ['U', 'Th', 'Ra']),
-    '932032': ('FUSRAP', ['U', 'Th']),         # Guterl Specialty Steel
-    '932028': ('TENORM', ['U', 'Th', 'Ra']),   # TAM Ceramics (explicit in data)
-    'C932143': ('TENORM', ['U', 'Th']),        # Northern Ethanol (explicit)
-    'C932150': ('TENORM', []), 'C932157': ('TENORM', []), '932136': ('TENORM', []),
-    'C932159': ('TENORM', []), 'C932160': ('TENORM', []),
-}
-RADIO_BY_NAME = {
-    'balmer road school': ('FUSRAP', ['U', 'Th', 'Ra']),
-    'st marys and bishop duffy school': ('TENORM', []),
-}
-def _namekey(s): return _re.sub(r'[^a-z0-9]+', ' ', (s or '').lower()).strip()
+# Radioactive cross-listing is no longer a hand-maintained list here. web/rad_classify.py
+# decides membership as the union of (a) sites where the chemistry pipeline VERIFIED a
+# radionuclide detection against a table cell in that site's own documents, and (b) named
+# agency determinations (DOE / USACE / NYSDEC). A site on the list with no agency
+# classification is labelled OTHER. See that module for why the union, and not either alone.
+import collections as _collections
+import rad_classify
 
 # Sites deliberately withheld from the published map.
 #
@@ -126,7 +116,6 @@ for r in rows:
     narr = r[7] or ''
     chem_txt = r[6] or ''
     chems = [n for n, rx in CHEM_RX if rx.search(chem_txt)]
-    rad = RADIO_BY_CODE.get((r[16] or '').strip()) or RADIO_BY_NAME.get(_namekey(r[1]))
     srp = SITE_REPORTS.get((prog or '').strip(), {})
     features.append({
         'type': 'Feature',
@@ -146,19 +135,29 @@ for r in rows:
             'lat':             safe(r[12]),
             'lon':             safe(r[13]),
             'chems':           chems,
-            'rad_class':       rad[0] if rad else None,
-            'rad_iso':         rad[1] if rad else [],
+            'rad_class':       None,   # filled below by rad_classify
+            'rad_iso':         [],
+            'rad_basis':       None,
+            'rad_source':      None,
             'program_number':  prog,
             'reports':         srp.get('reports', []),
             'docs_url':        srp.get('docs_url'),
         }
     })
 
+rad_by_index = rad_classify.classify(features)
+for i, tags in rad_by_index.items():
+    features[i]['properties'].update(tags)
+
 with open(os.path.join(outdir, 'hazard_sites.geojson'), 'w') as f:
     json.dump({'type': 'FeatureCollection', 'features': features}, f, separators=(',',':'))
 n_chem = sum(1 for ft in features if ft['properties']['chems'])
 n_rad  = sum(1 for ft in features if ft['properties']['rad_class'])
+_rsrc = _collections.Counter(ft['properties']['rad_source'] for ft in features if ft['properties']['rad_class'])
+_rcls = _collections.Counter(ft['properties']['rad_class'] for ft in features if ft['properties']['rad_class'])
 print(f'  {len(features)} sites written ({n_chem} chemical-tagged, {n_rad} radioactive)')
+print(f'    radioactive by source: {dict(_rsrc)}')
+print(f'    radioactive by class:  {dict(_rcls)}')
 if n_excluded:
     print(f'  {n_excluded} site(s) withheld from the map by EXCLUDED_FROM_MAP '
           f'(unverifiable — see validation/VITULLO_SITE_FINDING.md)')

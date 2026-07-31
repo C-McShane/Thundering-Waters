@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=23">
+<link rel="stylesheet" href="styles.css?v=24">
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
 </head>
@@ -181,7 +181,7 @@
     <div class="acc">
       <div class="acc-head"><span class="acc-title">Hazard Sites</span><button class="acc-info" title="Radioactive hazard sites">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
-        <div class="acc-help">Documented radioactive/radiological sites, by the material they contain — isotopes (U/Th/Ra) and class (TENORM slag, FUSRAP Manhattan-Project legacy, MED-AEC weapons-era facilities).</div>
+        <div class="acc-help">Documented radioactive/radiological sites, by the material they contain — isotopes (U/Th/Ra) and class (TENORM slag, FUSRAP Manhattan-Project legacy, MED-AEC weapons-era facilities, <b>Other</b> where radionuclides were verified in the site's own documents but no agency has classified it). A site joins this list either from a named agency determination or from a verified radionuclide detection in its own reports — each popup says which.</div>
         <div class="sub-acc">
           <div class="acc-head"><span class="acc-title">Select radioactive material</span><span class="acc-arrow">&#9662;</span></div>
           <div class="acc-body"><div class="rad-opts" id="rad-site-filter"></div></div>
@@ -342,6 +342,6 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="app.js?v=23"></script>
+<script src="app.js?v=24"></script>
 </body>
 </html>
