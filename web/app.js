@@ -268,10 +268,10 @@ function populateChemDropdown() {
 }
 function filterByChemical(cx) {
   const note = document.getElementById('chem-note');
-  if (!cx) { note.innerHTML = 'Shows sites that list the selected contaminant. Reflects <em>recorded</em> chemicals ' + chemCoverageText() + '.'; }
+  if (!cx) { note.innerHTML = 'Shows sites where the selected contaminant was <em>verified</em> against a source document ' + chemCoverageText() + '.'; }
   else {
     const subset = allSiteFeatures.filter(f => (f.properties.chems || []).includes(cx));
-    note.innerHTML = `<b>${subset.length}</b> sites list <b>${cx}</b>. ${formatAssociation(cx)} <span style="color:var(--dim)">(↑ = elevated in county)</span>`;
+    note.innerHTML = `<b>${subset.length}</b> sites have <b>${cx}</b> verified in a source document. ${formatAssociation(cx)} <span style="color:var(--dim)">(↑ = elevated in county)</span>`;
   }
   applySiteFilters();
 }
@@ -555,8 +555,16 @@ function sitePopup(p) {
     : '';
   const narr = p.narrative
     ? `<div class="popup-narrative">${p.narrative}</div>` : '';
-  const chems = p.chemicals
-    ? `<div class="popup-field"><div class="popup-field-lbl">Contaminants</div><div class="popup-field-val">${p.chemicals.substring(0,120)}${p.chemicals.length>120?'…':''}</div></div>` : '';
+  // Three mutually exclusive states, set by web/apply_chemistry.py. A site lists chemicals
+  // only when the pipeline verified each one against a cell in a source document; otherwise
+  // it says why there is nothing to show. Never both.
+  const verified = p.chem_verified || [];
+  const chems = verified.length
+    ? `<div class="popup-field"><div class="popup-field-lbl">Contaminants detected — verified against source documents (${verified.length})</div>`
+      + `<div class="popup-chem-list">${verified.map(c => `<span class="popup-chem">${c}</span>`).join('')}</div></div>`
+    : (p.chem_note
+      ? `<div class="popup-field"><div class="popup-field-lbl">Contaminants</div><div class="popup-field-pending">${p.chem_note}</div></div>`
+      : '');
   return `<div class="popup-inner">
     <div class="popup-tags">${desigTag(p.designation)}</div>
     <div class="popup-name">${p.site_name}</div>
@@ -604,14 +612,14 @@ function applyStatistics() {
   const sel = document.getElementById('chem-select');
   const note = document.getElementById('chem-note');
   if (note && sel && !sel.value)
-    note.innerHTML = 'Shows sites that list the selected contaminant. Reflects <em>recorded</em> chemicals ' + chemCoverageText() + '.';
+    note.innerHTML = 'Shows sites where the selected contaminant was <em>verified</em> against a source document ' + chemCoverageText() + '.';
 }
 // Curated `chems` is what the filter actually searches — deliberately NOT the larger
 // raw NYSDEC free-text population (hazard_sites_raw_chem_text), which is a different thing.
 function chemCoverageText() {
   if (!STATS) return '';
   const c = STATS.counts;
-  return `(${c.hazard_sites_with_chemicals} of ${c.hazard_sites} sites list any)`;
+  return `(${c.hazard_sites_with_chemicals} of ${c.hazard_sites} sites have verified chemistry)`;
 }
 
 async function loadAll() {

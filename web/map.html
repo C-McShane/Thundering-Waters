@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=22">
+<link rel="stylesheet" href="styles.css?v=23">
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
 </head>
@@ -224,9 +224,9 @@
       <div class="acc">
         <div class="acc-head"><span class="acc-title">Hazard Sites</span><button class="acc-info" title="How the site filter works">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
         <div class="acc-body">
-          <div class="acc-help">Sites that list a contaminant in their NYSDEC record. These are chemical <b>presence</b> flags — sites don't carry sampling dates, so there's no year filter or trend on this side.</div>
+          <div class="acc-help">Sites where a contaminant was found in the site's own documents and <b>verified</b> against the table cell reporting it. These are chemical <b>presence</b> flags — sites don't carry sampling dates, so there's no year filter or trend on this side. A site whose chemicals could not yet be verified says so in its popup and lists nothing.</div>
           <select id="chem-select"><option value="">All sites</option></select>
-          <div class="chem-note" id="chem-note">Shows sites that list the selected contaminant. Reflects <em>recorded</em> chemicals.</div>
+          <div class="chem-note" id="chem-note">Shows sites where the selected contaminant was <em>verified</em> against a source document.</div>
         </div>
       </div>
 
@@ -342,6 +342,6 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="app.js?v=22"></script>
+<script src="app.js?v=23"></script>
 </body>
 </html>
