@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import csv
 import glob
+import json
 import os
 import re
 
@@ -38,6 +39,36 @@ RADIOLOGICAL = {
     'Thorium': 'Th',
     'Radium / Radon': 'Ra',
 }
+
+# Hand validation reports specific isotopes rather than the pipeline's collapsed categories, so
+# a decay-chain nuclide has to be resolved back to the parent series the map filters on.
+ISOTOPE_SERIES = [
+    (re.compile(r'^(uranium|u)[\s-]*\d', re.I), 'U'),
+    (re.compile(r'^(thorium|th)[\s-]*\d', re.I), 'Th'),
+    (re.compile(r'^(radium|ra)[\s-]*\d', re.I), 'Ra'),
+    (re.compile(r'^protactinium', re.I), 'U'),      # Pa-231/234 — uranium series
+    (re.compile(r'^actinium', re.I), 'Th'),         # Ac-228 — thorium series marker
+    (re.compile(r'^(bismuth|lead|thallium|polonium|astatine|radon)', re.I), 'Ra'),
+]
+
+HAND_VERIFIED = r'C:\Users\mcsha\Niagra\csv\hand_verified_chemicals.json'
+
+
+def isotope_code(name):
+    """'Actinium-228' -> 'Th'; 'Uranium' -> 'U'; 'Potassium-40' -> None (not a decay series)."""
+    if name in RADIOLOGICAL:
+        return RADIOLOGICAL[name]
+    for rx, code in ISOTOPE_SERIES:
+        if rx.match(name.strip()):
+            return code
+    return None
+
+
+def load_hand_verified():
+    try:
+        return json.load(open(HAND_VERIFIED, encoding='utf-8'))['sites']
+    except (OSError, KeyError, ValueError):
+        return {}
 
 CLASS_OTHER = 'OTHER'
 
@@ -102,6 +133,8 @@ def classify(features, matches=None, build_sites=None):
         build_sites = build_sites or M.load_build_sites()
         matches = M.match(features, build_sites)
 
+    hand = load_hand_verified()
+
     cache = {}
     out = {}
     for i, f in enumerate(features):
@@ -119,7 +152,10 @@ def classify(features, matches=None, build_sites=None):
                 cache[bdir] = verified_radionuclides(bdir)
             found = cache[bdir]
 
-        if not agency and not found:
+        hv = hand.get(pn) if pn else None
+        hv_rn = list((hv or {}).get('radionuclides') or [])
+
+        if not agency and not found and not hv_rn:
             continue
 
         iso = list(agency[1]) if agency else []
@@ -127,16 +163,26 @@ def classify(features, matches=None, build_sites=None):
             code = RADIOLOGICAL[chem]
             if code not in iso:
                 iso.append(code)
+        for name in hv_rn:
+            code = isotope_code(name)
+            if code and code not in iso:
+                iso.append(code)
         iso.sort(key=lambda c: _ISO_ORDER.index(c) if c in _ISO_ORDER else 99)
 
-        if agency and found:
-            source = 'agency+derived'
-        elif agency:
-            source = 'agency'
-        else:
-            source = 'derived'
+        parts = []
+        if agency:
+            parts.append('agency')
+        if hv_rn:
+            parts.append('hand')
+        if found:
+            parts.append('derived')
+        source = '+'.join(parts)
 
         basis = (agency[2] if agency else '').strip()
+        if hv_rn:
+            detail = ('Hand-validated radionuclide detections against '
+                      f"{hv['source_document']}: {', '.join(hv_rn)}.")
+            basis = (basis + ' ' + detail).strip() if basis else detail
         if found:
             names = ', '.join(sorted(found))
             cite = sorted(found.values())[0]

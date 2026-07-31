@@ -1,0 +1,615 @@
+{
+ "_meta": {
+  "note": "Hand-validated chemical detections. A person read the source document and confirmed each entry; these publish even where the extraction pipeline is blocked on OCR for the same site.",
+  "generated_from": "web/build_hand_verified.py"
+ },
+ "sites": {
+  "C932162": {
+   "site_name": "Fashion Outlets of Niagara Falls Expansion",
+   "source_workbook": "Fashion_Outlet_Chemicals.xlsx",
+   "source_document": "Report.BCP.C932162.2014-11-15.FinalFER-AppendicesA-F",
+   "verified_by": "hand validation",
+   "verified_date": "2026-07-31",
+   "chemicals": [
+    {
+     "chemical": "1,1,1-Trichloroethane",
+     "category": "VOC"
+    },
+    {
+     "chemical": "1,1,2-Trichloro-1,2,2-trifluoroethane",
+     "category": "VOC"
+    },
+    {
+     "chemical": "1,1-Dichloroethane",
+     "category": "VOC"
+    },
+    {
+     "chemical": "1,1-Dichloroethylene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "1,2,4-Trimethylbenzene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "1,2-Dichlorobenzene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "1,3,5-Trimethylbenzene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "1,3-Dichlorobenzene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "1,4-Dichlorobenzene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "2-Butanone",
+     "category": "VOC"
+    },
+    {
+     "chemical": "2-Hexanone",
+     "category": "VOC"
+    },
+    {
+     "chemical": "4-Methyl-2-pentanone",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Acetone",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Benzene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Carbon disulfide",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Chlorobenzene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Chloroform",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Chloromethane",
+     "category": "VOC"
+    },
+    {
+     "chemical": "cis-1,2-Dichloroethylene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Cyclohexane",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Dichlorodifluoromethane",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Ethyl benzene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Isopropanol",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Methyl tert-butyl ether (MTBE)",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Methylene chloride",
+     "category": "VOC"
+    },
+    {
+     "chemical": "n-Heptane",
+     "category": "VOC"
+    },
+    {
+     "chemical": "n-Hexane",
+     "category": "VOC"
+    },
+    {
+     "chemical": "o-Xylene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "p- & m-Xylenes",
+     "category": "VOC"
+    },
+    {
+     "chemical": "p-Ethyltoluene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "sec-Butylbenzene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Tetrachloroethylene (PCE)",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Tetrahydrofuran",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Toluene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "trans-1,2-Dichloroethylene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Trichloroethylene (TCE)",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Trichlorofluoromethane",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Vinyl chloride",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Acenaphthene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Acenaphthylene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Anthracene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzo(a)anthracene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzo(a)pyrene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzo(b)fluoranthene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzo(g,h,i)perylene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzo(k)fluoranthene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Chrysene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Dibenz(a,h)anthracene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Dibenzofuran",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Fluoranthene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Fluorene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Hexachlorobenzene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Indeno(1,2,3-c,d)pyrene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Naphthalene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Phenanthrene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Pyrene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Aroclor 1248",
+     "category": "PCB"
+    },
+    {
+     "chemical": "Aroclor 1254",
+     "category": "PCB"
+    },
+    {
+     "chemical": "Aroclor 1260",
+     "category": "PCB"
+    },
+    {
+     "chemical": "2,4,5-TP (Silvex)",
+     "category": "Pesticide/herbicide"
+    },
+    {
+     "chemical": "4,4′-DDD",
+     "category": "Pesticide/herbicide"
+    },
+    {
+     "chemical": "4,4′-DDE",
+     "category": "Pesticide/herbicide"
+    },
+    {
+     "chemical": "4,4′-DDT",
+     "category": "Pesticide/herbicide"
+    },
+    {
+     "chemical": "alpha-BHC",
+     "category": "Pesticide/herbicide"
+    },
+    {
+     "chemical": "beta-BHC",
+     "category": "Pesticide/herbicide"
+    },
+    {
+     "chemical": "delta-BHC",
+     "category": "Pesticide/herbicide"
+    },
+    {
+     "chemical": "gamma-BHC (Lindane)",
+     "category": "Pesticide/herbicide"
+    },
+    {
+     "chemical": "Arsenic",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Barium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Beryllium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Cadmium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Chromium, hexavalent",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Chromium, trivalent",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Copper",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Lead",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Manganese",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Mercury",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Nickel",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Selenium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Zinc",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Cyanide",
+     "category": "Other"
+    }
+   ],
+   "radionuclides": [
+    "Radium / Radon",
+    "Thorium",
+    "Uranium",
+    "Actinium-228",
+    "Bismuth-212",
+    "Bismuth-214",
+    "Lead-212",
+    "Lead-214",
+    "Potassium-40",
+    "Thallium-208"
+   ]
+  },
+  "932117": {
+   "site_name": "Kozdranski Property",
+   "source_workbook": "Kozdranksi_Property.xlsx",
+   "source_document": "Work_Plan.HW.932117.2005-01-01.Site_Characterization_Workplan",
+   "verified_by": "hand validation",
+   "verified_date": "2026-07-31",
+   "chemicals": [
+    {
+     "chemical": "Arsenic",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Barium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Beryllium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Cadmium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Chromium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Copper",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Lead",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Mercury",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Nickel",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Selenium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Silver",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Thallium",
+     "category": "Metal"
+    },
+    {
+     "chemical": "Zinc",
+     "category": "Metal"
+    },
+    {
+     "chemical": "1,1-Dichloroethane (1,1-DCA)",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Acetone",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Carbon disulfide",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Methylene chloride",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Toluene",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Trichloroethene (TCE)",
+     "category": "VOC"
+    },
+    {
+     "chemical": "Vinyl chloride",
+     "category": "VOC"
+    },
+    {
+     "chemical": "1,1′-Biphenyl (biphenyl)",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "2-Mercaptobenzothiazole",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "2-Methylnaphthalene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "4-Nitrophenol",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Acenaphthene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Acenaphthylene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Aniline",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Anthracene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzaldehyde",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzo(a)anthracene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzo(a)pyrene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzo(b)fluoranthene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzo(g,h,i)perylene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzo(k)fluoranthene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzoic acid",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Benzothiazole",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Bis(2-ethylhexyl)phthalate",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Butyl benzyl phthalate",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Caprolactam",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Carbazole",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Chrysene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Dibenz(a,h)anthracene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Dibenzofuran",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Diethyl phthalate",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Di-n-butyl phthalate",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Diphenylamine",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Fluoranthene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Fluorene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Indeno(1,2,3-cd)pyrene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Naphthalene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "N,N-Diphenyl-1,4-benzenediamine",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "N-Nitrosodiphenylamine",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Perylene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Phenanthrene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Phenol",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Phenothiazine",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "Pyrene",
+     "category": "SVOC"
+    },
+    {
+     "chemical": "2,4-D",
+     "category": "Pesticide/herbicide/PCB"
+    },
+    {
+     "chemical": "4,4′-DDT",
+     "category": "Pesticide/herbicide/PCB"
+    },
+    {
+     "chemical": "alpha-BHC",
+     "category": "Pesticide/herbicide/PCB"
+    },
+    {
+     "chemical": "Aroclor-1254",
+     "category": "Pesticide/herbicide/PCB"
+    },
+    {
+     "chemical": "beta-BHC",
+     "category": "Pesticide/herbicide/PCB"
+    },
+    {
+     "chemical": "gamma-BHC (Lindane)",
+     "category": "Pesticide/herbicide/PCB"
+    }
+   ],
+   "radionuclides": []
+  }
+ }
+}

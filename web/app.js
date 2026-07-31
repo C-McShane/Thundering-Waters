@@ -561,9 +561,13 @@ function sitePopup(p) {
   // only when the pipeline verified each one against a cell in a source document; otherwise
   // it says why there is nothing to show. Never both.
   const verified = p.chem_verified || [];
+  const nHand = (p.chem_hand_verified || []).length;
+  const handNote = nHand
+    ? `<div class="popup-chem-note">${nHand} of these were confirmed by hand against ${p.chem_hand_verified_source || 'the source report'}.</div>`
+    : '';
   const chems = verified.length
     ? `<div class="popup-field"><div class="popup-field-lbl">Contaminants detected — verified against source documents (${verified.length})</div>`
-      + `<div class="popup-chem-list">${verified.map(c => `<span class="popup-chem">${c}</span>`).join('')}</div></div>`
+      + `<div class="popup-chem-list">${verified.map(c => `<span class="popup-chem">${c}</span>`).join('')}</div>${handNote}</div>`
     : (p.chem_note
       ? `<div class="popup-field"><div class="popup-field-lbl">Contaminants</div><div class="popup-field-pending">${p.chem_note}</div></div>`
       : '');
