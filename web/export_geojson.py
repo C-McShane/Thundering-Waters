@@ -16,7 +16,9 @@ os.makedirs(outdir, exist_ok=True)
 # See csv/site_source_reports.json. Surfaced in each site popup so readers can verify
 # the monitoring-well / contamination data against the original documents.
 _srp = r'C:\Users\mcsha\Niagra\csv\site_source_reports.json'
-SITE_REPORTS = {k: v for k, v in json.load(open(_srp, encoding='utf-8')).items() if not k.startswith('_')}
+_srp_raw = json.load(open(_srp, encoding='utf-8'))
+SITE_REPORTS = {k: v for k, v in _srp_raw.items() if not k.startswith('_')}
+INHERITED = _srp_raw.get('_inherited_by_name', {})
 
 def strip_header(blob):
     flags = blob[3]
@@ -117,6 +119,11 @@ for r in rows:
     chem_txt = r[6] or ''
     chems = [n for n, rx in CHEM_RX if rx.search(chem_txt)]
     srp = SITE_REPORTS.get((prog or '').strip(), {})
+    # Features with no program number are duplicate markers for a site that has one. They
+    # inherit that site's links by name rather than being left without a record — same place,
+    # same agency file. See site_source_reports.json `_inherited_by_name`.
+    if not srp:
+        srp = INHERITED.get(safe(r[1]) or '', {})
     features.append({
         'type': 'Feature',
         'geometry': g,

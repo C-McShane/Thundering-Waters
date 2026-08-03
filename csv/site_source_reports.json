@@ -60,7 +60,8 @@
     "title": "USACE Remedial Investigation Report Addendum — Niagara Falls Storage Site",
     "url": "https://usace.contentdm.oclc.org/utils/getfile/collection/p16021coll7/id/27306"
    }
-  ]
+  ],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932023"
  },
  "932020": {
   "reports": [
@@ -990,5 +991,234 @@
   "reports": [],
   "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/C932165/",
   "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=C932165"
+ },
+ "FUDS-C02NY0074": {
+  "reports": [],
+  "docs_url": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0074",
+  "website": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0074"
+ },
+ "FUDS-C02NY0093": {
+  "reports": [],
+  "docs_url": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0093",
+  "website": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0093"
+ },
+ "FUDS-C02NY0205": {
+  "reports": [],
+  "docs_url": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0205",
+  "website": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0205"
+ },
+ "FUDS-C02NY0576": {
+  "reports": [],
+  "docs_url": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0576",
+  "website": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0576"
+ },
+ "FUDS-C02NY0613": {
+  "reports": [],
+  "docs_url": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0613",
+  "website": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0613"
+ },
+ "FUDS-C02NY0868-01": {
+  "reports": [],
+  "docs_url": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0868",
+  "website": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0868"
+ },
+ "FUDS-C02NY0868-02": {
+  "reports": [],
+  "docs_url": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0868",
+  "website": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0868"
+ },
+ "932048A": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932048A"
+ },
+ "932040": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932040"
+ },
+ "932070": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932070"
+ },
+ "932045": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932045"
+ },
+ "932061B": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932061B"
+ },
+ "932061A": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932061A"
+ },
+ "932069": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932069"
+ },
+ "932088": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932088"
+ },
+ "932107": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932107"
+ },
+ "932030A": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932030A"
+ },
+ "932058": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932058"
+ },
+ "932075": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932075"
+ },
+ "932065": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932065"
+ },
+ "932091B": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932091B"
+ },
+ "932089": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932089"
+ },
+ "932151": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932151"
+ },
+ "932120": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932120"
+ },
+ "932155": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932155"
+ },
+ "B00182": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=B00182"
+ },
+ "B00107": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=B00107"
+ },
+ "B00108": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=B00108"
+ },
+ "V00287": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=V00287"
+ },
+ "V00439": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=V00439"
+ },
+ "932005": {
+  "reports": [],
+  "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932005"
+ },
+ "_inherited_by_name": {
+  "Occidential-102nd Street": {
+   "from": "932022",
+   "website": null,
+   "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932022/"
+  },
+  "Occidental Chemical Buffalo Avenue, S-Area": {
+   "from": "932019A",
+   "website": null,
+   "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932019A/"
+  },
+  "Bell Aerospace Impoundment Pond": {
+   "from": "932052",
+   "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932052",
+   "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932052/"
+  },
+  "64th Street North Site": {
+   "from": "932085A",
+   "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932085A",
+   "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932085A/"
+  },
+  "64th Street South": {
+   "from": "932085B",
+   "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932085B",
+   "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932085B/"
+  },
+  "ROSS STEEL": {
+   "from": "932058",
+   "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932058",
+   "docs_url": null
+  },
+  "Niagara Falls Air Reserve Station": {
+   "from": "932106",
+   "website": "https://appfactory.dec.ny.gov/DERExternalSearch/ERDDetails?CameFromList=false&SiteCode=932106",
+   "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932106/"
+  },
+  "Balmer Road School": {
+   "from": "NFSS vicinity properties (DOE LM fact sheet)",
+   "website": "https://www.energy.gov/sites/default/files/2022-09/NiagaraFallsVPFactSheet.pdf",
+   "docs_url": "https://www.energy.gov/lm/office-legacy-management",
+   "reports": [
+    {
+     "title": "DOE Legacy Management fact sheet — NFSS Vicinity Properties (Sept 2022)",
+     "url": "https://www.energy.gov/sites/default/files/2022-09/NiagaraFallsVPFactSheet.pdf"
+    }
+   ]
+  }
+ },
+ "NFSS-VP-H-PRIME": {
+  "reports": [
+   {
+    "title": "DOE Legacy Management fact sheet — NFSS Vicinity Properties (Sept 2022), p.2",
+    "url": "https://www.energy.gov/sites/default/files/2022-09/NiagaraFallsVPFactSheet.pdf"
+   }
+  ],
+  "website": "https://www.energy.gov/sites/default/files/2022-09/NiagaraFallsVPFactSheet.pdf",
+  "docs_url": "https://www.energy.gov/lm/office-legacy-management"
+ },
+ "NFSS-VP-X": {
+  "reports": [
+   {
+    "title": "DOE Legacy Management fact sheet — NFSS Vicinity Properties (Sept 2022), p.2",
+    "url": "https://www.energy.gov/sites/default/files/2022-09/NiagaraFallsVPFactSheet.pdf"
+   }
+  ],
+  "website": "https://www.energy.gov/sites/default/files/2022-09/NiagaraFallsVPFactSheet.pdf",
+  "docs_url": "https://www.energy.gov/lm/office-legacy-management"
+ },
+ "NFSS-ANOMALY-CC": {
+  "reports": [
+   {
+    "title": "DOE Legacy Management fact sheet — NFSS Vicinity Properties (Sept 2022)",
+    "url": "https://www.energy.gov/sites/default/files/2022-09/NiagaraFallsVPFactSheet.pdf"
+   }
+  ],
+  "website": "https://www.energy.gov/sites/default/files/2022-09/NiagaraFallsVPFactSheet.pdf",
+  "docs_url": "https://www.energy.gov/lm/office-legacy-management"
+ },
+ "NFSS-CENTRAL-DITCH": {
+  "reports": [
+   {
+    "title": "DOE Legacy Management fact sheet — NFSS Vicinity Properties (Sept 2022)",
+    "url": "https://www.energy.gov/sites/default/files/2022-09/NiagaraFallsVPFactSheet.pdf"
+   }
+  ],
+  "website": "https://www.energy.gov/sites/default/files/2022-09/NiagaraFallsVPFactSheet.pdf",
+  "docs_url": "https://www.energy.gov/lm/office-legacy-management"
+ },
+ "FUSRAP-LOOW": {
+  "reports": [
+   {
+    "title": "USACE FUDS inventory record — property C02NY0025, Lake Ontario Ordnance Works",
+    "url": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0025"
+   }
+  ],
+  "website": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0025",
+  "docs_url": "https://fudsportal.usace.army.mil/ems/inventory/map?id=C02NY0025"
  }
 }
