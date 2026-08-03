@@ -128,7 +128,10 @@ for r in rows:
             'acres':           safe(r[5]),
             'chemicals':       safe(r[6]),
             'narrative':       narr[:600] + ('…' if len(narr) > 600 else ''),
-            'website':         safe(r[8]),
+            # The GeoPackage's own website value wins; otherwise fall back to the curated
+            # link, which is only ever recorded for a site whose document directory was
+            # verified to exist (see build_site_document_links.py).
+            'website':         safe(r[8]) or srp.get('website'),
             'address':         safe(r[9]),
             'city':            safe(r[10]),
             'zip':             safe(r[11]),
