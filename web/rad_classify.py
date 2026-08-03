@@ -98,6 +98,45 @@ AGENCY_BY_CODE = {
     '932110':             ('TENORM', ['U', 'Th', 'Ra'],
                            'TENORM — Final Engineering Report (April 2014) section 5.10 and Table 5.10; '
                            '608 cubic yards retained on site beneath the cover.'),
+
+    # ---- 2026-08-03 radiological investigation -------------------------------
+    # Source: Niagara_Radiological_Sites_Investigation_Summary.html. Four carry EPA action
+    # memoranda with isotope-specific results; Witmer's supporting record is pending FOIA and
+    # is included on Caitlin's explicit call. Class MED-AEC is not used — these are CERCLA
+    # removal actions on uranium/thorium-bearing industrial slag and fill, not Manhattan
+    # Engineer District facilities, so they are TENORM.
+    'EPA-NYN000206699':   ('TENORM', ['U', 'Th', 'Ra'],
+                           'EPA CERCLA removal. Assessment 2013-2015: U-238 max 196, Th-232 max 541, '
+                           'Ra-226 max 199 pCi/g. About 28,362 tons of low-level radioactive material '
+                           'excavated from a 1.4-acre woodland and 3.3-acre parking area; completed 2021.'),
+    'EPA-NYN000206697':   ('TENORM', ['U', 'Th', 'Ra'],
+                           'EPA CERCLA removal, Upper Mountain Road cluster. Assessment 2013-2014: '
+                           'U-238 max 26.7, Th-232 max 116, Ra-226 max 32.6 pCi/g. Culvert crossing and '
+                           'gravel driveway removed and clean-backfilled; completed 2020.'),
+    'EPA-NYN000203537':   ('TENORM', ['U', 'Th', 'Ra'],
+                           'EPA 2021 action memorandum. Crawlspace soil: Th-232 up to 1,430 pCi/g, '
+                           'Bi-212 519, Ac-228 and Ra-228 518, Pb-212 502, Tl-208 184, Ra-226 107, '
+                           'U-238 70.5 pCi/g; crawlspace gamma above 500 microroentgen/hour (Oct 2019). '
+                           'About 2,000 cubic metres estimated; residents temporarily relocated.'),
+    'EPA-NYN000206698':   ('TENORM', ['U', 'Th', 'Ra'],
+                           'EPA CERCLA removal. Cemetery assessment 2013: U-238 max 287, Th-232 max 358, '
+                           'Ra-226 max 360 pCi/g. Adjacent residences 2016-2017: Ra-226 exposure-point '
+                           'concentration 85.8 pCi/g. Cemetery residual status not established publicly.'),
+    'EPA-NYN000204317':   ('TENORM', ['U'],
+                           'EPA CERCLA Removal Only site. U-238 identified as the soil contaminant of '
+                           'concern in industrial slag and fill 6-24 inches below surface over about '
+                           '10,000 square feet of playground and rear parking lot; owner-led removal '
+                           'under EPA oversight.'),
+    # Witmer Road Drive-In. The investigation summary grades this UNRESOLVED — 2020 land-bank
+    # meeting minutes only, with no isotope, concentration, exposure rate or quantity, and no
+    # documented radiological remediation. Included on Caitlin's call 2026-08-03 because the
+    # supporting record sits behind a pending FOIA request. The basis text says so plainly.
+    '932118':             ('TENORM', [],
+                           'Radiological material reported in June 2020 fieldwork per Niagara County '
+                           'land-bank meeting minutes. No isotope, concentration, exposure rate or '
+                           'quantity is in the public record and no radiological remediation is '
+                           'documented; the supporting Phase II record is the subject of a pending '
+                           'FOIA request. Evidence grade: UNRESOLVED pending release.'),
 }
 AGENCY_BY_NAME = {
     'balmer road school':               ('FUSRAP', ['U', 'Th', 'Ra'], 'USACE FUSRAP vicinity property.'),
