@@ -1,0 +1,26 @@
+{
+ "note": "Mirrored because the agency hosts for these records have proven unstable: lm.doe.gov no longer resolves and USACE links cannot be verified. The agency URL remains the primary citation.",
+ "documents": {
+  "DOE-LM_NFSS_Vicinity_Properties_Fact_Sheet_2022-09.pdf": {
+   "sites": [
+    "NFSS-VP-H-PRIME",
+    "NFSS-VP-X",
+    "NFSS-ANOMALY-CC",
+    "NFSS-CENTRAL-DITCH"
+   ],
+   "title": "DOE Legacy Management fact sheet \u2014 NFSS Vicinity Properties (Sept 2022)",
+   "url": "https://www.energy.gov/sites/default/files/2022-09/NiagaraFallsVPFactSheet.pdf",
+   "sha256": "b05a9d4a9b99a48096f3193f8e6ce205959fe7e8a484520fd9ca41e9c3d2cb45",
+   "bytes": 783054
+  },
+  "USACE_Niagara_Falls_Storage_Site_record.pdf": {
+   "sites": [
+    "932023"
+   ],
+   "title": "USACE record \u2014 Niagara Falls Storage Site",
+   "url": "https://usace.contentdm.oclc.org/utils/getfile/collection/p16021coll7/id/27306",
+   "sha256": "fbde9539175b554915dbed1ff0461eb5bf6770ac144aaaa19f46d599283e7af5",
+   "bytes": 1622300
+  }
+ }
+}
