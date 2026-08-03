@@ -541,6 +541,14 @@ function desigTag(d) {
   return `<span class="popup-tag" style="background:${color}22;color:${color};border:1px solid ${color}44">${d}</span>`;
 }
 
+// The document index is NYSDEC's for state sites and EPA's for the CERCLA radiological ones,
+// so the label follows the host rather than asserting an agency the link does not go to.
+function docsLabel(url) {
+  if (/dec\.ny\.gov/i.test(url)) return 'Browse all NYSDEC documents for this site';
+  if (/epa\.gov/i.test(url)) return 'Browse the EPA record for this site';
+  return 'Browse the agency record for this site';
+}
+
 function sitePopup(p) {
   const addr = [p.address, p.city].filter(Boolean).join(', ');
   const acres = p.acres != null ? `${parseFloat(p.acres).toLocaleString()} ac` : 'Not recorded';
@@ -552,7 +560,7 @@ function sitePopup(p) {
     ? `<div class="popup-reports">`
       + ((p.reports && p.reports.length) ? `<div class="popup-field-lbl">Source reports — verify the data</div>` : '')
       + (p.reports || []).map(rp => `<a class="popup-report" href="${rp.url}" target="_blank" rel="noopener">📄 ${rp.title} ↗</a>`).join('')
-      + (p.docs_url ? `<a class="popup-report popup-report-all" href="${p.docs_url}" target="_blank" rel="noopener">📁 Browse all NYSDEC documents for this site ↗</a>` : '')
+      + (p.docs_url ? `<a class="popup-report popup-report-all" href="${p.docs_url}" target="_blank" rel="noopener">📁 ${docsLabel(p.docs_url)} ↗</a>` : '')
       + `</div>`
     : '';
   const narr = p.narrative

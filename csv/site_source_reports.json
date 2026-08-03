@@ -1,0 +1,174 @@
+{
+ "_comment": "Curated primary-source reports per NYSDEC/site program_number, surfaced in the hazard-site popups so readers can verify the monitoring-well and contamination data. Every URL here was checked to return HTTP 200 on 2026-07-16. 'reports' = the specific document(s) the project drew well locations / chemistry from; 'docs_url' = the site's full NYSDEC DecDocs document folder (browse-all), included only where it resolves. Keyed by the hazard-layer program_number (note: NFSS = 932023, S-Area = 932019A). Merged into web/data/hazard_sites.geojson by export_geojson.py.",
+ "932021": {
+  "reports": [
+   {
+    "title": "2018 Periodic Review Report — Hyde Park Landfill (bedrock well data)",
+    "url": "https://extapps.dec.ny.gov/data/DecDocs/932021/Report.HW.932021.2019-04-30.2018%20Periodic%20Review%20with%20ICEC.pdf"
+   }
+  ],
+  "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932021/"
+ },
+ "932022": {
+  "reports": [
+   {
+    "title": "2015 Periodic Review Report — 102nd Street Landfill (monitoring wells)",
+    "url": "https://extapps.dec.ny.gov/data/DecDocs/932022/Report.HW.932022.2016-02-29.2015%20Periodic%20Review.pdf"
+   }
+  ],
+  "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932022/"
+ },
+ "932026": {
+  "reports": [
+   {
+    "title": "EPA Third Five-Year Review, 2014 — Niagara County Refuse Site",
+    "url": "https://extapps.dec.ny.gov/data/DecDocs/932026/Report.HW.932026.2014-09-04.EPA%20Third%205%20Year%20Review.pdf"
+   }
+  ],
+  "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932026/"
+ },
+ "932046": {
+  "reports": [
+   {
+    "title": "EPA Groundwater Task Force — Evaluation of CECOS International",
+    "url": "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=2000H96Z.TXT"
+   }
+  ],
+  "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932046/"
+ },
+ "932097": {
+  "reports": [
+   {
+    "title": "Third Quarter 2023 Groundwater Monitoring Report — Forest Glen (well locations)",
+    "url": "https://extapps.dec.ny.gov/data/DecDocs/932097/Report.HW.932097.2023-11-09.Third%20Quarter%202023%20Groundwater%20Sampling%20Report%20.pdf"
+   }
+  ],
+  "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932097/"
+ },
+ "932156": {
+  "reports": [
+   {
+    "title": "OU3 Phase II Data Evaluation Report, 2020 — Eighteenmile Creek",
+    "url": "https://extapps.dec.ny.gov/data/DecDocs/932156/Report.HW.932156.2020-04-21.Phase_II_Data_Evaluation_Report_for_OU3.pdf"
+   }
+  ],
+  "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932156/"
+ },
+ "932023": {
+  "reports": [
+   {
+    "title": "USACE Remedial Investigation Report Addendum — Niagara Falls Storage Site",
+    "url": "https://usace.contentdm.oclc.org/utils/getfile/collection/p16021coll7/id/27306"
+   }
+  ]
+ },
+ "932020": {
+  "reports": [
+   {
+    "title": "2017 Periodic Review Report — Love Canal (groundwater monitoring)",
+    "url": "https://extapps.dec.ny.gov/data/DecDocs/932020/Report.HW.932020.2018-01-31.2017%20Periodic%20Review%20Report.pdf"
+   }
+  ],
+  "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932020/"
+ },
+ "932019A": {
+  "reports": [
+   {
+    "title": "S-Area Remedial Program Evaluation Report, 2020 (RRT well network)",
+    "url": "https://extapps.dec.ny.gov/data/DecDocs/932019A/Report.HW.932019A.2020-06-30.Eval_Rpt_SArea_Remedial_Program_Revised.pdf"
+   }
+  ],
+  "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932019A/"
+ },
+ "932018": {
+  "reports": [
+   {
+    "title": "Durez Inlet 2024 Periodic Review Report (groundwater wells)",
+    "url": "https://extapps.dec.ny.gov/data/DecDocs/932018/Report.HW.932018.2025-05-07.Revised%202024%20PRR%20Inlet.pdf"
+   }
+  ],
+  "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932018/"
+ },
+ "932118": {
+  "reports": [
+   {
+    "title": "2020 land-bank minutes (June) — the radiological statement of record",
+    "url": "https://www.niagaraorleanslandbank.com/documents/June%202020%20Meeting%20Minutes.pdf"
+   },
+   {
+    "title": "2020 land-bank minutes (August) — Phase II result discussion",
+    "url": "https://www.niagaraorleanslandbank.com/documents/Aug%202020%20Meeting%20Minutes.pdf"
+   },
+   {
+    "title": "2008 Site Characterization Report (NYSDEC)",
+    "url": "https://extapps.dec.ny.gov/data/DecDocs/932118/Report.HW.932118.2008-06-01.Site_Characterization_Report.pdf"
+   },
+   {
+    "title": "1991 Phase II Environmental Site Investigation (NYSDEC)",
+    "url": "https://extapps.dec.ny.gov/data/DecDocs/932118/Report.HW.932118.1991-04-01.Phase_II_EnvSiteInvestigation.pdf"
+   }
+  ],
+  "docs_url": "https://extapps.dec.ny.gov/data/DecDocs/932118/"
+ },
+ "EPA-NYN000206699": {
+  "reports": [
+   {
+    "title": "EPA July 2020 removal completion fact sheet",
+    "url": "https://www.epa.gov/sites/default/files/2020-07/documents/niagara_falls_blvd_rad_fact_sheet_july_2020_final.pdf"
+   },
+   {
+    "title": "2015 technical review with radionuclide tables",
+    "url": "https://www.philrutherford.com/consulting/investigative_post/NY_Contaminated_Sites.pdf"
+   }
+  ],
+  "docs_url": "https://www.epa.gov/ny/niagara-county-radiation-removal-sites"
+ },
+ "EPA-NYN000206697": {
+  "reports": [
+   {
+    "title": "2015 technical review with radionuclide tables",
+    "url": "https://www.philrutherford.com/consulting/investigative_post/NY_Contaminated_Sites.pdf"
+   }
+  ],
+  "docs_url": "https://www.epa.gov/ny/niagara-county-radiation-removal-sites"
+ },
+ "EPA-NYN000203537": {
+  "reports": [
+   {
+    "title": "EPA action memorandum, 15 July 2021 — isotope results (SEMS 624954)",
+    "url": "https://semspub.epa.gov/src/document/02/624954"
+   }
+  ],
+  "docs_url": "https://cumulis.epa.gov/supercpad/CurSites/cadminrecord.cfm?id=0203537"
+ },
+ "EPA-NYN000206698": {
+  "reports": [
+   {
+    "title": "EPA action memorandum, 1 October 2020 (SEMS 615821)",
+    "url": "https://semspub.epa.gov/src/document/02/615821"
+   },
+   {
+    "title": "EPA April 2016 community fact sheet",
+    "url": "https://www.epa.gov/sites/default/files/2018-08/documents/holy_trinity_cemetary_formatted_fact_sheet.pdf"
+   },
+   {
+    "title": "2015 technical review with radionuclide tables",
+    "url": "https://www.philrutherford.com/consulting/investigative_post/NY_Contaminated_Sites.pdf"
+   }
+  ],
+  "docs_url": "https://cumulis.epa.gov/supercpad/CurSites/cadminrecord.cfm?id=0206698"
+ },
+ "EPA-NYN000204317": {
+  "reports": [
+   {
+    "title": "EPA June 2023 community update (SEMS 677170)",
+    "url": "https://semspub.epa.gov/src/document/02/677170"
+   },
+   {
+    "title": "EPA contaminant record — Uranium-238 in soil",
+    "url": "https://cumulis.epa.gov/supercpad/CurSites/ccontinfo.cfm?id=0204317"
+   }
+  ],
+  "docs_url": "https://www.epa.gov/ny/donovan-head-start-removal-site"
+ }
+}
