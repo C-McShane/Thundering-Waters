@@ -1385,7 +1385,9 @@ function renderGeoref(pts, bnds) {
   // administrative outlines read as one family; measured/observed areas each get their own
   const RING_COLOR = {
     site_boundary: '#61afef', parcel_boundary: '#61afef', bcp_boundary: '#61afef',
-    operable_unit: '#61afef',
+    operable_unit: '#c678dd',       // violet - an operable unit is an administrative
+                                    // SUBDIVISION of a site, not its outline, so it must not
+                                    // read as the same kind of thing as the boundary around it
     gamma_activity_area: '#e5b23a',   // elevated gamma - measured, not administrative
     excavation_area: '#e06c75',       // marked for removal
     sample_area: '#56b6c2', other: '#9aa5b1',
