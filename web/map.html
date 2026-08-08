@@ -124,6 +124,8 @@
           <div class="choro-bar"></div>
           <div class="choro-labels"><span>0%</span><span>3.6%</span><span>9.9%</span><span>20%</span><span>55%+</span></div>
         </div>
+        <label class="layer-toggle" id="toggle-georefBounds"><input type="checkbox" class="toggle-check" data-layer="georefBounds"><span class="toggle-swatch square" style="background:rgba(97,175,239,.18); border:1px solid #61afef;"></span><span class="toggle-label">Site boundaries &amp; areas (georeferenced)</span><span class="toggle-count" id="georef-bcount">…</span></label>
+        <div id="georef-legend" style="margin:2px 0 8px 26px;font-size:11px;line-height:1.7;opacity:.85"></div>
         <label class="layer-toggle" id="toggle-iz"><input type="checkbox" class="toggle-check" data-layer="iz"><span class="toggle-swatch square" style="background:rgba(212,168,67,.25); border:1px solid #d4a843;"></span><span class="toggle-label">NF Impact Zone</span><span class="toggle-count">perimeter</span></label>
         <div class="auto-legend" id="legend-iz" style="display:none">
           <div class="legend-item"><div class="legend-dot" style="border-radius:2px;background:rgba(212,168,67,.25);border:1px solid #d4a843"></div><div class="legend-txt">Niagara Falls impact-zone perimeter — the concentration area holding most documented sites.</div></div>
@@ -207,6 +209,8 @@
     <div class="acc">
       <div class="acc-head"><span class="acc-title">Radioactive Sites · Wells &amp; Soil</span><button class="acc-info" title="Per-site wells + gamma slag zones">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
+          <div id="georef-persite-rad"></div>
+
         <div class="acc-help">Everything at a radioactive site in one place — its <b>monitoring wells</b> plus the <b>soil/slag zones</b> a gamma survey flagged for radioactive material (uranium, thorium, radium). Toggle a site to map all of its points. More sites will appear here as they're added.</div>
         <div id="soil-site-toggles"></div>
       </div>
@@ -261,6 +265,7 @@
       <div class="acc-head"><span class="acc-title">Well layers</span><button class="acc-info" title="How to read the wells">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
         <div class="acc-help">Each <b>water droplet</b> is a well or sampling station — a <b>blood-red core</b> (contamination), <b>sized by the number of chemicals detected</b>, with a <b>ring colour showing what it samples</b> (see “Filter by sampling type”). The three toggles choose the data source; legacy wells' popups carry a <b>⚑ approximate-location note</b>.</div>
+        <label class="layer-toggle" id="toggle-georefPts"><input type="checkbox" class="toggle-check" data-layer="georefPts"><span class="toggle-swatch" style="background:#3fb950; border:2px solid #fff; border-radius:50%;"></span><span class="toggle-label">Georeferenced sampling locations</span><span class="toggle-count" id="georef-count">…</span></label>
         <label class="layer-toggle" id="toggle-wellsWqp"><input type="checkbox" class="toggle-check" data-layer="wellsWqp"><span class="toggle-label">Water Quality Portal wells</span><span class="toggle-count" data-stat="wells_wqp" data-suffix="">…</span></label>
         <label class="layer-toggle" id="toggle-wellsDec"><input type="checkbox" class="toggle-check" data-layer="wellsDec"><span class="toggle-label">NYSDEC cleanup-site wells</span><span class="toggle-count" data-stat="wells_dec" data-suffix="">…</span></label>
         <label class="layer-toggle" id="toggle-wellsLegacy"><input type="checkbox" class="toggle-check" data-layer="wellsLegacy"><span class="toggle-label">Legacy-site wells</span><span class="toggle-count" data-stat="wells_legacy" data-suffix="">…</span></label>
@@ -291,6 +296,9 @@
     <div class="acc">
       <div class="acc-head"><span class="acc-title">Site Specific</span><button class="acc-info" title="Per-site views">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
+          <div class="acc-help">Each finished site's georeferenced sampling locations and traced boundaries, on their own.</div>
+          <div id="georef-persite-wells"></div>
+
         <div class="acc-help">Per-site views for sites that report data outside the standard chemical dropdown. Each site is its own drop-down; more will be added here.</div>
 
         <div class="acc sub-acc">

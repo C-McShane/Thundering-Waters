@@ -78,6 +78,12 @@ CLASS_OTHER = 'OTHER'
 #   value: (rad_class, [isotopes], basis)
 AGENCY_BY_CODE = {
     '932023':             ('FUSRAP', ['U', 'Th', 'Ra'], 'USACE FUSRAP — Niagara Falls Storage Site.'),
+    'FUSRAP-SEAWAY':      ('FUSRAP', ['U', 'Th', 'Ra'],
+                           'USACE FUSRAP - Seaway Industrial Park, Tonawanda. Record of '
+                           'Decision (Oct 2009): contaminants of concern Ra-226, Th-230 '
+                           'and total uranium; Th-230 the principal contaminant at up to '
+                           '2,800 pCi/g against a 15 pCi/g surface standard. Residues came '
+                           'from the former Haist property (MED/AEC).'),
     'FUSRAP-LOOW':        ('FUSRAP', ['U', 'Th', 'Ra'], 'USACE FUSRAP — Lake Ontario Ordnance Works.'),
     'NFSS-VP-H-PRIME':    ('FUSRAP', ['U', 'Th', 'Ra'], 'USACE FUSRAP vicinity property.'),
     'NFSS-VP-X':          ('FUSRAP', ['U', 'Th', 'Ra'], 'USACE FUSRAP vicinity property.'),
@@ -98,6 +104,64 @@ AGENCY_BY_CODE = {
     '932110':             ('TENORM', ['U', 'Th', 'Ra'],
                            'TENORM — Final Engineering Report (April 2014) section 5.10 and Table 5.10; '
                            '608 cubic yards retained on site beneath the cover.'),
+
+    # 211 Main Street, North Tonawanda. NYSDEC Decision Document (9 Feb 2021) names radium among
+    # the site's contaminants of concern, and the selected remedy removes "the area of elevated
+    # gamma activity soil along the south side of the building" for off-site disposal. The extent
+    # is drawn on Figure 4a of that document as "Approximate extent of elevated gamma activity".
+    #
+    # ⚠ The pCi/g figures below are read from the Pace Analytical report (Phase II ESA p90,
+    # EPA 901.1), NOT from the narrative. The consultant's text in the Phase II, the RI and the
+    # Decision Document all state "0.267 pCi/g Ra-226 and 0.136 pCi/g Ra-228 ... below the
+    # guidance levels" — but that lab column is `Act ± Unc (MDC)`, so 0.267 and 0.136 are the
+    # MINIMUM DETECTABLE CONCENTRATIONS, not the activities. The measured activities are
+    # 2.426 ± 0.494 and 2.683 ± 0.547 pCi/g. The reported "result" for Ra-226 was also lower
+    # than the method blank on the same run (0.295 pCi/g), which alone should have failed review.
+    'C932171':            ('TENORM', ['Ra'],
+                           'TENORM — NYSDEC Decision Document (Feb 2021) lists radium among the '
+                           'contaminants of concern and the remedy removes the elevated gamma '
+                           'activity soil for off-site disposal; extent mapped on Figure 4a. '
+                           'Gamma spectroscopy (Pace, EPA 901.1): Ra-226 2.43 pCi/g, '
+                           'Ra-228 2.68 pCi/g.'),
+
+    # 401/402/430 Buffalo Avenue, Niagara Falls (Merani Hospitality). NYSDEC Decision Document
+    # (28 Dec 2015) p9: "a post demolition radiological scan indicated the presence [of]
+    # technically enhanced naturally occurring radioactive material (TENORM) slag used as fill on
+    # site." p10: the IRMs "addressed the TENORM found on the 401 and 402 parcels. No detections
+    # of radiation above normally expected background levels were observed on the 430 parcel."
+    # The extent is drawn on Figure 5, "RI Radiologic Survey Results", legend "ELEVATED
+    # RADIOLOGIC FIELD READING ABOVE BACKGROUND".
+    #
+    # Gamma walkover (FER p13): site background 6,000-8,000 cpm; an area beneath the asphalt lot
+    # on 402 read 20,000-45,000 cpm, and locations on 401 read 10,000-20,000 cpm. Figure 8
+    # tabulates 21 post-excavation readings, 2,410-44,441 cpm.
+    #
+    # Disposal is itself evidence of the classification: the 402 slag-fill went to Austin Master
+    # Services' licensed radiologic handling facility (Martins Ferry, OH) and was trans-loaded to
+    # the Energy Solutions licensed landfill at Clive, Utah; 72.5 tons from 401 went to WM's
+    # Mahoning Landfill, Ohio.
+    #
+    # ⚠ Ra-226 ONLY, deliberately. In-situ gamma spectroscopy (Austin Master Services, ODH
+    # In-Situ, RML #03219510000) on four containers reports `Activity | Uncertainty | MDA` —
+    # the same column layout that produced the 211 Main error above. Read correctly:
+    #   Ra-226  1.115 / 1.390 / 0.417 / 0.960 pCi/g   vs MDA 0.243 / 0.166 / 0.291 / 0.184  -> DETECTED in all four
+    #   Ra-228  0.477 / 0.714 / 0.773 / 0.275 pCi/g   vs MDA 0.586 / 0.714 / 0.773 / 0.275  -> AT OR BELOW MDA in all four
+    # Three of the four Ra-228 rows carry an uncertainty of exactly 0.000 and an activity equal
+    # to the MDA — the signature of a non-detect reported at the detection limit. Ra-228 is
+    # therefore NOT cross-listed. The Radiological Material Work Plan (19 Nov 2014) p15 names
+    # U-234/235/238, Th-228/230/232 as the planned analyte suite, but those are analytes to be
+    # tested for, not results; no isotope-specific data for them was located.
+    'C932164':            ('TENORM', ['Ra'],
+                           'TENORM — NYSDEC Decision Document (Dec 2015): post-demolition scan '
+                           'found TENORM slag used as fill on the 401 and 402 parcels; extent '
+                           'mapped on Figure 5 as "elevated radiologic field reading above '
+                           'background". Gamma walkover 20,000-45,000 cpm against a 6,000-8,000 '
+                           'cpm site background. Two waste streams: the 402 slag-fill went to a '
+                           'licensed radiologic handling facility and on to the Energy Solutions '
+                           'licensed landfill at Clive, Utah, while 72.5 tons from 401 went to '
+                           "WM's Mahoning Landfill, Ohio. In-situ gamma spectroscopy on four of "
+                           'the Ohio-bound containers (ODH In-Situ): Ra-226 0.42-1.39 pCi/g, '
+                           'above the detection limit in all four; Ra-228 not detected.'),
 
     # ---- 2026-08-03 radiological investigation -------------------------------
     # Source: Niagara_Radiological_Sites_Investigation_Summary.html. Four carry EPA action

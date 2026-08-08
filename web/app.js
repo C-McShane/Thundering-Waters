@@ -515,6 +515,8 @@ const layers = {
   soilRad:     L.layerGroup(),              // radioactive soil/slag zones (non-well soil sites)
   radWells:    L.layerGroup(),              // Radiation tab: wells & soil selected by radionuclide
   lcWells:     L.layerGroup(),              // Love Canal monitoring wells (dedicated toggle)
+  georefPts:   L.layerGroup(),              // PREVIEW: georeferenced sampling locations
+  georefBounds:L.layerGroup(),              // PREVIEW: traced site boundaries
   sareaToc:    L.layerGroup(),              // off by default (S-Area TOC-over-time selector); independent
                                              // of the wellsDec toggle/filter so the two features don't collide
 };
@@ -655,6 +657,14 @@ async function loadAll() {
     gj('data/soil_radzones.geojson'), gj('data/site_roads.geojson'), gj('data/radionuclides.json'),
     gj('data/statistics.json'), gj('data/findings.json'),
   ]);
+  // ── PREVIEW: georeferenced locations from georef/sites/done ──────────────
+  try {
+    const [gPts, gBnds] = await Promise.all([
+      gj('data/georef_locations.geojson'), gj('data/georef_boundaries.geojson'),
+    ]);
+    renderGeoref(gPts.features, gBnds.features);
+  } catch (e) { console.warn('georef preview layers unavailable', e); }
+
   STATS = statsData; applyStatistics(); buildCancerSelectors();
   SITE_FINDINGS = {};   // WITHDRAWN pending validation (was findingsData.radiation_by_site)
   CHEM_FINDINGS = [];   // WITHDRAWN pending validation (was findingsData.chemicals_by_site)
@@ -1366,6 +1376,136 @@ loadAll().catch(err => {
   document.getElementById('sidebar-body').innerHTML =
     '<p style="color:#c0392b;font-family:monospace;font-size:11px;padding:16px">Error loading data files.<br>Make sure you are serving this page over HTTP (not file://).</p>';
 });
+
+// ── PREVIEW: GEOREF LAYERS ───────────────────────────────────────────────────
+// A measured point is where a human clicked the symbol on the imagery; a projected point is
+// derived through the transform. They are NOT the same evidence and must not look the same.
+function renderGeoref(pts, bnds) {
+  const fmt = v => (v === null || v === undefined) ? '—' : v;
+  // administrative outlines read as one family; measured/observed areas each get their own
+  const RING_COLOR = {
+    site_boundary: '#61afef', parcel_boundary: '#61afef', bcp_boundary: '#61afef',
+    operable_unit: '#61afef',
+    gamma_activity_area: '#e5b23a',   // elevated gamma - measured, not administrative
+    excavation_area: '#e06c75',       // marked for removal
+    sample_area: '#56b6c2', other: '#9aa5b1',
+  };
+  bnds.forEach(f => {
+    const p = f.properties;
+    const col = RING_COLOR[p.boundary_type] || '#9aa5b1';
+    const admin = col === '#61afef';
+    L.polygon(f.geometry.coordinates[0].map(c => [c[1], c[0]]), {
+      color: col, weight: admin ? 2 : 2.5, fillColor: col,
+      fillOpacity: admin ? .10 : .22, dashArray: admin ? '5,4' : null,
+    }).bindPopup(
+      `<b>${p.boundary_name}</b><br>${p.boundary_type} · ${p.n_vertices} vertices` +
+      `<br><span style="opacity:.75">${p.site}</span>` +
+      `<br>fit RMS ${fmt(p.fit_rms_m)} m · LOO ${fmt(p.loo_median_m)} m · p${p.source_page}`
+    ).addTo(layers.georefBounds);
+  });
+  pts.forEach(f => {
+    const p = f.properties, c = f.geometry.coordinates;
+    L.circleMarker([c[1], c[0]], {
+      radius: p.measured ? 6 : 4,
+      color: p.measured ? '#ffffff' : '#3fb950',
+      weight: p.measured ? 2 : 1,
+      fillColor: p.measured ? '#3fb950' : '#3fb950',
+      fillOpacity: p.measured ? 1 : .55,
+    }).bindPopup(
+      `<b>${p.location_id}</b>` +
+      `<br>${p.measured ? '<b>measured</b> — clicked on the imagery'
+                        : 'projected through the transform'}` +
+      `<br><span style="opacity:.75">${p.site}</span>` +
+      `<br>sheet: ${p.figure_style} · ${fmt(p.n_control_points)} control pts` +
+      `<br>fit RMS ${fmt(p.fit_rms_m)} m · leave-one-out ${fmt(p.loo_median_m)} m ` +
+      `(max ${fmt(p.loo_max_m)})` +
+      (p.outside_hull ? '<br><span style="color:#d4a843">outside the control area ' +
+                        '— extrapolated</span>' : '') +
+      (p.outside_boundary_by_m ? `<br><span style="color:#e06c75">${p.outside_boundary_by_m} m ` +
+                        'outside the traced boundary — suspect transform</span>' : '') +
+      `<br><span style="opacity:.6;font-size:11px">${p.source_document} p${p.source_page}</span>`
+    ).addTo(layers.georefPts);
+  });
+  // ── PER-SITE ENTRIES, in two panels ────────────────────────────────────────
+  // Same data, three routes to it: boundaries under Area layers on the hazard tab, all
+  // locations under Monitoring Wells, and each site on its own in both Site Specific and the
+  // radiation panel. Someone starting from any tab can reach it.
+  const RAD_CODES = ['932023', 'FUSRAP-SEAWAY', 'FUSRAP-LOOW',
+                     'C932171', 'C932164', 'C932160'];
+  const siteCode = s => (String(s).split('__').pop() || '');
+  const prettySite = s => String(s).split('__')[0].replace(/-/g, ' ').trim();
+
+  function buildPerSite(hostId, keep) {
+    const host = document.getElementById(hostId);
+    if (!host) return;
+    const by = {};
+    pts.forEach(f => { (by[f.properties.site] = by[f.properties.site] || {p: [], b: []}).p.push(f); });
+    bnds.forEach(f => { (by[f.properties.site] = by[f.properties.site] || {p: [], b: []}).b.push(f); });
+    const names = Object.keys(by).filter(keep)
+                        .sort((a, b) => prettySite(a).localeCompare(prettySite(b)));
+    if (!names.length) { host.innerHTML = '<div class="acc-help">none yet</div>'; return; }
+
+    host.innerHTML = names.map((s, i) => {
+      const d = by[s], bits = [];
+      if (d.p.length) bits.push(d.p.length + ' pts');
+      if (d.b.length) bits.push(d.b.length + (d.b.length === 1 ? ' area' : ' areas'));
+      return '<label class="layer-toggle" id="gs-' + hostId + '-' + i + '">' +
+             '<input type="checkbox" class="gs-check">' +
+             '<span class="toggle-swatch" style="background:#3fb950;border:2px solid #fff;' +
+             'border-radius:50%"></span>' +
+             '<span class="toggle-label">' + prettySite(s) + '</span>' +
+             '<span class="toggle-count">' + bits.join(' \u00b7 ') + '</span></label>';
+    }).join('');
+
+    names.forEach((s, i) => {
+      const grp = L.featureGroup();   // featureGroup, not layerGroup: only this one has getBounds() for the zoom-to-site
+      by[s].b.forEach(f => {
+        const p = f.properties, col = RING_COLOR[p.boundary_type] || '#9aa5b1';
+        L.polygon(f.geometry.coordinates[0].map(c => [c[1], c[0]]),
+                  {color: col, weight: 2.5, fillColor: col, fillOpacity: .18})
+          .bindPopup('<b>' + p.boundary_name + '</b><br>' + p.boundary_type + ' \u00b7 ' +
+                     p.n_vertices + ' vertices').addTo(grp);
+      });
+      by[s].p.forEach(f => {
+        const p = f.properties, c = f.geometry.coordinates;
+        L.circleMarker([c[1], c[0]], {
+          radius: p.measured ? 6 : 4, color: p.measured ? '#ffffff' : '#3fb950',
+          weight: p.measured ? 2 : 1, fillColor: '#3fb950', fillOpacity: p.measured ? 1 : .55,
+        }).bindPopup('<b>' + p.location_id + '</b><br>' +
+                     (p.measured ? 'measured' : 'projected')).addTo(grp);
+      });
+      const cb = document.querySelector('#gs-' + hostId + '-' + i + ' input');
+      if (!cb) return;
+      cb.addEventListener('change', () => {
+        const lbl = cb.closest('.layer-toggle');
+        if (cb.checked) {
+          map.addLayer(grp); lbl.classList.add('active');
+          try { map.fitBounds(grp.getBounds(), {padding: [40, 40]}); } catch (e) {}
+        } else { map.removeLayer(grp); lbl.classList.remove('active'); }
+      });
+    });
+  }
+
+  buildPerSite('georef-persite-wells', () => true);
+  buildPerSite('georef-persite-rad', s => RAD_CODES.indexOf(siteCode(s)) >= 0);
+
+  const el = document.getElementById('georef-count');
+  if (el) el.textContent = pts.length + ' pts';
+  const eb = document.getElementById('georef-bcount');
+  if (eb) eb.textContent = bnds.length + ' areas';
+  // legend lists only the types actually present, so it never promises a category
+  // this dataset does not contain
+  const lg = document.getElementById('georef-legend');
+  if (lg) {
+    const present = [...new Set(bnds.map(f => f.properties.boundary_type))].sort();
+    lg.innerHTML = present.map(t => {
+      const n = bnds.filter(f => f.properties.boundary_type === t).length;
+      return `<span style="display:inline-block;width:9px;height:9px;`
+           + `background:${RING_COLOR[t] || '#9aa5b1'};margin-right:6px;`
+           + `border-radius:2px"></span>${t} <span style="opacity:.6">${n}</span>`;
+    }).join('<br>');
+  }
+}
 
 // ── LAYER TOGGLES ────────────────────────────────────────────────────────────
 document.querySelectorAll('.toggle-check').forEach(cb => {
