@@ -18,16 +18,18 @@
 
 ## About This Repository
 
-This repository contains the spatial dataset, interactive web map, and site narrative documentation underlying the environmental analysis in *Thundering Waters*. It documents **255 hazardous waste sites** across Niagara County, New York — one of the most contaminated regions in the United States — compiled from federal and state regulatory databases and cross-referenced with geographic boundary data and cancer incidence records.
+This repository contains the spatial dataset, interactive web map, and site narrative documentation underlying the environmental analysis in *Thundering Waters*. It documents **<!--stat:hazard_sites-->248<!--/stat--> hazardous waste sites** across Niagara County, New York — one of the most contaminated regions in the United States — compiled from federal and state regulatory databases and cross-referenced with geographic boundary data and cancer incidence records.
+
+> Every count in this README is generated from [`web/data/statistics.json`](web/data/statistics.json) by `web/build_statistics.py`, and verified by `python web/update_readme_counts.py --check`. Do not edit the figures by hand.
 
 The data supports the book's core findings:
 
-- **255 documented hazardous waste sites** across Niagara County
+- **<!--stat:hazard_sites-->248<!--/stat--> documented hazardous waste sites** across Niagara County
 - **~5% of the county's total land area** is contaminated by recorded waste site footprints
 - In the Niagara Falls impact zone, **1 in every 5 acres** is contaminated
-- **158 sites** fall within the Niagara Falls area impact zone, affecting approximately 47,000 residents
-- **112 of 161 NYSDOH reporting regions (70%)** fall within a *highlighted area* for lung cancer — areas NYSDOH identified using a spatial scan statistic as having at least 50% more cases than expected, at a level unlikely to be chance (NYSDOH, 2011–2015). This is a **cluster-level** determination, not a significance test of any single block group.
-- **103 of 161 regions (64%)** fall within a highlighted area for bladder cancer
+- **<!--stat:hazard_sites_in_impact_zone-->147<!--/stat--> sites** fall within the Niagara Falls area impact zone, affecting approximately 47,000 residents
+- **<!--stat:cancer.Lung.highlighted_regions-->112<!--/stat--> of <!--stat:cancer_doh_regions-->161<!--/stat--> NYSDOH reporting regions (70%)** fall within a *highlighted area* for lung cancer — areas NYSDOH identified using a spatial scan statistic as having at least 50% more cases than expected, at a level unlikely to be chance (NYSDOH, 2011–2015). This is a **cluster-level** determination, not a significance test of any single block group.
+- **<!--stat:cancer.Bladder.highlighted_regions-->103<!--/stat--> of <!--stat:cancer_doh_regions-->161<!--/stat--> regions (64%)** fall within a highlighted area for bladder cancer
 - County-wide mesothelioma rates are **more than double the New York State average**
 
 ---
@@ -38,7 +40,7 @@ The data supports the book's core findings:
 /
 ├── Niagara_Site_Narratives_updated.html   — Interactive site narrative browser (89 sites)
 ├── spatial_layers/
-│   └── Niagara_County_HazWaste.gpkg        — Master GeoPackage (21 spatial layers)
+│   └── Niagara_County_HazWaste.gpkg        — Master GeoPackage (<!--stat:gpkg_layers-->25<!--/stat--> spatial layers)
 ├── csv/
 │   ├── Niagara_DEC_Wells_ConcSeries.json   — Per-well contaminant concentration time series (µg/L by year)
 │   ├── Niagara_DEC_Wells_ChemYears.json    — Per-well detected-by-year index (drives the map year filter)
@@ -46,40 +48,47 @@ The data supports the book's core findings:
 └── web/
     ├── map.html                            — Interactive Leaflet web map
     └── data/
-        ├── hazard_sites.geojson            — 255 hazardous waste site points
-        ├── census_tracts.geojson           — 66 Niagara County census tracts with contamination metrics
+        ├── hazard_sites.geojson            — <!--stat:hazard_sites-->248<!--/stat--> hazardous waste site points
+        ├── census_tracts.geojson           — <!--stat:census_tracts-->66<!--/stat--> Niagara County census tracts with contamination metrics
         ├── impact_zone.geojson             — 26 Niagara Falls area impact zone tracts
-        ├── major_roads.geojson             — Highways + arterials for spatial reference (13 named roads)
+        ├── georef_locations.geojson        — <!--stat:georef_locations-->1,511<!--/stat--> sampling locations georeferenced from report figures, across <!--stat:georef_sites-->17<!--/stat--> sites
+        ├── georef_boundaries.geojson       — <!--stat:georef_boundary_rings-->58<!--/stat--> traced site-boundary & contamination-area rings, across <!--stat:georef_boundary_sites-->18<!--/stat--> sites
+        ├── major_roads.geojson             — Highways + arterials for spatial reference (<!--stat:major_road_names-->13<!--/stat--> named roads)
         ├── cancer_sir.geojson              — Block-group cancer SIR + NYSDOH highlighted-area flags, 6 cancers, 2011–2015
         ├── water.geojson                   — Niagara River, canals, reservoirs & ponds (hydrography context)
-        ├── wells_wqp.geojson               — 293 USGS/EPA Water Quality Portal sampling stations
-        ├── wells_dec.geojson               — 259 NYSDEC remediation monitoring wells (with 2000–2019 chem time series)
-        ├── wells_legacy.geojson            — 233 legacy-site monitoring wells, soil borings and test pits
-        ├── wells_lc_piezometers.geojson    — 28 Love Canal barrier-drain piezometers (multi-year water-level series)
-        └── wells_lc_pumps.geojson          — 6 Love Canal leachate pump chambers & storage tanks
+        ├── wells_wqp.geojson               — <!--stat:wells_wqp-->293<!--/stat--> USGS/EPA Water Quality Portal sampling stations
+        ├── wells_dec.geojson               — <!--stat:wells_dec-->259<!--/stat--> NYSDEC remediation monitoring wells (with 2000–2019 chem time series)
+        ├── wells_legacy.geojson            — <!--stat:wells_legacy-->233<!--/stat--> legacy-site monitoring wells, soil borings and test pits
+        ├── wells_lc_piezometers.geojson    — <!--stat:lc_piezometers-->28<!--/stat--> Love Canal barrier-drain piezometers (multi-year water-level series)
+        └── wells_lc_pumps.geojson          — <!--stat:lc_pumps-->6<!--/stat--> Love Canal leachate pump chambers & storage tanks
 ```
 
 ---
 
 ## The GeoPackage
 
-`Niagara_County_HazWaste.gpkg` is a GeoPackage (SQLite-based) file readable in QGIS, ArcGIS, R (`sf`), Python (`geopandas`), and most modern GIS tools. It contains 21 layers:
+`Niagara_County_HazWaste.gpkg` is a GeoPackage (SQLite-based) file readable in QGIS, ArcGIS, R (`sf`), Python (`geopandas`), and most modern GIS tools. It contains <!--stat:gpkg_layers-->25<!--/stat--> layers:
 
 | Layer | Description |
 |---|---|
-| `Niagara_County_Hazard_Sites` | 255 hazardous waste site points (EPSG:4326) with full attributes |
-| `Niagara_Water_Testing_Sites` | 293 USGS/EPA Water Quality Portal sampling stations |
-| `Niagara_DEC_Monitoring_Wells` | 259 NYSDEC remediation monitoring wells |
-| `Niagara_Legacy_Monitoring_Wells` | 233 monitoring wells, soil borings and test pits across the hand-compiled legacy sites |
-| `Niagara_LoveCanal_Piezometers` | 28 barrier-drain piezometers (multi-year water-level series in `water_series`) |
-| `Niagara_LoveCanal_Pumps` | 6 Love Canal leachate pump chambers & storage tanks |
+| `Niagara_County_Hazard_Sites` | <!--stat:gpkg_layer_rows.Niagara_County_Hazard_Sites-->249<!--/stat--> hazardous waste site points (EPSG:4326) with full attributes |
+| `Niagara_Water_Testing_Sites` | <!--stat:gpkg_layer_rows.Niagara_Water_Testing_Sites-->293<!--/stat--> USGS/EPA Water Quality Portal sampling stations |
+| `Niagara_DEC_Monitoring_Wells` | <!--stat:gpkg_layer_rows.Niagara_DEC_Monitoring_Wells-->259<!--/stat--> NYSDEC remediation monitoring wells |
+| `Niagara_Legacy_Monitoring_Wells` | <!--stat:gpkg_layer_rows.Niagara_Legacy_Monitoring_Wells-->233<!--/stat--> monitoring wells, soil borings and test pits across the hand-compiled legacy sites |
+| `Niagara_Georef_Sampling_Locations` | <!--stat:gpkg_layer_rows.Niagara_Georef_Sampling_Locations-->1,511<!--/stat--> sampling locations georeferenced from report figures — see [`GEOREFERENCING_PRECISION.md`](GEOREFERENCING_PRECISION.md) before relying on any single position |
+| `Niagara_Georef_Boundaries` | <!--stat:gpkg_layer_rows.Niagara_Georef_Boundaries-->58<!--/stat--> traced site-boundary and contamination-area rings |
+| `Niagara_Mill2_Radioactive_Soil_Zones` | <!--stat:gpkg_layer_rows.Niagara_Mill2_Radioactive_Soil_Zones-->8<!--/stat--> slag zones flagged by gamma survey (uranium / thorium / radium) |
+| `Niagara_LoveCanal_Piezometers` | <!--stat:gpkg_layer_rows.Niagara_LoveCanal_Piezometers-->28<!--/stat--> barrier-drain piezometers (multi-year water-level series in `water_series`) |
+| `Niagara_LoveCanal_Pumps` | <!--stat:gpkg_layer_rows.Niagara_LoveCanal_Pumps-->6<!--/stat--> Love Canal leachate pump chambers & storage tanks |
 | `Niagara_LoveCanal_Colvin_Sewer_2011` | 2011 Colvin Blvd sewer NAPL remediation corridor + investigation wells |
-| `census_tracts_contamination` | 66 census tracts with contamination acreage and coverage % |
-| `NiagaraFalls_Area_ImpactZone` | 26 tracts defining the Niagara Falls impact zone |
-| `block_group_healthPOP_stats` | 176 block groups with cancer SIR data, demographics, and contamination metrics |
+| `census_tracts_contamination` | <!--stat:gpkg_layer_rows.census_tracts_contamination-->66<!--/stat--> census tracts with contamination acreage and coverage % |
+| `NiagaraFalls_Area_ImpactZone` | <!--stat:gpkg_layer_rows.NiagaraFalls_Area_ImpactZone-->26<!--/stat--> tracts defining the Niagara Falls impact zone |
+| `block_group_healthPOP_stats` | <!--stat:gpkg_layer_rows.block_group_healthPOP_stats-->176<!--/stat--> block groups with cancer SIR data, demographics, and contamination metrics |
 | `Niagara_County_Boundary` | County boundary polygon |
-| `nysdec_site_boundaries` | 148 NYSDEC remediation site boundary polygons |
-| + 9 additional reference layers | Roads, railways, hydrology, crime, census health data |
+| `nysdec_site_boundaries` | <!--stat:gpkg_layer_rows.nysdec_site_boundaries-->148<!--/stat--> NYSDEC remediation site boundary polygons |
+| + the remaining reference layers | Roads, railways, hydrology, crime, census health data |
+
+> **The GeoPackage row count is not the map count.** The hazard-sites layer holds <!--stat:gpkg_layer_rows.Niagara_County_Hazard_Sites-->249<!--/stat--> rows while the published map shows <!--stat:hazard_sites-->248<!--/stat-->: one site is deliberately withheld from the map and retained in the data. See [`CORRECTIONS.md`](CORRECTIONS.md).
 
 ### Key Fields — Hazard Sites Layer
 
@@ -216,10 +225,22 @@ Opening the file over `file://` will not work, because the browser blocks the lo
 **What regenerates from this repository.** The *derived* products regenerate from the published source layers, and re-running them reproduces the numbers shown in the interface exactly (the only per-run difference is a `generated_utc` timestamp recording when the file was written):
 
 ```
-python web/build_statistics.py     # -> web/data/statistics.json (every count shown in the UI)
-python web/build_recency.py        # -> the last_sampled field on the well layers
-python web/build_radionuclides.py  # -> web/data/radionuclides.json
+python web/build_statistics.py            # -> web/data/statistics.json (every count in the UI and this README)
+python web/update_readme_counts.py --check  # verify this README against statistics.json; --write to fix
+python web/build_recency.py               # -> the last_sampled field on the well layers
+python web/build_radionuclides.py         # -> web/data/radionuclides.json
 ```
+
+Every figure in this README sits between a paired set of `stat` HTML comments — invisible on
+GitHub, visible in the raw markdown. `update_readme_counts.py` rewrites what is between them
+from `statistics.json`, so a count can no longer drift out of step with the data. Run `--check`
+after any data change; it exits non-zero on drift.
+
+⚠ **`export_geojson.py` is not the whole pipeline.** It rebuilds *base* layers; the verified
+chemistry on hazard sites and the `doh_region` / `merged_area` fields on the cancer layer are
+applied afterwards by other scripts. Running it alone discards them. Back up `web/data/*.geojson`
+first, and re-check the counts afterwards — `cancer_doh_regions` dropping to `0` is the signal
+that enrichment was lost.
 
 **What does *not* regenerate from this repository — and why.** The upstream compilation — scraping the NYSDEC and EPA records, OCR of scanned documents, the tiered chemical extraction, and the block-group cancer join — was carried out with an evolving set of working scripts run against a local data store, a local cache of source documents, and downloaded imagery. Those scripts were edited in place over the life of the project rather than maintained as a released, path-independent pipeline; they contain absolute local paths and depend on inputs that are not all redistributable here. **This repository is therefore not a turnkey reproduction of the raw-source-to-dataset pipeline.**
 

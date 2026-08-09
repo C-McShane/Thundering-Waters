@@ -7,7 +7,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>Thundering Waters: The Toxic Legacy of Niagara County â€” Interactive Map</title>
+<title>Thundering Waters: The Toxic Legacy of Niagara County — Interactive Map</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
@@ -26,22 +26,22 @@
 
 <div id="app">
 
-<!-- â”€â”€ MAP (full-bleed, behind the floating controls) â”€â”€ -->
+<!-- ── MAP (full-bleed, behind the floating controls) ── -->
 <div id="map"></div>
 
-<!-- â”€â”€ PERMANENT TITLE + SEARCH â”€â”€ -->
+<!-- ── PERMANENT TITLE + SEARCH ── -->
 <div id="titlecard">
   <div id="sidebar-header">
     <div class="title-kind">Inspired by <b class="author-name">Christen Civiletto</b>'s book</div>
     <div class="sidebar-title">Thundering Waters<span class="title-sub">The Toxic Legacy of Niagara County</span></div>
   </div>
   <div id="search-wrap">
-    <input id="search" type="text" placeholder="Search sites, wells, chemicalsâ€¦ (e.g. Benzene, C4R-MW-04)" autocomplete="off">
+    <input id="search" type="text" placeholder="Search sites, wells, chemicals… (e.g. Benzene, C4R-MW-04)" autocomplete="off">
     <div id="search-results"></div>
   </div>
 </div>
 
-<!-- â”€â”€ DOCK: folder-tab rail + sliding panel â”€â”€ -->
+<!-- ── DOCK: folder-tab rail + sliding panel ── -->
 <div id="dock">
 
   <div id="rail" role="tablist" aria-label="Map data layers">
@@ -69,14 +69,14 @@
   </div>
 
   <div id="panel" aria-live="polite">
-    <button id="panel-close" title="Close panel" aria-label="Close panel">âœ•</button>
+    <button id="panel-close" title="Close panel" aria-label="Close panel">✕</button>
     <div id="sidebar-body">
 
     <div class="tab-panel" data-tab-panel="start">
-      <p class="sh-p"><b>What this map shows.</b> Every documented hazardous-waste and radioactive site in Niagara County, New York â€” together with the monitoring wells and soil samples that record what was measured, where, and when. Every figure traces back to a named source document, and any sample can be looked up by its own identifier.</p>
-      <p class="sh-p"><b>How to use it.</b> Click any <b>folder tab</b> on the left to open its panel, then open the drop-down menus inside it to switch layers on over the map â€” hazard sites, monitoring wells, radiation, chemicals, and cancer incidence. Use the <b>search box</b> above to jump straight to a site, well, or sample by its ID.</p>
-      <p class="sh-p"><b>Continually updated.</b> This is a living compilation. Roughly <b>75&nbsp;GB</b> of source documents are still being processed and vetted; layers and detections are added as each one is verified, so the map grows over time. A figure marked <i>pending</i> is not yet fully sourced â€” not disputed.</p>
-      <div class="sh-note">This project was developed with substantial AI assistance under human direction; how AI was used, and who is responsible for what, is set out in the <a href="https://github.com/C-McShane/Thundering-Waters/blob/main/AI_DISCLOSURE.md" target="_blank" rel="noopener">AI disclosure</a>. Corrections are welcome â€” use <b>Report an error</b> below.</div>
+      <p class="sh-p"><b>What this map shows.</b> Every documented hazardous-waste and radioactive site in Niagara County, New York — together with the monitoring wells and soil samples that record what was measured, where, and when. Every figure traces back to a named source document, and any sample can be looked up by its own identifier.</p>
+      <p class="sh-p"><b>How to use it.</b> Click any <b>folder tab</b> on the left to open its panel, then open the drop-down menus inside it to switch layers on over the map — hazard sites, monitoring wells, radiation, chemicals, and cancer incidence. Use the <b>search box</b> above to jump straight to a site, well, or sample by its ID.</p>
+      <p class="sh-p"><b>Continually updated.</b> This is a living compilation. Roughly <b>75&nbsp;GB</b> of source documents are still being processed and vetted; layers and detections are added as each one is verified, so the map grows over time. A figure marked <i>pending</i> is not yet fully sourced — not disputed.</p>
+      <div class="sh-note">This project was developed with substantial AI assistance under human direction; how AI was used, and who is responsible for what, is set out in the <a href="https://github.com/C-McShane/Thundering-Waters/blob/main/AI_DISCLOSURE.md" target="_blank" rel="noopener">AI disclosure</a>. Corrections are welcome — use <b>Report an error</b> below.</div>
     </div><!-- /tab-panel: start -->
 
     <div class="tab-panel" data-tab-panel="addr">
@@ -106,8 +106,8 @@
     <div class="acc">
       <div class="acc-head"><span class="acc-title">Hazard site points</span><button class="acc-info" title="About the hazard sites">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
-        <div class="acc-help">Every documented contaminated site in Niagara County, each dot coloured by its <b>regulatory programme</b>. Turn the layer on or off, or show/hide individual programme types below â€” the list doubles as the colour legend.</div>
-        <label class="layer-toggle active" id="toggle-sites"><input type="checkbox" class="toggle-check" checked data-layer="sites"><span class="toggle-swatch" style="background:#c0392b; border:2px solid #7a2a22;"></span><span class="toggle-label">Show hazard sites</span><span class="toggle-count" data-stat="hazard_sites" data-suffix=" pts">â€¦</span></label>
+        <div class="acc-help">Every documented contaminated site in Niagara County, each dot coloured by its <b>regulatory programme</b>. Turn the layer on or off, or show/hide individual programme types below — the list doubles as the colour legend.</div>
+        <label class="layer-toggle active" id="toggle-sites"><input type="checkbox" class="toggle-check" checked data-layer="sites"><span class="toggle-swatch" style="background:#c0392b; border:2px solid #7a2a22;"></span><span class="toggle-label">Show hazard sites</span><span class="toggle-count" data-stat="hazard_sites" data-suffix=" pts">…</span></label>
         <div class="stf-subhead">Filter by site type</div>
         <div class="sample-type-filter" id="site-type-filter"></div>
       </div>
@@ -118,17 +118,17 @@
       <div class="acc-head"><span class="acc-title">Area layers</span><button class="acc-info" title="Polygon overlays">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
         <div class="acc-help">Shaded areas rather than points. <b>Contamination by tract</b> shades each census tract by the share of its land that is contaminated; the <b>impact zone</b> outlines the Niagara Falls area where most sites cluster. Each legend appears automatically when you switch its layer on.</div>
-        <label class="layer-toggle" id="toggle-tracts"><input type="checkbox" class="toggle-check" data-layer="tracts"><span class="toggle-swatch square" style="background:rgba(192,57,43,.4); border:1px solid #c0392b;"></span><span class="toggle-label">Contamination by Tract</span><span class="toggle-count" data-stat="census_tracts" data-suffix=" tracts">â€¦</span></label>
+        <label class="layer-toggle" id="toggle-tracts"><input type="checkbox" class="toggle-check" data-layer="tracts"><span class="toggle-swatch square" style="background:rgba(192,57,43,.4); border:1px solid #c0392b;"></span><span class="toggle-label">Contamination by Tract</span><span class="toggle-count" data-stat="census_tracts" data-suffix=" tracts">…</span></label>
         <div class="auto-legend" id="legend-tracts" style="display:none">
           <div class="auto-legend-title">Share of tract land contaminated</div>
           <div class="choro-bar"></div>
           <div class="choro-labels"><span>0%</span><span>3.6%</span><span>9.9%</span><span>20%</span><span>55%+</span></div>
         </div>
-        <label class="layer-toggle" id="toggle-georefBounds"><input type="checkbox" class="toggle-check" data-layer="georefBounds"><span class="toggle-swatch square" style="background:rgba(97,175,239,.18); border:1px solid #61afef;"></span><span class="toggle-label">Site boundaries &amp; areas (georeferenced)</span><span class="toggle-count" id="georef-bcount">â€¦</span></label>
+        <label class="layer-toggle" id="toggle-georefBounds"><input type="checkbox" class="toggle-check" data-layer="georefBounds"><span class="toggle-swatch square" style="background:rgba(97,175,239,.18); border:1px solid #61afef;"></span><span class="toggle-label">Site boundaries &amp; areas (georeferenced)</span><span class="toggle-count" id="georef-bcount">…</span></label>
         <div id="georef-legend" style="margin:2px 0 8px 26px;font-size:11px;line-height:1.7;opacity:.85"></div>
         <label class="layer-toggle" id="toggle-iz"><input type="checkbox" class="toggle-check" data-layer="iz"><span class="toggle-swatch square" style="background:rgba(212,168,67,.25); border:1px solid #d4a843;"></span><span class="toggle-label">NF Impact Zone</span><span class="toggle-count">perimeter</span></label>
         <div class="auto-legend" id="legend-iz" style="display:none">
-          <div class="legend-item"><div class="legend-dot" style="border-radius:2px;background:rgba(212,168,67,.25);border:1px solid #d4a843"></div><div class="legend-txt">Niagara Falls impact-zone perimeter â€” the concentration area holding most documented sites.</div></div>
+          <div class="legend-item"><div class="legend-dot" style="border-radius:2px;background:rgba(212,168,67,.25);border:1px solid #d4a843"></div><div class="legend-txt">Niagara Falls impact-zone perimeter — the concentration area holding most documented sites.</div></div>
         </div>
       </div>
     </div>
@@ -139,7 +139,7 @@
       <div class="acc-body">
         <div class="acc-help">Base-map context: the Niagara River, creeks and water bodies near monitoring sites, plus the county's major roads.</div>
         <label class="layer-toggle active" id="toggle-water"><input type="checkbox" class="toggle-check" checked data-layer="water"><span class="toggle-swatch square" style="background:#1fa6e0; border:1px solid #5fd0ff;"></span><span class="toggle-label">Rivers &amp; Water</span><span class="toggle-count">+ creeks</span></label>
-        <label class="layer-toggle" id="toggle-roads"><input type="checkbox" class="toggle-check" data-layer="roads"><span class="toggle-swatch" style="background:#9d8fbf; width:14px; height:3px; border-radius:1px;"></span><span class="toggle-label">Major Roads</span><span class="toggle-count" data-stat="major_road_names" data-suffix=" roads">â€¦</span></label>
+        <label class="layer-toggle" id="toggle-roads"><input type="checkbox" class="toggle-check" data-layer="roads"><span class="toggle-swatch" style="background:#9d8fbf; width:14px; height:3px; border-radius:1px;"></span><span class="toggle-label">Major Roads</span><span class="toggle-count" data-stat="major_road_names" data-suffix=" roads">…</span></label>
       </div>
     </div>
 
@@ -147,7 +147,7 @@
 
     <div class="tab-panel" data-tab-panel="cancer">
 
-    <div class="cancer-source">NYSDOH Environmental Facilities &amp; Cancer Mapping Â· cases diagnosed <b>2011&ndash;2015</b> Â· census block groups Â· expected counts age- and sex-adjusted to <b>New York State</b> rates (not a national benchmark) Â· provisional as of Dec 2017. <a href="https://www.health.ny.gov/statistics/cancer/environmental_facilities/mapping/about/" target="_blank" rel="noopener">Method</a></div>
+    <div class="cancer-source">NYSDOH Environmental Facilities &amp; Cancer Mapping · cases diagnosed <b>2011&ndash;2015</b> · census block groups · expected counts age- and sex-adjusted to <b>New York State</b> rates (not a national benchmark) · provisional as of Dec 2017. <a href="https://www.health.ny.gov/statistics/cancer/environmental_facilities/mapping/about/" target="_blank" rel="noopener">Method</a></div>
 
     <div class="panel-prompt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>Click on the drop-down menus below to explore data</div>
 
@@ -175,7 +175,7 @@
 
     <div class="tab-panel" data-tab-panel="chem">
 
-    <div class="acc-help" style="display:block;padding:2px 2px 12px">Everything with radioactive material or radionuclides â€” sites, wells and soil. Pick a material or radionuclide in a section below to map it; well &amp; soil points show a time-series plot when clicked, with a running total by year.</div>
+    <div class="acc-help" style="display:block;padding:2px 2px 12px">Everything with radioactive material or radionuclides — sites, wells and soil. Pick a material or radionuclide in a section below to map it; well &amp; soil points show a time-series plot when clicked, with a running total by year.</div>
 
     <div class="panel-prompt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>Click on the drop-down menus below to explore data</div>
 
@@ -183,7 +183,7 @@
     <div class="acc">
       <div class="acc-head"><span class="acc-title">Hazard Sites</span><button class="acc-info" title="Radioactive hazard sites">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
-        <div class="acc-help">Documented radioactive/radiological sites, by the material they contain â€” isotopes (U/Th/Ra) and class (TENORM slag, FUSRAP Manhattan-Project legacy, MED-AEC weapons-era facilities, <b>Other</b> where radionuclides were verified in the site's own documents but no agency has classified it). A site joins this list either from a named agency determination or from a verified radionuclide detection in its own reports â€” each popup says which.</div>
+        <div class="acc-help">Documented radioactive/radiological sites, by the material they contain — isotopes (U/Th/Ra) and class (TENORM slag, FUSRAP Manhattan-Project legacy, MED-AEC weapons-era facilities, <b>Other</b> where radionuclides were verified in the site's own documents but no agency has classified it). A site joins this list either from a named agency determination or from a verified radionuclide detection in its own reports — each popup says which.</div>
         <div class="sub-acc">
           <div class="acc-head"><span class="acc-title">Select radioactive material</span><span class="acc-arrow">&#9662;</span></div>
           <div class="acc-body"><div class="rad-opts" id="rad-site-filter"></div></div>
@@ -207,20 +207,20 @@
 
     <!-- Radioactive soil zones (per-site toggles) -->
     <div class="acc">
-      <div class="acc-head"><span class="acc-title">Radioactive Sites Â· Wells &amp; Soil</span><button class="acc-info" title="Per-site wells + gamma slag zones">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
+      <div class="acc-head"><span class="acc-title">Radioactive Sites · Wells &amp; Soil</span><button class="acc-info" title="Per-site wells + gamma slag zones">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
           <div id="georef-persite-rad"></div>
 
-        <div class="acc-help">Everything at a radioactive site in one place â€” its <b>monitoring wells</b> plus the <b>soil/slag zones</b> a gamma survey flagged for radioactive material (uranium, thorium, radium). Toggle a site to map all of its points. More sites will appear here as they're added.</div>
+        <div class="acc-help">Everything at a radioactive site in one place — its <b>monitoring wells</b> plus the <b>soil/slag zones</b> a gamma survey flagged for radioactive material (uranium, thorium, radium). Toggle a site to map all of its points. More sites will appear here as they're added.</div>
         <div id="soil-site-toggles"></div>
       </div>
     </div>
 
     </div><!-- /tab-panel: chem (Radiation) -->
 
-    <!-- â”€â”€ CHEMICALS TAB â”€â”€ -->
+    <!-- ── CHEMICALS TAB ── -->
     <div class="tab-panel" data-tab-panel="chemicals">
-      <div class="acc-help" style="display:block;padding:2px 2px 12px">Filter by contaminant across the hazard sites and the monitoring-well network. Wells carry sampling dates â€” their menu adds a year filter, per-well time-series plots, and a running total by year.</div>
+      <div class="acc-help" style="display:block;padding:2px 2px 12px">Filter by contaminant across the hazard sites and the monitoring-well network. Wells carry sampling dates — their menu adds a year filter, per-well time-series plots, and a running total by year.</div>
 
       <div class="panel-prompt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>Click on the drop-down menus below to explore data</div>
 
@@ -228,7 +228,7 @@
       <div class="acc">
         <div class="acc-head"><span class="acc-title">Hazard Sites</span><button class="acc-info" title="How the site filter works">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
         <div class="acc-body">
-          <div class="acc-help">Sites where a contaminant was found in the site's own documents and <b>verified</b> against the table cell reporting it. These are chemical <b>presence</b> flags â€” sites don't carry sampling dates, so there's no year filter or trend on this side. A site whose chemicals could not yet be verified says so in its popup and lists nothing.</div>
+          <div class="acc-help">Sites where a contaminant was found in the site's own documents and <b>verified</b> against the table cell reporting it. These are chemical <b>presence</b> flags — sites don't carry sampling dates, so there's no year filter or trend on this side. A site whose chemicals could not yet be verified says so in its popup and lists nothing.</div>
           <select id="chem-select"><option value="">All sites</option></select>
           <div class="chem-note" id="chem-note">Shows sites where the selected contaminant was <em>verified</em> against a source document.</div>
         </div>
@@ -246,7 +246,7 @@
         </div>
       </div>
 
-      <!-- Strongest findings (editorial highlights) â€” kept last so it closes out the panel -->
+      <!-- Strongest findings (editorial highlights) — kept last so it closes out the panel -->
       <div class="acc">
         <div class="acc-head"><span class="acc-title">Selected high detections</span><button class="acc-info" title="The highest measured contamination in the well & soil network">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
         <div class="acc-body">
@@ -264,11 +264,11 @@
     <div class="acc">
       <div class="acc-head"><span class="acc-title">Well layers</span><button class="acc-info" title="How to read the wells">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
-        <div class="acc-help">Each <b>water droplet</b> is a well or sampling station â€” a <b>blood-red core</b> (contamination), <b>sized by the number of chemicals detected</b>, with a <b>ring colour showing what it samples</b> (see â€œFilter by sampling typeâ€). The three toggles choose the data source; legacy wells' popups carry a <b>âš‘ approximate-location note</b>.</div>
-        <label class="layer-toggle" id="toggle-georefPts"><input type="checkbox" class="toggle-check" data-layer="georefPts"><span class="toggle-swatch" style="background:#3fb950; border:2px solid #fff; border-radius:50%;"></span><span class="toggle-label">Georeferenced sampling locations</span><span class="toggle-count" id="georef-count">â€¦</span></label>
-        <label class="layer-toggle" id="toggle-wellsWqp"><input type="checkbox" class="toggle-check" data-layer="wellsWqp"><span class="toggle-label">Water Quality Portal wells</span><span class="toggle-count" data-stat="wells_wqp" data-suffix="">â€¦</span></label>
-        <label class="layer-toggle" id="toggle-wellsDec"><input type="checkbox" class="toggle-check" data-layer="wellsDec"><span class="toggle-label">NYSDEC cleanup-site wells</span><span class="toggle-count" data-stat="wells_dec" data-suffix="">â€¦</span></label>
-        <label class="layer-toggle" id="toggle-wellsLegacy"><input type="checkbox" class="toggle-check" data-layer="wellsLegacy"><span class="toggle-label">Legacy-site wells</span><span class="toggle-count" data-stat="wells_legacy" data-suffix="">â€¦</span></label>
+        <div class="acc-help">Each <b>water droplet</b> is a well or sampling station — a <b>blood-red core</b> (contamination), <b>sized by the number of chemicals detected</b>, with a <b>ring colour showing what it samples</b> (see “Filter by sampling type”). The three toggles choose the data source; legacy wells' popups carry a <b>⚑ approximate-location note</b>.</div>
+        <label class="layer-toggle" id="toggle-georefPts"><input type="checkbox" class="toggle-check" data-layer="georefPts"><span class="toggle-swatch" style="background:#3fb950; border:2px solid #fff; border-radius:50%;"></span><span class="toggle-label">Georeferenced sampling locations</span><span class="toggle-count" id="georef-count">…</span></label>
+        <label class="layer-toggle" id="toggle-wellsWqp"><input type="checkbox" class="toggle-check" data-layer="wellsWqp"><span class="toggle-label">Water Quality Portal wells</span><span class="toggle-count" data-stat="wells_wqp" data-suffix="">…</span></label>
+        <label class="layer-toggle" id="toggle-wellsDec"><input type="checkbox" class="toggle-check" data-layer="wellsDec"><span class="toggle-label">NYSDEC cleanup-site wells</span><span class="toggle-count" data-stat="wells_dec" data-suffix="">…</span></label>
+        <label class="layer-toggle" id="toggle-wellsLegacy"><input type="checkbox" class="toggle-check" data-layer="wellsLegacy"><span class="toggle-label">Legacy-site wells</span><span class="toggle-count" data-stat="wells_legacy" data-suffix="">…</span></label>
         <div class="well-size-legend" id="well-size-legend"></div>
       </div>
     </div>
@@ -287,12 +287,12 @@
     <div class="acc">
       <div class="acc-head"><span class="acc-title">Filter by Sampling Type</span><button class="acc-info" title="What sampling type means">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
-        <div class="acc-help">With nothing ticked, every well shows as a blood-red drop with a grey outline. Tick one or more types â€” bedrock vs. overburden groundwater, surface water, remediation/recovery â€” to show <b>only</b> those wells (the rest hide), their outlines taking the type colour. The swatches are the colour key.</div>
+        <div class="acc-help">With nothing ticked, every well shows as a blood-red drop with a grey outline. Tick one or more types — bedrock vs. overburden groundwater, surface water, remediation/recovery — to show <b>only</b> those wells (the rest hide), their outlines taking the type colour. The swatches are the colour key.</div>
         <div class="sample-type-filter" id="sample-type-filter"></div>
       </div>
     </div>
 
-    <!-- Site Specific (parent) â†’ one sub-dropdown per site -->
+    <!-- Site Specific (parent) → one sub-dropdown per site -->
     <div class="acc">
       <div class="acc-head"><span class="acc-title">Site Specific</span><button class="acc-info" title="Per-site views">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
@@ -302,7 +302,7 @@
         <div class="acc-help">Per-site views for sites that report data outside the standard chemical dropdown. Each site is its own drop-down; more will be added here.</div>
 
         <div class="acc sub-acc">
-          <div class="acc-head"><span class="acc-title">S-Area Â· Intensity Over Time</span><span class="acc-arrow">&#9662;</span></div>
+          <div class="acc-head"><span class="acc-title">S-Area · Intensity Over Time</span><span class="acc-arrow">&#9662;</span></div>
           <div class="acc-body">
             <div class="acc-help" style="display:block">S-Area's 184 wells report <b>Total Organic Concentration</b>, not named chemicals. Pick a year to colour the wells by the latest TOC reading known by that year.</div>
             <select id="sarea-toc-year-select"><option value="">Off</option></select>
@@ -313,11 +313,11 @@
         <div class="acc sub-acc">
           <div class="acc-head"><span class="acc-title">Love Canal</span><span class="acc-arrow">&#9662;</span></div>
           <div class="acc-body">
-            <div class="acc-help" style="display:block">Everything for Love Canal in one place â€” the monitoring wells (contaminant chemistry), the piezometers (water levels), and the leachate-containment infrastructure.</div>
-            <label class="layer-toggle" id="toggle-lcWells"><input type="checkbox" class="toggle-check" data-layer="lcWells"><span class="toggle-swatch" style="background:#b81d24; border:2px solid #cfcfcf; border-radius:50%;"></span><span class="toggle-label">Monitoring wells â€” chemistry</span><span class="toggle-count" data-stat="lc_wells" data-suffix="">â€¦</span></label>
-            <label class="layer-toggle" id="toggle-lcPiezo"><input type="checkbox" class="toggle-check" data-layer="lcPiezo"><span class="toggle-swatch" style="background:#2f6fd0; border:2px solid #bfe0ff; border-radius:50%;"></span><span class="toggle-label">Piezometers â€” water levels</span><span class="toggle-count" data-stat="lc_piezometers" data-suffix="">â€¦</span></label>
-            <label class="layer-toggle" id="toggle-lcPumps"><input type="checkbox" class="toggle-check" data-layer="lcPumps"><span class="toggle-swatch" style="background:#e0b93a; border:2px solid #111; border-radius:2px;"></span><span class="toggle-label">Pump chambers &amp; leachate tanks</span><span class="toggle-count" data-stat="lc_pumps" data-suffix="">â€¦</span></label>
-            <div class="chem-note">Wells carry <b>contaminant chemistry</b> (click one for its concentration-vs-year plot). Piezometers measure <b>groundwater levels</b> (2015â€“2022). Pumps &amp; tanks are the containment collection infrastructure.</div>
+            <div class="acc-help" style="display:block">Everything for Love Canal in one place — the monitoring wells (contaminant chemistry), the piezometers (water levels), and the leachate-containment infrastructure.</div>
+            <label class="layer-toggle" id="toggle-lcWells"><input type="checkbox" class="toggle-check" data-layer="lcWells"><span class="toggle-swatch" style="background:#b81d24; border:2px solid #cfcfcf; border-radius:50%;"></span><span class="toggle-label">Monitoring wells — chemistry</span><span class="toggle-count" data-stat="lc_wells" data-suffix="">…</span></label>
+            <label class="layer-toggle" id="toggle-lcPiezo"><input type="checkbox" class="toggle-check" data-layer="lcPiezo"><span class="toggle-swatch" style="background:#2f6fd0; border:2px solid #bfe0ff; border-radius:50%;"></span><span class="toggle-label">Piezometers — water levels</span><span class="toggle-count" data-stat="lc_piezometers" data-suffix="">…</span></label>
+            <label class="layer-toggle" id="toggle-lcPumps"><input type="checkbox" class="toggle-check" data-layer="lcPumps"><span class="toggle-swatch" style="background:#e0b93a; border:2px solid #111; border-radius:2px;"></span><span class="toggle-label">Pump chambers &amp; leachate tanks</span><span class="toggle-count" data-stat="lc_pumps" data-suffix="">…</span></label>
+            <div class="chem-note">Wells carry <b>contaminant chemistry</b> (click one for its concentration-vs-year plot). Piezometers measure <b>groundwater levels</b> (2015–2022). Pumps &amp; tanks are the containment collection infrastructure.</div>
           </div>
         </div>
       </div>
@@ -326,17 +326,17 @@
     </div><!-- /tab-panel: wells -->
 
     <div id="sidebar-footer">
-      <a class="footer-link" href="../Niagara_Site_Narratives_updated.html" target="_blank">Site Narratives â†—</a>
-      <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters" target="_blank">GitHub & Methods â†—</a>
-      <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters/issues/new" target="_blank" rel="noopener" title="Found something wrong? Corrections are welcome.">Report an error â†—</a>
-      <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters/blob/main/AI_DISCLOSURE.md" target="_blank" rel="noopener" title="How AI was used, and human responsibility">AI disclosure â†—</a>
-      <a class="footer-link" href="data/hazard_sites.geojson" download>Download GeoJSON â†—</a>
+      <a class="footer-link" href="../Niagara_Site_Narratives_updated.html" target="_blank">Site Narratives ↗</a>
+      <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters" target="_blank">GitHub & Methods ↗</a>
+      <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters/issues/new" target="_blank" rel="noopener" title="Found something wrong? Corrections are welcome.">Report an error ↗</a>
+      <a class="footer-link" href="https://github.com/C-McShane/Thundering-Waters/blob/main/AI_DISCLOSURE.md" target="_blank" rel="noopener" title="How AI was used, and human responsibility">AI disclosure ↗</a>
+      <a class="footer-link" href="data/hazard_sites.geojson" download>Download GeoJSON ↗</a>
       <div class="share-row">
         <span class="share-lbl">Share</span>
         <button class="share-btn" data-share="copy" title="Copy link to this map">Copy</button>
         <button class="share-btn" data-share="x" title="Share on X">X</button>
         <button class="share-btn" data-share="facebook" title="Share on Facebook">f</button>
-        <button class="share-btn" data-share="email" title="Share by email">âœ‰</button>
+        <button class="share-btn" data-share="email" title="Share by email">✉</button>
       </div>
     </div>
 

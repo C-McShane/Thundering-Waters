@@ -90,7 +90,8 @@ import rad_classify
 #       our own internal candidate list docs/New_sites_to_investigate.txt, and it was already
 #       flagged FLAG_NOT_FOUND in the master CSV when it was added on 2026-06-07. It carries no
 #       chemical or radiological data, so nothing downstream depends on it.
-#       See validation/VITULLO_SITE_FINDING.md.
+#       Published account: CORRECTIONS.md. (The fuller write-up under validation/ is NOT tracked
+#       in this repository, so nothing user-facing should link to it.)
 # REVISIT (Caitlin, 2026-07-30): withheld from the MAP only — the record is deliberately KEPT in
 # csv/Niagara_Hazard_Sites_MASTER.csv and in the GeoPackage so the lead is not lost. Absence from
 # the agency registries is not proof the property does not exist, and no non-agency avenue has
@@ -98,10 +99,10 @@ import rad_classify
 # historical aerials, newspaper archives). If any evidence of existence turns up, remove the entry
 # below and the site republishes. Withheld now because it renders as "Unnamed Site /
 # Information Not Available" with no supporting data, not because it is disproven.
-EXCLUDED_FROM_MAP = {
+WITHHELD_FROM_MAP = {
     'UNKNOWN-VITULLO-NF',
 }
-n_excluded = 0
+n_withheld = 0
 
 cur.execute('''SELECT geom, site_name, designation, program_type, program_category,
                area_acres_best, chemicals, narrative, website, address, city, zip,
@@ -112,8 +113,8 @@ features = []
 for r in rows:
     g = geom_to_geojson(r[0], 4326)
     prog = safe(r[16])
-    if (prog or '').strip() in EXCLUDED_FROM_MAP:
-        n_excluded += 1
+    if (prog or '').strip() in WITHHELD_FROM_MAP:
+        n_withheld += 1
         continue
     narr = r[7] or ''
     chem_txt = r[6] or ''
@@ -168,9 +169,12 @@ _rcls = _collections.Counter(ft['properties']['rad_class'] for ft in features if
 print(f'  {len(features)} sites written ({n_chem} chemical-tagged, {n_rad} radioactive)')
 print(f'    radioactive by source: {dict(_rsrc)}')
 print(f'    radioactive by class:  {dict(_rcls)}')
-if n_excluded:
-    print(f'  {n_excluded} site(s) withheld from the map by EXCLUDED_FROM_MAP '
-          f'(unverifiable — see validation/VITULLO_SITE_FINDING.md)')
+if n_withheld:
+    # "not yet substantiated", not "unverifiable" -- the record is withheld pending evidence,
+    # not disproven. CORRECTIONS.md is the published account; the internal write-up under
+    # validation/ is NOT tracked in the repo, so do not point readers at it.
+    print(f'  {n_withheld} site(s) withheld from the map by WITHHELD_FROM_MAP '
+          f'(not yet substantiated — see CORRECTIONS.md)')
 
 # ── 2. CENSUS TRACTS ───────────────────────────────────────────────────────────
 print('Exporting census tracts...')

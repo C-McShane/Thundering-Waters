@@ -3,7 +3,7 @@ Auto-detects pages with a 'Sample Location:' header, position-bins values to wel
 classifies detects (U/UJ/R = non-detect; numeric or J = detect), captures sample years.
 """
 import pdfplumber, re
-UNITS={"�g/L","µg/L","ug/L","mg/L","pCi/L","ug/l","�g/kg","mg/kg","ng/L"}
+UNITS={"µg/L","ug/L","mg/L","pCi/L","ug/l","µg/kg","mg/kg","ng/L"}
 # tokens on a Sample Location: row that are NOT wells (regulatory-standard columns etc.)
 NONWELL={"standard","guidance","class","ga","gb","criteria","units","limit","limits","standards",
          "value","mcl","twa","ngwqs","tsc","tscs","tal","tcl","and","or","the","na"}
