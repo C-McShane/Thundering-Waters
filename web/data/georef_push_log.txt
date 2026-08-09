@@ -1,0 +1,23 @@
+georef push 20260808T201351
+locations 1511 -> 1511
+boundaries 49 -> 49 rings
+operable_unit renamed to contaminated: 61 vertices
+
+1001-Buffalo-Avenue__C932182: locations=1001-Buffalo-Avenue__C932182_locations.csv boundaries=1001-Buffalo-Avenue__C932182_boundaries.csv superseded=[]
+211-Main-Street__C932171: locations=211-Main-Street__C932171_locations (1).corrected.csv boundaries=211-Main-Street__C932171_boundaries.csv superseded=['211-Main-Street__C932171_locations (1).csv']
+401-402-430-Buffalo-Avenue-Site__C932164: locations=401-402-430-Buffalo-Avenue-Site__C932164_locations.csv boundaries=401-402-430-Buffalo-Avenue-Site__C932164_boundaries.csv superseded=[]
+600-River-Road-Apartments__C932161: locations=600-River-Road-Apartments__C932161_locations.corrected.csv boundaries=600-River-Road-Apartments__C932161_boundaries.csv superseded=['600-River-Road-Apartments__C932161_locations.csv']
+624-River-Road__C932176: locations=624-River-Road__C932176_locations.csv boundaries=624-River-Road__C932176_boundaries.csv superseded=[]
+756-790-Center-Street-Site__C932168: locations=756-790-Center-Street-Site__C932168_locations.csv boundaries=756-790-Center-Street-Site__C932168_boundaries.csv superseded=[]
+914-Tactical-Airlift-Group__932106: locations=914-Tactical-Airlift-Group__932106_locations.csv boundaries=914-Tactical-Airlift-Group__932106_boundaries.csv superseded=[]
+97th-St-Methodist-Church__932084A: locations=97th-St-Methodist-Church__932084A_locations.csv boundaries=97th-St-Methodist-Church__932084A_boundaries.csv superseded=[]
+Carborundum-Company-Globar-Plant__932036: locations=Carborundum-Company-Globar-Plant__932036_locations.csv boundaries=Carborundum-Company-Globar-Plant__932036_boundaries.csv superseded=[]
+Covanta-Niagara-Rail-to-Truck-Intermodal-Facility__C932160: locations=Covanta-Niagara-Rail-to-Truck-Intermodal-Facility__C932160_locations.csv boundaries=Covanta-Niagara-Rail-to-Truck-Intermodal-Facility__C932160_boundaries.csv superseded=[]
+Frontier-Chemical-Royal-Avenue__932110: locations=Frontier-Chemical-Royal-Avenue__932110_locations.csv boundaries=Frontier-Chemical-Royal-Avenue__932110_boundaries.csv superseded=[]
+Lake-Ontario-Ordnance-Works-LOOW-Main-Site__FUSRAP-LOOW: locations=Lake-Ontario-Ordnance-Works-LOOW-Main-Site__FUSRAP-LOOW_locations.csv boundaries=Lake-Ontario-Ordnance-Works-LOOW-Main-Site__FUSRAP-LOOW_boundaries.csv superseded=['Lake-Ontario-Ordnance-Works-LOOW-Main-Site__FUSRAP-LOOW_boundaries.BEFORE-TIP-FIX.csv']
+Niagara-Falls-Storage-Site__932023: locations=Niagara-Falls-Storage-Site__932023_locations.csv boundaries=Niagara-Falls-Storage-Site__932023_boundaries.csv superseded=[]
+SKW-Newco-Inc__932001C: locations=SKW-Newco-Inc__932001C_locations.csv boundaries=SKW-Newco-Inc__932001C_boundaries.csv superseded=[]
+Seaway-Industrial-Park-FUSRAP__FUSRAP-SEAWAY: locations=None boundaries=Seaway-Industrial-Park-FUSRAP__FUSRAP-SEAWAY_boundaries.csv superseded=[]
+Stauffer-Chemical-Plant-PASNY-Site__932053: locations=Stauffer-Chemical-Plant-PASNY-Site__932053_locations (1).csv boundaries=Stauffer-Chemical-Plant-PASNY-Site__932053_boundaries (1).csv superseded=[]
+Vanadium-Corporation-of-America__932001: locations=Vanadium-Corporation-of-America__932001_locations.csv boundaries=Vanadium-Corporation-of-America__932001_boundaries.csv superseded=[]
+former_mill2: locations=former_mill2_locations.csv boundaries=former_mill2_boundaries.csv superseded=[]

@@ -1385,26 +1385,44 @@ function renderGeoref(pts, bnds) {
   // administrative outlines read as one family; measured/observed areas each get their own
   const RING_COLOR = {
     site_boundary: '#61afef', parcel_boundary: '#61afef', bcp_boundary: '#61afef',
-    operable_unit: '#c678dd',       // violet - an operable unit is an administrative
-                                    // SUBDIVISION of a site, not its outline, so it must not
-                                    // read as the same kind of thing as the boundary around it
+    // CONTAMINATED replaces the old operable_unit category. These are the Frontier
+    // "SOURCE AREA SOIL" polygons with depth ranges: measured contamination extents, not an
+    // administrative subdivision. Magenta, deliberately unlike the salmon of excavation_area
+    // and the violet the operable-unit category used to carry, and drawn heavier because it
+    // is the most consequential thing on the map.
+    contaminated: '#e0447c',
+    operable_unit: '#c678dd',       // kept only so any legacy record still renders
     gamma_activity_area: '#e5b23a',   // elevated gamma - measured, not administrative
     excavation_area: '#e06c75',       // marked for removal
     sample_area: '#56b6c2', other: '#9aa5b1',
   };
+  // A ring's TAG is its type, except that a free-text `other` ring is tagged with its own
+  // name -- so "Hazard Area" and "Area B Landfill" become their own toggles instead of all
+  // collapsing into one grey "other". That was the agreed alternative to adding a new
+  // site-specific enum (and a full rebuild) every time a figure names an area.
+  const ringTag = p => (p.boundary_type === 'other' && p.boundary_name &&
+                        p.boundary_name !== 'other') ? p.boundary_name : p.boundary_type;
+  const tagColor = p => RING_COLOR[p.boundary_type] || '#9aa5b1';
+
+  const ringGroups = {};            // tag -> L.featureGroup
   bnds.forEach(f => {
     const p = f.properties;
-    const col = RING_COLOR[p.boundary_type] || '#9aa5b1';
+    const col = tagColor(p);
     const admin = col === '#61afef';
+    const hot = p.boundary_type === 'contaminated';
+    const tag = ringTag(p);
+    if (!ringGroups[tag]) ringGroups[tag] = L.featureGroup();
     L.polygon(f.geometry.coordinates[0].map(c => [c[1], c[0]]), {
-      color: col, weight: admin ? 2 : 2.5, fillColor: col,
-      fillOpacity: admin ? .10 : .22, dashArray: admin ? '5,4' : null,
+      color: col, weight: hot ? 3 : (admin ? 2 : 2.5), fillColor: col,
+      fillOpacity: hot ? .30 : (admin ? .10 : .22), dashArray: admin ? '5,4' : null,
     }).bindPopup(
       `<b>${p.boundary_name}</b><br>${p.boundary_type} · ${p.n_vertices} vertices` +
       `<br><span style="opacity:.75">${p.site}</span>` +
       `<br>fit RMS ${fmt(p.fit_rms_m)} m · LOO ${fmt(p.loo_median_m)} m · p${p.source_page}`
-    ).addTo(layers.georefBounds);
+    ).addTo(ringGroups[tag]);
   });
+  // the parent toggle still shows everything; the per-tag toggles below it filter
+  Object.values(ringGroups).forEach(g => g.addTo(layers.georefBounds));
   pts.forEach(f => {
     const p = f.properties, c = f.geometry.coordinates;
     L.circleMarker([c[1], c[0]], {
@@ -1432,8 +1450,12 @@ function renderGeoref(pts, bnds) {
   // Same data, three routes to it: boundaries under Area layers on the hazard tab, all
   // locations under Monitoring Wells, and each site on its own in both Site Specific and the
   // radiation panel. Someone starting from any tab can reach it.
+  // C932150 (Former Mill No. 2) carries 7 documented radioactive slag zones -- uranium,
+  // thorium and radium at >10,000 cpm -- already held in the gpkg layer
+  // Niagara_Mill2_Radioactive_Soil_Zones. That is evidence, not inference. Vanadium 932001
+  // stays OUT: it is a ferroalloy works, not FUSRAP, and its name invites exactly that mistake.
   const RAD_CODES = ['932023', 'FUSRAP-SEAWAY', 'FUSRAP-LOOW',
-                     'C932171', 'C932164', 'C932160'];
+                     'C932171', 'C932164', 'C932160', 'C932150'];
   const siteCode = s => (String(s).split('__').pop() || '');
   const prettySite = s => String(s).split('__')[0].replace(/-/g, ' ').trim();
 
@@ -1497,15 +1519,39 @@ function renderGeoref(pts, bnds) {
   if (eb) eb.textContent = bnds.length + ' areas';
   // legend lists only the types actually present, so it never promises a category
   // this dataset does not contain
+  // The legend is now a TOGGLE LIST, and the entries are generated from the tags actually
+  // present in the data rather than a hardcoded set -- free-text `other` names arrive without
+  // any code change, which is the whole point of naming them in the tool.
   const lg = document.getElementById('georef-legend');
   if (lg) {
-    const present = [...new Set(bnds.map(f => f.properties.boundary_type))].sort();
-    lg.innerHTML = present.map(t => {
-      const n = bnds.filter(f => f.properties.boundary_type === t).length;
-      return `<span style="display:inline-block;width:9px;height:9px;`
-           + `background:${RING_COLOR[t] || '#9aa5b1'};margin-right:6px;`
-           + `border-radius:2px"></span>${t} <span style="opacity:.6">${n}</span>`;
-    }).join('<br>');
+    const tags = Object.keys(ringGroups).sort((a, b) => {
+      const rank = t => (t === 'site_boundary' ? 0 : t === 'contaminated' ? 1 : 2);
+      return rank(a) - rank(b) || a.localeCompare(b);
+    });
+    lg.innerHTML =
+      '<div style="opacity:.7;margin:4px 0 5px">Show which outlines:</div>' +
+      tags.map((t, i) => {
+        const g = ringGroups[t];
+        const n = g.getLayers().length;
+        const anyf = bnds.find(f => ringTag(f.properties) === t);
+        const col = anyf ? (RING_COLOR[anyf.properties.boundary_type] || '#9aa5b1') : '#9aa5b1';
+        const pretty = t.replace(/_/g, ' ');
+        return `<label class="ring-toggle" id="ring-${i}" style="display:flex;`
+             + `align-items:center;gap:7px;cursor:pointer;padding:1px 0">`
+             + `<input type="checkbox" checked style="margin:0">`
+             + `<span style="display:inline-block;width:11px;height:11px;background:${col};`
+             + `border-radius:2px;flex:none"></span>`
+             + `<span style="flex:1">${pretty}</span>`
+             + `<span style="opacity:.6">${n}</span></label>`;
+      }).join('');
+    tags.forEach((t, i) => {
+      const cb = document.querySelector('#ring-' + i + ' input');
+      if (!cb) return;
+      cb.addEventListener('change', () => {
+        if (cb.checked) layers.georefBounds.addLayer(ringGroups[t]);
+        else layers.georefBounds.removeLayer(ringGroups[t]);
+      });
+    });
   }
 }
 
