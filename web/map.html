@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=30">
+<link rel="stylesheet" href="styles.css?v=31">
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
 </head>
@@ -296,7 +296,7 @@
     <div class="acc">
       <div class="acc-head"><span class="acc-title">Site Specific</span><button class="acc-info" title="Per-site views">&#9432;</button><span class="acc-arrow">&#9662;</span></div>
       <div class="acc-body">
-          <div class="acc-help">Each finished site's georeferenced sampling locations and traced boundaries, on their own.</div>
+          <div class="acc-help">Each finished site's georeferenced sampling locations and traced boundaries, on their own.</div><div class="acc-help">These sampling points are read off scanned report figures, <b>not surveyed</b>. Median leave-one-out error is about 9&nbsp;m; a quarter of points are worse than 20&nbsp;m. Each point carries its own error estimate in its popup. <a href="../GEOREFERENCING_PRECISION.md" target="_blank" rel="noopener">What these points are and are not</a>.</div>
           <div id="georef-persite-wells"></div>
 
         <div class="acc-help">Per-site views for sites that report data outside the standard chemical dropdown. Each site is its own drop-down; more will be added here.</div>
@@ -350,6 +350,6 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="app.js?v=30"></script>
+<script src="app.js?v=31"></script>
 </body>
 </html>

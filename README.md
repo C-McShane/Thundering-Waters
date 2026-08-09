@@ -147,6 +147,10 @@ earlier assumption that the letter block in the 2015 tables encoded the medium �
 > source of truth, never the prose.
 
 ### Documentation
+
+- **[GEOREFERENCING_PRECISION.md](GEOREFERENCING_PRECISION.md)** — what the georeferenced sampling points are and are not. They are read off scanned figures, not surveyed. Median leave-one-out error is about 9 m, a quarter of points are worse than 20 m, and one site is far worse. Read this before relying on any individual position.
+- **[methods/GEOREF_DECISIONS.md](methods/GEOREF_DECISIONS.md)** — the georeferencing method and the errors found in it, including ones found after publication.
+- **[methods/push_georef.py](methods/push_georef.py)** — how the exports become the published layers.
 | File | What it covers |
 |---|---|
 | [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md) | AI assistance and human responsibility |
