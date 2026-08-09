@@ -5,6 +5,30 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+- **Georeferenced sampling locations and area outlines for four more sites** — Carborundum Globar
+  Plant, Frontier Chemical Royal Avenue, SKW-Newco and Stauffer Chemical (PASNY). Locations
+  1,237 → **1,511**; area rings 38 → **59**.
+- **Per-outline toggles.** The boundary legend is now a toggle list generated from the ring types
+  actually present, so a free-text area named in the tracing tool ("Hazard Area", "Area B
+  Landfill", "Area T-4") appears as its own control with no code change.
+- **Georef layers in the GeoPackage.** `Niagara_Georef_Sampling_Locations` and
+  `Niagara_Georef_Boundaries`. Until now this work existed only as GeoJSON, so the map showed
+  1,511 points the downloadable geopackage did not contain. Three self-intersecting rings are
+  flagged in a `geometry_valid` column rather than silently repaired.
+- **Former Mill No. 2 added to the radiation tab**, on the basis of the seven radioactive slag
+  zones (uranium, thorium, radium above 10,000 cpm) already carried in the geopackage.
+
+### Changed
+- **"Operable unit" outlines are now "contaminated" areas.** These are the source-area soil
+  polygons with depth ranges, which describe contamination extent rather than an administrative
+  subdivision of a site. They carry their own colour and are drawn more heavily.
+
+### Fixed
+- Boundary rings that shared a name were merged into a single scrambled polygon. See
+  `CORRECTIONS.md`.
+
+
 ### Removed
 - **Scope clarification.** Removed exploratory Love Canal analyses and the preliminary ecological
   cancer regression from the active repository. These analyses were incomplete, had not undergone
