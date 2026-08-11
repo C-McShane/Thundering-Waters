@@ -231,7 +231,7 @@ def match(features=None, build_sites=None):
             out[i] = (None, 'none', None)
             continue
 
-        cands.sort(reverse=True)
+        cands.sort(key=lambda c: (c[0], c[1]), reverse=True)
         overlap, _, b, d = cands[0]
         if overlap:
             out[i] = (b, 'geo' if d <= GEO_TIGHT_M else 'geo+name', d)

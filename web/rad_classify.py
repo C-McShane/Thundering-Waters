@@ -76,6 +76,29 @@ CLASS_OTHER = 'OTHER'
 # NYSDEC, cited in the site's own record — NOT an inference of ours. Keyed by program number,
 # with a name fallback for the sites that never received one.
 #   value: (rad_class, [isotopes], basis)
+
+# 3125 Highland Avenue / Tulip Molded Plastics. Held in a variable because the P-site (932169)
+# and the BCP site (C932169) are the SAME PROPERTY under two program numbers, 24 m apart on the
+# map — tagging one and not the other would put a radioactive pin beside a clean one.
+_RAD_TULIP = ('TENORM', [],
+              'TENORM — GAMMA SCREENING, NOT YET CONFIRMED BY LABORATORY. NYSDEC-approved '
+              'Remedial Investigation Work Plan (Mar 2026) required a screening survey under '
+              'DMM-5, "Management of Soils Contaminated with Technically Enhanced Naturally '
+              'Occurring Radioactive Materials". MJW GPS gamma walkover (Ludlum 3000 / 44-10 '
+              'NaI), 30 April - 1 May 2026, Phase 1 outdoor areas only: 12,136 data points '
+              'against a 2,362-point Hyde Park background mean of 7,732 CPM. 69 points exceeded '
+              'the 1.5x criterion (11,598 CPM). The primary cluster of 52 points, immediately '
+              'north of the former coal storage silo, ran 11,600-29,500 CPM (~1.5x-3.8x '
+              'background) with 14 points above 3x. MJW conclusion: the scans "indicated the '
+              'presence of elevated material on-site and potential TENORM material", and '
+              '"additional screening and sampling is required to accurately characterize the '
+              'material". Soil sampling for Ra-226 was PENDING at the report date and Phase 2 '
+              '(inside the structures) awaits demolition. The same ground carries the 2010 '
+              'Phase I ESA recognised environmental condition "Former Coal Storage Pile and '
+              'Unknown Historical Disposal of Fly Ash" and the pre-remediation lead maximum of '
+              '90,100 mg/kg. Source: Gamma Walkover Survey Report, MJW Doc. 26.1015.5, '
+              '26 May 2026, pp2-4.')
+
 AGENCY_BY_CODE = {
     '932023':             ('FUSRAP', ['U', 'Th', 'Ra'], 'USACE FUSRAP — Niagara Falls Storage Site.'),
     'FUSRAP-SEAWAY':      ('FUSRAP', ['U', 'Th', 'Ra'],
@@ -97,6 +120,19 @@ AGENCY_BY_CODE = {
     '932136':             ('TENORM', [], ''),
     'C932159':            ('TENORM', [], ''),
     'C932160':            ('TENORM', [], ''),
+
+    # 3125 Highland Avenue / Tulip Molded Plastics, added 2026-08-11. ⚠ SCREENING ONLY — this is
+    # the weakest basis in this table and the wording says so, because no laboratory result
+    # exists yet. It is here rather than omitted because the survey was performed under the
+    # NYSDEC-approved RI Work Plan expressly to the DMM-5 TENORM policy, and because BOTH
+    # immediate neighbours (Tract I C932157 and Tract II 932136) are already TENORM-classified —
+    # leaving the parcel between them untagged asserts an absence the record does not support.
+    # ⛔ ISOTOPES DELIBERATELY EMPTY. Ra-226 is the PLANNED analyte (EPA 901.1m, 21-day
+    # ingrowth), not a result — the same distinction drawn for C932164 above, where analytes
+    # named in a work plan were excluded from the isotope list.
+    '932169':             _RAD_TULIP,
+    'C932169':            _RAD_TULIP,
+
     # Frontier Chemical Royal Avenue. Its 2014 Final Engineering Report devotes section 5.10 to
     # radiological material and Table 5.10 is headed "TENORM Waste Characterization"; 608 cubic
     # yards of TENORM remain on site under the cover, enveloped in orange filter fabric, managed

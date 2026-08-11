@@ -7,15 +7,26 @@ hard-code a count; they read from statistics.json (or are checked against it).
 
     python web/build_statistics.py
 """
-import json, os, datetime
+import json, os, datetime, sqlite3
 
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # repo root
 D = 'web/data'
+# The GeoPackage sits under spatial/ in the working tree and spatial_layers/ in the deploy clone.
+GPKG = next((p for p in ('spatial/Niagara_County_HazWaste.gpkg',
+                         'spatial_layers/Niagara_County_HazWaste.gpkg') if os.path.isfile(p)), None)
 
 
 def feats(fn):
     with open(os.path.join(D, fn), encoding='utf-8') as fh:
         return json.load(fh)['features']
+
+
+def maybe(fn):
+    """Layers that may not exist in every checkout — return None rather than failing."""
+    try:
+        return feats(fn)
+    except (OSError, ValueError, KeyError):
+        return None
 
 
 hazard = feats('hazard_sites.geojson')
@@ -85,6 +96,46 @@ recency = {
     'band_pre_2000':     sum(1 for y in _dated if y < 2000),
 }
 
+# Georeferenced layers. These had NO generated source until 2026-08-09, which is exactly the gap
+# the newest counts drifted through: map.html reads them via id="georef-count"/"georef-bcount"
+# instead of the data-stat mechanism every other count uses. ⚠ push_georef.py writes STRAIGHT to
+# the _deploy copy, so a working tree that has not been synced reports stale numbers here.
+georef_pts = maybe('georef_locations.geojson')
+georef_bnd = maybe('georef_boundaries.geojson')
+
+
+def _site_of(f):
+    p = f['properties']
+    return p.get('site') or p.get('site_id') or p.get('program_number')
+
+
+# Sites inside the Niagara Falls impact zone. A README headline claim ("158 sites ... affecting
+# approximately 47,000 residents") that was hand-typed and therefore drifted with every change to
+# the site list. impact_zone.geojson is the dissolved perimeter, so this is a point-in-polygon.
+sites_in_zone = None
+try:
+    from shapely.geometry import shape, Point
+    _zone = shape(feats('impact_zone.geojson')[0]['geometry'])
+    sites_in_zone = sum(
+        1 for f in hazard
+        if f.get('geometry') and _zone.contains(Point(f['geometry']['coordinates'][:2])))
+except Exception:
+    pass
+
+# GeoPackage layer inventory — the README quotes a layer count, so it needs a generated source.
+gpkg_layers, gpkg_rows = None, None
+if GPKG:
+    _con = sqlite3.connect(f'file:{GPKG}?mode=ro', uri=True)
+    _names = [r[0] for r in _con.execute('SELECT table_name FROM gpkg_contents ORDER BY 1')]
+    gpkg_layers = len(_names)
+    gpkg_rows = {}
+    for _t in _names:
+        try:
+            gpkg_rows[_t] = _con.execute(f'SELECT COUNT(*) FROM "{_t}"').fetchone()[0]
+        except sqlite3.Error:
+            gpkg_rows[_t] = None
+    _con.close()
+
 counts = {
     'hazard_sites':                len(hazard),
     'hazard_sites_with_chemicals': len(with_curated),      # curated `chems` — matches the filter
@@ -104,7 +155,18 @@ counts = {
     'lc_piezometers':              len(piezo),
     'lc_pumps':                    len(pumps),
     'rad_zones':                   len(radzones),
+    'hazard_sites_radioactive':    sum(1 for f in hazard if f['properties'].get('rad_class')),
 }
+if georef_pts is not None:
+    counts['georef_locations'] = len(georef_pts)
+    counts['georef_sites'] = len({_site_of(f) for f in georef_pts if _site_of(f)})
+if georef_bnd is not None:
+    counts['georef_boundary_rings'] = len(georef_bnd)
+    counts['georef_boundary_sites'] = len({_site_of(f) for f in georef_bnd if _site_of(f)})
+if gpkg_layers is not None:
+    counts['gpkg_layers'] = gpkg_layers
+if sites_in_zone is not None:
+    counts['hazard_sites_in_impact_zone'] = sites_in_zone
 # every point the ID search can resolve
 counts['search_index_total'] = (counts['hazard_sites'] + counts['wells_total']
                                 + counts['rad_zones'] + counts['lc_piezometers'] + counts['lc_pumps'])
@@ -116,6 +178,7 @@ out = {
     'recency': recency,
     'cancer': cancer_stats,
     'distinct_curated_chemicals': distinct_chems,
+    'gpkg_layer_rows': gpkg_rows,
 }
 with open(os.path.join(D, 'statistics.json'), 'w', encoding='utf-8') as fh:
     json.dump(out, fh, ensure_ascii=False, indent=1)
