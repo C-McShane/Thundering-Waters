@@ -18,16 +18,16 @@
 
 ## About This Repository
 
-This repository contains the spatial dataset, interactive web map, and site narrative documentation underlying the environmental analysis in *Thundering Waters*. It documents **<!--stat:hazard_sites-->248<!--/stat--> hazardous waste sites** across Niagara County, New York — one of the most contaminated regions in the United States — compiled from federal and state regulatory databases and cross-referenced with geographic boundary data and cancer incidence records.
+This repository contains the spatial dataset, interactive web map, and site narrative documentation underlying the environmental analysis in *Thundering Waters*. It documents **<!--stat:hazard_sites-->249<!--/stat--> hazardous waste sites** across Niagara County, New York — one of the most contaminated regions in the United States — compiled from federal and state regulatory databases and cross-referenced with geographic boundary data and cancer incidence records.
 
 > Every count in this README is generated from [`web/data/statistics.json`](web/data/statistics.json) by `web/build_statistics.py`, and verified by `python web/update_readme_counts.py --check`. Do not edit the figures by hand.
 
 The data supports the book's core findings:
 
-- **<!--stat:hazard_sites-->248<!--/stat--> documented hazardous waste sites** across Niagara County
+- **<!--stat:hazard_sites-->249<!--/stat--> documented hazardous waste sites** across Niagara County
 - **~5% of the county's total land area** is contaminated by recorded waste site footprints
 - In the Niagara Falls impact zone, **1 in every 5 acres** is contaminated
-- **<!--stat:hazard_sites_in_impact_zone-->147<!--/stat--> sites** fall within the Niagara Falls area impact zone, affecting approximately 47,000 residents
+- **<!--stat:hazard_sites_in_impact_zone-->148<!--/stat--> sites** fall within the Niagara Falls area impact zone, affecting approximately 47,000 residents
 - **<!--stat:cancer.Lung.highlighted_regions-->112<!--/stat--> of <!--stat:cancer_doh_regions-->161<!--/stat--> NYSDOH reporting regions (70%)** fall within a *highlighted area* for lung cancer — areas NYSDOH identified using a spatial scan statistic as having at least 50% more cases than expected, at a level unlikely to be chance (NYSDOH, 2011–2015). This is a **cluster-level** determination, not a significance test of any single block group.
 - **<!--stat:cancer.Bladder.highlighted_regions-->103<!--/stat--> of <!--stat:cancer_doh_regions-->161<!--/stat--> regions (64%)** fall within a highlighted area for bladder cancer
 - County-wide mesothelioma rates are **more than double the New York State average**
@@ -48,7 +48,7 @@ The data supports the book's core findings:
 └── web/
     ├── map.html                            — Interactive Leaflet web map
     └── data/
-        ├── hazard_sites.geojson            — <!--stat:hazard_sites-->248<!--/stat--> hazardous waste site points
+        ├── hazard_sites.geojson            — <!--stat:hazard_sites-->249<!--/stat--> hazardous waste site points
         ├── census_tracts.geojson           — <!--stat:census_tracts-->66<!--/stat--> Niagara County census tracts with contamination metrics
         ├── impact_zone.geojson             — 26 Niagara Falls area impact zone tracts
         ├── georef_locations.geojson        — <!--stat:georef_locations-->1,511<!--/stat--> sampling locations georeferenced from report figures, across <!--stat:georef_sites-->17<!--/stat--> sites
@@ -88,7 +88,7 @@ The data supports the book's core findings:
 | `nysdec_site_boundaries` | <!--stat:gpkg_layer_rows.nysdec_site_boundaries-->148<!--/stat--> NYSDEC remediation site boundary polygons |
 | + the remaining reference layers | Roads, railways, hydrology, crime, census health data |
 
-> **The GeoPackage row count is not the map count.** The hazard-sites layer holds <!--stat:gpkg_layer_rows.Niagara_County_Hazard_Sites-->249<!--/stat--> rows while the published map shows <!--stat:hazard_sites-->248<!--/stat-->: one site is deliberately withheld from the map and retained in the data. See [`CORRECTIONS.md`](CORRECTIONS.md).
+> **The GeoPackage row count and the map count now agree.** The hazard-sites layer holds <!--stat:gpkg_layer_rows.Niagara_County_Hazard_Sites-->249<!--/stat--> rows and the published map shows <!--stat:hazard_sites-->249<!--/stat-->. They differed until 2026-08-09, when the single withheld site — 3640 Packard Road — was corroborated in an agency-commissioned document and republished. See [`CORRECTIONS.md`](CORRECTIONS.md).
 
 ### Key Fields — Hazard Sites Layer
 
