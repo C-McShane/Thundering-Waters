@@ -29,7 +29,7 @@
      gold in practice -- during chapter 4 those layers are at 0.05 -- and the gold is deliberately
      desaturated where this is not. */
   --fill4:#FFDE3D;       /* chapter 4, ground people are on */
-  --v5:#4DFF33;          /* chapter 5, litigation -- slime green, used nowhere else */
+  --v6:#4DFF33;          /* chapter 6, litigation -- slime green, used nowhere else */
   /* ⭐ RELEASES ARE NOT LITIGATION AND MUST NOT SHARE ITS COLOUR. A lawsuit is a company being
      called to account; a release is material in the ground. Dark ominous red, with a brighter
      rim so it still reads on a near-black map. */
@@ -43,17 +43,17 @@
      the separation the hue was chosen for; transparency keeps it electric and still lets it sit
      behind the rings and tanks. */
   --rem:#29B6FF; --rem-hi:#8FE3FF; --rem-fill:#0A2536;
-  /* ⭐ CHAPTER SIX. Caitlin: sewer lines "blood red with a light grey border", wells as the
+  /* ⭐ CHAPTER FIVE. Caitlin: sewer lines "blood red with a light grey border", wells as the
      dashboard droplets, "bright blue border with blood red interior". The grey casing is what
-     stops a blood-red line reading as chapter five's release red: a pipe drawn as a pipe, dark
+     stops a blood-red line reading as chapter six's release red: a pipe drawn as a pipe, dark
      core inside a pale sheath, rather than a bare stroke. */
-  /* ⭐ CHAPTER SIX. The contaminated runs are BOLD BRIGHT RED with no casing -- the grey
+  /* ⭐ CHAPTER FIVE. The contaminated runs are BOLD BRIGHT RED with no casing -- the grey
      sheath was making them read as muted pipe when they are the finding. The wells are tiny
      yellow-in-blue droplets: small enough that 42 of them do not crowd the county at full zoom,
      bright enough to find, and they grow as the reader comes in. */
   --sew:#FF1830; --sew-hot:#FF6070; --sew-spine:#FFD400;
   --drop-edge:#2B5CE6; --drop-fill:#FFE81A;   /* royal blue rim, brilliant yellow core */
-  --v5-dim:#2E9E1F;
+  --v6-dim:#2E9E1F;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
   --serif:"Iowan Old Style",Georgia,serif;
 }
@@ -132,7 +132,7 @@ p.sub{margin:8px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.04em
    dominant but we need to make sure the information pane on the desktop stays super readable."
    The panel is a FIXED 340px rather than a fraction, so it never squeezes below a comfortable
    line length however wide the window; every pixel beyond it goes to the map. */
-/* ⛔⛔ align-items:start, NOT stretch. Chapter 5's panel lists 66 case records and stood about
+/* ⛔⛔ align-items:start, NOT stretch. Chapter 6's panel lists 66 case records and stood about
    1,900 px tall; with `stretch` the map box grew to match it and the county ended up 900 px below
    the top of its own frame, off screen entirely. No earlier chapter put enough in the panel to
    expose this. The panel now scrolls inside a cap of its own instead of pushing the map around. */
@@ -140,7 +140,7 @@ p.sub{margin:8px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.04em
 /* ⭐ THE PANEL MATCHES THE MAP'S HEIGHT instead of stopping short of it. With
    align-items:start the card was its own content height -- 433px against a 550px map --
    so the two boxes ended on different lines and the column read as unfinished.
-   ⚠ THE MAX-HEIGHT IS WHAT MAKES stretch SAFE HERE. Chapter 5's panel content runs to
+   ⚠ THE MAX-HEIGHT IS WHAT MAKES stretch SAFE HERE. Chapter 6's panel content runs to
    ~1,900px, and an unbounded stretch would size the grid row to THAT and drag the map
    box down with it -- the exact bug align-items:start was introduced to fix. Capped, the
    card can never drive the row, so the row is the map's height and the card fills it. */
@@ -160,7 +160,7 @@ p.sub{margin:8px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.04em
   .stat em{display:none}
   .statnote{font-size:9px;line-height:1.5;margin-top:6px}
   #clock,#clock2,#clock3,#clock4,#clock5{gap:10px}
-  #yr,#yr2,#yr3,#yr4,#yr5{font-size:26px}
+  #yr,#yr2,#yr3,#yr4,#yr6{font-size:26px}
   #hint{font-size:10px}
   #mapbox,#mapbox2{border-radius:6px}
 
@@ -279,7 +279,7 @@ p.sub{margin:8px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.04em
 #act2 .lgnote{color:var(--ink-3);max-width:64ch}
 #act2 .lgnote .cv,aside .cv{color:var(--v2)}
 #act2 .lgnote .cx,aside .cx{color:var(--ext)}
-/* ⛔ HARD-CODED AT repeat(4,...) WHEN A CHAPTER HAS FIVE FIGURES. Chapter 5's cleanup count was
+/* ⛔ HARD-CODED AT repeat(4,...) WHEN A CHAPTER HAS FIVE FIGURES. Chapter 6's cleanup count was
    the fifth, so the row wrapped and the whole strip grew by ~72px -- which pushed the figures off
    the bottom of the screen and looked like the map being too big. It was not the map. Chapter 1's
    own `#stats` had used auto-fit all along; this one had not. Matching it means a chapter can add
@@ -331,38 +331,38 @@ p.sub{margin:8px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.04em
   #legendbox .lg{padding:4px 9px 4px 6px}
 }
 
-#act3{order:3} #act4{order:3} #act5{order:3}
-#act5 header p.blurb b{color:var(--v5)}
-#act5 .stats2 .stat b{color:var(--v5)}
+#act3{order:3} #act4{order:3} #act6{order:3}
+#act6 header p.blurb b{color:var(--v6)}
+#act6 .stats2 .stat b{color:var(--v6)}
 /* ⛔ THE SIXTH TRAP, PRE-EMPTED THIS TIME. A bare `.cr{color:var(--rem)}` is (0,1,0) and would
-   lose in silence to `#act5 header p.blurb b` (1,1,3) and `#act5 .stats2 .stat b` (1,2,1) --
+   lose in silence to `#act6 header p.blurb b` (1,1,3) and `#act6 .stats2 .stat b` (1,2,1) --
    exactly how `#m-hx` lost its gold. The cleanup figures must be MORE specific than the rules
    that paint every other figure in this chapter slime green, so they are written out in full. */
-#act5 header p.blurb b.cr{color:var(--rem)}
-#act5 .stats2 .stat b.cr{color:var(--rem)}
+#act6 header p.blurb b.cr{color:var(--rem)}
+#act6 .stats2 .stat b.cr{color:var(--rem)}
 /* ⚠ AND THE STATNOTE IS A THIRD CONTEXT, which is how two of these figures shipped in the wrong
    green for one build. `.cr` lives in three places -- the blurb, the figures, and this note --
-   and each has its own `b{color:var(--v5)}` rule sitting above it. `#card[data-ch="5"] .cr` does
-   not help here at all: the statnote is inside #act5, NOT inside the panel. Every context needs
+   and each has its own `b{color:var(--v6)}` rule sitting above it. `#card[data-ch="6"] .cr` does
+   not help here at all: the statnote is inside #act6, NOT inside the panel. Every context needs
    its own override, written out. */
-#act5 .statnote b.cr{color:var(--rem)}
-#act5 .chno{color:var(--v5-dim)}
-#act5 .statnote b{color:var(--v5)}
-#act5 #bar5 i{background:var(--v5)}
-#act5 .clockwrap{order:2} #act5 .stats2{order:4} #act5 .statnote{order:5} #act5 .srcwrap2{order:8}
-#card[data-ch="5"] .howto{border-left-color:var(--v5)}
-.chtab[data-ch="5"].on{border-color:var(--v5)}
-.chtab[data-ch="5"].on b{color:var(--v5)}
-#act5 aside h3{color:#B6FFA8}
+#act6 .statnote b.cr{color:var(--rem)}
+#act6 .chno{color:var(--v6-dim)}
+#act6 .statnote b{color:var(--v6)}
+#act6 #bar6 i{background:var(--v6)}
+#act6 .clockwrap{order:2} #act6 .stats2{order:4} #act6 .statnote{order:5} #act6 .srcwrap2{order:8}
+#card[data-ch="6"] .howto{border-left-color:var(--v6)}
+.chtab[data-ch="6"].on{border-color:var(--v6)}
+.chtab[data-ch="6"].on b{color:var(--v6)}
+#act6 aside h3{color:#B6FFA8}
 /* ⚠ the big quantity in the panel was still chapter 1's orange, so a release volume was printed
-   in a colour that belongs to a different chapter. In chapter 5 it takes the tank's red. */
-#card[data-ch="5"] .q{color:var(--tank)}
-#card[data-ch="5"] .cse span.held{color:var(--tank)}
+   in a colour that belongs to a different chapter. In chapter 6 it takes the tank's red. */
+#card[data-ch="6"] .q{color:var(--tank)}
+#card[data-ch="6"] .cse span.held{color:var(--tank)}
 /* ⭐ THE CLEANUP LAYER IS CONTEXT, SO IT IS QUIETER THAN EVERYTHING IT SITS UNDER. A muted
-   sea-green: unmistakably part of chapter five's palette, but it never competes with the hot
+   sea-green: unmistakably part of chapter six's palette, but it never competes with the hot
    slime of a company ring or the red of a release. There are 234 of them; at full saturation
    they would be the only thing on the map. */
-#card[data-ch="5"] .cr{color:var(--rem)}
+#card[data-ch="6"] .cr{color:var(--rem)}
 /* ⭐ A RED FILL INSIDE A BLUE EDGE, AND THE TWO CARRY DIFFERENT FACTS. The perimeter is the
    cleanup programme; the wash inside it is the tank red, because what is being cleaned up is the
    same material the tanks record escaping. Held well below the tanks' own opacity -- these are
@@ -371,7 +371,7 @@ p.sub{margin:8px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.04em
 .rmk{fill:var(--tank);fill-opacity:.2;stroke:var(--rem);stroke-width:1.1;stroke-opacity:.6;
   vector-effect:non-scaling-stroke}
 .rm{cursor:pointer}
-/* ---- chapter six: the sewers ---------------------------------------------------------- */
+/* ---- chapter five: the sewers ---------------------------------------------------------- */
 /* ⭐ TWO STROKES, ONE PIPE. The pale casing is drawn first and wider, the blood red over it, so
    the line reads as a buried pipe rather than as another chapter-five release colour. */
 /* ⭐ THE 2007 NETWORK, IN WHITE, UNDERNEATH EVERYTHING. Caitlin: "placed in bright white
@@ -476,7 +476,7 @@ p.sub{margin:8px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.04em
   stroke-dasharray:.1 5.9;vector-effect:non-scaling-stroke;pointer-events:none;
   animation:flowdash 1.2s linear infinite}
 @keyframes flowdash{to{stroke-dashoffset:-6px}}
-/* ⛔ NO CASING. It was there to stop the red reading as chapter five's release red, but it
+/* ⛔ NO CASING. It was there to stop the red reading as chapter six's release red, but it
    also made the finding look like background pipe. Separation now comes from WEIGHT and from the
    white network underneath, which nothing else on the map has. */
 .sw-case{display:none}
@@ -503,24 +503,24 @@ p.sub{margin:8px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.04em
 .drop{fill:var(--drop-fill);stroke:var(--drop-edge);stroke-width:1.1;
   vector-effect:non-scaling-stroke}
 .wl{cursor:pointer} .wl:hover .drop{stroke-width:2.2;fill:var(--sew-hot)}
-#act6 header p.blurb b{color:var(--sew-hot)}
-#act6 .stats2 .stat b{color:var(--sew-hot)}
-#act6 .chno{color:var(--sew)}
-#act6 .statnote b{color:var(--sew-hot)}
+#act5 header p.blurb b{color:var(--sew-hot)}
+#act5 .stats2 .stat b{color:var(--sew-hot)}
+#act5 .chno{color:var(--sew)}
+#act5 .statnote b{color:var(--sew-hot)}
 /* ⛔ THE BAR WAS IN THE MARKUP AND INVISIBLE. Every other chapter's bar is styled by an
-   id-specific rule; chapter six had a colour for its fill but no rule giving the track a size,
+   id-specific rule; chapter five had a colour for its fill but no rule giving the track a size,
    so there was nothing to fill. */
-#bar6{position:relative;flex:1;height:3px;background:#243040;border-radius:2px;overflow:hidden}
-#bar6 i{position:absolute;left:0;top:0;bottom:0;width:0;display:block;
+#bar5{position:relative;flex:1;height:3px;background:#243040;border-radius:2px;overflow:hidden}
+#bar5 i{position:absolute;left:0;top:0;bottom:0;width:0;display:block;
   background:var(--sew);transition:width .12s linear}
-#act6 #bar6 i{background:var(--sew)}
-#act6 .clockwrap{order:2} #act6 .stats2{order:4} #act6 .statnote{order:5}
-#act6{order:3}
-#card[data-ch="6"] .howto{border-left-color:var(--sew-hot)}
-#card[data-ch="6"] .q{color:var(--sew-hot)}
-.chtab[data-ch="6"].on{border-color:var(--sew-hot)}
-.chtab[data-ch="6"].on b{color:var(--sew-hot)}
-#act6 aside h3{color:#FFB3BA}
+#act5 #bar5 i{background:var(--sew)}
+#act5 .clockwrap{order:2} #act5 .stats2{order:4} #act5 .statnote{order:5}
+#act5{order:3}
+#card[data-ch="5"] .howto{border-left-color:var(--sew-hot)}
+#card[data-ch="5"] .q{color:var(--sew-hot)}
+.chtab[data-ch="5"].on{border-color:var(--sew-hot)}
+.chtab[data-ch="5"].on b{color:var(--sew-hot)}
+#act5 aside h3{color:#FFB3BA}
 .rm:hover .rmk{fill:var(--tank);fill-opacity:.5;stroke:var(--rem-hi);stroke-width:1.8;
   stroke-opacity:1}
 aside .cse{margin:0 0 9px;padding:7px 9px;border-left:2px solid var(--line);background:#141920;
@@ -529,22 +529,22 @@ aside .cse b{display:block;font-family:var(--serif);font-size:13px;line-height:1
   color:#B6FFA8;margin-bottom:3px}
 aside .cse span{display:block;font-family:var(--mono);font-size:9px;line-height:1.55;
   color:var(--ink-3)}
-aside .cse span.held{color:var(--v5)}
+aside .cse span.held{color:var(--v6)}
 aside .cse span.cl{color:var(--ink-2)}
 aside .cse span b{display:inline;font-family:var(--mono);font-size:9px;color:var(--ink-2);
   margin:0}
-#srctable5 td.n,#srctable5 td:first-child{color:var(--v5);font-weight:600}
+#srctable5 td.n,#srctable5 td:first-child{color:var(--v6);font-weight:600}
 /* a company in court: a disc sized by how often, with the count above it */
 .g5{cursor:pointer}
-.g5 circle.disc{fill:var(--v5);fill-opacity:.16;stroke:var(--v5);stroke-width:1.4;
+.g5 circle.disc{fill:var(--v6);fill-opacity:.16;stroke:var(--v6);stroke-width:1.4;
   vector-effect:non-scaling-stroke}
-.g5 circle.core{fill:var(--v5)}
+.g5 circle.core{fill:var(--v6)}
 .g5 text.cnt{fill:#0f1216;font-family:var(--mono);font-size:9px;font-weight:700;
-  text-anchor:middle;dominant-baseline:central;paint-order:stroke;stroke:var(--v5);
+  text-anchor:middle;dominant-baseline:central;paint-order:stroke;stroke:var(--v6);
   stroke-width:2.6px;pointer-events:none}
 /* ⛔ THE INVISIBLE HIT TARGET IS ONLY INVISIBLE IF SOMEBODY REMEMBERS TO SAY SO. `.grab` was
    declared three times, once per layer (`.g5 circle.grab`, `.tk .grab`, `.f4 .grab`), and an SVG
-   shape with no fill rule defaults to SOLID BLACK. Chapter 5's cleanup layer added a fourth
+   shape with no fill rule defaults to SOLID BLACK. Chapter 6's cleanup layer added a fourth
    `.grab` and got 234 opaque black 26px discs painted over the map -- the marks were drawn
    correctly underneath them the whole time. Declared ONCE, on the class itself, so the next
    layer cannot repeat it. */
@@ -656,11 +656,11 @@ aside .cse span b{display:inline;font-family:var(--mono);font-size:9px;color:var
 }
 @media(max-width:820px){.handoff{font-size:9.5px}}
 .chlayer.ghost{opacity:.12;pointer-events:none}
-/* ⭐ CHAPTER SIX SITS ON TOP OF A DENSE WHITE NETWORK, so the earlier chapters' echoes had to
+/* ⭐ CHAPTER FIVE SITS ON TOP OF A DENSE WHITE NETWORK, so the earlier chapters' echoes had to
    go quieter still or they read as noise in it -- but not to nothing, because the point of the
    echo is that these are the same places seen again. Barely visible is the target. */
-#l6:not(.ghost) ~ .chlayer.ghost,
-body:has(#act6.on) .chlayer.ghost{opacity:.055}
+#l5:not(.ghost) ~ .chlayer.ghost,
+body:has(#act5.on) .chlayer.ghost{opacity:.055}
 /* ⛔ THE NAVIGATION ATE A TENTH OF THE PHONE BEFORE THE MAP GOT A PIXEL. Five tabs whose labels
    are sentences wrapped onto THREE rows at 375px -- 84px tall, map starting at y=110. Shrinking
    the type alone cannot fix it: the five labels total ~700px of text, so two rows is the floor
@@ -850,9 +850,9 @@ svg#map.drag,svg#map2.drag{cursor:grabbing}
 #stats .stat:last-child b{color:var(--rad-y)}
 #clock,#clock2,#clock3,#clock4,#clock5{display:flex;align-items:baseline;gap:14px;font-family:var(--mono)}
 #yr{font-size:34px;font-weight:600;letter-spacing:.02em;min-width:4.2ch}
-#bar,#bar2,#bar3,#bar4,#bar5{flex:1;height:3px;background:var(--line);position:relative}
-#bar i,#bar2 i,#bar3 i,#bar4 i,#bar5 i{position:absolute;inset:0 auto 0 0;background:var(--fill);width:0}
-#count,#count2,#count3,#count4,#count5{font-size:11px;color:var(--ink-3);letter-spacing:.05em}
+#bar,#bar2,#bar3,#bar4,#bar6{flex:1;height:3px;background:var(--line);position:relative}
+#bar i,#bar2 i,#bar3 i,#bar4 i,#bar6 i{position:absolute;inset:0 auto 0 0;background:var(--fill);width:0}
+#count,#count2,#count3,#count4,#count6{font-size:11px;color:var(--ink-3);letter-spacing:.05em}
 button{font:inherit;font-family:var(--mono);font-size:11px;background:var(--panel);
   color:var(--ink-2);border:1px solid var(--line);border-radius:5px;padding:6px 12px;
   cursor:pointer}
@@ -968,8 +968,8 @@ aside .grade{display:inline-block;border:1px solid var(--line);border-radius:999
     <button class="chtab" data-ch="2"><b>Two</b> Constantly moved around</button>
     <button class="chtab" data-ch="3"><b>Three</b> Whole waste network</button>
     <button class="chtab" data-ch="4"><b>Four</b> It became the ground</button>
-    <button class="chtab" data-ch="5"><b>Five</b> Lawsuits</button>
-    <button class="chtab" data-ch="6"><b>Six</b> Into the sewers</button>
+    <button class="chtab" data-ch="5"><b>Five</b> Into the sewers</button>
+    <button class="chtab" data-ch="6"><b>Six</b> Lawsuits</button>
   </nav>
 
   <div id="stage">
@@ -1206,6 +1206,40 @@ aside .grade{display:inline-block;border:1px solid var(--line);border-radius:999
   <section class="act" id="act5" data-ch="5">
     <header>
       <p class="chno">Chapter five</p>
+      <!-- ⛔ NOT "the sewers carried it there". The record says material was FOUND in these
+           sewers; only Booth Oil's own report goes as far as the word pathway, and that is
+           quoted rather than generalised. -->
+      <p class="blurb">Material was found inside <b id="w-n">0</b> sewers under Niagara County
+        &mdash; and one buried tunnel turns up in the records of <b id="w-fst">6</b> separate
+        sites.</p>
+    </header>
+    <div class="clockwrap">
+      <div id="clock6">
+        <span id="yr5">&nbsp;</span>
+        <div id="bar5"><i></i></div>
+        <button id="play5">Pause</button>
+        <button id="again5">Restart</button>
+        <span id="count5"></span>
+      </div>
+    </div>
+    <div class="stats2">
+      <div class="stat"><b id="w-s">0</b><span>sewers with a finding</span></div>
+      <div class="stat"><b id="w-r">0</b><span>read against the page</span></div>
+      <div class="stat"><b id="w-f">0</b><span>findings in the record</span></div>
+      <div class="stat"><b id="w-w">0</b><span>wells sharing a substance</span></div>
+    </div>
+    <p class="statnote">A line is a sewer the record names, drawn <b>along the street it is named
+      for</b> &mdash; that is our approximation, not a surveyed pipe. Solid lines were
+      <b>read against the page</b>; dashed ones are streets a filtered sentence names beside a
+      sewer and a material, and <b>nobody has read them</b>.
+      A droplet is a monitoring well that tested positive for a substance <b>also found in that
+      sewer</b>, within ten years. That is <b>co-occurrence in two records</b> &mdash; it is not
+      evidence the sewer fed the well, and no line is drawn between them.</p>
+  </section>
+
+  <section class="act" id="act6" data-ch="6">
+    <header>
+      <p class="chno">Chapter six</p>
       <!-- ⛔ NOT "how many were found liable". Of the cases we hold in full most are
            interlocutory -- discovery rulings, motions to intervene, partial summary judgment in
            litigation that ran for decades -- so counting them as verdicts would be a lie.
@@ -1231,11 +1265,11 @@ aside .grade{display:inline-block;border:1px solid var(--line);border-radius:999
     </header>
     <div class="clockwrap">
       <div id="clock5">
-        <span id="yr5">&nbsp;</span>
-        <div id="bar5"><i></i></div>
-        <button id="play5">Pause</button>
-        <button id="again5">Restart</button>
-        <span id="count5"></span>
+        <span id="yr6">&nbsp;</span>
+        <div id="bar6"><i></i></div>
+        <button id="play6">Pause</button>
+        <button id="again6">Restart</button>
+        <span id="count6"></span>
       </div>
     </div>
     <div class="stats2">
@@ -1268,41 +1302,7 @@ aside .grade{display:inline-block;border:1px solid var(--line);border-radius:999
       <tbody id="srcbody5"></tbody></table></div>
   </section>
 
-  <section class="act" id="act6" data-ch="6">
-    <header>
-      <p class="chno">Chapter six</p>
-      <!-- ⛔ NOT "the sewers carried it there". The record says material was FOUND in these
-           sewers; only Booth Oil's own report goes as far as the word pathway, and that is
-           quoted rather than generalised. -->
-      <p class="blurb">Material was found inside <b id="w-n">0</b> sewers under Niagara County
-        &mdash; and one buried tunnel turns up in the records of <b id="w-fst">6</b> separate
-        sites.</p>
-    </header>
-    <div class="clockwrap">
-      <div id="clock6">
-        <span id="yr6">&nbsp;</span>
-        <div id="bar6"><i></i></div>
-        <button id="play6">Pause</button>
-        <button id="again6">Restart</button>
-        <span id="count6"></span>
-      </div>
-    </div>
-    <div class="stats2">
-      <div class="stat"><b id="w-s">0</b><span>sewers with a finding</span></div>
-      <div class="stat"><b id="w-r">0</b><span>read against the page</span></div>
-      <div class="stat"><b id="w-f">0</b><span>findings in the record</span></div>
-      <div class="stat"><b id="w-w">0</b><span>wells sharing a substance</span></div>
-    </div>
-    <p class="statnote">A line is a sewer the record names, drawn <b>along the street it is named
-      for</b> &mdash; that is our approximation, not a surveyed pipe. Solid lines were
-      <b>read against the page</b>; dashed ones are streets a filtered sentence names beside a
-      sewer and a material, and <b>nobody has read them</b>.
-      A droplet is a monitoring well that tested positive for a substance <b>also found in that
-      sewer</b>, within ten years. That is <b>co-occurrence in two records</b> &mdash; it is not
-      evidence the sewer fed the well, and no line is drawn between them.</p>
-  </section>
-
-  <p class="foot">Built 2026-08-15 20:04 · every mark carries its document and page · dates carry the
+  <p class="foot">Built 2026-08-15 20:31 · every mark carries its document and page · dates carry the
     basis on which they are claimed</p>
 </div>
 
@@ -2728,7 +2728,7 @@ window.__legends[1] = {html:
   const G = D.legal;
   if(!G || !G.parties || !G.parties.length) return;
   const L5 = document.createElementNS(NS, 'g');
-  L5.setAttribute('id','l5'); L5.setAttribute('class','chlayer ghost');
+  L5.setAttribute('id','l6'); L5.setAttribute('class','chlayer ghost');
   cam.appendChild(L5);
   const mk = (t,a,pn) => add(t,a,pn||L5);
 
@@ -2980,9 +2980,8 @@ window.__legends[1] = {html:
   const yMin = G.yMin, yMax = G.yMax;
   const PER = matchMedia('(max-width:820px)').matches ? 3.4 : 4.0;
   let y = yMin, run = true, last = 0, armed = false, done = false, dirty = true, drawn = -1;
-  let handed5 = false;
-  const yrEl = document.getElementById('yr5'), barEl = document.querySelector('#bar5 i');
-  const cntEl = document.getElementById('count5'), playEl = document.getElementById('play5');
+  const yrEl = document.getElementById('yr6'), barEl = document.querySelector('#bar6 i');
+  const cntEl = document.getElementById('count6'), playEl = document.getElementById('play6');
   document.getElementById('g-cases').textContent = G.parties.length;
   document.getElementById('g-n2').textContent = G.counts.cases;
   /* ⭐ THE SPAN IS READ FROM THE DATA, NOT TYPED. Ordered from the financial to the bodily so the
@@ -3039,10 +3038,6 @@ window.__legends[1] = {html:
        "146 of 69 opinions", because a case naming two companies was counted on both discs. The
        headline figure is the number of distinct opinions filed by this year. */
     const seen = CASE.filter(c => c.y <= yr).length;
-    if(y >= yMax && !handed5 && ACTIVE_CH === 5){
-      handed5 = true;
-      setTimeout(() => { if(window.__goChapter) window.__goChapter(6, true, true); }, 600);
-    }
     for(const k of tanks){
       const born = k.t.yFirst ? (yr >= k.t.yFirst) : true;
       k.g.style.opacity = born ? '1' : '0';
@@ -3080,7 +3075,7 @@ window.__legends[1] = {html:
     cntEl.textContent = seen + ' of ' + CASE.length + ' opinions';
   }
   function tick(t){
-    if(ACTIVE_CH !== 5){ last = t; requestAnimationFrame(tick); return; }
+    if(ACTIVE_CH !== 6){ last = t; requestAnimationFrame(tick); return; }
     if(armed && run && last) y = Math.min(yMax, y + Math.min(t-last,100)/1000*PER);
     last = t;
     if(y >= yMax && !done){
@@ -3095,11 +3090,17 @@ window.__legends[1] = {html:
     if(y >= yMax){ y = yMin; done = false; run = true; playEl.textContent='Pause'; return; }
     run = !run; playEl.textContent = run ? 'Pause' : 'Play';
   };
-  document.getElementById('again5').onclick = () => {
+  document.getElementById('again6').onclick = () => {
     y = yMin; done = false; run = true; dirty = true; playEl.textContent = 'Pause';
   };
   window.addEventListener('chapter', ev => {
-    if(ev.detail.n !== 5) return;
+    /* ⛔ THIS NUMBER IS A BARE LITERAL AND THE 5/6 SWAP DID NOT CATCH IT. The renumbering pass
+       swapped actN, lN, barN, __CAM[N], ACTIVE_CH comparisons and the rest, but `ev.detail.n`
+       comparisons are plain digits with no chapter-shaped token around them, so BOTH chapters
+       were left listening for the number they used to be. The symptom is silent and total: the
+       listener returns early, the clock is never armed, the year sits at its first value forever
+       and the chapter hands on to nobody. Nothing throws. */
+    if(ev.detail.n !== 6) return;
     armed = true; dirty = true;
     if(ev.detail.animate){ y = yMin; done = false; run = true; playEl.textContent='Pause'; }
     else { y = yMax; done = true; run = false; playEl.textContent='Replay'; }
@@ -3107,7 +3108,7 @@ window.__legends[1] = {html:
   window.addEventListener('camera', () => { dirty = true; });
 
   window.__legends = window.__legends || {};
-  window.__legends[5] = {html:
+  window.__legends[6] = {html:
       '<span class="lgtitle">Companies in court</span>'
     + '<span class="lg"><svg width="26" height="18" viewBox="-13 -9 26 18" aria-hidden="true">'
     + '<circle r="4" fill="#4DFF33" fill-opacity=".16" stroke="#4DFF33" stroke-width="1.3"/>'
@@ -3224,7 +3225,7 @@ window.__legends[1] = {html:
        chapter rendered no heading and no how-to and opened straight onto its legend -- the one
        chapter that never told the reader the map was clickable. Nothing errored; an absent key is
        simply an absent panel, which is why it survived a build, a freeze and a review. */
-    6: '<h3>Nothing selected</h3>'
+    5: '<h3>Nothing selected</h3>'
      + HOWTO('sewer or well')
      + '<span class="k">what you are looking at</span>'
      + '<p>Sewers the record says material was found in. A <b>solid</b> line was read against the '
@@ -3232,7 +3233,7 @@ window.__legends[1] = {html:
      + 'read. Each is drawn along the street it is named for, which is our approximation and not '
      + 'a surveyed pipe. A <b>droplet</b> is a well that tested positive for a substance also '
      + 'found in that sewer &mdash; co-occurrence, never a route.</p>',
-    5: '<h3>Nothing selected</h3>'
+    6: '<h3>Nothing selected</h3>'
      + HOWTO('company, tank or cleanup')
      + '<span class="k">what you are looking at</span>'
      + '<p>Each ring is a company named in a published court opinion, and it grows with the number '
@@ -3296,7 +3297,7 @@ window.__legends[1] = {html:
         if(acts[k]) acts[k].classList.toggle('on', +k === n);
       }
       const live = LAYER_OF[n];
-      for(const id of ['l1','l2','l4','l5','l6']){
+      for(const id of ['l1','l2','l4','l6','l5']){
         const el = document.getElementById(id);
         if(!el) continue;
         el.classList.toggle('ghost', id !== live);
@@ -3407,7 +3408,7 @@ if(window.IntersectionObserver){
 draw();
 requestAnimationFrame(tick);
 
-/* ============================ CHAPTER SIX: INTO THE SEWERS ==================================
+/* ============================ CHAPTER FIVE: INTO THE SEWERS ==================================
    Caitlin: "any mention of where material has been found/measured/sampled/pumped from sewer
    systems ... Match this to sample wells that tested positive for any of the same components in
    that time frame."
@@ -3418,7 +3419,7 @@ requestAnimationFrame(tick);
   const G = D.sewer;
   if(!G || !G.spans || !G.spans.length) return;
   const L6 = document.createElementNS(NS, 'g');
-  L6.setAttribute('id','l6'); L6.setAttribute('class','chlayer ghost');
+  L6.setAttribute('id','l5'); L6.setAttribute('class','chlayer ghost');
   cam.appendChild(L6);
   const mk = (t,a,pn) => add(t,a,pn||L6);
   const body = document.getElementById('cardbody');
@@ -3470,6 +3471,7 @@ requestAnimationFrame(tick);
   const yrs = G.spans.map(s=>s.yFirst).filter(Boolean);
   const yMin = Math.min(...yrs), yMax = Math.max(...yrs);
   let y = yMin, run = true, done = false, armed = false, last = 0, drawn = -1, dirty = true;
+  let handed5 = false;
   const PER = Math.max(4, (yMax-yMin)/16);
 
   /* ⭐ ORDER: the machine-found tier first so the read tier paints ON TOP of it, the same
@@ -3631,7 +3633,7 @@ requestAnimationFrame(tick);
      at once, and it makes the emptiness that follows mean something. */
   let preview = false;
   function setPhase(on){
-    const b = document.querySelector('#l6 .sw-base');
+    const b = document.querySelector('#l5 .sw-base');
     if(b) b.style.opacity = on ? 1 : 0;
     const ag = document.getElementById('l6flow');
     if(ag) ag.style.opacity = on ? 1 : 0;
@@ -3651,8 +3653,8 @@ requestAnimationFrame(tick);
     const ag = document.getElementById('l6flow');
     if(ag) ag.classList.toggle('flowing', !!on);
   }
-  const yrEl = document.getElementById('yr6'), barEl = document.getElementById('bar6').firstElementChild;
-  const cntEl = document.getElementById('count6'), playEl = document.getElementById('play6');
+  const yrEl = document.getElementById('yr5'), barEl = document.getElementById('bar5').firstElementChild;
+  const cntEl = document.getElementById('count5'), playEl = document.getElementById('play5');
   let lastK = -1;
   function paint(){
     const yr = Math.floor(y);
@@ -3710,7 +3712,7 @@ requestAnimationFrame(tick);
   document.getElementById('w-f').textContent = G.counts.findings;
 
   function tick(t){
-    if(ACTIVE_CH !== 6){ last = t; requestAnimationFrame(tick); return; }
+    if(ACTIVE_CH !== 5){ last = t; requestAnimationFrame(tick); return; }
     if(armed && run && last) y = Math.min(yMax, y + Math.min(t-last,100)/1000*PER);
     last = t;
     if(y >= yMax && !done){
@@ -3719,10 +3721,17 @@ requestAnimationFrame(tick);
          timeline finish then render the sewer system and the flow lines". The contamination is
          the argument; the network is the context it turns out to sit in, and revealing it second
          makes that order legible instead of asking the reader to separate them by colour.
-         ⚠ THIS CALL MUST STAY INSIDE CHAPTER SIX. A first attempt patched the first
+         ⚠ THIS CALL MUST STAY INSIDE THE SEWER CHAPTER. A first attempt patched the first
          `y >= yMax && !done` in the file, which belongs to CHAPTER FOUR -- where setPhase is not
          defined and the call would have thrown every time chapter four finished. */
       setPhase(true);
+      /* ⭐ AND HAND ON TO THE LAWSUITS. This chapter used to be last and handed to nobody;
+         after the 5/6 swap it sits in front of chapter six, so the chain 4 -> 5 -> 6 only
+         closes if the hand-on MOVES here from the litigation clock. Without it chapter six
+         is reachable by a tab press alone, and a tab press is static by design -- which is
+         exactly how the sewer clock looked broken before. */
+      if(!handed5){ handed5 = true;
+        setTimeout(() => { if(window.__goChapter) window.__goChapter(6, true, true); }, 600); }
     }
     if(dirty || Math.abs(y-drawn) > 0.004){ drawn = y; dirty = false; paint(); }
     if(run && y >= yMax){ run = false; playEl.textContent = 'Replay'; }
@@ -3731,7 +3740,7 @@ requestAnimationFrame(tick);
   playEl.onclick = () => { if(done && !run){ y = yMin; done = false; setPreview(false); }
                            run = !run; dirty = true;
                            playEl.textContent = run ? 'Pause' : 'Play'; };
-  document.getElementById('again6').onclick = () => {
+  document.getElementById('again5').onclick = () => {
     y = yMin; done = false; run = true; dirty = true; playEl.textContent = 'Pause'; };
   /* ⭐ THE CHAPTER ARRIVES ON THE WHOLE COUNTY, HOLDS, THEN GOES IN. Caitlin: "The county
      should come in at full zoomed out ... after 2 seconds you should zoom to Niagara Falls city
@@ -3740,20 +3749,20 @@ requestAnimationFrame(tick);
      does not start until the camera has arrived, so nothing is missed while the map is moving.
      ⚠ The reader can still zoom out at any time -- cancelFly() means a gesture wins. */
   window.__CAM = window.__CAM || {};
-  window.__CAM[6] = [-78.85, 43.16, 1];        // arrive on the county, not on the city
-  let held6 = false;
+  window.__CAM[5] = [-78.85, 43.16, 1];        // arrive on the county, not on the city
+  let held5 = false;
   window.addEventListener('chapter', ev => {
-    if(ev.detail.n !== 6){ setFlow(false); return; }
+    if(ev.detail.n !== 5){ setFlow(false); return; }   /* ⛔ see the note in the legal chapter */
     armed = true; dirty = true;
     if(ev.detail.animate){
       y = yMax; done = true; run = false; playEl.textContent='Pause';
       setPreview(true);                       // 1. the whole system, on the whole county
-      held6 = true;
+      held5 = true;
       setTimeout(() => {
-        if(ACTIVE_CH !== 6) return;
+        if(ACTIVE_CH !== 5) return;
         if(window.__flyTo) window.__flyTo(-78.975, 43.088, 3.6, 1500);
         setTimeout(() => {                    // 2. arrive, wipe the slate, then build
-          if(ACTIVE_CH !== 6) return;
+          if(ACTIVE_CH !== 5) return;
           setPreview(false);
           y = yMin; done = false; run = true; dirty = true;
         }, 1500);
@@ -3766,7 +3775,7 @@ requestAnimationFrame(tick);
   requestAnimationFrame(tick);
 
   window.__legends = window.__legends || {};
-  window.__legends[6] = {html:
+  window.__legends[5] = {html:
       '<span class="lgtitle">In the sewers</span>'
     + '<span class="lg"><svg width="34" height="14" viewBox="-17 -7 34 14" aria-hidden="true">'
     + '<path d="M-15,0 L15,0" fill="none" stroke="#B9C2CC" stroke-opacity=".55" stroke-width="5.2"/>'
