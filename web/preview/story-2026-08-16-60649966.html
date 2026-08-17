@@ -439,6 +439,22 @@ p.sub{margin:8px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.04em
 .flowing .sw-p14{animation-delay:-2.053s}
 .sw-byp{fill:none;stroke:#7FE3FF;stroke-width:1.4;vector-effect:non-scaling-stroke;
   pointer-events:none}
+/* ⭐ THE OPENING QUOTATION. It sits over the map rather than above it so it does not push the
+   figures below the fold on the short windows trap #13 is about -- the map is empty for these
+   four seconds anyway, so the space costs nothing. pointer-events:none from the start so a
+   reader who wants to grab the map immediately is never blocked by a fading panel. */
+#epigraph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:0 8%;gap:18px;z-index:6;
+  pointer-events:none;background:radial-gradient(ellipse at center,rgba(20,23,28,.92) 0%,
+  rgba(20,23,28,.62) 55%,rgba(20,23,28,0) 100%);
+  opacity:1;transition:opacity .7s ease}
+#epigraph.gone{opacity:0}
+.epi-line{margin:0;font-size:23px;line-height:1.32;font-weight:600;color:var(--ink);
+  max-width:22ch;letter-spacing:.01em}
+.epi-cite{margin:0;font-family:var(--mono);font-size:10.5px;line-height:1.62;color:var(--ink-2);
+  max-width:52ch}
+.epi-cite span{color:var(--ink-3)}
+@media(max-width:820px){.epi-line{font-size:18px}.epi-cite{font-size:9px;max-width:40ch}}
 /* ⭐ THE RED SEWERS CARRY MOVEMENT TOO. Caitlin, 2026-08-16. A round cap on a near-zero dash
    makes a DOT, so what travels along a contaminated run is a line of dots, not arrowheads --
    which matters, because of the next paragraph. The dash period and the offset the keyframe
@@ -964,16 +980,29 @@ aside .grade{display:inline-block;border:1px solid var(--line);border-radius:999
        stage is built once and never rebuilt; only the layer on it and the words under it change.
        These buttons are the manual control; scrolling does it too. -->
   <nav id="chapnav" aria-label="Chapters">
-    <button class="chtab on" data-ch="1"><b>One</b> Found where it should not be</button>
+    <button class="chtab on" data-ch="1"><b>One</b> Waste found where it shouldn&rsquo;t be</button>
     <button class="chtab" data-ch="2"><b>Two</b> Constantly moved around</button>
-    <button class="chtab" data-ch="3"><b>Three</b> Whole waste network</button>
+    <button class="chtab" data-ch="3"><b>Three</b> Potential waste network</button>
     <button class="chtab" data-ch="4"><b>Four</b> It became the ground</button>
-    <button class="chtab" data-ch="5"><b>Five</b> Into the sewers</button>
+    <button class="chtab" data-ch="5"><b>Five</b> Waste in the sewers</button>
     <button class="chtab" data-ch="6"><b>Six</b> Lawsuits</button>
   </nav>
 
   <div id="stage">
     <div id="mapbox">
+      <!-- ⭐ THE CLAIM THE WHOLE PIECE IS ANSWERING, PUT FIRST AND ATTRIBUTED. Caitlin,
+           2026-08-16: "before chapter 1 actually starts to play a brief text appears saying
+           'They say the hazards are isolated and contained'". It is not a rhetorical flourish --
+           it is a quotation, and the citation is on screen with it, because a piece that spends
+           six chapters holding other people to their sources cannot open with an unsourced
+           paraphrase of what those people said. -->
+      <div id="epigraph" aria-hidden="false">
+        <p class="epi-line">They say the hazards are isolated and contained.</p>
+        <p class="epi-cite">&ldquo;The remedy has effectively isolated and secured the residual
+          material, and there is no risk to human health or the environment.&rdquo;<br>
+          <span>Frontier Chemical, Royal Avenue &mdash; the same sentence in six Periodic Review
+          Reports to NYSDEC, 2016&ndash;2022</span></p>
+      </div>
       <svg id="map" viewBox="0 0 1000 640" role="img"
            aria-label="Niagara County, showing places where material was found unexpectedly"></svg>
       <div id="zoomctl">
@@ -1187,9 +1216,8 @@ aside .grade{display:inline-block;border:1px solid var(--line);border-radius:999
         <span id="count4"></span>
       </div>
     </div>
-    <p class="statnote">Private homes are shown as <b>areas, never as points</b> &mdash; a fixed
-      grid square that contains the property without saying where in it the property is, the same
-      treatment the 1984 survey gets. Schools, churches, parks and named subdivisions are named,
+    <!-- ⭐ The areas-never-points rule is in this chapter's legend and is left there. -->
+    <p class="statnote">Schools, churches, parks and named subdivisions are named,
       because they are institutions and public ground rather than somebody&rsquo;s front door.
       <b id="f-unmapped">0</b> more places are named in the record but have never been located
       precisely enough to draw. <a href="#" id="showsrc4">Show every placement and its source</a></p>
@@ -1228,13 +1256,13 @@ aside .grade{display:inline-block;border:1px solid var(--line);border-radius:999
       <div class="stat"><b id="w-f">0</b><span>findings in the record</span></div>
       <div class="stat"><b id="w-w">0</b><span>wells sharing a substance</span></div>
     </div>
-    <p class="statnote">A line is a sewer the record names, drawn <b>along the street it is named
-      for</b> &mdash; that is our approximation, not a surveyed pipe. Solid lines were
-      <b>read against the page</b>; dashed ones are streets a filtered sentence names beside a
-      sewer and a material, and <b>nobody has read them</b>.
-      A droplet is a monitoring well that tested positive for a substance <b>also found in that
-      sewer</b>, within ten years. That is <b>co-occurrence in two records</b> &mdash; it is not
-      evidence the sewer fed the well, and no line is drawn between them.</p>
+    <!-- ⭐ THE CAVEATS LIVE IN THE LEGEND, ONCE. This note used to restate the
+         street-approximation and the co-occurrence rule in full, both of which the legend
+         already says a few centimetres away. Saying them twice did not make the piece more
+         careful, it made the finding harder to find. What is left is the one thing stated
+         nowhere else: which lines somebody actually read. -->
+    <p class="statnote">Solid lines were <b>read against the page</b>. Dashed ones are streets a
+      filtered sentence names beside a sewer and a material, and <b>nobody has read them yet</b>.</p>
   </section>
 
   <section class="act" id="act6" data-ch="6">
@@ -1279,30 +1307,28 @@ aside .grade{display:inline-block;border:1px solid var(--line);border-radius:999
       <div class="stat"><b id="g-h">0</b><span>where we can read the holding</span></div>
       <div class="stat"><b class="cr" id="g-rem2">0</b><span>places on a cleanup list</span></div>
     </div>
-    <!-- ⛔ THE TWO THINGS THIS CHAPTER IS NOT. Both are on the page, not in a methods note. -->
-    <p class="statnote">A mark is a <b>company that was taken to court</b>, drawn at its works
-      &mdash; not the place a case was about, and <b>not a finding of contamination</b>. The
-      subject line in each popup is a <b>topic read off the language of the opinion</b>, not a
-      summary of what was alleged: no pleadings are held for these cases.
-      A <b class="cr">cleanup diamond</b> is a place carried on a state or federal remediation
-      programme. It is <b>counted as a place, never as a volume</b> &mdash; the gallons in these
-      records are treated water, recovered groundwater and tank capacity, not material that
-      escaped. Where several programme records share one coordinate they are drawn as
-      <b>one place</b>, which is why the count is <b id="g-remr">0</b> records over
+    <!-- ⭐ The "a mark is a company taken to court, not a finding of contamination" sentence
+         that opened this note is VERBATIM in this chapter's legend. Once is enough. -->
+    <p class="statnote">The subject line in each popup is a
+      <b>topic read off the language of the opinion</b> &mdash; we hold no pleadings.
+      A <b class="cr">cleanup diamond</b> is a place on a state or federal remediation
+      programme, <b>counted as a place</b>: the gallons in these records are treated water,
+      recovered groundwater and tank capacity. Records sharing one coordinate are drawn as
+      <b>one place</b> &mdash; <b id="g-remr">0</b> records over
       <b class="cr" id="g-rem3">0</b> places.
       <!-- ⛔ THE DATING BASIS IS STATED BECAUSE IT IS AN UPPER BOUND, NOT A DISCOVERY DATE. The
            register carries no listing date at all, so a diamond arrives in the year of the
            EARLIEST DOCUMENT we hold for that site. The site was there before the paperwork. -->
-      A diamond appears in the year of the <b>earliest document we hold</b> for that site &mdash;
-      an upper bound, not the year it was found. <b class="cr" id="g-remu">0</b> of them have no
-      dated document in the corpus at all and appear only once the clock has run out.
+      A diamond appears in the year of the <b>earliest document we hold</b> &mdash; an upper
+      bound. <b class="cr" id="g-remu">0</b> have no dated document and arrive once the clock
+      has run out.
       <a href="#" id="showsrc5">Show every case and its citation</a></p>
     <div class="srcwrap2" id="srcwrap5"><table id="srctable5">
       <thead><tr><th>Filed</th><th>Case</th><th>Court &amp; judge</th><th>Held</th></tr></thead>
       <tbody id="srcbody5"></tbody></table></div>
   </section>
 
-  <p class="foot">Built 2026-08-15 20:31 · every mark carries its document and page · dates carry the
+  <p class="foot">Built 2026-08-17 12:05 · every mark carries its document and page · dates carry the
     basis on which they are claimed</p>
 </div>
 
@@ -1719,7 +1745,12 @@ let year = D.yMin, playing = true, last = 0, armed = false, dirty1 = true, hande
 const SPAN = D.yMax - D.yMin;
 const PER_SEC = matchMedia('(max-width:820px)').matches ? 2.4 : 3.0;
 /* and a beat before it starts, so the eye lands on a still map first and SEES it begin */
-const START_DELAY = 900;
+/* ⭐ THE EPIGRAPH HOLDS THE CLOCK. The opening quotation has to be readable before anything
+   starts moving, so the chapter-one clock is released only after it has been on screen and
+   faded. 4200ms is the read plus the 900ms the map always had.
+   ⚠ THE 6000ms BACKSTOP BELOW MUST STAY LONGER THAN THIS, or it arms the clock behind the
+   epigraph and the reader watches the first years tick away under the quotation. */
+const START_DELAY = 4200;
 
 let t84 = 0;
 function draw(now){
@@ -3400,10 +3431,15 @@ if(window.IntersectionObserver){
   io.observe(document.getElementById('mapbox'));
   /* ⚠ a backstop: if the map is somehow never reported visible -- a zero-height container, a
      hidden tab that never resolves -- the piece must not sit frozen on a blank county forever. */
-  setTimeout(() => { armed = true; }, 6000);
+  setTimeout(() => { armed = true; }, 7200);
 } else {
   armed = true;
 }
+/* fade the epigraph out just before the clock is released, whichever path armed it */
+setTimeout(() => {
+  const ep = document.getElementById('epigraph');
+  if(ep){ ep.classList.add('gone'); ep.setAttribute('aria-hidden', 'true'); }
+}, START_DELAY - 700);
 
 draw();
 requestAnimationFrame(tick);
@@ -3730,8 +3766,13 @@ requestAnimationFrame(tick);
          closes if the hand-on MOVES here from the litigation clock. Without it chapter six
          is reachable by a tab press alone, and a tab press is static by design -- which is
          exactly how the sewer clock looked broken before. */
+      /* ⭐ A BEAT LONGER THAN THE OTHER HAND-ONS. Caitlin, 2026-08-16: the 5->6 move wants
+         'an additional second'. The sewer chapter finishes by revealing the whole white
+         network underneath the red, and that reveal is the point -- 600ms took it away before
+         the reader had looked at it. 1600ms lets the finished state stand before the
+         2s dissolve starts. */
       if(!handed5){ handed5 = true;
-        setTimeout(() => { if(window.__goChapter) window.__goChapter(6, true, true); }, 600); }
+        setTimeout(() => { if(window.__goChapter) window.__goChapter(6, true, true); }, 1600); }
     }
     if(dirty || Math.abs(y-drawn) > 0.004){ drawn = y; dirty = false; paint(); }
     if(run && y >= yMax){ run = false; playEl.textContent = 'Replay'; }
@@ -3794,17 +3835,15 @@ requestAnimationFrame(tick);
     + 'fill="none"/><path d="M2,-2 L7,0 L2,2 Z" fill="#FFFFFF" fill-opacity=".6"/></svg>'
     + '<b>The 2007 sewer network</b></span>'
     + '<span class="lgnote">A line is a sewer the record names, drawn <b>along the street it is '
-    + 'named for</b> &mdash; our approximation, not a surveyed pipe. An <b>arrowhead</b> appears '
-    + 'only where a document says where that sewer goes. The <b>red beads travelling along it</b> '
-    + 'mark it as a pathway material moved along &mdash; they do <b>not</b> say which way it ran, '
-    + 'and the direction they happen to travel is not from the record. A droplet is a well that tested positive '
+    + 'named for</b> &mdash; our approximation of where it runs, not a surveyed pipe. The '
+    + '<b>red beads travelling along it</b> mark it as a pathway material moved along; they do '
+    + '<b>not</b> say which way it ran. A droplet is a well that tested positive '
     + 'for a substance <b>also found in that sewer</b> within ' + G.window + ' years: '
     + '<b>co-occurrence in two records</b>, not a route, and never joined by a line. '
     + 'The <b>white network</b> beneath is the sanitary sewer as the Niagara Falls Water Board '
     + 'drew it in <b>2007</b>, georeferenced to six street intersections at about 3 m. An '
-    + '<b>arrowhead</b> appears only on the segments whose direction somebody observed on the '
-    + 'sheet; the rest are recorded as unknown and get none. A line means the line was '
-    + '<b>depicted in 2007</b>, not that it is there now.</span>'
+    + '<b>arrowhead</b> &mdash; on a red sewer or a white main &mdash; appears only where the '
+    + 'record gives a direction. A line means it was <b>depicted in 2007</b>.</span>'
   };
 })();
 
