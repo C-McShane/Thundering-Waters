@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<!-- ⛔⛔ AN EXPLICIT <html> AND <head> ARE NOT OPTIONAL FOR SOCIAL SCRAPERS.
+     This document had neither. A browser silently implies both, so the page looked and
+     behaved perfectly -- and LinkedIn, which parses for a real <head> before reading Open
+     Graph tags, found none, gave up, and fell back to scraping visible text. Caitlin:
+     "when I go to add the link into linkedin its just a generic link random text scrape".
+     The og tags were correct the whole time and sat 783 bytes into the file; there was
+     simply nowhere valid for a strict parser to find them. -->
+<html lang="en">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <!-- ⛔ THE STABLE PREVIEW URL MUST NEVER SERVE A STALE COPY. This file is republished in place
@@ -1109,6 +1118,8 @@ aside .grade{display:inline-block;border:1px solid var(--line);border-radius:999
   body.sheet-open #scrim{opacity:.45;pointer-events:auto}
 }
 </style>
+</head>
+<body>
 
 <div id="page">
   <!-- ⭐⭐ THE CHAPTERS SHARE ONE MAP AND CYCLE OVER IT. Caitlin: "I want the chapters to
@@ -1530,7 +1541,7 @@ aside .grade{display:inline-block;border:1px solid var(--line);border-radius:999
       <tbody id="srcbody5"></tbody></table></div>
   </section>
 
-  <p class="foot">Built 2026-08-17 20:52 · every mark carries its document and page · dates carry the
+  <p class="foot">Built 2026-08-18 09:56 · every mark carries its document and page · dates carry the
     basis on which they are claimed</p>
 </div>
 
@@ -4334,3 +4345,6 @@ requestAnimationFrame(tick);
 })();
 
 </script>
+
+</body>
+</html>
