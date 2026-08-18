@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=31">
+<link rel="stylesheet" href="styles.css?v=33">
 <!-- Cloudflare Web Analytics (cookieless) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "53a7cfdbb78a42018b4cb0e56a2533b4"}'></script>
 </head>
@@ -85,7 +85,20 @@
     <button class="rail-tab" data-tab="cancer" role="tab" aria-selected="false" style="--tab-c:#f0883f">
       <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"></rect><rect x="13" y="3" width="8" height="8" rx="1"></rect><rect x="3" y="13" width="8" height="8" rx="1"></rect><rect x="13" y="13" width="8" height="8" rx="1"></rect></svg>
       <span class="rt-lb">Cancer<small>Stats</small></span></button>
-  </div>
+    <!-- ⭐ THIS TAB DOES NOT OPEN A PANEL. Every other rail tab slides the sidebar out and offers
+         drop-downs; this one opens the animated graphic full-area over the map. Caitlin,
+         2026-08-18: "when the tab gets clicked it automatically opens to the graphic rather than
+         drop downs in a panel."
+         ⚠ The label stays functional like its neighbours -- Hazard Sites, Monitor Wells, Cancer
+         Stats. "Uncontained" was considered and dropped: an argument in the navigation reads as
+         editorialising next to labels that simply say what they are, and the rhetoric is stronger
+         inside the graphic where it is sourced and answered.
+         --tab-c is the deep gold of the graphic's own opening line; the rail's reds, oranges and
+         purples were already spoken for. -->
+    <button class="rail-tab" data-tab="graphic" role="tab" aria-selected="false" style="--tab-c:#C9A227">
+      <svg class="rt-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17c3-6 6-9 9-9s6 3 9 9"></path><path d="M17 8h4v4"></path><circle cx="6" cy="18" r="1.4"></circle></svg>
+      <span class="rt-lb">Waste<small>in Motion</small></span></button>
+    </div>
 
   <div id="panel" aria-live="polite">
     <button id="panel-close" title="Close panel" aria-label="Close panel">✕</button>
@@ -369,6 +382,41 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="app.js?v=31"></script>
+<script src="app.js?v=33"></script>
+<!-- ══ THE ANIMATED GRAPHIC, EMBEDDED ═════════════════════════════════════════════════════════
+     ⛔ AN IFRAME, DELIBERATELY, NOT MERGED CODE. The graphic is a complete second application:
+     its own CSS reset, its own SVG map, its own clock, ~1.9 MB in one file. This dash is Leaflet.
+     Merging them means two apps sharing one global namespace and one stylesheet, and it would
+     also break story.html as a standalone page -- which is the thing already shared publicly.
+     An iframe isolates both completely and keeps the update path as it is: rebuild, publish, and
+     the dash picks it up with no change here.
+     ⛔ src IS SET ON FIRST OPEN, NEVER HERE. Otherwise every visitor to the map downloads 1.9 MB
+     they did not ask for. -->
+<div id="graphic-overlay" hidden aria-hidden="true" role="dialog" aria-modal="true"
+     aria-label="Waste in Motion — interactive graphic">
+  <div id="graphic-bar">
+    <span id="graphic-title">Waste in Motion</span>
+    <a id="graphic-pop" href="preview/story.html" target="_blank" rel="noopener">Open full screen ↗</a>
+    <button id="graphic-close" aria-label="Close the graphic">✕</button>
+  </div>
+  <div id="graphic-load">Loading the graphic…</div>
+  <iframe id="graphic-frame" title="Waste in Motion — interactive graphic of hazardous waste movement in Niagara County"></iframe>
+</div>
+
+<!-- ⭐ THE ONE-TIME ANNOUNCEMENT. Shown once per browser, keyed with a version so a genuinely new
+     thing can be announced later without re-nagging about this one.
+     ⚠ Kept deliberately quiet: a soft dim, a thin ring, one sentence, no motion beyond a fade. A
+     spotlight coachmark is a marketing pattern, and on a page whose whole claim is evidence a
+     flashy one cheapens the tone. It is a dialog with a real close, it moves focus, and Escape
+     dismisses it -- otherwise a keyboard or screen-reader user meets a dimmed page and no way
+     out and no explanation of why. -->
+<div id="whatsnew" hidden role="dialog" aria-modal="false" aria-labelledby="wn-text">
+  <div id="wn-dim"></div>
+  <div id="wn-box">
+    <p id="wn-text"><b>New.</b> An interactive map of hazardous waste in motion across Niagara County.</p>
+    <button id="wn-go">Show me</button>
+    <button id="wn-dismiss">Not now</button>
+  </div>
+</div>
 </body>
 </html>

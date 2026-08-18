@@ -690,3 +690,58 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .leaflet-top.leaflet-right .leaflet-control-zoom { margin-top:12px; margin-right:14px; border:1px solid var(--border2); }
 .leaflet-control-zoom a { background:var(--surface); color:var(--text); border-bottom-color:var(--border2); }
 .leaflet-control-zoom a:hover { background:var(--s3); color:#fff; }
+/* ══ WASTE IN MOTION — the embedded graphic, and the one-time announcement ══════════════════
+   Added 2026-08-18. The graphic is a separate application in an iframe; nothing here styles its
+   insides, only the frame around it. See the markup notes in map.html for why it is not merged. */
+
+/* ⛔ ABOVE EVERYTHING THE DASH STACKS. Measured, not guessed: #dock is 1300 and the search
+   wrapper is 1500, so the overlay's first value of 1200 put the tab rail and the search box
+   THROUGH the graphic. A full-screen overlay has to beat the highest thing on the page, and
+   on this page that is 1500. */
+#graphic-overlay { position:fixed; inset:0; z-index:4000; background:var(--bg);
+  display:flex; flex-direction:column; }
+#graphic-overlay[hidden] { display:none; }
+
+#graphic-bar { flex:0 0 auto; display:flex; align-items:center; gap:14px;
+  padding:9px 14px; background:var(--surface); border-bottom:1px solid var(--border);
+  font-family:'IBM Plex Sans',system-ui,sans-serif; }
+#graphic-title { font-weight:600; color:var(--text); letter-spacing:.02em; }
+#graphic-title::before { content:''; display:inline-block; width:9px; height:9px; margin-right:9px;
+  border-radius:2px; background:#C9A227; vertical-align:middle; }
+#graphic-pop { margin-left:auto; font-size:12px; color:var(--dim); text-decoration:none;
+  border-bottom:1px solid transparent; }
+#graphic-pop:hover { color:var(--text); border-bottom-color:var(--border2); }
+/* ⛔ 44px minimum. This is the only way out of a full-screen overlay on a phone. */
+#graphic-close { min-width:44px; min-height:44px; font-size:17px; line-height:1;
+  background:transparent; border:1px solid var(--border2); border-radius:6px;
+  color:var(--muted); cursor:pointer; }
+#graphic-close:hover { color:#fff; background:var(--s3); }
+
+#graphic-frame { flex:1 1 auto; width:100%; border:0; display:block; background:var(--bg); }
+/* ⚠ 1.9 MB over a phone connection is several seconds of nothing. Say so, rather than showing a
+   black rectangle that reads as a broken embed. Hidden by the frame's load event. */
+#graphic-load { position:absolute; inset:44px 0 0 0; display:flex; align-items:center;
+  justify-content:center; color:var(--dim); font-family:'IBM Plex Mono',monospace; font-size:13px;
+  pointer-events:none; }
+
+#whatsnew[hidden] { display:none; }
+#wn-dim { position:fixed; inset:0; z-index:1100; background:rgba(8,8,10,.62);
+  animation:wn-fade .45s ease both; }
+/* the box clears the search wrapper (1500); the dim deliberately stays BELOW the dock at 1100
+   so the rail keeps its colour and the gold ring on the tab is what draws the eye */
+#wn-box { position:fixed; z-index:1600; max-width:310px; padding:14px 16px;
+  background:var(--surface); border:1px solid var(--border2); border-left:3px solid #C9A227;
+  border-radius:8px; box-shadow:0 10px 34px rgba(0,0,0,.55);
+  font-family:'IBM Plex Sans',system-ui,sans-serif; animation:wn-fade .45s .1s ease both; }
+#wn-text { margin:0 0 11px; font-size:13.5px; line-height:1.45; color:var(--text); }
+#wn-text b { color:#C9A227; }
+#wn-box button { min-height:34px; padding:0 13px; margin-right:7px; border-radius:6px;
+  font-size:12.5px; cursor:pointer; font-family:inherit; }
+#wn-go { background:#C9A227; border:1px solid #C9A227; color:#17150c; font-weight:600; }
+#wn-dismiss { background:transparent; border:1px solid var(--border2); color:var(--dim); }
+#wn-dismiss:hover { color:var(--text); }
+/* the ring around the tab being pointed at — a thin outline, not a pulse */
+.rail-tab.wn-spot { position:relative; z-index:1102; outline:2px solid #C9A227;
+  outline-offset:2px; border-radius:8px; }
+@keyframes wn-fade { from { opacity:0 } to { opacity:1 } }
+@media (prefers-reduced-motion:reduce) { #wn-dim, #wn-box { animation:none } }

@@ -1691,6 +1691,8 @@ document.querySelectorAll('input[name="cancer"]').forEach(radio => {
     if (window.__twSnapToTop) window.__twSnapToTop();   // ensure the fixed rail is on-screen
   }
   railTabs.forEach(btn => btn.addEventListener('click', () => {
+    // ⭐ the graphic tab is not a panel tab. It opens the overlay and leaves the sidebar alone.
+    if (btn.dataset.tab === 'graphic') { closePanel(); openGraphic(); return; }
     if (activeTab === btn.dataset.tab) closePanel(); else openTab(btn.dataset.tab);
   }));
   const closeBtn = document.getElementById('panel-close');
@@ -1703,6 +1705,118 @@ document.querySelectorAll('input[name="cancer"]').forEach(radio => {
   setTimeout(() => window.dispatchEvent(new Event('resize')), 250);
   window.__twOpenTab = openTab;
   window.__twClosePanel = closePanel;
+
+  /* ══ WASTE IN MOTION ═══════════════════════════════════════════════════════════════════════
+     The graphic lives in preview/story.html and is loaded into an iframe on FIRST OPEN.
+     ⛔ `?intro=short` is what makes this bearable in a dash. Standalone the page opens with four
+     sourced assurances over a still map for 28 seconds, which is the argument and earns its time;
+     behind a TAB the reader has asked for the thing and 28 seconds of stillness reads as broken.
+     The short form keeps the shape -- the claim, then ONE assurance with a name and a page on it
+     -- and runs about 7. The parameter is opt-in, so the shared link keeps the full rotation and
+     a dropped or misspelled parameter falls back to it. */
+  const GRAPHIC_SRC = 'preview/story.html?intro=short';
+  /* ⛔⛔ LOOKED UP LAZILY, NOT CACHED HERE. This script tag sits at line 389 of map.html and the
+     overlay markup starts at 399 -- so at the moment this runs those elements DO NOT EXIST, and
+     caching them in a const captures null. Every handler then ran, returned silently on
+     `if (!ov) return`, and nothing happened: no error, no console message, a tab that simply did
+     not respond. Elements added below a script must be resolved when they are used, not when the
+     script is parsed. */
+  const $g = id => document.getElementById(id);
+  let graphicLoaded = false, lastFocus = null;
+
+  function openGraphic() {
+    const ov = $g('graphic-overlay'), fr = $g('graphic-frame');
+    if (!ov || !fr) return;
+    lastFocus = document.activeElement;
+    if (!graphicLoaded) { fr.src = GRAPHIC_SRC; graphicLoaded = true; }
+    ov.hidden = false;
+    ov.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';         // the map must not scroll behind it
+    const btn = $g('graphic-close');
+    if (btn) btn.focus();                            // so Escape and Tab have somewhere to start
+    seenWhatsNew();                                  // opening it counts as having seen the notice
+    if (location.hash !== '#graphic') history.replaceState(null, '', '#graphic');
+  }
+  function closeGraphic() {
+    const ov = $g('graphic-overlay');
+    if (!ov || ov.hidden) return;
+    ov.hidden = true;
+    ov.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    document.querySelectorAll('.rail-tab[data-tab="graphic"]')
+      .forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+    if (location.hash === '#graphic') history.replaceState(null, '', location.pathname + location.search);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  /* wired on DOM ready, because the markup they belong to is parsed after this script */
+  function wireGraphic() {
+    const fr = $g('graphic-frame'), gclose = $g('graphic-close');
+    if (fr) fr.addEventListener('load', () => { const ld = $g('graphic-load'); if (ld) ld.style.display = 'none'; });
+    if (gclose) gclose.addEventListener('click', closeGraphic);
+    const wnGo = $g('wn-go'), wnNo = $g('wn-dismiss'), wnDim = $g('wn-dim');
+    if (wnGo) wnGo.addEventListener('click', () => { seenWhatsNew(); openGraphic(); });
+    if (wnNo) wnNo.addEventListener('click', seenWhatsNew);
+    if (wnDim) wnDim.addEventListener('click', seenWhatsNew);
+    if (location.hash === '#graphic') openGraphic();
+    setTimeout(showWhatsNew, 900);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wireGraphic);
+  else wireGraphic();
+  // ⚠ Escape must reach this BEFORE the panel handler above, which only fires when a tab is open.
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeGraphic(); });
+  // deep link: map.html#graphic lands straight in the graphic, so one URL can be shared that
+  // shows it inside the dashboard rather than on its own
+  window.addEventListener('hashchange', () => {
+    if (location.hash === '#graphic') openGraphic(); else closeGraphic();
+  });
+  window.__twOpenGraphic = openGraphic;
+
+  /* ══ THE ONE-TIME ANNOUNCEMENT ═════════════════════════════════════════════════════════════
+     ⛔ VERSIONED KEY. `_v1` so a genuinely new thing can be announced later without re-nagging
+     anyone about this one, and so clearing it is a deliberate act rather than a guess. */
+  const WN_KEY = 'tw_seen_graphic_v1';
+
+  function seenWhatsNew() {
+    try { localStorage.setItem(WN_KEY, '1'); } catch (e) {}
+    const wn = $g('whatsnew');
+    if (wn) wn.hidden = true;
+    document.querySelectorAll('.rail-tab.wn-spot').forEach(b => b.classList.remove('wn-spot'));
+  }
+  function showWhatsNew() {
+    const wn = $g('whatsnew');
+    if (!wn) return;
+    try { if (localStorage.getItem(WN_KEY)) return; } catch (e) { return; }
+    const tab = document.querySelector('.rail-tab[data-tab="graphic"]');
+    if (!tab) return;
+    /* ⛔ ON A PHONE THE RAIL SCROLLS AND THIS TAB IS THE LAST ONE, so it sits off the right edge
+       and the announcement ended up ringing something the reader cannot see, with an arrowless
+       box pointing at empty space. Bring it into view FIRST, then measure -- measuring before the
+       scroll would place the box against the tab's old position. */
+    if (tab.scrollIntoView) {
+      try { tab.scrollIntoView({ inline: 'end', block: 'nearest' }); } catch (e) { tab.scrollIntoView(); }
+    }
+    wn.hidden = false;
+    tab.classList.add('wn-spot');
+    /* ⛔ THE RAIL IS HORIZONTAL, NOT VERTICAL. I wrote this to sit beside the tab, which put the
+       box under the rail itself and clipped the sentence -- the buttons showed and the words did
+       not. It hangs BELOW the tab, right-aligned to it, and is clamped so it can never leave the
+       viewport on a narrow screen. Measured after unhiding, because a hidden element has no
+       height to clamp against. */
+    const r = tab.getBoundingClientRect(), box = $g('wn-box');
+    box.style.left = '0px'; box.style.right = 'auto';       // measure at a known position
+    const w = box.offsetWidth, h = box.offsetHeight, pad = 10;
+    let left = r.right - w;                                  // right edge under the tab's
+    left = Math.max(pad, Math.min(left, window.innerWidth - w - pad));
+    let top = r.bottom + pad;
+    if (top + h > window.innerHeight - pad) top = Math.max(pad, r.top - h - pad);
+    box.style.left = Math.round(left) + 'px';
+    box.style.top = Math.round(top) + 'px';
+    const go = $g('wn-go'); if (go) go.focus();
+  }
+  document.addEventListener('keydown', e => {
+    const wn = $g('whatsnew');
+    if (e.key === 'Escape' && wn && !wn.hidden) seenWhatsNew();
+  });
 })();
 
 
