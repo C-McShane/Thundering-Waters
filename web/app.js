@@ -456,18 +456,46 @@ const map = L.map('map', {
 });
 map.zoomControl.setPosition('topright');   // out from behind the title, by the Active Layers card
 
-// Basemap — CartoDB dark, split into base + a separate labels layer so the place
-// labels can be lightened independently of the rest of the basemap.
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
-  subdomains: 'abcd', maxZoom: 19
-}).addTo(map);
+// Basemap — provider-switchable. CARTO splits into base + a separate labels layer so
+// the place labels can be lightened independently; Mapbox publishes no labels-only
+// raster style, so there the labels ride on the base and that pane stays empty.
+//
+// ⛔ WHY WE ARE ON MAPBOX: CARTO now requires an API key on its tiles, and an unkeyed
+// request does NOT fail — it returns HTTP 200 and a real, correctly drawn tile with
+// "API KEY REQUIRED" burned diagonally into the image (three times per tile at z15).
+// Nothing errors and the console stays clean, so the map just quietly wears a watermark.
+// Mapbox fails LOUDLY instead: a bad token is a 401 and a blank map, which is the
+// behaviour you want from a credential.
+//
+// Neither token is a secret — both are public, URL-restrictable, client-side keys that
+// belong in this file. To go back to CARTO once its key arrives:
+//     1. set BASEMAP_PROVIDER = 'carto' below (here and in the other app.js copy)
+//     2. python scripts/set_basemap_key.py --key YOURCARTOKEY
+//     3. python scripts/check_basemap_key.py
+const BASEMAP_PROVIDER = 'mapbox';                        // 'mapbox' | 'carto'
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiYy1tY3NoYW5lIiwiYSI6ImNtdGFhbmx2bzBjNXYyenBzcGQ2NGhjb2QifQ.AKq-vyuJCkuig882malAcQ';
+
 map.createPane('basemapLabels');
 map.getPane('basemapLabels').style.zIndex = 210;          // just above the base tiles, below every overlay
 map.getPane('basemapLabels').style.pointerEvents = 'none';
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
-  pane: 'basemapLabels', subdomains: 'abcd', maxZoom: 19
-}).addTo(map);
+
+if (BASEMAP_PROVIDER === 'mapbox') {
+  L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v11/tiles/256/{z}/{x}/{y}?access_token=' + MAPBOX_TOKEN, {
+    attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 19
+  }).addTo(map);
+  // basemapLabels stays empty under Mapbox — the LABEL_FILTER below is inert until we
+  // are back on CARTO, or until a pair of Mapbox Studio styles (labels-off + labels-only)
+  // is published to restore the two-pane split.
+} else {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd', maxZoom: 19
+  }).addTo(map);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
+    pane: 'basemapLabels', subdomains: 'abcd', maxZoom: 19
+  }).addTo(map);
+}
 // A CSS filter on a tile layer forces a full recomposite every frame, so only lighten the
 // labels while the map is still — drop the filter during pan/zoom for smoothness.
 const LABEL_FILTER = 'brightness(1.45)';
