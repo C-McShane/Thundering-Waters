@@ -472,8 +472,8 @@ map.zoomControl.setPosition('topright');   // out from behind the title, by the 
 //     1. set BASEMAP_PROVIDER = 'carto' below (here and in the other app.js copy)
 //     2. python scripts/set_basemap_key.py --key YOURCARTOKEY
 //     3. python scripts/check_basemap_key.py
-const BASEMAP_PROVIDER = 'mapbox';                        // 'mapbox' | 'carto'
-const MAPBOX_TOKEN = 'pk.eyJ1IjoiYy1tY3NoYW5lIiwiYSI6ImNtdGFhbmx2bzBjNXYyenBzcGQ2NGhjb2QifQ.AKq-vyuJCkuig882malAcQ';
+const BASEMAP_PROVIDER = 'carto';                        // 'mapbox' | 'carto'
+const MAPBOX_TOKEN = '';   // blanked: unused on CARTO, and the old value is public in git history — refresh the default token at Mapbox to invalidate it
 
 map.createPane('basemapLabels');
 map.getPane('basemapLabels').style.zIndex = 210;          // just above the base tiles, below every overlay
@@ -488,11 +488,11 @@ if (BASEMAP_PROVIDER === 'mapbox') {
   // are back on CARTO, or until a pair of Mapbox Studio styles (labels-off + labels-only)
   // is published to restore the two-pane split.
 } else {
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png?key=cb1_26wd_1_4d4f57383a35895642a579c6', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
     subdomains: 'abcd', maxZoom: 19
   }).addTo(map);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png?key=cb1_26wd_1_4d4f57383a35895642a579c6', {
     pane: 'basemapLabels', subdomains: 'abcd', maxZoom: 19
   }).addTo(map);
 }
